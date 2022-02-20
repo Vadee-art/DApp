@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile && cp -r artifacts/contracts app/src/"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^4.4.1",
     "hardhat": "^2.8.0",
