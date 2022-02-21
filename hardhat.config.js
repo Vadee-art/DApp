@@ -26,8 +26,9 @@ module.exports = {
   // defaultNetwork: "localhost", // e.g: prints rinkeby metamask account / hh accounts
   networks: {
     rinkeby: {
-      url: process.env.ALCHEMY_RINKEBY_URL,
-      accounts: [`0x${process.env.PRIVATE_KEY}`],
+      url: process.env.ALCHEMY_RINKEBY_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     // hardhat:{
     //   forking:{
@@ -48,6 +49,6 @@ module.exports = {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
   mocha: {
-    timeout: 20000
-  }
+    timeout: 20000,
+  },
 };
