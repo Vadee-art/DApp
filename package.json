@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "compile": "hardhat compile && cp -r artifacts/contracts app/src/"
+    "install:all": "yarn install && cd app && yarn install",
+    "compile": "hardhat compile && cp -r artifacts/contracts app/src/",
+    "build:all": "hardhat compile && cp -r artifacts/contracts app/src/ && cd app && yarn build"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.4.1",

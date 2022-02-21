@@ -4,10 +4,33 @@ This project demonstrates an advanced Hardhat use case, integrating other tools 
 
 The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
 
-Try running some of the following tasks:
+## Install Contract Deppendencies
 
 ```shell
 yarn install
+```
+
+## Install Contract + Front Deppendencies
+
+```shell
+yarn install:all
+```
+
+## Build Contract
+
+```shell
+yarn compile
+```
+
+## Build Contract + Front
+
+```shell
+yarn build:all
+```
+
+## Try running some of the following tasks
+
+```shell
 npx hardhat accounts
 yarn compile
 npx hardhat clean
