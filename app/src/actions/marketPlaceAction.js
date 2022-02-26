@@ -52,10 +52,7 @@ export const deployMarketPlace = () => async (dispatch) => {
     const formData = new FormData();
     formData.append('marketPlaceAddress', marketPlaceContract.address);
 
-    const response = await artworksBase.put(
-      `/market/deploy/`,
-      formData
-    );
+    const response = await artworksBase.put(`/market/deploy/`, formData);
     dispatch({
       type: DEPLOY_MARKET_PLACE_SUCCESS,
       payload: response.data,
