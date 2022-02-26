@@ -48,24 +48,13 @@ export const deployMarketPlace = () => async (dispatch, getState) => {
     const marketPlaceContract = await marketPlaceFactory.deploy();
     await marketPlaceContract.deployTransaction.wait(); // loading before confirmed transaction
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        'content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
     // eslint-disable-next-line no-undef
     const formData = new FormData();
     formData.append('marketPlaceAddress', marketPlaceContract.address);
 
     const response = await artworksBase.put(
       `/market/deploy/`,
-      formData,
-      config
+      formData
     );
     dispatch({
       type: DEPLOY_MARKET_PLACE_SUCCESS,
