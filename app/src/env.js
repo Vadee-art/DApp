@@ -16,6 +16,7 @@ if (env === 'prod') {
 
 console.log(process.env.REACT_ENV)
 console.log(process.env)
+console.log(env)
 
 const apiUrl = envApiUrl;
 export default apiUrl;
