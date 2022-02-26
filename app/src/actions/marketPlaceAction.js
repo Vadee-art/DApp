@@ -26,7 +26,7 @@ import {
   MARKET_WITHDRAW_FAIL,
 } from '../constants/marketPlaceConstants';
 
-export const deployMarketPlace = () => async (dispatch, getState) => {
+export const deployMarketPlace = () => async (dispatch) => {
   try {
     dispatch({ type: DEPLOY_MARKET_PLACE_REQUEST });
 
