@@ -113,15 +113,15 @@ function Artist() {
                 <Grid item xs={12} sm={8} md={1}>
                   <img
                     style={{ maxWidth: '100%', marginTop: 5 }}
-                    src={artist.details.photo}
+                    src={artist.artist.photo}
                     alt="artist"
                   />
                   <Typography variant="subtitle2">
                     {artist &&
-                      `${artist.details.firstName} ${artist.details.lastName}`}
+                      `${artist.artist.firstName} ${artist.artist.lastName}`}
                   </Typography>
                   <Typography>
-                    {artist.details.origin} {artist.details.birthday}
+                    {artist.artist.origin} {artist.artist.birthday}
                   </Typography>
                   <Button
                     variant="contained"
@@ -141,7 +141,7 @@ function Artist() {
                 </Grid>
               </Hidden>
               <Grid item xs={12} md sx={{ marginLeft: 4 }}>
-                <TheTab artist={artist.details} />
+                <TheTab artist={artist.artist} />
               </Grid>
             </Grid>
           </Grid>
@@ -167,8 +167,8 @@ function Artist() {
                   marginLeft: 4,
                 }}
               >
-                {artist && artist.details && (
-                  <CarouselArtistArtworks artistId={artist.details._id} />
+                {artist && artist.artist && (
+                  <CarouselArtistArtworks artistId={artist.artist._id} />
                 )}
               </Grid>
             </Grid>
@@ -196,8 +196,8 @@ function Artist() {
                   marginLeft: 4,
                 }}
               >
-                {artist && artist.details && (
-                  <CarouselArtistArtworks artistId={artist.details._id} />
+                {artist && artist.artist && (
+                  <CarouselArtistArtworks artistId={artist.artist._id} />
                 )}
               </Grid>
             </Grid>
