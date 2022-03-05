@@ -14,9 +14,9 @@ import { favArtwork } from '../actions/userAction';
 
 export default function ArtCard({ data }) {
   const dispatch = useDispatch();
-
   const [isFav, setIsFav] = useState(false);
-
+  console.log(data);
+  // console.log(data.photo.includes('default'));
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 
@@ -80,15 +80,23 @@ export default function ArtCard({ data }) {
         )}
         {data.artist ? (
           <img
-            srcSet={`${data.image}?w=161&fit=crop&auto=format 1x,
-                  ${data.image}?w=161&fit=crop&auto=format&dpr=2 2x`}
+            srcSet={
+              data.image.includes('default')
+                ? 'static/defaultImage.png'
+                : `${data.image}?w=161&fit=crop&auto=format 1x,
+              ${data.image}?w=161&fit=crop&auto=format&dpr=2 2x`
+            }
             alt={data.title}
             loading="lazy"
           />
         ) : (
           <img
-            srcSet={`${data.photo}?w=161&fit=crop&auto=format 1x,
-                ${data.photo}?w=161&fit=crop&auto=format&dpr=2 2x`}
+            srcSet={
+              data.photo.includes('default')
+                ? 'static/defaultImage.png'
+                : `${data.photo}?w=161&fit=crop&auto=format 1x,
+                ${data.photo}?w=161&fit=crop&auto=format&dpr=2 2x`
+            }
             alt={data.firstName}
             loading="lazy"
           />
