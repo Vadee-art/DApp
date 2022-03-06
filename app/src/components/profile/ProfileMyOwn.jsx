@@ -135,7 +135,7 @@ function ProfileMyOwn() {
         </Message>
       ) : (
         <div>
-          {user && user.artist && !user.artist.gallery_address ? (
+          {(user && !user.artist) || !user.artist.gallery_address ? (
             <Grid item sx={{ margin: 10, textAlign: 'center' }}>
               <Typography sx={{ margin: 2 }}>
                 Hey, {user.artist.firstName} create your gallery to get started!
