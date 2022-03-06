@@ -15,8 +15,6 @@ import { favArtwork } from '../actions/userAction';
 export default function ArtCard({ data }) {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
-  console.log(data);
-  // console.log(data.photo.includes('default'));
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 

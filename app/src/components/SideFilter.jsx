@@ -111,6 +111,6 @@ export default function SideFilter({ title, list, kind }) {
 
 SideFilter.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.array,
+  list: PropTypes.array, // could be catagories, or regions, or ...
   kind: PropTypes.string.isRequired, // push to artwork or artist url
 };
