@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
@@ -20,7 +19,6 @@ import { useHistory } from 'react-router-dom';
 
 export default function SideFilter({ title, list, kind }) {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const [value, setValue] = useState();
 
@@ -39,7 +37,7 @@ export default function SideFilter({ title, list, kind }) {
       keyword = keyword.split('?category=')[1].split('&')[0]; // example: ?artist=اکبر&page=1  ===> اکبر
       setValue(keyword);
     }
-  }, [dispatch, history]);
+  }, [history]);
 
   // change checkbox
   const handleChange = (e, item) => {

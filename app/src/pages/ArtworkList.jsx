@@ -105,6 +105,7 @@ function ArtworksList() {
 
   useEffect(() => {}, [successArtistList, dispatch]);
 
+  // pagination
   const handlePageChange = (event, value) => {
     setPage(value);
     if (keyword) {
