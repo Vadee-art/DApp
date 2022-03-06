@@ -53,12 +53,20 @@ export default function CarouselTop({ artworks }) {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
+
+  // function filterArtworks(artwork) {
+  //   return artwork.is_carousel;
+  // }
+  // const result = artworks.filter(filterArtworks);
+  // console.log(result);
+
   return (
     <div>
+      <h2> Single Item</h2>
       <Slider {...settings}>
         {artworks.map(
           (artwork, index) =>
