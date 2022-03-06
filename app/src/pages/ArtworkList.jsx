@@ -52,7 +52,7 @@ function ArtworksList() {
   const history = useHistory();
 
   const [page, setPage] = useState(1);
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [keywordValue, setKeywordValue] = useState();
 
   const favArtwork = useSelector((state) => state.favArtwork);
@@ -74,9 +74,9 @@ function ArtworksList() {
   const { categories, success: successCategories } = categoryList;
 
   let keyword = history.location.search;
-
+  console.log(keyword);
   useEffect(() => {
-    dispatch(fetchAllArtWorks(keywordValue));
+    dispatch(fetchAllArtWorks(keyword || keywordValue));
     if (!successArticles) {
       dispatch(fetchArticlesList());
     }
@@ -119,7 +119,9 @@ function ArtworksList() {
     setChecked(event.target.checked);
     console.log(event);
     if (event.target.checked) {
-      setKeywordValue('onSale');
+      setKeywordValue('?onSale=Ture');
+    } else {
+      setKeywordValue();
     }
   };
 
