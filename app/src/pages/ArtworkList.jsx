@@ -74,7 +74,6 @@ function ArtworksList() {
   const { categories, success: successCategories } = categoryList;
 
   let keyword = history.location.search;
-  console.log(keyword);
   useEffect(() => {
     dispatch(fetchAllArtWorks(keyword || keywordValue));
     if (!successArticles) {

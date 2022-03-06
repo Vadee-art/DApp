@@ -22,7 +22,6 @@ export const fetchAllArtWorks =
   (keyword = '') =>
   async (dispatch) => {
     try {
-      console.log(keyword);
       dispatch({ type: ARTWORK_LIST_REQUEST });
       const response = await artworksBase.get(`/artworks/${keyword}`);
 

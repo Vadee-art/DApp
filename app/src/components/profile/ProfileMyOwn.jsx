@@ -102,7 +102,7 @@ function ProfileMyOwn() {
 
   // contract address and factory
   useEffect(() => {
-    if (user && user.artist.gallery_address) {
+    if (user && user.artist && user.artist.gallery_address) {
       setArtistGalleryAddress(user.artist.gallery_address);
     }
   }, [user, successDeployGallery]);
@@ -135,7 +135,7 @@ function ProfileMyOwn() {
         </Message>
       ) : (
         <div>
-          {user && !user.artist.gallery_address ? (
+          {user && user.artist && !user.artist.gallery_address ? (
             <Grid item sx={{ margin: 10, textAlign: 'center' }}>
               <Typography sx={{ margin: 2 }}>
                 Hey, {user.artist.firstName} create your gallery to get started!
