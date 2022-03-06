@@ -160,7 +160,7 @@ function ProfileMyOwn() {
                 Create My Gallery
               </LoadingButton>
             </Grid>
-          ) : (
+          ) : user && user.artist && user.artist.gallery_address ? (
             <>
               <Grid container direction="row" spacing={0}>
                 <Typography variant="subtitle2">
@@ -204,6 +204,10 @@ function ProfileMyOwn() {
                 </Hidden>
               </Grid>
             </>
+          ) : (
+            <Typography sx={{ margin: 2 }}>
+              Hey, You are Not an Artist :(
+            </Typography>
           )}
           <Grid item xs={12} sx={{ textAlign: 'center' }}>
             {(errorDeployGallery || errorSignature || errorWallet) && (
