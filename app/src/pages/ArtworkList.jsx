@@ -118,7 +118,7 @@ function ArtworksList() {
     setChecked(event.target.checked);
     console.log(event);
     if (event.target.checked) {
-      setKeywordValue('?onSale=Ture');
+      setKeywordValue('?onMarket=Ture');
     } else {
       setKeywordValue();
     }
@@ -151,7 +151,7 @@ function ArtworksList() {
             <Grid item xs sx={{ marginTop: 0 }}>
               <Divider style={{ margin: 'auto' }} variant="middle" />
               <FormControlLabel
-                label="On Sale"
+                label="On Market"
                 control={
                   <Checkbox
                     checked={checked}
