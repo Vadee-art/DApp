@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function SampleNextArrow(props) {
@@ -35,8 +35,9 @@ function SampleNextArrow(props) {
   );
 }
 
-export default function CarouselCategories({ categories }) {
-  console.log('sddsf');
+export default function CarouselCategories() {
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
   const settings = {
     className: 'center',
     dots: false,
@@ -75,44 +76,42 @@ export default function CarouselCategories({ categories }) {
     <>
       <div>
         <Slider {...settings}>
-          {categories.map(
-            (category, index) =>
-              category.is_featured && (
-                <Grid
-                  className="mid-images"
-                  key={index}
-                  sx={{ padding: 2, textAlign: 'left' }}
-                >
-                  <Card sx={{ width: 260 }} elevation={0}>
-                    <CardActionArea>
-                      <CardMedia
-                        sx={{ height: 140 }}
-                        image={category.image}
-                        title="Contemplative Reptile"
-                      />
-                      <CardContent sx={{ textAlign: 'center' }}>
-                        <Typography
-                          variant="subtitle1"
-                          sx={{
-                            padding: 0,
-                            margin: 0,
-                            lineHeight: 1,
-                            color: 'black',
-                          }}
-                        >
-                          {category.name}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              )
-          )}
+          {categories &&
+            categories.map(
+              (category, index) =>
+                category.is_featured && (
+                  <Grid
+                    className="mid-images"
+                    key={index}
+                    sx={{ padding: 2, textAlign: 'left' }}
+                  >
+                    <Card sx={{ width: 260 }} elevation={0}>
+                      <CardActionArea>
+                        <CardMedia
+                          sx={{ height: 140 }}
+                          image={category.image}
+                          title="Contemplative Reptile"
+                        />
+                        <CardContent sx={{ textAlign: 'center' }}>
+                          <Typography
+                            variant="subtitle1"
+                            sx={{
+                              padding: 0,
+                              margin: 0,
+                              lineHeight: 1,
+                              color: 'black',
+                            }}
+                          >
+                            {category.name}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                )
+            )}
         </Slider>
       </div>
     </>
   );
 }
-CarouselCategories.propTypes = {
-  categories: PropTypes.array.isRequired,
-};
