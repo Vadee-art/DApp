@@ -91,7 +91,11 @@ export default function CarouselCategories() {
                       <CardActionArea>
                         <CardMedia
                           sx={{ height: 140 }}
-                          image={category.image || '/static/defaultImage.png'}
+                          image={
+                            category.image.includes('default')
+                              ? 'static/defaultImage.png'
+                              : category.image
+                          }
                           title="Contemplative Reptile"
                         />
                         <CardContent sx={{ textAlign: 'center' }}>
