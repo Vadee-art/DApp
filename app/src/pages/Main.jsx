@@ -171,11 +171,9 @@ const Main = () => {
                     <Typography variant="h6">Featured</Typography>
                     <Typography variant="h6">Categories</Typography>
                   </Grid>
-                  {successCategories && (
-                    <Grid item xs={9} sx={{ marginTop: 6, maxHeight: 200 }}>
-                      <CarouselCategories categories={categories} />
-                    </Grid>
-                  )}
+                  <Grid item xs={9} sx={{ marginTop: 6, maxHeight: 200 }}>
+                    <CarouselCategories categories={categories} />
+                  </Grid>
                   {/* Categories */}
                   <Grid item xs={12}>
                     <Box

@@ -36,6 +36,7 @@ function SampleNextArrow(props) {
 }
 
 export default function CarouselCategories({ categories }) {
+  console.log('sddsf');
   const settings = {
     className: 'center',
     dots: false,
