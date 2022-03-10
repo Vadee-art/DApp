@@ -14,6 +14,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useSelector } from 'react-redux';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useHistory } from 'react-router-dom';
 
 function SampleNextArrow(props) {
   const { className, onClick } = props;
@@ -36,6 +37,8 @@ function SampleNextArrow(props) {
 }
 
 export default function CarouselCategories() {
+  const history = useHistory();
+
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
 
@@ -88,7 +91,11 @@ export default function CarouselCategories() {
                     sx={{ padding: 2, textAlign: 'left' }}
                   >
                     <Card sx={{ width: 260 }} elevation={0}>
-                      <CardActionArea>
+                      <CardActionArea
+                        onClick={() =>
+                          history.push(`artworks/?category=${category._id}`)
+                        }
+                      >
                         <CardMedia
                           sx={{ height: 140 }}
                           image={
