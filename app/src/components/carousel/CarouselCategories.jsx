@@ -38,6 +38,8 @@ function SampleNextArrow(props) {
 export default function CarouselCategories() {
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
+
+  console.log(categories);
   const settings = {
     className: 'center',
     dots: false,
@@ -89,7 +91,7 @@ export default function CarouselCategories() {
                       <CardActionArea>
                         <CardMedia
                           sx={{ height: 140 }}
-                          image={category.image}
+                          image={category.image || '/static/defaultImage.png'}
                           title="Contemplative Reptile"
                         />
                         <CardContent sx={{ textAlign: 'center' }}>
