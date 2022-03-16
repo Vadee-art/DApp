@@ -60,7 +60,7 @@ function SamplePrevArrow(props) {
       fontSize="large"
       className={className}
       style={{
-        display: 'none',
+        // display: 'none',
         color: 'black',
         margin: 2,
         left: 0,
