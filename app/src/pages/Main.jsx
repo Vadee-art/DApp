@@ -221,7 +221,7 @@ const Main = () => {
                   </Container>
 
                   {/* Last artwork */}
-                  {artworks && (
+                  {artworks[0] && (
                     <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
                       <Grid
                         container
@@ -242,7 +242,7 @@ const Main = () => {
                         </Grid>
                         <Grid item xs={6}>
                           <Typography variant="h3">
-                            {artworks[artworks.length - 1].artist.firstName}{' '}
+                            {artworks[artworks.length - 1].artist.firstName}
                             {artworks[artworks.length - 1].artist.lastName}
                           </Typography>
                           <Typography variant="h6">
@@ -349,14 +349,13 @@ const Main = () => {
                             padding: 5,
                           }}
                         >
-                          <Grid item xs={12} md={5}>
+                          <Grid item xs={12} md={7}>
                             <Typography variant="h6">
                               Talented Photographer
                             </Typography>
 
                             <Typography variant="h3">
-                              {theTalent.artist.firstName}{' '}
-                              {theTalent.artist.lastName}
+                              {theTalent.firstName} {theTalent.lastName}
                             </Typography>
                             <Typography
                               variant="h6"
@@ -374,7 +373,7 @@ const Main = () => {
                                 WebkitBoxOrient: 'vertical',
                               }}
                             >
-                              {theTalent.artist.biography}
+                              {theTalent.biography}
                             </Typography>
                             <Typography
                               variant="subtitle2"
@@ -388,25 +387,25 @@ const Main = () => {
                             >
                               <Link
                                 style={{ color: 'black' }}
-                                to={`/artworks/${theTalent._id}`}
+                                to={`/artists/${theTalent._id}`}
                               >
                                 Browse work
                               </Link>
                             </Typography>
                           </Grid>
-                          <Grid item xs={12} md={7}>
+                          <Grid item xs={12} md={5}>
                             <CardActionArea
                               onClick={() =>
-                                history.push(`artworks/${theTalent._id}`)
+                                history.push(`artists/${theTalent._id}`)
                               }
                             >
                               <img
                                 style={{
-                                  height: '100%',
-                                  width: '100%',
+                                  // maxHeight: '200px',
+                                  // width: '100%',
                                   padding: 20,
                                 }}
-                                srcSet={theTalent.image}
+                                srcSet={theTalent.photo}
                                 alt=""
                                 loading="lazy"
                               />

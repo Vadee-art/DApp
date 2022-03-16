@@ -86,7 +86,10 @@ function Artist() {
     if (!success && artistId) {
       dispatch(fetchOneArtWork(artistId));
     }
-  }, [dispatch, artistId, success]);
+    return () => {
+      dispatch({ type: ARTIST_BY_ID_RESET });
+    };
+  }, [dispatch]);
 
   // quantity = 0
   useEffect(() => {
