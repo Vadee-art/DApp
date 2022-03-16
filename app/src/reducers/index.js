@@ -25,6 +25,7 @@ import headerReducer from './headerReducer';
 import {
   artistByIdReducer,
   artistGalleryReducer,
+  artistIsTalentReducer,
   artistListReducer,
 } from './artistReducer.js';
 import { articleListReducer } from './articleReducer.js';
@@ -57,6 +58,7 @@ export default combineReducers({
   userDetails: userDetailsReducer,
   artistList: artistListReducer,
   theArtist: artistByIdReducer,
+  isTalent: artistIsTalentReducer,
   artworkUpdate: artworkUpdateReducer,
   userUpdateProfile: userUpdateProfileReducer,
   favArtwork: favArtworkReducer,

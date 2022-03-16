@@ -209,7 +209,7 @@ export const fetchIsCarousel = () => async (dispatch) => {
     console.log('hihi');
     dispatch({ type: ARTWORK_IS_CAROUSEL_REQUEST });
 
-    const { data } = await artworksBase.delete(`artworks/carousels/`, {
+    const { data } = await artworksBase.get(`artworks/carousels/`, {
       headers: {
         'Content-type': 'application/json',
       },

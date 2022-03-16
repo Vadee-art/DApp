@@ -6,6 +6,9 @@ import {
   ARTIST_GALLERY_ADDRESS_UPDATE_FAIL,
   ARTIST_GALLERY_ADDRESS_UPDATE_REQUEST,
   ARTIST_GALLERY_ADDRESS_UPDATE_SUCCESS,
+  ARTIST_IS_TALENT_FAIL,
+  ARTIST_IS_TALENT_REQUEST,
+  ARTIST_IS_TALENT_SUCCESS,
   ARTIST_LIST_FAIL,
   ARTIST_LIST_REQUEST,
   ARTIST_LIST_RESET,
@@ -49,6 +52,19 @@ export const artistGalleryReducer = (state = { theArtist: {} }, action) => {
     case ARTIST_GALLERY_ADDRESS_UPDATE_SUCCESS:
       return { loading: false, success: true, gallery: action.payload };
     case ARTIST_GALLERY_ADDRESS_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const artistIsTalentReducer = (state = { theArtist: {} }, action) => {
+  switch (action.type) {
+    case ARTIST_IS_TALENT_REQUEST:
+      return { ...state, loading: true };
+    case ARTIST_IS_TALENT_SUCCESS:
+      return { loading: false, success: true, theTalent: action.payload };
+    case ARTIST_IS_TALENT_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

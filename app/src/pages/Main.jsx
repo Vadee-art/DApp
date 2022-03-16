@@ -29,6 +29,7 @@ import {
   deployMarketPlace,
   fetchMarketPlace,
 } from '../actions/marketPlaceAction';
+import { fetchIsTalentArtist } from '../actions/artistAction';
 
 const priceFilter = [
   'Under $500',
@@ -43,7 +44,6 @@ const Main = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [lastArtwork, setLastArtwork] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const categoryList = useSelector((state) => state.categoryList);
@@ -57,7 +57,10 @@ const Main = () => {
   const { artworks, loading: loadingArtworks } = artworksList;
 
   const isCarousels = useSelector((state) => state.isCarousels);
-  const { carousels, loading: loadingIsCarousels } = isCarousels;
+  const { carousels } = isCarousels;
+
+  const isTalent = useSelector((state) => state.isTalent);
+  const { theTalent } = isTalent;
 
   const marketPlaceDeployment = useSelector(
     (state) => state.marketPlaceDeployment
@@ -82,6 +85,7 @@ const Main = () => {
   // artworks
   useEffect(() => {
     dispatch(fetchIsCarousel());
+    dispatch(fetchIsTalentArtist());
     dispatch(fetchAllArtWorks(keyword));
     dispatch(fetchMarketPlace());
   }, [dispatch, keyword, successMarketDeploy]);
@@ -100,13 +104,6 @@ const Main = () => {
       dispatch(fetchCategories());
     }
   }, [successCategories, dispatch, history]);
-
-  useEffect(() => {
-    if (artworks && artworks[0]) {
-      const theLastArtwork = artworks[artworks.length - 1];
-      setLastArtwork(theLastArtwork);
-    }
-  }, [artworks]);
 
   return (
     <>
@@ -137,7 +134,7 @@ const Main = () => {
                   sx={{ color: '#A2A28F' }}
                 >
                   <Grid item xs={12} sx={{ width: '100%', marginBottom: 2 }}>
-                    {carousels && <CarouselTop artworks={carousels} />}
+                    {carousels && <CarouselTop carousels={carousels} />}
                   </Grid>
 
                   {/* photographers */}
@@ -224,7 +221,7 @@ const Main = () => {
                   </Container>
 
                   {/* Last artwork */}
-                  {lastArtwork && (
+                  {artworks && (
                     <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
                       <Grid
                         container
@@ -245,11 +242,11 @@ const Main = () => {
                         </Grid>
                         <Grid item xs={6}>
                           <Typography variant="h3">
-                            {lastArtwork.artist.firstName}{' '}
-                            {lastArtwork.artist.lastName}
+                            {artworks[artworks.length - 1].artist.firstName}{' '}
+                            {artworks[artworks.length - 1].artist.lastName}
                           </Typography>
                           <Typography variant="h6">
-                            {lastArtwork.title}
+                            {artworks[artworks.length - 1].title}
                           </Typography>
                           <br />
                           <Typography
@@ -263,7 +260,9 @@ const Main = () => {
                           >
                             <Link
                               style={{ color: 'white' }}
-                              to={`/artworks/${lastArtwork._id}`}
+                              to={`/artworks/${
+                                artworks[artworks.length - 1]._id
+                              }`}
                             >
                               Browse work
                             </Link>
@@ -273,12 +272,16 @@ const Main = () => {
                           <Card sx={{ maxWidth: 250, maxHeight: 130 }}>
                             <CardActionArea
                               onClick={() =>
-                                history.push(`artworks/${lastArtwork._id}`)
+                                history.push(
+                                  `artworks/${
+                                    artworks[artworks.length - 1]._id
+                                  }`
+                                )
                               }
                             >
                               <img
                                 style={{ height: '100%', width: '100%' }}
-                                srcSet={lastArtwork.image}
+                                srcSet={artworks[artworks.length - 1].image}
                                 alt=""
                                 loading="lazy"
                               />
@@ -333,7 +336,7 @@ const Main = () => {
                   </Container>
 
                   {/* Talented photographer */}
-                  {lastArtwork && (
+                  {theTalent && (
                     <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
                       <Card>
                         <Grid
@@ -352,8 +355,8 @@ const Main = () => {
                             </Typography>
 
                             <Typography variant="h3">
-                              {lastArtwork.artist.firstName}{' '}
-                              {lastArtwork.artist.lastName}
+                              {theTalent.artist.firstName}{' '}
+                              {theTalent.artist.lastName}
                             </Typography>
                             <Typography
                               variant="h6"
@@ -371,7 +374,7 @@ const Main = () => {
                                 WebkitBoxOrient: 'vertical',
                               }}
                             >
-                              {lastArtwork.artist.biography}
+                              {theTalent.artist.biography}
                             </Typography>
                             <Typography
                               variant="subtitle2"
@@ -385,7 +388,7 @@ const Main = () => {
                             >
                               <Link
                                 style={{ color: 'black' }}
-                                to={`/artworks/${lastArtwork._id}`}
+                                to={`/artworks/${theTalent._id}`}
                               >
                                 Browse work
                               </Link>
@@ -394,7 +397,7 @@ const Main = () => {
                           <Grid item xs={12} md={7}>
                             <CardActionArea
                               onClick={() =>
-                                history.push(`artworks/${lastArtwork._id}`)
+                                history.push(`artworks/${theTalent._id}`)
                               }
                             >
                               <img
@@ -403,7 +406,7 @@ const Main = () => {
                                   width: '100%',
                                   padding: 20,
                                 }}
-                                srcSet={lastArtwork.image}
+                                srcSet={theTalent.image}
                                 alt=""
                                 loading="lazy"
                               />
