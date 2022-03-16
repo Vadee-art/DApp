@@ -19,7 +19,10 @@ import {
   fetchIsCarousel,
 } from '../actions/artworkAction';
 import { cleanLocalCart } from '../actions/cartAction';
-import { ARTWORK_DETAILS_RESET } from '../constants/artworkConstants';
+import {
+  ARTWORK_DETAILS_RESET,
+  ARTWORK_LIST_RESET,
+} from '../constants/artworkConstants';
 import CarouselTop from '../components/carousel/CarouselTop';
 import Loader from '../components/Loader';
 import CarouselCategories from '../components/carousel/CarouselCategories';
@@ -86,8 +89,11 @@ const Main = () => {
   useEffect(() => {
     dispatch(fetchIsCarousel());
     dispatch(fetchIsTalentArtist());
-    dispatch(fetchAllArtWorks(keyword));
+    dispatch(fetchAllArtWorks('?keyword=last'));
     dispatch(fetchMarketPlace());
+    return () => {
+      dispatch({ type: ARTWORK_LIST_RESET });
+    };
   }, [dispatch, keyword, successMarketDeploy]);
 
   useEffect(() => {
@@ -221,7 +227,7 @@ const Main = () => {
                   </Container>
 
                   {/* Last artwork */}
-                  {artworks[0] && (
+                  {artworks && (
                     <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
                       <Grid
                         container
