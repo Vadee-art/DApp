@@ -26,6 +26,9 @@ import {
   ARTWORK_VOUCHER_DELETE_FAIL,
   ARTWORK_VOUCHER_DELETE_RESET,
   ARTWORK_VOUCHER_DELETE_REQUEST,
+  ARTWORK_IS_CAROUSEL_REQUEST,
+  ARTWORK_IS_CAROUSEL_SUCCESS,
+  ARTWORK_IS_CAROUSEL_FAIL,
 } from '../constants/artworkConstants';
 
 export const artworksReducer = (state = { artworks: [] }, action) => {
@@ -134,6 +137,19 @@ export const artworkVoucherDeleteReducer = (state = {}, action) => {
       return { loading: false, success: false, error: action.payload };
     case ARTWORK_VOUCHER_DELETE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const artworkCarouselsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ARTWORK_IS_CAROUSEL_REQUEST:
+      return { loading: true, success: false };
+    case ARTWORK_IS_CAROUSEL_SUCCESS:
+      return { loading: false, success: true, carousels: action.payload };
+    case ARTWORK_IS_CAROUSEL_FAIL:
+      return { loading: false, success: false, error: action.payload };
     default:
       return state;
   }

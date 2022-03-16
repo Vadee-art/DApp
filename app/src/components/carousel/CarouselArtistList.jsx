@@ -63,7 +63,8 @@ function SamplePrevArrow(props) {
         // display: 'none',
         color: 'black',
         margin: 2,
-        left: 0,
+        // left: 0,
+        opacity: '10%',
       }}
       onClick={onClick}
     />

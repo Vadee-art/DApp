@@ -7,6 +7,7 @@ import {
   artworkCreateReducer,
   categoriesReducer,
   artworkVoucherDeleteReducer,
+  artworkCarouselsReducer,
 } from './artworkReducer.js';
 import cartReducer from './cartReducer.js';
 import {
@@ -46,6 +47,7 @@ import {
 export default combineReducers({
   headerStatus: headerReducer,
   artworks: artworksReducer,
+  isCarousels: artworkCarouselsReducer,
   theArtwork: artworkReducer,
   artworkDeleteList: artworkDeleteReducer,
   voucherDelete: artworkVoucherDeleteReducer,

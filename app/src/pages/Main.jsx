@@ -13,7 +13,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
+import {
+  fetchAllArtWorks,
+  fetchCategories,
+  fetchIsCarousel,
+} from '../actions/artworkAction';
 import { cleanLocalCart } from '../actions/cartAction';
 import { ARTWORK_DETAILS_RESET } from '../constants/artworkConstants';
 import CarouselTop from '../components/carousel/CarouselTop';
@@ -52,6 +56,9 @@ const Main = () => {
   const artworksList = useSelector((state) => state.artworks);
   const { artworks, loading: loadingArtworks } = artworksList;
 
+  const isCarousels = useSelector((state) => state.isCarousels);
+  const { carousels, loading: loadingIsCarousels } = isCarousels;
+
   const marketPlaceDeployment = useSelector(
     (state) => state.marketPlaceDeployment
   );
@@ -74,6 +81,7 @@ const Main = () => {
 
   // artworks
   useEffect(() => {
+    dispatch(fetchIsCarousel());
     dispatch(fetchAllArtWorks(keyword));
     dispatch(fetchMarketPlace());
   }, [dispatch, keyword, successMarketDeploy]);
@@ -129,7 +137,7 @@ const Main = () => {
                   sx={{ color: '#A2A28F' }}
                 >
                   <Grid item xs={12} sx={{ width: '100%', marginBottom: 2 }}>
-                    {artworks && <CarouselTop artworks={artworks} />}
+                    {carousels && <CarouselTop artworks={carousels} />}
                   </Grid>
 
                   {/* photographers */}

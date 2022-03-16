@@ -15,6 +15,9 @@ import {
   ARTWORK_VOUCHER_DELETE_FAIL,
   ARTWORK_VOUCHER_DELETE_REQUEST,
   ARTWORK_VOUCHER_DELETE_SUCCESS,
+  ARTWORK_IS_CAROUSEL_REQUEST,
+  ARTWORK_IS_CAROUSEL_SUCCESS,
+  ARTWORK_IS_CAROUSEL_FAIL,
 } from '../constants/artworkConstants';
 import { weiToEth } from '../converter';
 
@@ -193,6 +196,33 @@ export const deleteVoucher = (voucherId) => async (dispatch, getState) => {
     // check for generic and custom message to return using ternary statement
     dispatch({
       type: ARTWORK_VOUCHER_DELETE_FAIL,
+      payload:
+        e.response && e.response.data.details
+          ? e.response.data.details
+          : e.message,
+    });
+  }
+};
+
+export const fetchIsCarousel = () => async (dispatch) => {
+  try {
+    console.log('hihi');
+    dispatch({ type: ARTWORK_IS_CAROUSEL_REQUEST });
+
+    const { data } = await artworksBase.delete(`artworks/carousels/`, {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+
+    dispatch({
+      type: ARTWORK_IS_CAROUSEL_SUCCESS,
+      payload: data,
+    });
+  } catch (e) {
+    // check for generic and custom message to return using ternary statement
+    dispatch({
+      type: ARTWORK_IS_CAROUSEL_FAIL,
       payload:
         e.response && e.response.data.details
           ? e.response.data.details

@@ -47,7 +47,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function CarouselTop({ artworks }) {
+export default function CarouselTop({ carousels }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -58,36 +58,34 @@ export default function CarouselTop({ artworks }) {
     prevArrow: <SamplePrevArrow />,
   };
 
+  console.log('carousels');
   return (
     <div>
       <Slider {...settings}>
-        {artworks.map(
-          (artwork, index) =>
-            artwork.is_carousel && (
-              <div className="images" key={index}>
-                <img
-                  src={`${artwork.image}`}
-                  alt={artwork.title}
-                  loading="lazy"
-                  style={{ minWidth: '100%', height: '600px' }}
-                />
-                <Grid container>
-                  <Typography component="p" variant="body2">
-                    Vadee Collection
-                  </Typography>
-                  <Typography variant="h5" component="h5">
-                    {artwork.artist.firstName} {artwork.artist.lastName}
-                  </Typography>
-                  <Typography variant="h4" component="h4">
-                    {artwork.title}
-                  </Typography>
-                  <Typography variant="subtitle2" component="span">
-                    <Link to={`artworks/${artwork._id}`}>Browse Works</Link>
-                  </Typography>
-                </Grid>
-              </div>
-            )
-        )}
+        {carousels.map((artwork, index) => (
+          <div className="images" key={index}>
+            <img
+              src={`${artwork.image}`}
+              alt={artwork.title}
+              loading="lazy"
+              style={{ minWidth: '100%', height: '600px' }}
+            />
+            <Grid container>
+              <Typography component="p" variant="body2">
+                Vadee Collection
+              </Typography>
+              <Typography variant="h5" component="h5">
+                {artwork.artist.firstName} {artwork.artist.lastName}
+              </Typography>
+              <Typography variant="h4" component="h4">
+                {artwork.title}
+              </Typography>
+              <Typography variant="subtitle2" component="span">
+                <Link to={`artworks/${artwork._id}`}>Browse Works</Link>
+              </Typography>
+            </Grid>
+          </div>
+        ))}
       </Slider>
     </div>
   );
