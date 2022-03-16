@@ -87,9 +87,11 @@ const Main = () => {
 
   // artworks
   useEffect(() => {
+    dispatch({ type: ARTWORK_LIST_RESET });
+
     dispatch(fetchIsCarousel());
     dispatch(fetchIsTalentArtist());
-    dispatch(fetchAllArtWorks('?keyword=last'));
+    dispatch(fetchAllArtWorks('?last'));
     dispatch(fetchMarketPlace());
     return () => {
       dispatch({ type: ARTWORK_LIST_RESET });

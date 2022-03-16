@@ -128,7 +128,7 @@ function ArtworksList() {
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      {loading ? (
+      {!artworks ? (
         <Loader />
       ) : (
         <Container>
