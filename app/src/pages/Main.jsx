@@ -87,16 +87,14 @@ const Main = () => {
 
   // artworks
   useEffect(() => {
-    dispatch({ type: ARTWORK_LIST_RESET });
-
     dispatch(fetchIsCarousel());
     dispatch(fetchIsTalentArtist());
-    dispatch(fetchAllArtWorks('?last'));
+    dispatch(fetchAllArtWorks('?last=true'));
     dispatch(fetchMarketPlace());
     return () => {
       dispatch({ type: ARTWORK_LIST_RESET });
     };
-  }, [dispatch, keyword, successMarketDeploy]);
+  }, [history, dispatch, keyword, successMarketDeploy]);
 
   useEffect(() => {
     dispatch(cleanLocalCart());
@@ -229,7 +227,7 @@ const Main = () => {
                   </Container>
 
                   {/* Last artwork */}
-                  {artworks && (
+                  {artworks && artworks.artist && (
                     <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
                       <Grid
                         container
@@ -250,12 +248,10 @@ const Main = () => {
                         </Grid>
                         <Grid item xs={6}>
                           <Typography variant="h3">
-                            {artworks[artworks.length - 1].artist.firstName}
-                            {artworks[artworks.length - 1].artist.lastName}
+                            {artworks.artist.firstName}
+                            {artworks.artist.lastName}
                           </Typography>
-                          <Typography variant="h6">
-                            {artworks[artworks.length - 1].title}
-                          </Typography>
+                          <Typography variant="h6">{artworks.title}</Typography>
                           <br />
                           <Typography
                             variant="subtitle2"
@@ -268,9 +264,7 @@ const Main = () => {
                           >
                             <Link
                               style={{ color: 'white' }}
-                              to={`/artworks/${
-                                artworks[artworks.length - 1]._id
-                              }`}
+                              to={`/artworks/${artworks._id}`}
                             >
                               Browse work
                             </Link>
@@ -289,7 +283,7 @@ const Main = () => {
                             >
                               <img
                                 style={{ height: '100%', width: '100%' }}
-                                srcSet={artworks[artworks.length - 1].image}
+                                srcSet={artworks.image}
                                 alt=""
                                 loading="lazy"
                               />

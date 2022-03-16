@@ -22,7 +22,10 @@ import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
 import { cleanLocalCart } from '../actions/cartAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { ARTWORK_DETAILS_RESET } from '../constants/artworkConstants';
+import {
+  ARTWORK_DETAILS_RESET,
+  ARTWORK_LIST_RESET,
+} from '../constants/artworkConstants';
 import SideFilter from '../components/SideFilter';
 import { fetchArticlesList } from '../actions/articleAction';
 import { filterByRegion } from '../actions/filterAction';
@@ -79,6 +82,9 @@ function ArtworksList() {
     if (!successArticles) {
       dispatch(fetchArticlesList());
     }
+    return () => {
+      dispatch({ type: ARTWORK_LIST_RESET });
+    };
   }, [dispatch, keyword, artworkId, successArticles, keywordValue]);
 
   // clean up
@@ -128,7 +134,7 @@ function ArtworksList() {
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      {!artworks ? (
+      {!artworks[0] ? (
         <Loader />
       ) : (
         <Container>
