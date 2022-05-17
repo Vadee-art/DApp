@@ -7,6 +7,7 @@ import {
   IconButton,
   Box,
   TextField,
+  Container,
 } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { styled } from '@mui/material/styles';
@@ -38,208 +39,286 @@ const Footer = () => {
         flexGrow: 1,
         clear: 'both',
         position: 'relative',
+        backgroundColor: 'black',
+        width: '100%',
       }}
     >
       {marketPlace && marketPlace.contract && (
         <Root>
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={1}
-            sx={{
-              paddingTop: 4,
-              paddingBottom: 4,
-              paddingRight: 10,
-              paddingLeft: 10,
-              backgroundColor: 'black',
-              textAlign: 'left',
-            }}
-          >
-            <Grid item xs={2}>
-              <img
-                src="/static/Primary-E.svg"
-                alt="Logo"
-                style={{ maxWidth: '35%' }}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <Typography sx={{ paddingTop: 2 }} variant="subtitle1">
-                CThe textbox may contain any arbitrary value, but it is
-                advantageous to suggest possible values to the user,The textbox
-                may contain any arbitrary value, but it is advantageous to
-                suggest possible values to the usery suggest similar.
-              </Typography>
-            </Grid>
+          <Container maxWidth="xl">
             <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              item
-              xs={2}
-            >
-              <Grid item>
-                <Typography variant="subtitle1">About Us</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">Contract</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">Help Center</Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              item
-              xs={2}
-            >
-              <Grid item>
-                <Typography variant="subtitle1">Terms & Conditions</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">Copyright Policy</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">Privacy Policy</Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">Cookie Policy</Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              item
-              xs={1}
-            >
-              <Grid item>
-                <IconButton>
-                  <LinkedInIcon color="primary" />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <IconButton>
-                  <InstagramIcon color="primary" />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <IconButton>
-                  <FacebookIcon color="primary" />
-                </IconButton>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              item
-              xs={3}
-            >
-              <Grid item xs={2}>
-                <Typography sx={{ paddingTop: 2 }} variant="subtitle1">
-                  CThe textbox may contain any arbitrary value, but it is
-                  advantageous to suggest possible values to the user,The
-                  textbox may contain any arbitrary value,
-                </Typography>
-              </Grid>
-              <Grid item xs={2} sx={{ marginTop: 2 }}>
-                <FormControl fullWidth>
-                  <form style={{ display: 'flex', width: '100%' }}>
-                    <Grid item xs={8}>
-                      <TextField
-                        sx={{ background: 'white' }}
-                        size="small"
-                        fullWidth
-                        label="Email"
-                        id="fullWidth"
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Button
-                        sx={{
-                          color: 'white',
-                          padding: '0.5rem !important',
-                        }}
-                        variant="contained"
-                        type="submit"
-                      >
-                        Subscribe
-                      </Button>
-                    </Grid>
-                  </form>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={1}
-            sx={{ paddingLeft: 10, paddingRight: 10, backgroundColor: 'black' }}
-          >
-            <Grid item md={2} xs={12}>
-              <img
-                src="/static/logo.svg"
-                alt="Logo"
-                style={{ maxWidth: '50%' }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography sx={{ paddingTop: 2 }} variant="subtitle1">
-                {`@ Vadee.art ${new Date().getFullYear()}  All Rights Reserved.`}
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={1}
               container
               direction="row"
               justifyContent="center"
-              alignItems="center"
-              sx={{ display: 'inline-flex', margin: 'auto' }}
+              alignItems="flex-start"
+              spacing={1}
+              sx={{
+                paddingTop: 4,
+                paddingBottom: 4,
+                paddingRight: 8,
+                paddingLeft: 8,
+                textAlign: 'left',
+              }}
             >
-              <Typography
-                sx={{ color: 'white', marginRight: 1 }}
-                variant="subtitle1"
-                component="span"
+              <Grid xs={2} display="flex" alignItems="center">
+                <img
+                  src="/static/Primary-E.svg"
+                  alt="Logo"
+                  style={{
+                    maxWidth: '35%',
+                    aspectRatio: 1.7,
+                  }}
+                />
+              </Grid>
+              <Grid xs={2}>
+                <Typography
+                  sx={{
+                    padding: 0,
+                    fontSize: '0.9rem',
+                    lineHeight: 1.4,
+                  }}
+                  variant="subtitle1"
+                >
+                  VADEE is a photography Gallery that runs a series of photos
+                  and exhibitions based in Dubi, Tehran, and Amsterdam.
+                  Subscribe to our newsletter to stay updated about our events.
+                </Typography>
+              </Grid>
+              <Grid sx={{ paddingLeft: 10 }} xs={2}>
+                <Grid>
+                  <Typography variant="subtitle1" sx={{ fontSize: '0.9rem' }}>
+                    About Us
+                  </Typography>
+                </Grid>
+                <Grid>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontSize: '0.9rem', margin: '5px 0px' }}
+                  >
+                    Contract
+                  </Typography>
+                </Grid>
+                <Grid>
+                  <Typography variant="subtitle1" sx={{ fontSize: '0.9rem' }}>
+                    Help Center
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid xs={2}>
+                <Grid>
+                  <Typography variant="subtitle1" sx={{ fontSize: '0.9rem' }}>
+                    Terms &amp; Conditions
+                  </Typography>
+                </Grid>
+                <Grid>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontSize: '0.9rem', margin: '5px 0px' }}
+                  >
+                    Copyright Policy
+                  </Typography>
+                </Grid>
+                <Grid>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontSize: '0.9rem', margin: '5px 0px' }}
+                  >
+                    Privacy Policy
+                  </Typography>
+                </Grid>
+                <Grid>
+                  <Typography variant="subtitle1" sx={{ fontSize: '0.9rem' }}>
+                    Cookie Policy
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid xs={1}>
+                <Grid>
+                  <IconButton
+                    sx={{ padding: 0, marginBottom: 1.5, color: '#fff' }}
+                  >
+                    <LinkedInIcon />
+                  </IconButton>
+                </Grid>
+                <Grid>
+                  <IconButton
+                    sx={{ padding: 0, marginBottom: 1.5, color: '#fff' }}
+                  >
+                    <InstagramIcon />
+                  </IconButton>
+                </Grid>
+                <Grid>
+                  <IconButton sx={{ padding: 0, color: '#fff' }}>
+                    <FacebookIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+              <Grid
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                xs={3}
+                sx={{ padding: 0 }}
               >
-                $
-              </Typography>
-              <div>
+                <Grid item xs={2}>
+                  <Typography
+                    sx={{
+                      fontSize: '0.9rem',
+                      lineHeight: 1.4,
+                    }}
+                    variant="subtitle1"
+                  >
+                    VADEE is a photography Gallery that runs a series of photos
+                    and exhibitions based in Dubi, Tehran, and Amsterdam.
+                  </Typography>
+                </Grid>
+                <Grid item xs={2} sx={{ marginTop: 2 }}>
+                  <FormControl fullWidth>
+                    <form
+                      style={{
+                        display: 'flex',
+                        width: '100%',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Grid item xs={8}>
+                        <TextField
+                          placeholder="Enter your Email here"
+                          sx={{
+                            background: 'white',
+                            outline: 'none',
+                            border: 'none',
+                          }}
+                          size="small"
+                          fullWidth
+                          id="fullWidth"
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Button
+                          sx={{
+                            color: 'white',
+                            padding: '0.45rem',
+                            fontWeight: 'bold',
+                            backgroundColor: '#A2A28F',
+                          }}
+                          variant="contained"
+                          type="submit"
+                        >
+                          Subscribe
+                        </Button>
+                      </Grid>
+                    </form>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              direction="row"
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={1}
+              sx={{
+                paddingLeft: 8,
+                paddingRight: 8,
+                paddingBottom: 1.5,
+                paddingTop: 1.5,
+              }}
+            >
+              <Grid
+                item
+                md={2}
+                xs={12}
+                display="flex"
+                alignItems="center"
+                style={{ padding: 0 }}
+              >
+                <img
+                  src="/static/VADEE Logotype - Footer.svg"
+                  alt="Logo"
+                  style={{ maxWidth: '50%' }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="subtitle1">
+                  {`@ ${new Date().getFullYear()} VADEE `}
+                  {' All Rights Reserved'}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={1}
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ margin: 0, padding: 0 }}
+              >
+                <Typography
+                  sx={{ color: 'white', marginRight: 1, fontSize: '1.5rem' }}
+                  variant="subtitle1"
+                  component="span"
+                >
+                  $
+                </Typography>
                 <img
                   src="/static/usa.png"
                   alt="Logo"
-                  style={{ maxWidth: '20px' }}
+                  style={{
+                    aspectRatio: 1,
+                    width: '40px',
+                  }}
                 />
-              </div>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+                display="flex"
+                justifyContent="flex-end"
+                alignItems="center"
+                style={{ padding: 0, margin: 0 }}
+              >
+                <img
+                  src="/static/visa.png"
+                  alt="Logo"
+                  style={{ height: '25px', width: '50px' }}
+                />
+                <img
+                  src="/static/mastercard.png"
+                  alt="Logo"
+                  style={{
+                    height: '25px',
+                    width: '50px',
+                    margin: '0px 15px',
+                  }}
+                />
+                <img
+                  src="/static/paypal.png"
+                  alt="Logo"
+                  style={{
+                    height: '30px',
+                    width: '70px',
+                  }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={3} sx={{ textAlign: 'end' }}>
-              <img
-                src="/static/visaa.png"
-                alt="Logo"
-                style={{ maxWidth: '30%' }}
-              />
-            </Grid>
-          </Grid>
+          </Container>
         </Root>
       )}
-      <Root2>
+      {/* FIXME:check what is this? */}
+      {/* <Root2>
         <Grid
-          sx={{ padding: 1, backgroundColor: 'black', textAlign: 'center' }}
+          sx={{
+            padding: 1,
+            backgroundColor: 'black',
+            textAlign: 'center',
+          }}
         >
           <img src="/static/logo.svg" alt="Logo" style={{ maxWidth: '30%' }} />
         </Grid>
-      </Root2>
+      </Root2> */}
     </Box>
   );
 };

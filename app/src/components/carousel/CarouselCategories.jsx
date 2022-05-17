@@ -79,7 +79,7 @@ export default function CarouselCategories() {
   };
   return (
     <>
-      <div>
+      <div style={{ maxWidth: '95%' }}>
         <Slider {...settings}>
           {categories &&
             categories.map(
@@ -112,6 +112,8 @@ export default function CarouselCategories() {
                               padding: 0,
                               margin: 0,
                               lineHeight: 1,
+                              fontSize: '1.3rem',
+                              fontWeight: 300,
                               color: 'black',
                             }}
                           >

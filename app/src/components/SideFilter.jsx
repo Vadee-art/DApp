@@ -65,7 +65,16 @@ export default function SideFilter({ title, list, kind }) {
             aria-controls="panel-bh-content"
             id="panel-bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+            <Typography
+              sx={{
+                width: '33%',
+                flexShrink: 0,
+                color: '#A2A28F',
+                fontWeight: 600,
+                fontSize: '18px',
+                padding: '15px 0px',
+              }}
+            >
               {title}
             </Typography>
           </AccordionSummary>
@@ -77,6 +86,10 @@ export default function SideFilter({ title, list, kind }) {
                     <FormControlLabel
                       control={
                         <Checkbox
+                          style={{
+                            color: '#A2A28F',
+                          }}
+                          size="medium"
                           checked={
                             ((item.country && item.country.toLowerCase()) ||
                               (item.firstName &&
@@ -93,9 +106,19 @@ export default function SideFilter({ title, list, kind }) {
                         />
                       }
                       label={
-                        item.country ||
-                        item.name ||
-                        `${item.firstName}  ${item.lastName}`
+                        <Typography
+                          sx={{
+                            display: 'inline',
+                            color: '#9e9e9e',
+                            lineHeight: 1.3,
+                            fontWeight: 400,
+                            fontSize: '17px',
+                          }}
+                        >
+                          {item.country ||
+                            item.name ||
+                            `${item.firstName}  ${item.lastName}`}
+                        </Typography>
                       }
                     />
                   </FormGroup>

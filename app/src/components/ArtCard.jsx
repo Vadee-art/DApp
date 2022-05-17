@@ -40,6 +40,9 @@ export default function ArtCard({ data }) {
           opacity: 1,
         },
       }}
+      display="flex"
+      flexDirection="column"
+      justifyContent="flex-end"
     >
       <ImageListItem style={{ color: '#666666' }}>
         <ImageListItemBar
@@ -99,26 +102,52 @@ export default function ArtCard({ data }) {
             loading="lazy"
           />
         )}
-        {data.artist ? (
-          <Typography variant="h6">
-            {data.artist.firstName} {data.artist.lastName}
-          </Typography>
-        ) : (
-          <Typography variant="h6">
-            {data.firstName} {data.lastName}
-          </Typography>
-        )}
-        {data.artist ? (
-          <Typography variant="subtitle1" sx={{ width: '100%', margin: 0 }}>
-            {data.title}
-          </Typography>
-        ) : (
-          <Typography variant="subtitle1" sx={{ width: '100%', margin: 0 }}>
-            {data.nationality}
-          </Typography>
-        )}
-        {data.artist && (
-          <Typography variant="subtitle1" sx={{ width: '100%', margin: 0 }}>
+
+        <Typography
+          variant="h6"
+          sx={{
+            color: '#000',
+            marginTop: '10px',
+            fontSize: '1.2rem',
+            fontWeight: 600,
+            marginBottom: 0,
+          }}
+        >
+          {data.artist
+            ? data.artist.firstName + data.artist.lastName
+            : data.firstName + data.lastName}
+        </Typography>
+        <Typography
+          // variant="subtitle1"
+          sx={{
+            color: '#000',
+            fontWeight: 300,
+            fontSize: '1.1rem',
+            width: '100%',
+            margin: 0,
+          }}
+        >
+          {data.category ? data.category?.name : 'Unknown'}
+          {/* FIXME:data.nationality */}
+        </Typography>
+        <Typography
+          // variant="subtitle1"
+          sx={{
+            color: '#000',
+            fontWeight: 300,
+            fontSize: '1.1rem',
+            width: '100%',
+            margin: 0,
+          }}
+        >
+          {data.artist ? data.artist?.origin : 'Origin'}
+          {/* FIXME:data.nationality */}
+        </Typography>
+        {data.price && (
+          <Typography
+            // variant="subtitle1"
+            sx={{ width: '100%', margin: 0, color: '#000', fontSize: '1rem' }}
+          >
             ${data.price}
           </Typography>
         )}
