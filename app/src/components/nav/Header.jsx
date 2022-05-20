@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -25,15 +25,16 @@ const Search = styled('div')(({ theme }) => ({
   marginLeft: 0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(4),
     width: 'auto',
   },
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
   height: '100%',
+  aspectRatio: 1,
   position: 'absolute',
+  right: 0,
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
@@ -41,11 +42,10 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  // marginTop: 4,
   color: 'inherit',
   border: 'solid 1px #A2A28F',
-  height: 35,
-  width: '98%',
+  height: 45,
+  width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -62,6 +62,8 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [isHeader, setIsHeader] = useState(true);
+
+  const [flag, setFlag] = useState(true);
 
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
   const { marketPlace } = theMarketPlace;
@@ -99,11 +101,19 @@ const Header = () => {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ marginTop: 5, marginBottom: 5 }}>
+    <Container maxWidth="xl" sx={{ marginTop: 10, marginBottom: 5 }}>
       {isHeader && marketPlace && marketPlace.contract && (
-        <>
+        <Grid
+          container
+          sx={{
+            width: '100%',
+            paddingLeft: 8,
+            paddingRight: 8,
+            marginBottom: 8,
+          }}
+        >
           <AppBar position="static" elevation={0}>
-            <Toolbar>
+            <Toolbar style={{ padding: 0 }}>
               <Grid container direction="row">
                 <Grid item xs={12} md={3}>
                   <Link
@@ -113,9 +123,18 @@ const Header = () => {
                     <img
                       src="/static/logo.svg"
                       alt="logo"
-                      style={{ width: '80%' }}
+                      style={{
+                        width: '100%',
+                      }}
                     />
-                    <Typography variant="subtitle1" color="primary">
+                    <Typography
+                      sx={{
+                        fontSize: '1.2rem',
+                        margin: '15px 0px',
+                        fontWeight: 300,
+                      }}
+                      variant="subtitle1"
+                    >
                       Change you lense, change your story
                     </Typography>
                   </Link>
@@ -123,54 +142,112 @@ const Header = () => {
                 <Grid item xs={8} md={7}>
                   <Search>
                     <SearchIconWrapper>
-                      <SearchIcon color="primary" />
+                      <SearchIcon
+                        color="primary"
+                        size="large"
+                        style={{ height: '45px', width: '45px' }}
+                      />
                     </SearchIconWrapper>
-                    <StyledInputBase
-                      placeholder="Search…"
-                      inputProps={{ 'aria-label': 'search' }}
-                    />
+                    <StyledInputBase inputProps={{ 'aria-label': 'search' }} />
                   </Search>
                 </Grid>
-                <Grid item xs container direction="row" spacing={1}>
-                  <Grid item>
-                    <IconButton
-                      size="medium"
-                      sx={{
-                        border: '1px solid #A2A28F',
-                        borderRadius: '10%',
-                        padding: '1px',
-                      }}
+                <Grid
+                  md={2}
+                  item
+                  xs={12}
+                  container
+                  direction="row"
+                  justifyContent="flex-end"
+                >
+                  {!flag ? (
+                    <>
+                      <Grid item>
+                        <IconButton
+                          size="medium"
+                          sx={{
+                            border: '1px solid #A2A28F',
+                            borderRadius: '10%',
+                            height: '45px',
+                            width: '45px',
+                          }}
+                        >
+                          <NotificationsNoneIcon fontSize="inherit" />
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <IconButton
+                          size="medium"
+                          sx={{
+                            border: '1px solid #A2A28F',
+                            borderRadius: '10%',
+                            height: '45px',
+                            width: '45px',
+                            margin: '0px 10px',
+                          }}
+                        >
+                          <MailOutlineIcon fontSize="inherit" />
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <IconButton
+                          onClick={handleClick}
+                          size="medium"
+                          sx={{
+                            border: '1px solid #A2A28F',
+                            borderRadius: '10%',
+                            height: '45px',
+                            width: '45px',
+                          }}
+                        >
+                          <PersonOutlineIcon fontSize="inherit" />
+                        </IconButton>
+                        {/* Menu to login and Register, ... */}
+                        <UserMenu
+                          anchorEl={anchorEl}
+                          setAnchorEl={setAnchorEl}
+                        />
+                      </Grid>
+                    </>
+                  ) : (
+                    <Grid
+                      container
+                      direction="row"
+                      width="100%"
+                      justifyContent="space-between"
+                      style={{ paddingLeft: 10 }}
                     >
-                      <NotificationsNoneIcon fontSize="inherit" />
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      size="medium"
-                      sx={{
-                        border: '1px solid #A2A28F',
-                        borderRadius: '10%',
-                        padding: '1px',
-                      }}
-                    >
-                      <MailOutlineIcon fontSize="inherit" />
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      onClick={handleClick}
-                      size="medium"
-                      sx={{
-                        border: '1px solid #A2A28F',
-                        borderRadius: '10%',
-                        padding: '1px',
-                      }}
-                    >
-                      <PersonOutlineIcon fontSize="inherit" />
-                    </IconButton>
-                    {/* Menu to login and Register, ... */}
-                    <UserMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
-                  </Grid>
+                      <Button
+                        style={{
+                          width: '48%',
+                          backgroundColor: '#26262648',
+                          color: '#fff',
+                          height: '45px',
+                          borderRadius: 0,
+                          outline: 'none',
+                          fontSize: '1.1rem',
+                          fontWeight: 300,
+                        }}
+                        onClick={() => setFlag(false)}
+                      >
+                        Log In
+                      </Button>
+                      <Button
+                        onClick={() => setFlag(false)}
+                        style={{
+                          width: '48%',
+                          backgroundColor: '#A2A28F',
+                          color: '#fff',
+                          height: '45px',
+                          borderRadius: 0,
+                          outline: 'none',
+                          fontSize: '1.1rem',
+                          fontWeight: 300,
+                        }}
+                      >
+                        Sign Up
+                      </Button>
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
             </Toolbar>
@@ -180,16 +257,20 @@ const Header = () => {
             direction="row"
             justifyContent="space-between"
             alignItems="flex-end"
-            spacing={1}
-            sx={{ paddingLeft: 3 }}
+            style={{
+              padding: 0,
+              paddingTop: '15px',
+              paddingBottom: '10px',
+            }}
           >
-            <Grid item xs={12} container direction="row">
+            <Grid item xs={12} container direction="row" alignItems="center">
               <Grid item>
                 <Link to="#" onClick={() => handleNavigation('artists')}>
                   <Typography
                     variant="body2"
                     sx={{
-                      padding: 1,
+                      fontSize: '1.4rem',
+                      fontWeight: 300,
                       color: current === 0 ? '#99CCCC' : 'black',
                     }}
                   >
@@ -202,7 +283,9 @@ const Header = () => {
                   <Typography
                     variant="body2"
                     sx={{
-                      padding: 1,
+                      fontSize: '1.4rem',
+                      fontWeight: 300,
+                      margin: '0px 20px',
                       color: current === 1 ? '#99CCCC' : 'black',
                     }}
                   >
@@ -215,7 +298,8 @@ const Header = () => {
                   <Typography
                     variant="body2"
                     sx={{
-                      padding: 1,
+                      fontSize: '1.4rem',
+                      fontWeight: 300,
                       color: current === 2 ? '#99CCCC' : 'black',
                     }}
                   >
@@ -225,7 +309,7 @@ const Header = () => {
               </Grid>
             </Grid>
           </Grid>
-        </>
+        </Grid>
       )}
     </Container>
   );

@@ -16,7 +16,7 @@ import { fetchArtistById, fetchArtistList } from '../../actions/artistAction';
 
 const useStyles = makeStyles(() => ({
   root: {
-    // maxWidth: '80%',
+    maxWidth: '95%',
     position: 'relative',
     // overflowX: 'scroll',
     '&::-webkit-scrollbar': {
@@ -43,8 +43,9 @@ function SampleNextArrow(props) {
       style={{
         display: 'block',
         color: 'black',
-        margin: 5,
-        right: window.innerWidth < 600 ? -10 : -80,
+        right: '-7%',
+        // right: -30,
+        // right: window.innerWidth < 600 ? -10 : -80,
         position: 'absolute',
         opacity: '10%',
       }}
@@ -60,7 +61,9 @@ function SamplePrevArrow(props) {
       fontSize="large"
       className={className}
       style={{
-        // display: 'none',
+        display: 'none',
+        height: 0,
+        width: 0,
         color: 'black',
         margin: 2,
         // left: 0,
@@ -128,7 +131,11 @@ export default function CarouselArtistList() {
                   srcSet={artist.photo}
                   alt={artist.firstName}
                   loading="lazy"
-                  style={{ maxWidth: 100, height: 100, marginBottom: 20 }}
+                  style={{
+                    maxWidth: 100,
+                    height: 100,
+                    marginBottom: 20,
+                  }}
                 />
               </div>
 
@@ -138,8 +145,8 @@ export default function CarouselArtistList() {
                   padding: 0,
                   margin: 0,
                   lineHeight: 1,
-                  fontSize: '0.8rem',
-                  fontWeight: 'bold',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
                 }}
               >
                 <Link style={{ color: 'black' }} to="#">
@@ -150,8 +157,9 @@ export default function CarouselArtistList() {
                 variant="body1"
                 sx={{
                   padding: 0,
-                  margin: 0,
+                  margin: '5px 0px',
                   lineHeight: 1,
+                  fontSize: '1rem',
                 }}
               >
                 {artist.origin}
@@ -162,7 +170,7 @@ export default function CarouselArtistList() {
                   padding: 0,
                   margin: 0,
                   lineHeight: 1,
-                  fontSize: '0.8rem',
+                  fontSize: '0.9rem',
                 }}
               >
                 <Link style={{ color: 'white' }} to={`/artists/${artist._id}`}>

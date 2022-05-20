@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { makeStyles } from '@mui/styles';
 import {
   fetchAllArtWorks,
   fetchCategories,
@@ -34,6 +35,22 @@ import {
 } from '../actions/marketPlaceAction';
 import { fetchIsTalentArtist } from '../actions/artistAction';
 
+const useStyles = makeStyles((theme) => ({
+  priceCategories: {
+    color: '#000',
+    fontWeight: 300,
+    fontSize: '1.3rem',
+    paddingBottom: 5,
+    borderBottom: '2px solid transparent',
+    borderRadius: 0,
+    '&:hover': {
+      backgroundColor: 'transparent',
+      borderBottomColor: theme.palette.secondary.main,
+      borderBottomWidth: 2,
+      color: theme.palette.secondary.main,
+    },
+  },
+}));
 const priceFilter = [
   'Under $500',
   'Under $1000',
@@ -44,6 +61,8 @@ const priceFilter = [
   'Under $20000',
 ];
 const Main = () => {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -149,24 +168,44 @@ const Main = () => {
                     sx={{
                       backgroundColor: '#d1d3c8',
                       padding: '0 !important',
-                      margin: '0 !important',
+                      margin: 0,
+                      marginTop: '20px',
                     }}
                   >
-                    <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
+                    <Container maxWidth="xl">
                       <Grid
                         container
                         direction="row"
                         justifyContent="flex-end"
-                        // alignItems="center"
                         sx={{
                           minHeight: '25vh',
-                          marginTop: 2,
+                          width: '100%',
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                          paddingTop: '20px',
                         }}
                       >
-                        <Grid item xs={2} sx={{ marginTop: 2, color: 'black' }}>
-                          <Typography variant="h6">Photographers</Typography>
+                        <Grid item xs={2}>
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              color: '#818172',
+                              fontSize: '1.4rem',
+                              fontWeight: 300,
+                              margin: 0,
+                            }}
+                          >
+                            Photographers
+                          </Typography>
                         </Grid>
-                        <Grid item xs={10} sx={{ marginTop: 2 }}>
+                        <Grid
+                          item
+                          xs={10}
+                          sx={{
+                            marginTop: 2,
+                            padding: 0,
+                          }}
+                        >
                           <CarouselArtistList artistId={1} />
                         </Grid>
                       </Grid>
@@ -174,21 +213,41 @@ const Main = () => {
                   </Container>
 
                   {/* Categories */}
-                  <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
+                  <Container maxWidth="xl" style={{ marginTop: '20px' }}>
                     <Grid
                       container
                       direction="row"
                       justifyContent="space-around"
                       sx={{
-                        width: '95%',
+                        width: '100%',
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        paddingTop: '20px',
                         marginBottom: 8,
                       }}
                     >
-                      <Grid item xs={1} sx={{ marginTop: 8 }}>
-                        <Typography variant="h6">Featured</Typography>
-                        <Typography variant="h6">Categories</Typography>
+                      <Grid item xs={2}>
+                        <Typography
+                          variant="subtitle1"
+                          style={{
+                            fontSize: '1.4rem',
+                            fontWeight: 300,
+                            marginBottom: '10px',
+                          }}
+                        >
+                          Featured
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          style={{
+                            fontSize: '1.4rem',
+                            fontWeight: 300,
+                          }}
+                        >
+                          Categories
+                        </Typography>
                       </Grid>
-                      <Grid item xs={9} sx={{ marginTop: 6, maxHeight: 200 }}>
+                      <Grid item xs={10}>
                         <CarouselCategories />
                       </Grid>
                       {/* Categories */}
@@ -196,30 +255,53 @@ const Main = () => {
                         <Box
                           component="div"
                           sx={{
-                            p: 2,
+                            p: 3,
                             width: '100%',
-                            border: '1px solid #A2A28F',
+                            border: '1px solid #dbdfe8',
                             overflowX: 'hidden',
                             marginTop: 5,
+                            paddingLeft: 2.5,
                           }}
                         >
                           <Stack direction="row" spacing={1}>
                             <Grid item xs={2}>
-                              <Typography variant="subtitle1">Start</Typography>
-                              <Typography variant="subtitle1">
+                              <Typography
+                                variant="subtitle1"
+                                style={{
+                                  fontSize: '1.4rem',
+                                  fontWeight: 300,
+                                  marginBottom: 5,
+                                }}
+                              >
+                                Start
+                              </Typography>
+                              <Typography
+                                variant="subtitle1"
+                                style={{
+                                  fontSize: '1.4rem',
+                                  fontWeight: 300,
+                                }}
+                              >
                                 Explore
                               </Typography>
                             </Grid>
-                            {categories &&
-                              categories.map((category, index) => (
-                                <Button
-                                  key={index}
-                                  color="primary"
-                                  sx={{ textTransform: 'none !important' }}
-                                >
-                                  {category.name}
-                                </Button>
-                              ))}
+
+                            <Grid
+                              xs={10}
+                              display="flex"
+                              justifyContent="space-between"
+                            >
+                              {categories &&
+                                categories.map((category, index) => (
+                                  <Button
+                                    key={index}
+                                    className={classes.priceCategories}
+                                    sx={{ textTransform: 'none !important' }}
+                                  >
+                                    {category.name}
+                                  </Button>
+                                ))}
+                            </Grid>
                           </Stack>
                         </Box>
                       </Grid>
@@ -228,252 +310,420 @@ const Main = () => {
 
                   {/* Last artwork */}
                   {artworks && artworks.artist && (
-                    <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
+                    <Container maxWidth="xl">
                       <Grid
-                        container
-                        direction="row"
-                        justifyContent="flex-end"
-                        // alignItems="center"
                         sx={{
-                          color: 'white',
-                          backgroundColor: 'black',
-                          minHeight: '30vh',
                           width: '100%',
-                          padding: 5,
+                          paddingLeft: 8,
+                          paddingRight: 8,
                         }}
                       >
-                        <Grid item xs={2}>
-                          <Typography variant="subtitle2">Last</Typography>
-                          <Typography variant="subtitle2">Artwork</Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography variant="h3">
-                            {artworks.artist.firstName}
-                            {artworks.artist.lastName}
-                          </Typography>
-                          <Typography variant="h6">{artworks.title}</Typography>
-                          <br />
-                          <Typography
-                            variant="subtitle2"
-                            sx={{
-                              padding: 0,
-                              margin: 0,
-                              lineHeight: 1,
-                              fontSize: '0.8rem',
-                            }}
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="flex-end"
+                          sx={{
+                            color: 'white',
+                            backgroundColor: '#000',
+                            width: '100%',
+                            padding: 7,
+                            paddingLeft: 2.5,
+                          }}
+                        >
+                          <Grid item xs={2}>
+                            <Typography
+                              variant="subtitle1"
+                              sx={{
+                                fontWeight: 400,
+                                lineHeight: 1.3,
+                              }}
+                            >
+                              Last
+                            </Typography>
+                            <Typography
+                              sx={{
+                                fontWeight: 400,
+                              }}
+                              variant="subtitle1"
+                            >
+                              Artwork
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Typography
+                              variant="h2"
+                              sx={{ fontStyle: 'italic', p: 0 }}
+                            >
+                              {artworks.artist.firstName}
+                              {artworks.artist.lastName}
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              sx={{ fontSize: '0.9rem' }}
+                            >
+                              {artworks.title}
+                            </Typography>
+                            <br />
+                            <Typography
+                              variant="subtitle2"
+                              sx={{
+                                padding: 0,
+                                margin: 0,
+                                fontWeight: 800,
+                                fontSize: '0.9rem',
+                              }}
+                            >
+                              <Link
+                                style={{ color: '#A2A28F' }}
+                                to={`/artworks/${artworks._id}`}
+                              >
+                                Browse work
+                              </Link>
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={4}
+                            display="flex"
+                            justifyContent="flex-end"
                           >
-                            <Link
-                              style={{ color: 'white' }}
-                              to={`/artworks/${artworks._id}`}
-                            >
-                              Browse work
-                            </Link>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Card sx={{ maxWidth: 250, maxHeight: 130 }}>
-                            <CardActionArea
-                              onClick={() =>
-                                history.push(
-                                  `artworks/${
-                                    artworks[artworks.length - 1]._id
-                                  }`
-                                )
-                              }
-                            >
-                              <img
-                                style={{ height: '100%', width: '100%' }}
-                                srcSet={artworks.image}
-                                alt=""
-                                loading="lazy"
-                              />
-                            </CardActionArea>
-                          </Card>
+                            <Card sx={{ maxWidth: 250, maxHeight: 150 }}>
+                              <CardActionArea
+                                onClick={() =>
+                                  history.push(
+                                    `artworks/${
+                                      artworks[artworks.length - 1]._id
+                                    }`
+                                  )
+                                }
+                              >
+                                <img
+                                  style={{ height: '100%', width: '100%' }}
+                                  srcSet={artworks.image}
+                                  alt=""
+                                  loading="lazy"
+                                />
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Container>
                   )}
-                  <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
+                  <Container maxWidth="xl">
                     <Grid
-                      container
-                      direction="row"
-                      justifyContent="space-around"
                       sx={{
-                        width: '95%',
-                        marginBottom: 8,
+                        width: '100%',
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        marginTop: 4,
                       }}
                     >
-                      {/* Categories */}
-                      <Grid item xs={12}>
-                        <Box
-                          component="div"
-                          sx={{
-                            p: 2,
-                            width: '100%',
-                            border: '1px solid #A2A28F',
-                            overflowX: 'hidden',
-                            marginTop: 5,
-                          }}
-                        >
-                          <Stack direction="row" spacing={1}>
-                            <Grid item xs={2}>
-                              <Typography variant="subtitle1">
-                                Shop By
-                              </Typography>
-                              <Typography variant="subtitle1">Price</Typography>
-                            </Grid>
-                            {priceFilter.map((priceCat, index) => (
-                              <Button
-                                key={index}
-                                color="primary"
-                                sx={{ textTransform: 'none !important' }}
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-around"
+                        sx={{
+                          marginBottom: 8,
+                        }}
+                      >
+                        {/* Categories */}
+                        <Grid item xs={12}>
+                          <Box
+                            component="div"
+                            sx={{
+                              p: 3,
+                              width: '100%',
+                              border: '1px solid #dbdfe8',
+                              overflowX: 'hidden',
+                              marginTop: 5,
+                              paddingLeft: 2.5,
+                            }}
+                          >
+                            <Stack direction="row" spacing={1}>
+                              <Grid item xs={2}>
+                                <Typography
+                                  variant="subtitle1"
+                                  style={{
+                                    fontSize: '1.4rem',
+                                    fontWeight: 300,
+                                    marginBottom: 5,
+                                  }}
+                                >
+                                  Shop By
+                                </Typography>
+                                <Typography
+                                  variant="subtitle1"
+                                  style={{
+                                    fontSize: '1.4rem',
+                                    fontWeight: 300,
+                                    marginBottom: 5,
+                                  }}
+                                >
+                                  Price
+                                </Typography>
+                              </Grid>
+                              <Grid
+                                xs={10}
+                                display="flex"
+                                justifyContent="space-between"
                               >
-                                {priceCat}
-                              </Button>
-                            ))}
-                          </Stack>
-                        </Box>
+                                {priceFilter.map((priceCat, index) => (
+                                  <Button
+                                    key={index}
+                                    className={classes.priceCategories}
+                                    sx={{ textTransform: 'none !important' }}
+                                  >
+                                    {priceCat}
+                                  </Button>
+                                ))}
+                              </Grid>
+                            </Stack>
+                          </Box>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Container>
 
                   {/* Talented photographer */}
                   {theTalent && (
-                    <Container maxWidth="xl" sx={{ padding: '10 !important' }}>
-                      <Card>
-                        <Grid
-                          container
-                          direction="row"
-                          justifyContent="flex-end"
-                          sx={{
-                            minHeight: '30vh',
-                            width: '100%',
-                            padding: 5,
-                          }}
-                        >
-                          <Grid item xs={12} md={7}>
-                            <Typography variant="h6">
-                              Talented Photographer
-                            </Typography>
-
-                            <Typography variant="h3">
-                              {theTalent.firstName} {theTalent.lastName}
-                            </Typography>
-                            <Typography
-                              variant="h6"
-                              sx={{
-                                marginTop: 10,
-                                marginBottom: 5,
-                                fontSize: '0.8rem',
-                                textOverflow: 'ellipsis',
-                                overflow: 'hidden',
-                                maxHeight: '400px',
-                                whiteSpace: 'normal',
-                                // Addition lines for 2 line or multiline ellipsis
-                                display: ' -webkit-box !important',
-                                WebkitLineClamp: 8,
-                                WebkitBoxOrient: 'vertical',
-                              }}
+                    <Container maxWidth="xl">
+                      <Grid
+                        sx={{
+                          width: '100%',
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                        }}
+                      >
+                        <Card>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="flex-end"
+                            sx={{
+                              minHeight: '30vh',
+                              width: '100%',
+                              padding: 4,
+                              paddingLeft: 2.5,
+                            }}
+                          >
+                            <Grid
+                              item
+                              xs={12}
+                              md={5}
+                              sx={{ paddingRight: 2.5 }}
                             >
-                              {theTalent.biography}
-                            </Typography>
-                            <Typography
-                              variant="subtitle2"
-                              sx={{
-                                padding: 0,
-                                margin: 0,
-                                lineHeight: 1,
-                                fontSize: '0.9rem',
-                                fontWeight: 'bolder',
-                              }}
-                            >
-                              <Link
-                                style={{ color: 'black' }}
-                                to={`/artists/${theTalent._id}`}
-                              >
-                                Browse work
-                              </Link>
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={12} md={5}>
-                            <CardActionArea
-                              onClick={() =>
-                                history.push(`artists/${theTalent._id}`)
-                              }
-                            >
-                              <img
+                              <Typography
+                                variant="h6"
                                 style={{
-                                  // maxHeight: '200px',
-                                  // width: '100%',
-                                  padding: 20,
+                                  fontWeight: 300,
                                 }}
-                                srcSet={theTalent.photo}
-                                alt=""
-                                loading="lazy"
-                              />
-                            </CardActionArea>
+                              >
+                                Talented Photographer
+                              </Typography>
+
+                              <Typography
+                                variant="h3"
+                                sx={{
+                                  fontStyle: 'italic',
+                                  fontSize: '2.2rem',
+                                  fontWeight: 300,
+                                }}
+                              >
+                                {theTalent.firstName} {theTalent.lastName}
+                              </Typography>
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  marginTop: 10,
+                                  marginBottom: 5,
+                                  fontSize: '0.8rem',
+                                  textOverflow: 'ellipsis',
+                                  overflow: 'hidden',
+                                  maxHeight: '400px',
+                                  whiteSpace: 'normal',
+                                  // Addition lines for 2 line or multiline ellipsis
+                                  display: ' -webkit-box !important',
+                                  WebkitLineClamp: 8,
+                                  WebkitBoxOrient: 'vertical',
+                                  fontWeight: 300,
+                                }}
+                              >
+                                {theTalent.biography}
+                              </Typography>
+                              <Typography
+                                variant="subtitle2"
+                                sx={{
+                                  padding: 0,
+                                  margin: 0,
+                                  lineHeight: 1,
+                                  fontSize: '0.9rem',
+                                  fontWeight: 500,
+                                }}
+                              >
+                                <Link
+                                  style={{ color: 'black' }}
+                                  to={`/artists/${theTalent._id}`}
+                                >
+                                  Browse work
+                                </Link>
+                              </Typography>
+                            </Grid>
+                            <Grid
+                              item
+                              xs={12}
+                              md={7}
+                              display="flex"
+                              alignItems="center"
+                            >
+                              <CardActionArea
+                                onClick={() =>
+                                  history.push(`artists/${theTalent._id}`)
+                                }
+                              >
+                                <img
+                                  style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    maxHeight: '400px',
+                                  }}
+                                  srcSet={theTalent.photo}
+                                  alt=""
+                                  loading="lazy"
+                                />
+                              </CardActionArea>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </Card>
+                        </Card>
+                      </Grid>
                     </Container>
                   )}
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-around"
-                    sx={{
-                      minHeight: '35vh',
-                      width: '100%',
-                    }}
-                  >
-                    <Grid item xs={1} sx={{ marginTop: 8 }}>
-                      <Typography variant="h6">Street</Typography>
-                      <Typography variant="h6">Category</Typography>
+                  <Container maxWidth="xl">
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="space-around"
+                      sx={{
+                        height: 300,
+                        width: '100%',
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        marginTop: 5,
+                      }}
+                    >
+                      <Grid item xs={2}>
+                        <Typography
+                          variant="subtitle1"
+                          style={{
+                            fontSize: '1.4rem',
+                            fontWeight: 300,
+                            marginBottom: '10px',
+                          }}
+                        >
+                          Fine Art
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          style={{
+                            fontSize: '1.4rem',
+                            fontWeight: 300,
+                          }}
+                        >
+                          Photography
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={10}
+                        sx={{
+                          height: 300,
+                          maxHeight: 350,
+                        }}
+                      >
+                        <CarouselCategory />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={9} sx={{ marginTop: 6, maxHeight: 300 }}>
-                      <CarouselCategory />
+                  </Container>
+                  <Container maxWidth="xl">
+                    <Grid
+                      sx={{
+                        width: '100%',
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                      }}
+                    >
+                      <Grid
+                        container
+                        direction="column"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        sx={{
+                          marginTop: 8,
+                          backgroundColor: '#EDEEE9',
+                          minHeight: '23vh',
+                          width: '100%',
+                        }}
+                      >
+                        <Grid item>
+                          <Typography color="primary" variant="h2">
+                            Ready to start?
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Button
+                            size="large"
+                            sx={{
+                              textTransform: 'none !important',
+                              fontSize: '1.2rem',
+                            }}
+                            color="secondary"
+                            variant="text"
+                          >
+                            Join
+                          </Button>
+                        </Grid>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{
-                      marginTop: 8,
-                      backgroundColor: '#EDEEE9',
-                      minHeight: '20vh',
-                      width: '100%',
-                    }}
-                  >
-                    <Grid item>
-                      <Typography color="primary" variant="h2">
-                        Ready to join?
-                      </Typography>
+                  </Container>
+                  <Container maxWidth="xl">
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="space-around"
+                      sx={{
+                        minHeight: '35vh',
+                        width: '100%',
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        marginTop: 8,
+                      }}
+                    >
+                      <Grid item xs={2}>
+                        <Typography
+                          variant="subtitle1"
+                          style={{
+                            fontSize: '1.4rem',
+                            fontWeight: 300,
+                            marginBottom: '10px',
+                          }}
+                        >
+                          Street
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          style={{
+                            fontSize: '1.4rem',
+                            fontWeight: 300,
+                          }}
+                        >
+                          Category
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={10} sx={{ maxHeight: 300 }}>
+                        <CarouselCategory />
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <Button color="secondary" variant="contained">
-                        Join
-                      </Button>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-around"
-                    sx={{
-                      minHeight: '35vh',
-                      width: '100%',
-                    }}
-                  >
-                    <Grid item xs={1} sx={{ marginTop: 8 }}>
-                      <Typography variant="h6">Street</Typography>
-                      <Typography variant="h6">Category</Typography>
-                    </Grid>
-                    <Grid item xs={9} sx={{ marginTop: 6, maxHeight: 300 }}>
-                      <CarouselCategory />
-                    </Grid>
-                  </Grid>
+                  </Container>
                 </Grid>
               )}
             </Grid>

@@ -2,9 +2,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Slider from 'react-slick';
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../../styles/carouselTop.scss';
@@ -61,34 +60,101 @@ export default function CarouselTop({ carousels }) {
   console.log('carousels');
   console.log(carousels);
   return (
-    <div>
-      <Slider {...settings}>
-        {carousels &&
-          carousels.map((artwork, index) => (
-            <div className="images" key={index}>
-              <img
-                src={`${artwork.image}`}
-                alt={artwork.title}
-                loading="lazy"
-                style={{ minWidth: '100%', height: '600px' }}
-              />
-              <Grid container>
-                <Typography component="p" variant="body2">
-                  Vadee Collection
-                </Typography>
-                <Typography variant="h5" component="h5">
-                  {artwork.artist.firstName} {artwork.artist.lastName}
-                </Typography>
-                <Typography variant="h4" component="h4">
-                  {artwork.title}
-                </Typography>
-                <Typography variant="subtitle2" component="span">
-                  <Link to={`artworks/${artwork._id}`}>Browse Works</Link>
-                </Typography>
+    <Slider {...settings} style={{ height: '700px' }}>
+      {carousels &&
+        carousels.map((artwork, index) => (
+          <>
+            <div
+              loading="lazy"
+              style={{
+                backgroundImage: `url(${artwork.image})`,
+                minWidth: '100%',
+                width: '100%',
+                height: '700px',
+                zIndex: 99,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center center',
+                backgroundSize: 'cover',
+              }}
+            />
+            <Container maxWidth="xl">
+              <Grid
+                direction="column"
+                justifyContent="center"
+                container
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  zIndex: 100,
+                  height: '700px',
+                  backgroundColor: 'transparent',
+                  color: '#fff',
+                }}
+                sx={{
+                  width: '100%',
+                  paddingLeft: 8,
+                  paddingRight: 8,
+                  // marginBottom: 8,
+                }}
+              >
+                <Grid item>
+                  <Typography
+                    item
+                    component="p"
+                    variant="body2"
+                    style={{ fontSize: '1.5rem', fontWeight: 300 }}
+                  >
+                    VADEE Collection
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography
+                    item
+                    variant="h5"
+                    component="h5"
+                    style={{
+                      fontSize: '2.2rem',
+                      fontWeight: 400,
+                      marginTop: '5px',
+                      marginBottom: '10px',
+                    }}
+                  >
+                    {artwork.artist.firstName} {artwork.artist.lastName}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography
+                    item
+                    variant="h4"
+                    component="h4"
+                    style={{ fontSize: '2.6rem', fontWeight: 400 }}
+                  >
+                    {artwork.category.name}
+                  </Typography>
+                </Grid>
+                <Grid>
+                  <Typography
+                    item
+                    variant="subtitle2"
+                    // component="p"
+                    style={{
+                      marginTop: '150px',
+                      fontSize: '1.1rem',
+                      fontWeight: 800,
+                    }}
+                  >
+                    <Link
+                      style={{ color: '#fff' }}
+                      to={`artworks/${artwork._id}`}
+                    >
+                      Browse Works
+                    </Link>
+                  </Typography>
+                </Grid>
               </Grid>
-            </div>
-          ))}
-      </Slider>
-    </div>
+            </Container>
+          </>
+        ))}
+    </Slider>
   );
 }
