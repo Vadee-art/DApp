@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-nested-ternary */
 import { makeStyles } from '@mui/styles';
@@ -12,10 +13,13 @@ import {
   Container,
   Typography,
   IconButton,
+  Button,
 } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import Divider from '@mui/material/Divider';
+import usePagination from '@mui/material/usePagination';
+import { styled } from '@mui/material/styles';
 import ArtCard from '../components/ArtCard';
 import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
 import { cleanLocalCart } from '../actions/cartAction';
@@ -26,6 +30,12 @@ import SideFilter from '../components/SideFilter';
 import { filterByRegion } from '../actions/filterAction';
 import { fetchArtistList } from '../actions/artistAction';
 
+const List = styled('ul')({
+  listStyle: 'none',
+  padding: 0,
+  margin: 0,
+  display: 'flex',
+});
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 10,
@@ -90,6 +100,11 @@ function ArtistList() {
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories, success: successCategories } = categoryList;
+
+  const { items } = usePagination({
+    count: pages,
+  });
+
   // clean up
   useEffect(() => {
     dispatch(cleanLocalCart());
@@ -142,79 +157,171 @@ function ArtistList() {
       {loading ? (
         <Loader />
       ) : (
-        <Container>
+        <Container maxWidth="xl">
           <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ padding: 5 }}
+            sx={{
+              width: '100%',
+              paddingLeft: 8,
+              paddingRight: 8,
+            }}
           >
-            {alphabets &&
-              alphabets.map((alphabet, index) => (
-                <IconButton key={index}>
-                  <Typography variant="subtitle1"> {alphabet}</Typography>
-                </IconButton>
-              ))}
-          </Grid>
-          <Grid container direction="row">
-            <Grid item xs sx={{ marginTop: 0 }}>
-              <Divider style={{ margin: 'auto' }} variant="middle" />
-              {origins && origins.origins && (
-                <SideFilter
-                  title="Region"
-                  list={origins.origins}
-                  kind="artists"
-                />
-              )}
-
-              {categories && categories[0] && (
-                <SideFilter title="Genres" list={categories} kind="artists" />
-              )}
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              sx={{ paddingY: 5 }}
+            >
+              <Grid item xs sx={{ marginTop: 0, marginRight: 4 }} />
+              <Grid
+                item
+                xs={10}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {alphabets &&
+                  alphabets.map((alphabet, index) => (
+                    <IconButton key={index}>
+                      <Typography sx={{ fontSize: '15px', color: '#A2A28F' }}>
+                        {alphabet}
+                      </Typography>
+                    </IconButton>
+                  ))}
+              </Grid>
             </Grid>
-            <Grid item xs={10} className={classes.root}>
-              <Box sx={{ overflowY: 'hidden' }}>
-                <Divider style={{ marginBottom: 30 }} variant="middle" />
-                <ImageList
-                  variant="masonry"
-                  cols={window.innerWidth < 800 ? 2 : 3}
-                  gap={30}
-                  sx={{ paddingRight: 5 }}
-                >
-                  {artists &&
-                    artists.map((artist) => (
-                      <ArtCard key={artist._id} data={artist} />
-                    ))}
-                </ImageList>
-              </Box>
-              <Grid>
-                {pages > 1 && (
-                  <Pagination
-                    count={pages}
-                    page={page}
-                    onChange={handlePageChange}
-                    variant="outlined"
-                    color="secondary"
+            <Grid container direction="row">
+              <Grid item xs sx={{ marginTop: 0, marginRight: 4 }}>
+                {/* <Divider style={{ margin: 'auto' }} variant="middle" /> */}
+                {origins && origins.origins && (
+                  <SideFilter
+                    title="Region"
+                    list={origins.origins}
+                    kind="artists"
                   />
                 )}
+                <Divider style={{ margin: 'auto' }} variant="middle" />
+                {categories && categories[0] && (
+                  <SideFilter title="Genres" list={categories} kind="artists" />
+                )}
+                <Divider style={{ margin: 'auto' }} variant="middle" />
+              </Grid>
+              <Grid item xs={10} className={classes.root}>
+                <Box sx={{ overflowY: 'hidden' }}>
+                  {/* <Divider style={{ marginBottom: 30 }} variant="middle" /> */}
+                  <ImageList
+                    justifyContent="space-between"
+                    cols={window.innerWidth < 800 ? 2 : 3}
+                    gap={35}
+                    sx={{
+                      width: '100%',
+                      marginTop: '0px !important',
+                    }}
+                  >
+                    {artists &&
+                      artists.map((artist) => (
+                        <ArtCard key={artist._id} data={artist} />
+                      ))}
+                  </ImageList>
+                </Box>
+                <Grid>
+                  {pages > 1 && (
+                    <nav
+                      style={{
+                        padding: 0,
+                        margin: 0,
+                        marginBottom: '35px',
+                      }}
+                    >
+                      <List
+                        style={{
+                          width: '100%',
+                          padding: 0,
+                          alignItems: 'center',
+                        }}
+                      >
+                        {items.map(({ p, type, selected, ...item }, index) => {
+                          let children = null;
+
+                          if (type === 'page') {
+                            children = (
+                              <Button
+                                variant="text"
+                                color="primary"
+                                style={{
+                                  fontWeight: selected ? 'bold' : undefined,
+                                }}
+                                sx={{
+                                  fontSize: '20px',
+                                  overflow: 'hidden',
+                                  maxWidth: '20px',
+                                  padding: '0 !important',
+                                }}
+                                {...item}
+                              >
+                                {index}
+                              </Button>
+                            );
+                          } else {
+                            children = (
+                              <Button
+                                sx={{
+                                  fontSize: '20px',
+                                  fontWeight: 100,
+                                  textTransform: 'none',
+                                  paddingLeft: 0,
+                                  paddingRight: 0,
+                                  marginRight: type === 'previous' ? 10 : 0,
+                                  marginLeft: type === 'previous' ? 0 : 10,
+                                }}
+                                // variant="text"
+                                {...item}
+                              >
+                                {type === 'previous' ? '< Prev' : 'Next >'}
+                              </Button>
+                            );
+                          }
+                          return (
+                            <li
+                              style={{
+                                maxWidth: type === 'page' ? '20px' : 'auto',
+                              }}
+                              key={index}
+                            >
+                              {children}
+                            </li>
+                          );
+                        })}
+                      </List>
+                    </nav>
+                    // <Pagination
+                    //   count={pages}
+                    //   page={page}
+                    //   onChange={handlePageChange}
+                    //   variant="outlined"
+                    //   color="secondary"
+                    // />
+                  )}
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid>
-            <Hidden smUp>
-              <Grid container>
-                <Paper className={classes.responsive} elevation={0}>
-                  {artists &&
-                    artists.map((artwork) => (
-                      <Grid key={artwork._id}>
-                        <Paper className={classes.paper}>
-                          <ArtCard data={artwork} />
-                        </Paper>
-                      </Grid>
-                    ))}
-                </Paper>
-              </Grid>
-            </Hidden>
+            <Grid>
+              <Hidden smUp>
+                <Grid container>
+                  <Paper className={classes.responsive} elevation={0}>
+                    {artists &&
+                      artists.map((artwork) => (
+                        <Grid key={artwork._id}>
+                          <Paper className={classes.paper}>
+                            <ArtCard data={artwork} />
+                          </Paper>
+                        </Grid>
+                      ))}
+                  </Paper>
+                </Grid>
+              </Hidden>
+            </Grid>
           </Grid>
         </Container>
       )}

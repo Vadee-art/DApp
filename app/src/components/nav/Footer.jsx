@@ -41,6 +41,7 @@ const Footer = () => {
         position: 'relative',
         backgroundColor: 'black',
         width: '100%',
+        marginTop: '150px',
       }}
     >
       {marketPlace && marketPlace.contract && (
@@ -283,14 +284,15 @@ const Footer = () => {
                 <img
                   src="/static/visa.png"
                   alt="Logo"
-                  style={{ height: '25px', width: '50px' }}
+                  style={{
+                    height: '23px',
+                  }}
                 />
                 <img
                   src="/static/mastercard.png"
                   alt="Logo"
                   style={{
                     height: '25px',
-                    width: '50px',
                     margin: '0px 15px',
                   }}
                 />
@@ -298,8 +300,7 @@ const Footer = () => {
                   src="/static/paypal.png"
                   alt="Logo"
                   style={{
-                    height: '30px',
-                    width: '70px',
+                    height: '23px',
                   }}
                 />
               </Grid>

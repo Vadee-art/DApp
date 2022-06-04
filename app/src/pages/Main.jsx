@@ -41,12 +41,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 300,
     fontSize: '1.3rem',
     paddingBottom: 5,
-    borderBottom: '2px solid transparent',
+    borderBottom: '1px solid transparent',
     borderRadius: 0,
     '&:hover': {
       backgroundColor: 'transparent',
       borderBottomColor: theme.palette.secondary.main,
-      borderBottomWidth: 2,
+      borderBottomWidth: 1,
       color: theme.palette.secondary.main,
     },
   },
@@ -167,7 +167,7 @@ const Main = () => {
                     maxWidth="100%"
                     sx={{
                       backgroundColor: '#d1d3c8',
-                      padding: '0 !important',
+                      paddingBottom: '25px',
                       margin: 0,
                       marginTop: '20px',
                     }}
@@ -257,7 +257,7 @@ const Main = () => {
                           sx={{
                             p: 3,
                             width: '100%',
-                            border: '1px solid #dbdfe8',
+                            border: '0.5px solid #A2A28F',
                             overflowX: 'hidden',
                             marginTop: 5,
                             paddingLeft: 2.5,
@@ -334,15 +334,17 @@ const Main = () => {
                             <Typography
                               variant="subtitle1"
                               sx={{
-                                fontWeight: 400,
+                                fontWeight: 300,
                                 lineHeight: 1.3,
+                                fontSize: '1.4rem',
                               }}
                             >
                               Last
                             </Typography>
                             <Typography
                               sx={{
-                                fontWeight: 400,
+                                fontSize: '1.4rem',
+                                fontWeight: 300,
                               }}
                               variant="subtitle1"
                             >
@@ -434,7 +436,7 @@ const Main = () => {
                             sx={{
                               p: 3,
                               width: '100%',
-                              border: '1px solid #dbdfe8',
+                              border: '0.5px solid #A2A28F',
                               overflowX: 'hidden',
                               marginTop: 5,
                               paddingLeft: 2.5,
@@ -495,7 +497,12 @@ const Main = () => {
                           paddingRight: 8,
                         }}
                       >
-                        <Card>
+                        <Card
+                          sx={{
+                            border: '0.5px solid #A2A28F',
+                            boxShadow: 'none',
+                          }}
+                        >
                           <Grid
                             container
                             direction="row"
@@ -503,7 +510,7 @@ const Main = () => {
                             sx={{
                               minHeight: '30vh',
                               width: '100%',
-                              padding: 4,
+                              padding: 5,
                               paddingLeft: 2.5,
                             }}
                           >
@@ -537,7 +544,7 @@ const Main = () => {
                                 sx={{
                                   marginTop: 10,
                                   marginBottom: 5,
-                                  fontSize: '0.8rem',
+                                  fontSize: '15px',
                                   textOverflow: 'ellipsis',
                                   overflow: 'hidden',
                                   maxHeight: '400px',

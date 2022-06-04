@@ -16,7 +16,7 @@ import { fetchArtistById } from '../../actions/artistAction';
 
 const useStyles = makeStyles(() => ({
   root: {
-    maxWidth: '80%',
+    maxWidth: '100%',
     position: 'relative',
     // overflowX: 'scroll',
     '&::-webkit-scrollbar': {
@@ -110,55 +110,68 @@ export default function CarouselArtistArtworks({ artistId }) {
   };
 
   const classes = useStyles();
-
   return (
     <Grid className={classes.root}>
       {success && (
-        <Slider {...settings} style={{ position: 'unset' }}>
+        <Slider
+          {...settings}
+          style={{
+            padding: 0,
+          }}
+        >
           {artist.artworks.map((artwork, index) => (
-            <div className="artworks-images" key={index} style={{ width: 300 }}>
+            <Grid
+              sx={{
+                padding: 0,
+                margin: 0,
+                maxWidth: '300px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                alignSelf: 'flex-end ',
+              }}
+            >
               <img
                 srcSet={`${artwork.image}?w=164&h=164&fit=crop&auto=format 2x,
                   ${artwork.image}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
                 alt={artwork.title}
                 loading="lazy"
-                style={{ maxWidth: 250, marginBottom: 20 }}
+                style={{ maxWidth: '90%', marginBottom: '20px' }}
               />
-
               <Typography
                 variant="subtitle2"
                 sx={{
                   padding: 0,
                   margin: 0,
-                  lineHeight: 1,
-                  fontWeight: 'bold',
+                  fontWeight: 600,
+                  fontSize: '16px',
                 }}
               >
                 <Link style={{ color: 'black' }} to="#">
-                  {artwork.title}
+                  {artwork?.category?.name}
                 </Link>
               </Typography>
               <Typography
                 variant="body1"
                 sx={{
                   padding: 0,
-                  margin: 0,
-                  lineHeight: 1,
+                  fontSize: '14px',
+                  marginTop: '10px',
                 }}
               >
-                {artwork.artist.nationality}
+                {artwork.artist.origin}
               </Typography>
               <Typography
                 variant="body1"
                 sx={{
-                  padding: 0,
-                  margin: 0,
-                  lineHeight: 1,
+                  fontSize: '14px',
+                  marginTop: '3px',
                 }}
               >
                 ${artwork.price.toLocaleString()}
               </Typography>
-            </div>
+            </Grid>
           ))}
         </Slider>
       )}

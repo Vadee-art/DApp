@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { fetchArtistList } from '../../actions/artistAction';
 
-export default function CarouselArtist() {
+export default function CarouselRelatedPhotograaphers() {
   const dispatch = useDispatch();
 
   const artistList = useSelector((state) => state.artistList);
@@ -24,7 +24,7 @@ export default function CarouselArtist() {
     className: 'center',
     dots: false,
     infinite: true,
-    slidesToShow: 4,
+    slidesToShow: 3.2,
     slidesToScroll: 1,
     responsive: [
       {
@@ -60,39 +60,62 @@ export default function CarouselArtist() {
             key={index}
             container
             direction="row"
-            justifyContent="center"
+            justifyContent="space-between"
             alignItems="center"
             sx={{
               display: 'flex !important',
               border: '1px solid #A2A28F',
-              maxWidth: '200px',
+              maxWidth: '300px',
+              height: '100px',
             }}
           >
-            <Grid item xs>
+            <Grid xs={3.5}>
               <img
                 style={{
                   margin: 0,
-                  maxWidth: '60px',
-                  maxHeight: '60px',
+                  width: '100%',
+                  height: '105px',
                 }}
                 src={artist.photo}
                 alt="artist"
               />
             </Grid>
-            <Grid item xs={8}>
-              <Typography variant="subtitle2">
+            <Grid
+              xs={8.5}
+              container
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+            >
+              <Typography
+                style={{
+                  color: '#000',
+                  fontSize: '21px',
+                  fontWeight: 500,
+                  marginBottom: '10px',
+                  paddingTop: '8px',
+                }}
+              >
                 {artist && `${artist.firstName} ${artist.lastName}`}
               </Typography>
-              <Typography>
-                {artist && `${artist.nationality}, ${artist.birthday}`}
+              <Typography
+                style={{
+                  fontSize: '15px',
+                  marginBottom: '15px',
+                }}
+              >
+                {artist && `${artist.origin}, ${artist.birthday.slice(0, 4)}`}
               </Typography>
               <Button
                 variant="contained"
                 type="submit"
                 sx={{
                   backgroundColor: '#A2A28F',
-                  color: 'black',
-                  lineHeight: '0.4rem',
+                  color: '#000',
+                  paddingY: 0.7,
+                  fontSize: '15px',
+                  fontWeight: 400,
+                  // lineHeight: '0.4rem',
                   '&:hover': {
                     backgroundColor: 'black',
                   },

@@ -389,7 +389,7 @@ function ArtworksList() {
                             <Button
                               sx={{
                                 fontSize: '20px',
-                                fontWeight: 500,
+                                fontWeight: 100,
                                 textTransform: 'none',
                                 paddingLeft: 0,
                                 paddingRight: 0,

@@ -21,22 +21,29 @@ export default function TheTab({ artist }) {
     setValue(newValue);
   };
   return (
-    <div style={{ maxWidth: '500px', textAlign: 'left' }}>
-      <Box
-        sx={{
-          borderBottom: 1,
-          borderColor: 'divider',
-        }}
-      >
+    <div style={{ width: '70%', textAlign: 'left' }}>
+      <Box>
         <Tabs
           indicatorColor="secondary"
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Biography" {...a11yProps(0)} />
-          <Tab label="Achievements" {...a11yProps(1)} />
-          <Tab label="CV" {...a11yProps(2)} />
+          <Tab
+            label="Biography"
+            style={{ fontSize: '17px', fontWeight: 600 }}
+            {...a11yProps(0)}
+          />
+          <Tab
+            label="Achievements"
+            style={{ fontSize: '17px', fontWeight: 600 }}
+            {...a11yProps(1)}
+          />
+          <Tab
+            label="CV"
+            style={{ fontSize: '17px', fontWeight: 600 }}
+            {...a11yProps(2)}
+          />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -64,8 +71,31 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ paddingY: 3 }}>
+          <span>
+            <Typography
+              style={{
+                color: '#000',
+                fontSize: '19px',
+                fontWeight: 300,
+                lineHeight: 1.8,
+                maxHeight: '310px',
+                overflowY: 'hidden',
+              }}
+            >
+              {children}
+            </Typography>
+            <Typography
+              style={{
+                color: '#99CCCC',
+                fontSize: '19px',
+                fontWeight: 400,
+                lineHeight: 1.8,
+              }}
+            >
+              {children.length > 300 ? '... Read more' : ''}
+            </Typography>
+          </span>
         </Box>
       )}
     </div>

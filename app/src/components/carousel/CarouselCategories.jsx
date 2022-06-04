@@ -88,7 +88,10 @@ export default function CarouselCategories() {
                   <Grid
                     className="mid-images"
                     key={index}
-                    sx={{ padding: 2, textAlign: 'left' }}
+                    sx={{
+                      paddingX: 2,
+                      textAlign: 'left',
+                    }}
                   >
                     <Card sx={{ width: 260 }} elevation={0}>
                       <CardActionArea
