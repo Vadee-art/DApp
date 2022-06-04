@@ -49,7 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(1)})`,
   },
 }));
 
@@ -145,7 +145,10 @@ const Header = () => {
                       <SearchIcon
                         color="primary"
                         size="large"
-                        style={{ height: '45px', width: '45px' }}
+                        style={{
+                          height: '30px',
+                          width: '30px',
+                        }}
                       />
                     </SearchIconWrapper>
                     <StyledInputBase inputProps={{ 'aria-label': 'search' }} />
@@ -171,7 +174,10 @@ const Header = () => {
                             width: '45px',
                           }}
                         >
-                          <NotificationsNoneIcon fontSize="inherit" />
+                          <NotificationsNoneIcon
+                            fontSize="inherit"
+                            style={{ color: '#A2A28F' }}
+                          />
                         </IconButton>
                       </Grid>
                       <Grid item>
@@ -185,7 +191,10 @@ const Header = () => {
                             margin: '0px 10px',
                           }}
                         >
-                          <MailOutlineIcon fontSize="inherit" />
+                          <MailOutlineIcon
+                            fontSize="inherit"
+                            style={{ color: '#A2A28F' }}
+                          />
                         </IconButton>
                       </Grid>
                       <Grid item>
@@ -199,7 +208,10 @@ const Header = () => {
                             width: '45px',
                           }}
                         >
-                          <PersonOutlineIcon fontSize="inherit" />
+                          <PersonOutlineIcon
+                            fontSize="inherit"
+                            style={{ color: '#A2A28F' }}
+                          />
                         </IconButton>
                         {/* Menu to login and Register, ... */}
                         <UserMenu
@@ -213,18 +225,18 @@ const Header = () => {
                       container
                       direction="row"
                       width="100%"
-                      justifyContent="space-between"
+                      justifyContent="flex-end"
                       style={{ paddingLeft: 10 }}
                     >
                       <Button
                         style={{
-                          width: '48%',
+                          width: '33%',
                           backgroundColor: '#26262648',
                           color: '#fff',
                           height: '45px',
                           borderRadius: 0,
                           outline: 'none',
-                          fontSize: '1.1rem',
+                          fontSize: '0.8rem',
                           fontWeight: 300,
                         }}
                         onClick={() => setFlag(false)}
@@ -234,14 +246,15 @@ const Header = () => {
                       <Button
                         onClick={() => setFlag(false)}
                         style={{
-                          width: '48%',
+                          width: '33%',
                           backgroundColor: '#A2A28F',
                           color: '#fff',
                           height: '45px',
                           borderRadius: 0,
                           outline: 'none',
-                          fontSize: '1.1rem',
+                          fontSize: '0.8rem',
                           fontWeight: 300,
+                          marginLeft: '10px',
                         }}
                       >
                         Sign Up
@@ -269,7 +282,7 @@ const Header = () => {
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: '1.4rem',
+                      fontSize: '19px',
                       fontWeight: 300,
                       color: current === 0 ? '#99CCCC' : 'black',
                     }}
@@ -283,7 +296,7 @@ const Header = () => {
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: '1.4rem',
+                      fontSize: '19px',
                       fontWeight: 300,
                       margin: '0px 20px',
                       color: current === 1 ? '#99CCCC' : 'black',
@@ -298,7 +311,7 @@ const Header = () => {
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: '1.4rem',
+                      fontSize: '19px',
                       fontWeight: 300,
                       color: current === 2 ? '#99CCCC' : 'black',
                     }}

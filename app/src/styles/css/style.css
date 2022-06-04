@@ -4,3 +4,7 @@ a {
 	/* color: #000000; */
 }
 
+.slick-track{
+	display: flex !important;
+	align-items: flex-end !important;
+}
