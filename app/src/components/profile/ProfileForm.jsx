@@ -123,7 +123,7 @@ function ProfileForm() {
   const classes = useStyles();
 
   return (
-    <div>
+    <div style={{ maxWidth: '70%' }}>
       <form onSubmit={handleSubmit} noValidate className={classes.root}>
         <Paper sx={{ padding: 2 }} elevation={0}>
           <Grid container direction="row" alignItems="flex-start" spacing={2}>

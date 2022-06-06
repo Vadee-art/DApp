@@ -16,6 +16,7 @@ import UserProfile from './pages/UserProfile';
 import ArtistList from './pages/ArtistList';
 import Artist from './pages/Artist';
 import Cart from './pages/Cart';
+import Regions from './pages/Regions';
 
 const App = () => (
   <>
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/artworks/" component={ArtworksList} />
           <Route path="/artists/:artistId" component={Artist} />
           <Route path="/artists/" component={ArtistList} />
+          <Route path="/regions/" component={Regions} />
           <Route exact path="/users/profile" component={UserProfile} />
           <Route path="/cart/shippingAddress/:workId?" component={Cart} />
           {/* <Route path="/cart/placeOrder/:workId?" component={Cart} />
