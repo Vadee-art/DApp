@@ -61,22 +61,24 @@ export default function UserProfile() {
           minHeight: '80vh',
         }}
       >
-        <Grid item md={8} xs={12}>
+        <Grid item xs={12}>
           <Box sx={{ typography: 'body1' }}>
             <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Box
+              // sx={{ borderBottom: 1, borderColor: 'divider' }}
+              >
                 <TabList
                   onChange={handleChange}
                   aria-label="lab API tabs example"
                 >
                   <Tab label="My Profile" value="1" />
-                  <Tab
+                  {/* <Tab
                     label="Own"
                     value="2"
                     onClick={() => dispatch({ type: SIGN_MY_ITEM_RESET })}
-                  />
-                  <Tab label="On Sale" value="3" />
-                  <Tab label="Transactions" value="4" />
+                  /> */}
+                  {/* <Tab label="On Sale" value="3" /> */}
+                  <Tab label="Orders" value="4" />
                   <Tab label="Saves & Follows" value="5" />
                   {user && user.isAdmin && <Tab label="ADMIN" value="6" />}
                 </TabList>

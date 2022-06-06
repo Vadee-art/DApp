@@ -44,7 +44,7 @@ function FavoriteList() {
   const classes = useStyles();
 
   return (
-    <div style={{ minHeight: '100vh' }}>
+    <div style={{ minHeight: '100vh', maxWidth: '70%' }}>
       {!success || loading ? (
         <Loader />
       ) : error ? (
