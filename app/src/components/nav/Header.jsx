@@ -68,36 +68,20 @@ const Header = () => {
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
   const { marketPlace } = theMarketPlace;
 
-  useEffect(() => {
-    if (
-      pathname === '/users/profile' ||
-      pathname.includes('/cart/shippingAddress/')
-    ) {
-      setIsHeader(false);
-    } else {
-      setIsHeader(true);
-    }
-  }, [pathname, navigate]);
+  // useEffect(() => {
+  //   if (
+  //     pathname === '/users/profile' ||
+  //     pathname.includes('/cart/shippingAddress/')
+  //   ) {
+  //     setIsHeader(false);
+  //   } else {
+  //     setIsHeader(true);
+  //   }
+  // }, [pathname, navigate]);
 
   useEffect(() => {
     dispatch(fetchMarketPlace());
   }, [dispatch]);
-
-  const handleNavigation = (value) => {
-    console.log(value);
-    navigate(`/profile${value}`);
-
-    // if (value === 'artists') {
-    //   setCurrent(0);
-    //   navigate(`/${value}`);
-    // } else if (value === 'artworks') {
-    //   setCurrent(1);
-    //   navigate(`/${value}`);
-    // } else if (value === 'regions') {
-    //   setCurrent(2);
-    //   navigate(`/${value}`);
-    // }
-  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -281,7 +265,7 @@ const Header = () => {
           >
             <Grid item xs={12} container direction="row" alignItems="center">
               <Grid item>
-                <Link to="#" onClick={() => handleNavigation('artists')}>
+                <Link to="/artists" onClick={() => setCurrent(0)}>
                   <Typography
                     variant="body2"
                     sx={{
@@ -295,7 +279,7 @@ const Header = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="#" onClick={() => handleNavigation('artworks')}>
+                <Link to="/artworks" onClick={() => setCurrent(1)}>
                   <Typography
                     variant="body2"
                     sx={{
@@ -310,7 +294,7 @@ const Header = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="#" onClick={() => handleNavigation('regions')}>
+                <Link to="/regions" onClick={() => setCurrent(2)}>
                   <Typography
                     variant="body2"
                     sx={{
