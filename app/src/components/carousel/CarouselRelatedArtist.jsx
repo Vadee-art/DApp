@@ -87,7 +87,7 @@ export default function CarouselRelatedArtist() {
                 marginBottom: '10px',
               }}
             >
-              {artist && `${artist.firstName} ${artist.lastName}`}
+              {/* {artist && `${artist.firstName} ${artist.lastName}`} */}
             </Typography>
             <Typography
               style={{
@@ -95,7 +95,7 @@ export default function CarouselRelatedArtist() {
                 marginBottom: '15px',
               }}
             >
-              {artist && `${artist.origin}, ${artist.birthday.slice(0, 4)}`}
+              {/* {artist && `${artist.origin}, ${artist.birthday.slice(0, 4)}`} */}
             </Typography>
             <Button
               variant="contained"

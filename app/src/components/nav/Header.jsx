@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import UserMenu from './UserMenu';
 import { fetchMarketPlace } from '../../actions/marketPlaceAction';
@@ -54,46 +54,49 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   const [current, setCurrent] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [isHeader, setIsHeader] = useState(true);
 
-  const [flag, setFlag] = useState(true);
+  const [flag, setFlag] = useState(false);
 
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
   const { marketPlace } = theMarketPlace;
 
   useEffect(() => {
     if (
-      location.pathname === '/users/profile' ||
-      location.pathname.includes('/cart/shippingAddress/')
+      pathname === '/users/profile' ||
+      pathname.includes('/cart/shippingAddress/')
     ) {
       setIsHeader(false);
     } else {
       setIsHeader(true);
     }
-  }, [location, history]);
+  }, [pathname, navigate]);
 
   useEffect(() => {
     dispatch(fetchMarketPlace());
   }, [dispatch]);
 
   const handleNavigation = (value) => {
-    if (value === 'artists') {
-      setCurrent(0);
-      history.push(`/${value}`);
-    } else if (value === 'artworks') {
-      setCurrent(1);
-      history.push(`/${value}`);
-    } else if (value === 'regions') {
-      setCurrent(2);
-      history.push(`/${value}`);
-    }
+    console.log(value);
+    navigate(`/profile${value}`);
+
+    // if (value === 'artists') {
+    //   setCurrent(0);
+    //   navigate(`/${value}`);
+    // } else if (value === 'artworks') {
+    //   setCurrent(1);
+    //   navigate(`/${value}`);
+    // } else if (value === 'regions') {
+    //   setCurrent(2);
+    //   navigate(`/${value}`);
+    // }
   };
 
   const handleClick = (event) => {

@@ -9,7 +9,6 @@ import {
 
 export const addToCart = (workId) => async (dispatch, getState) => {
   try {
-    console.log(workId);
     dispatch({ type: CART_ADD_REQUEST });
 
     const { data } = await artworksBase.get(`/artworks/${workId}/`);
@@ -40,9 +39,7 @@ export const addToCart = (workId) => async (dispatch, getState) => {
     dispatch({
       type: CART_ADD_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };

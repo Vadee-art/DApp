@@ -57,13 +57,11 @@ export default function CarouselTop({ carousels }) {
     prevArrow: <SamplePrevArrow />,
   };
 
-  console.log('carousels');
-  console.log(carousels);
   return (
     <Slider {...settings} style={{ height: '700px' }}>
       {carousels &&
         carousels.map((artwork, index) => (
-          <>
+          <div key={index}>
             <div
               loading="lazy"
               style={{
@@ -99,7 +97,6 @@ export default function CarouselTop({ carousels }) {
               >
                 <Grid item>
                   <Typography
-                    item
                     component="p"
                     variant="body2"
                     style={{ fontSize: '1.5rem', fontWeight: 300 }}
@@ -109,7 +106,6 @@ export default function CarouselTop({ carousels }) {
                 </Grid>
                 <Grid item>
                   <Typography
-                    item
                     variant="h5"
                     component="h5"
                     style={{
@@ -124,17 +120,15 @@ export default function CarouselTop({ carousels }) {
                 </Grid>
                 <Grid item>
                   <Typography
-                    item
                     variant="h4"
                     component="h4"
                     style={{ fontSize: '2.6rem', fontWeight: 400 }}
                   >
-                    {artwork.category.name}
+                    {artwork && artwork.category.name}
                   </Typography>
                 </Grid>
                 <Grid>
                   <Typography
-                    item
                     variant="subtitle2"
                     // component="p"
                     style={{
@@ -153,7 +147,7 @@ export default function CarouselTop({ carousels }) {
                 </Grid>
               </Grid>
             </Container>
-          </>
+          </div>
         ))}
     </Slider>
   );

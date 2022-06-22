@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FavoriteList() {
+function ProfileFavoriteArtworks() {
   const dispatch = useDispatch();
 
   const favArtworkList = useSelector((state) => state.favArtworkList);
@@ -88,4 +88,4 @@ function FavoriteList() {
   );
 }
 
-export default FavoriteList;
+export default ProfileFavoriteArtworks;

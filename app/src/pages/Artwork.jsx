@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Typography, Button, Container, Divider, Box } from '@mui/material';
-import { Link, useHistory, useParams, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import Message from '../components/Message';
@@ -69,7 +69,7 @@ const categories = [
 // match params has the id from the router /:workId
 function Artwork() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { workId } = useParams();
 
   const [isDisabled, setIsDisabled] = useState(true);
@@ -107,7 +107,7 @@ function Artwork() {
   // check user auth
   useEffect(() => {
     dispatch(fetchUserDetails());
-    history.replace(`/artworks/${workId}`);
+    navigate(`/artworks/${workId}`);
   }, [dispatch, userInfo]);
 
   // user favorite artwork + reset artist works
@@ -159,7 +159,7 @@ function Artwork() {
     dispatch({ type: SIGN_MY_ITEM_RESET });
 
     dispatch(addToCart(workId));
-    history.push(`/cart/shippingAddress/${workId}?title=${artwork.title}`);
+    navigate(`/cart/shippingAddress/${workId}?title=${artwork.title}`);
   };
 
   const classes = useStyles();
@@ -413,8 +413,7 @@ function Artwork() {
                     onClick={
                       successUserDetails
                         ? (e) => onAddToCart(e)
-                        : () =>
-                            history.push(`/artworks/${workId}?redirect=/login`)
+                        : () => navigate(`/artworks/${workId}?redirect=/login`)
                     }
                     variant={!successUserDetails ? 'outlined' : 'contained'}
                     type="submit"

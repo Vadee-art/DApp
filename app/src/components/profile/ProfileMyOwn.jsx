@@ -116,7 +116,6 @@ function ProfileMyOwn() {
 
   // my gallery deployment
   const handleGalleryDeployment = () => {
-    console.log(user.artist._id);
     dispatch({ type: DEPLOY_MY_GALLERY_RESET });
     dispatch(
       deployMyGallery(marketPlace.contract, galleryName, user.artist._id)

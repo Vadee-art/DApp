@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper, Grid, Button, Typography } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { fetchUserDetails } from '../../actions/userAction';
 import Message from '../Message';
@@ -14,7 +14,7 @@ import { ARTWORK_UPDATE_RESET } from '../../constants/artworkConstants';
 
 function CartReview({ setTabValue, formValues }) {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [isDisabled, setIsDisabled] = useState(false);
   const [userAccountStart, setUserAccountStart] = useState();
@@ -61,7 +61,7 @@ function CartReview({ setTabValue, formValues }) {
   // when no voucher
   useEffect(() => {
     if (artwork.voucher && !artwork.voucher.artwork_id) {
-      history.push(`/artworks/${artwork._id}`);
+      navigate.push(`/artworks/${artwork._id}`);
     }
   }, [successArtwork, artwork]);
 

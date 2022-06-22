@@ -1,18 +1,9 @@
 /* eslint-disable prefer-destructuring */
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import {
-  Typography,
-  CardActionArea,
-  Button,
-  Box,
-  Container,
-  Stack,
-} from '@mui/material';
+import { Typography, Button, Box, Container } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import LoadingButton from '@mui/lab/LoadingButton';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import ImageList from '@mui/material/ImageList';
 import {
@@ -25,15 +16,8 @@ import {
   ARTWORK_DETAILS_RESET,
   ARTWORK_LIST_RESET,
 } from '../constants/artworkConstants';
-import CarouselTop from '../components/carousel/CarouselTop';
-import Loader from '../components/Loader';
-import CarouselCategories from '../components/carousel/CarouselCategories';
-import CarouselCategory from '../components/carousel/CarouselCategory';
-import CarouselArtistList from '../components/carousel/CarouselArtistList';
-import {
-  deployMarketPlace,
-  fetchMarketPlace,
-} from '../actions/marketPlaceAction';
+
+import { fetchMarketPlace } from '../actions/marketPlaceAction';
 import { fetchIsTalentArtist, fetchArtistById } from '../actions/artistAction';
 import ArtSeriesCard from '../components/ArtSeriesCard';
 import CarouselRelatedArtist from '../components/carousel/CarouselRelatedArtist';
@@ -54,58 +38,21 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const priceFilter = [
-  'Under $500',
-  'Under $1000',
-  'Under $2000',
-  'Under $5000',
-  'Under $10000',
-  'Under $15000',
-  'Under $20000',
-];
+
 const Regions = () => {
-  const classes = useStyles();
-
   const dispatch = useDispatch();
-  const history = useHistory();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const categoryList = useSelector((state) => state.categoryList);
-  const {
-    categories,
-    loading: loadingCategories,
-    success: successCategories,
-  } = categoryList;
-
-  const artworksList = useSelector((state) => state.artworks);
-  const { artworks, loading: loadingArtworks } = artworksList;
-
-  const isCarousels = useSelector((state) => state.isCarousels);
-  const { carousels } = isCarousels;
-
-  const isTalent = useSelector((state) => state.isTalent);
-  const { theTalent } = isTalent;
+  const { categories, success: successCategories } = categoryList;
 
   const marketPlaceDeployment = useSelector(
     (state) => state.marketPlaceDeployment
   );
-  const { loading: loadingMarketDeploy, success: successMarketDeploy } =
-    marketPlaceDeployment;
+  const { success: successMarketDeploy } = marketPlaceDeployment;
 
-  const theMarketPlace = useSelector((state) => state.theMarketPlace);
-  const { marketPlace } = theMarketPlace;
-
-  const keyword = history.location.search;
-
-  // loading IconButton
-  useEffect(() => {
-    if (loadingArtworks || loadingMarketDeploy || loadingCategories) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [loadingArtworks, loadingMarketDeploy, loadingCategories]);
+  const keyword = location.search;
 
   // artworks
   useEffect(() => {
@@ -116,7 +63,7 @@ const Regions = () => {
     return () => {
       dispatch({ type: ARTWORK_LIST_RESET });
     };
-  }, [history, dispatch, keyword, successMarketDeploy]);
+  }, [navigate, dispatch, keyword, successMarketDeploy]);
 
   useEffect(() => {
     dispatch(cleanLocalCart());
@@ -131,16 +78,18 @@ const Regions = () => {
     if (!successCategories) {
       dispatch(fetchCategories());
     }
-  }, [successCategories, dispatch, history]);
+  }, [successCategories, dispatch, navigate]);
 
   const theArtist = useSelector((state) => state.theArtist);
-  const { error, loading, success, artist } = theArtist;
+  const { success, artist } = theArtist;
 
   useEffect(() => {
     if (!success) {
       dispatch(fetchArtistById(37));
     }
   }, []);
+
+  const classes = useStyles();
 
   return (
     <Grid sx={{ minHeight: '100vh' }}>

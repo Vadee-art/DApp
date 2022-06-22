@@ -15,7 +15,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 import { useSelector, useDispatch } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
@@ -25,7 +25,7 @@ import Message from '../Message';
 import { login } from '../../actions/userAction';
 
 export default function LoginDialog({ anchorEl, setAnchorEl }) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 

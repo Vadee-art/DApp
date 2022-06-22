@@ -15,7 +15,7 @@ import {
   Checkbox,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { fetchUserDetails, updateUserProfile } from '../../actions/userAction';
@@ -28,7 +28,7 @@ import {
 
 function CartShipForm({ setTabValue, formValues, setFormValues }) {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [checked, setChecked] = React.useState(true);
 
@@ -63,9 +63,9 @@ function CartShipForm({ setTabValue, formValues, setFormValues }) {
       : [];
 
     if (!successUserDetails && !cartItemFromStorage) {
-      history.push(`/artworks`);
+      navigate.push(`/artworks`);
     }
-  }, [userInfo, history, successCart, successUserDetails]);
+  }, [userInfo, navigate, successCart, successUserDetails]);
 
   useEffect(() => {
     dispatch(fetchUserDetails());

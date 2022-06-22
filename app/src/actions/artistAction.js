@@ -35,9 +35,7 @@ export const fetchArtistById = (id) => async (dispatch) => {
     dispatch({
       type: ARTIST_BY_ID_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -63,9 +61,7 @@ export const fetchArtistList =
       dispatch({
         type: ARTIST_LIST_FAIL,
         payload:
-          e.response && e.response.data.details
-            ? e.response.data.details
-            : e.message,
+          e.response && e.response.data[0] ? e.response.data[0] : e.message,
       });
     }
   };
@@ -105,9 +101,7 @@ export const updateArtistGallery =
       dispatch({
         type: ARTIST_GALLERY_ADDRESS_UPDATE_FAIL,
         payload:
-          e.response && e.response.data.details
-            ? e.response.data.details
-            : e.message,
+          e.response && e.response.data[0] ? e.response.data[0] : e.message,
       });
     }
   };
@@ -133,9 +127,7 @@ export const fetchIsTalentArtist = () => async (dispatch) => {
     dispatch({
       type: ARTIST_IS_TALENT_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };

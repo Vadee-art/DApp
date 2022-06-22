@@ -4,30 +4,19 @@ import React, { useEffect, useState } from 'react';
 import Hidden from '@mui/material/Hidden';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import ImageList from '@mui/material/ImageList';
-import { Typography, Button, Container, Divider, Box } from '@mui/material';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
-import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Typography, Button, Container, Box } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { fetchOneArtWork } from '../actions/artworkAction';
-import { addToCart } from '../actions/cartAction';
-import Dialog from '../components/Dialog';
 import TheTab from '../components/TheTab';
-import { favArtwork } from '../actions/userAction';
-import CarouselArtistArtworks from '../components/carousel/CarouselArtistArtworks';
-import RelatedCategory from '../components/carousel/RelatedCategory';
 import CarouselRelatedArtist from '../components/carousel/CarouselRelatedArtist';
-import {
-  ARTIST_BY_ID_RESET,
-  ARTIST_LIST_RESET,
-} from '../constants/artistConstants';
+import { ARTIST_BY_ID_RESET } from '../constants/artistConstants';
 import { fetchArtistById } from '../actions/artistAction';
 import ArtSeriesCard from '../components/ArtSeriesCard';
+import { favArtwork } from '../actions/userAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,10 +61,9 @@ const categories = [
 // match params has the id from the router /:workId
 function Artist() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { artistId } = useParams();
 
-  const [disabled, setDisabled] = useState(false);
   const [isFav, setIsFav] = useState(false);
 
   const theArtist = useSelector((state) => state.theArtist);
@@ -114,13 +102,6 @@ function Artist() {
       dispatch({ type: ARTIST_BY_ID_RESET });
     };
   }, [dispatch]);
-
-  // quantity = 0
-  useEffect(() => {
-    if (artist && artist.quantity < 1) {
-      setDisabled(true);
-    }
-  }, [artist]);
 
   const classes = useStyles();
 
@@ -200,7 +181,7 @@ function Artist() {
                       backgroundColor: 'black',
                     },
                   }}
-                  disabled={disabled}
+                  onClick={() => dispatch(favArtwork(artist.artist._id))}
                 >
                   Follow
                 </Button>
@@ -256,7 +237,6 @@ function Artist() {
                 }}
               >
                 <ImageList
-                  justifyContent="space-between"
                   cols={window.innerWidth < 800 ? 2 : 3}
                   gap={35}
                   sx={{

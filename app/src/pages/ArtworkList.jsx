@@ -16,7 +16,7 @@ import {
   FormControlLabel,
   Button,
 } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import Divider from '@mui/material/Divider';
 import usePagination from '@mui/material/usePagination';
@@ -62,7 +62,8 @@ const useStyles = makeStyles((theme) => ({
 
 function ArtworksList() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [page, setPage] = useState(1);
   const [checked, setChecked] = useState(false);
@@ -72,7 +73,7 @@ function ArtworksList() {
   const { artworkId } = favArtwork;
 
   const artworksList = useSelector((state) => state.artworks);
-  const { error, loading, artworks, pages } = artworksList;
+  const { error, artworks, pages } = artworksList;
 
   const articlesList = useSelector((state) => state.articlesList);
   const { articles, success: successArticles } = articlesList;
@@ -119,16 +120,17 @@ function ArtworksList() {
   ];
   const data = useSelector((state) => state);
 
-  let keyword = history.location.search;
+  const { pathName } = useLocation();
+
   useEffect(() => {
-    dispatch(fetchAllArtWorks(keyword || keywordValue));
+    dispatch(fetchAllArtWorks(pathName || keywordValue));
     if (!successArticles) {
       dispatch(fetchArticlesList());
     }
     return () => {
       dispatch({ type: ARTWORK_LIST_RESET });
     };
-  }, [dispatch, keyword, artworkId, successArticles, keywordValue]);
+  }, [dispatch, pathName, artworkId, successArticles, keywordValue]);
 
   // clean up
   useEffect(() => {
@@ -150,22 +152,28 @@ function ArtworksList() {
     if (!successCategories) {
       dispatch(fetchCategories());
     }
-  }, [successOrigins, successArtistList, successCategories, dispatch, history]);
+  }, [
+    successOrigins,
+    successArtistList,
+    successCategories,
+    dispatch,
+    navigate,
+  ]);
 
   useEffect(() => {}, [successArtistList, dispatch]);
 
   // pagination
   const handlePageChange = (event, value) => {
     setPage(value);
-    if (keyword) {
-      keyword = keyword.split('?keyword=')[1].split('&')[0]; // example: ?keyword=اکبر&page=1  ===> اکبر
+    let keyword;
+    if (pathName) {
+      keyword = pathName.split('?keyword=')[1].split('&')[0]; // example: ?keyword=اکبر&page=1  ===> اکبر
     }
-    history.push(`/artworks/?keyword=${keyword}&page=${value}`);
+    navigate(`/artworks/?keyword=${keyword}&page=${value}`);
   };
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    console.log(event);
     if (event.target.checked) {
       setKeywordValue('?onMarket=Ture');
     } else {
@@ -175,7 +183,6 @@ function ArtworksList() {
 
   const classes = useStyles();
 
-  console.log('log data', origins);
   return (
     <div style={{ minHeight: '100vh' }}>
       {!artworks[0] ? (
@@ -316,7 +323,7 @@ function ArtworksList() {
               >
                 {/* <Divider style={{ marginBottom: 30 }} variant="middle" /> */}
                 <ImageList
-                  justifyContent="space-between"
+                  // justifyContent="space-between"
                   // variant="woven"
                   cols={window.innerWidth < 800 ? 2 : 3}
                   gap={35}

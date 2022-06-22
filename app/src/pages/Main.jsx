@@ -10,7 +10,7 @@ import {
   Stack,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles } from '@mui/styles';
@@ -62,9 +62,9 @@ const priceFilter = [
 ];
 const Main = () => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
-  const history = useHistory();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -93,7 +93,7 @@ const Main = () => {
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
   const { marketPlace } = theMarketPlace;
 
-  const keyword = history.location.search;
+  const keyword = location.search;
 
   // loading IconButton
   useEffect(() => {
@@ -113,7 +113,7 @@ const Main = () => {
     return () => {
       dispatch({ type: ARTWORK_LIST_RESET });
     };
-  }, [history, dispatch, keyword, successMarketDeploy]);
+  }, [navigate, dispatch, keyword, successMarketDeploy]);
 
   useEffect(() => {
     dispatch(cleanLocalCart());
@@ -128,7 +128,7 @@ const Main = () => {
     if (!successCategories) {
       dispatch(fetchCategories());
     }
-  }, [successCategories, dispatch, history]);
+  }, [successCategories, dispatch, navigate]);
 
   return (
     <>
@@ -287,6 +287,7 @@ const Main = () => {
                             </Grid>
 
                             <Grid
+                              item
                               xs={10}
                               display="flex"
                               justifyContent="space-between"
@@ -392,7 +393,7 @@ const Main = () => {
                             <Card sx={{ maxWidth: 250, maxHeight: 150 }}>
                               <CardActionArea
                                 onClick={() =>
-                                  history.push(
+                                  navigate.push(
                                     `artworks/${
                                       artworks[artworks.length - 1]._id
                                     }`
@@ -466,6 +467,7 @@ const Main = () => {
                                 </Typography>
                               </Grid>
                               <Grid
+                                item
                                 xs={10}
                                 display="flex"
                                 justifyContent="space-between"
@@ -585,7 +587,7 @@ const Main = () => {
                             >
                               <CardActionArea
                                 onClick={() =>
-                                  history.push(`artists/${theTalent._id}`)
+                                  navigate.push(`artists/${theTalent._id}`)
                                 }
                               >
                                 <img

@@ -15,7 +15,7 @@ import {
   IconButton,
   Button,
 } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import Divider from '@mui/material/Divider';
 import usePagination from '@mui/material/usePagination';
@@ -85,7 +85,8 @@ const alphabets = [
 ];
 function ArtistList() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [page, setPage] = useState(1);
 
@@ -125,11 +126,17 @@ function ArtistList() {
     if (!successCategories) {
       dispatch(fetchCategories());
     }
-  }, [successOrigins, successArtistList, successCategories, dispatch, history]);
+  }, [
+    successOrigins,
+    successArtistList,
+    successCategories,
+    dispatch,
+    navigate,
+  ]);
 
   // keyword
   useEffect(() => {
-    let keyword = history.location.search;
+    let keyword = location.search;
     if (keyword && keyword.split('?regions=')[1]) {
       keyword = keyword.split('?regions=')[1].split('&')[0]; // example: ?regions=iran&page=1  ===> iran
     }
@@ -144,7 +151,7 @@ function ArtistList() {
       dispatch(fetchAllArtWorks(keyword));
       dispatch(fetchArtistList(keyword));
     }
-  }, [dispatch, history]);
+  }, [dispatch, navigate]);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -211,7 +218,6 @@ function ArtistList() {
                 <Box sx={{ overflowY: 'hidden' }}>
                   {/* <Divider style={{ marginBottom: 30 }} variant="middle" /> */}
                   <ImageList
-                    justifyContent="space-between"
                     cols={window.innerWidth < 800 ? 2 : 3}
                     gap={35}
                     sx={{

@@ -61,7 +61,7 @@ const Footer = () => {
                 textAlign: 'left',
               }}
             >
-              <Grid xs={2} display="flex" alignItems="center">
+              <Grid item xs={2} display="flex" alignItems="center">
                 <img
                   src="/static/Primary-E.svg"
                   alt="Logo"
@@ -71,7 +71,7 @@ const Footer = () => {
                   }}
                 />
               </Grid>
-              <Grid xs={2}>
+              <Grid item xs={2}>
                 <Typography
                   sx={{
                     padding: 0,
@@ -85,7 +85,7 @@ const Footer = () => {
                   Subscribe to our newsletter to stay updated about our events.
                 </Typography>
               </Grid>
-              <Grid sx={{ paddingLeft: 10 }} xs={2}>
+              <Grid item sx={{ paddingLeft: 10 }} xs={2}>
                 <Grid>
                   <Typography variant="subtitle1" sx={{ fontSize: '0.9rem' }}>
                     About Us
@@ -105,7 +105,7 @@ const Footer = () => {
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid xs={2}>
+              <Grid item xs={2}>
                 <Grid>
                   <Typography variant="subtitle1" sx={{ fontSize: '0.9rem' }}>
                     Terms &amp; Conditions
@@ -133,7 +133,7 @@ const Footer = () => {
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid xs={1}>
+              <Grid item xs={1}>
                 <Grid>
                   <IconButton
                     sx={{ padding: 0, marginBottom: 1.5, color: '#fff' }}
@@ -155,10 +155,12 @@ const Footer = () => {
                 </Grid>
               </Grid>
               <Grid
+                container
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
                 xs={3}
+                item
                 sx={{ padding: 0 }}
               >
                 <Grid item xs={2}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Paper, Grid, TextField, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
   fetchMarketBalance,
@@ -12,7 +12,7 @@ import Message from '../Message';
 
 const ProfileAdminTab = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);

@@ -35,9 +35,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     dispatch({
       type: ORDER_CREATE_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -65,9 +63,7 @@ export const fetchOrderDetails = (id) => async (dispatch, getState) => {
     dispatch({
       type: ORDER_DETAILS_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -99,9 +95,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
     dispatch({
       type: ORDER_PAY_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };

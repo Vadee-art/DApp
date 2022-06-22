@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper, Grid, Button, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { fetchUserDetails, updateUserProfile } from '../../actions/userAction';
 import Message from '../Message';
 import Loader from '../Loader';
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => ({
 
 function ProfileForm() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [values, setValues] = React.useState({
     firstName: '',
@@ -79,11 +79,11 @@ function ProfileForm() {
   //     : [];
 
   //   if (!successUserDetails && !cartItemFromStorage) {
-  //     history.push(`/artworks`);
+  //     navigate.push(`/artworks`);
   //   } else if (cartItemFromStorage[0]) {
-  //     history.push(`/artworks/${cartItemFromStorage[0].artworkId}`);
+  //     navigate.push(`/artworks/${cartItemFromStorage[0].artworkId}`);
   //   }
-  // }, [userInfo, history, successUserDetails]);
+  // }, [userInfo, navigate, successUserDetails]);
 
   useEffect(() => {
     if (!successUserDetails || successUpdate) {
@@ -102,7 +102,7 @@ function ProfileForm() {
         email: user.email,
       });
     }
-  }, [dispatch, history, userInfo, user, successUserDetails, successUpdate]);
+  }, [dispatch, navigate, userInfo, user, successUserDetails, successUpdate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

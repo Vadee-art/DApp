@@ -1,37 +1,38 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, Grid, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import TabContext from '@mui/lab/TabContext';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import { useSelector } from 'react-redux';
 import ProfileForm from '../components/profile/ProfileForm';
-import ProfileFavorite from '../components/profile/ProfileFavorite';
+import ProfileFavoriteArtworks from '../components/profile/ProfileFavoriteArtworks';
+import ProfileFavoriteArtists from '../components/profile/ProfileFavoriteArtists';
 import ProfileOwned from '../components/profile/ProfileMyOwn';
 import ProfileAdminTab from '../components/profile/ProfileAdminTab';
 import ProfileMyOnSale from '../components/profile/ProfileMyOnSale';
-import { SIGN_MY_ITEM_RESET } from '../constants/lazyFactoryConstants';
 import ProfileOrders from '../components/profile/ProfileOrders';
-// import AccountUserOrders from '../components/profile/ProfileOrders';
 
 export default function UserProfile() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirect = location.search ? location.search.split('redirect=')[1] : '';
 
   const [value, setValue] = useState('1');
-
   const userDetails = useSelector((state) => state.userDetails);
-  const {
-    error: errorUserDetails,
-    loading: loadingUserDetails,
-    success: successUserDetails,
-    user,
-  } = userDetails;
+  const { user, error } = userDetails;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    if (error) {
+      navigate(`/artworks${redirect}`);
+    }
+  }, [redirect, navigate]);
   return (
     <>
       <Grid
@@ -79,8 +80,9 @@ export default function UserProfile() {
                   /> */}
                   {/* <Tab label="On Sale" value="3" /> */}
                   <Tab label="Orders" value="4" />
-                  <Tab label="Saves & Follows" value="5" />
-                  {user && user.isAdmin && <Tab label="ADMIN" value="6" />}
+                  <Tab label="Fav Artworks" value="5" />
+                  <Tab label="Fav Artist" value="6" />
+                  {user && user.isAdmin && <Tab label="ADMIN" value="7" />}
                 </TabList>
               </Box>
 
@@ -98,9 +100,12 @@ export default function UserProfile() {
                   <ProfileOrders />
                 </TabPanel>
                 <TabPanel value="5">
-                  <ProfileFavorite />
+                  <ProfileFavoriteArtworks />
                 </TabPanel>
                 <TabPanel value="6">
+                  <ProfileFavoriteArtists />
+                </TabPanel>
+                <TabPanel value="7">
                   <ProfileAdminTab />
                 </TabPanel>
               </Box>

@@ -60,7 +60,6 @@ export default function PurchaseCard() {
 
   useEffect(() => {
     if (priceEth && vadeeFees) {
-      console.log('now');
       setTotalPriceEth(
         parseFloat(vadeeFees.artwork_price_ether) +
           parseFloat(vadeeFees.shipping_price_ether)

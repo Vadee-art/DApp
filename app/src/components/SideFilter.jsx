@@ -15,44 +15,46 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import PropTypes from 'prop-types';
 import Checkbox from '@mui/material/Checkbox';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function SideFilter({ title, list, kind }) {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const { pathName } = useLocation();
 
   const [value, setValue] = useState();
 
   // use params to check the checkbox
   useEffect(() => {
-    let keyword = history.location.search;
-    if (keyword && keyword.split('?regions=')[1]) {
-      keyword = keyword.split('?regions=')[1].split('&')[0]; // example: ?regions=iran&page=1  ===> iran
+    let keyword;
+
+    if (pathName && pathName.split('?regions=')[1]) {
+      keyword = pathName.split('?regions=')[1].split('&')[0]; // example: ?regions=iran&page=1  ===> iran
       setValue(keyword);
     }
-    if (keyword && keyword.split('?artist=')[1]) {
+    if (pathName && pathName.split('?artist=')[1]) {
       keyword = keyword.split('?artist=')[1].split('&')[0]; // example: ?artist=اکبر&page=1  ===> اکبر
       setValue(keyword);
     }
-    if (keyword && keyword.split('?category=')[1]) {
+    if (pathName && pathName.split('?category=')[1]) {
       keyword = keyword.split('?category=')[1].split('&')[0]; // example: ?artist=اکبر&page=1  ===> اکبر
       setValue(keyword);
     }
-  }, [history]);
+  }, [navigate]);
 
   // change checkbox
   const handleChange = (e, item) => {
     setValue(e.target.name);
     if (item.country) {
       const country = e.target.name;
-      history.push(`/${kind}/?regions=${country.toLowerCase()}`); // filter after push
+      navigate(`/${kind}/?regions=${country.toLowerCase()}`); // filter after push
     }
     if (item.firstName) {
       const artist = e.target.name;
-      history.push(`/${kind}/?artist=${artist.toLowerCase()}`); // filter after push
+      navigate(`/${kind}/?artist=${artist.toLowerCase()}`); // filter after push
     }
     if (item.name) {
       const category = e.target.name;
-      history.push(`/${kind}/?category=${category}`); // filter after push
+      navigate(`/${kind}/?category=${category}`); // filter after push
     }
   };
 

@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Paper, Grid, Typography, Link } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { fetchUserDetails } from '../../actions/userAction';
 import Message from '../Message';
 import Loader from '../Loader';
 
 function CartReceipt({ setTabValue, formValues }) {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const userDetails = useSelector((state) => state.userDetails);
   const {
@@ -46,7 +46,7 @@ function CartReceipt({ setTabValue, formValues }) {
 
   useEffect(() => {
     if (!successRedeemAndMint) {
-      history.push(`/artworks/${artwork._id}`);
+      navigate(`/artworks/${artwork._id}`);
     }
   }, [successRedeemAndMint]);
 

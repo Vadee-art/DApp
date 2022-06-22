@@ -22,8 +22,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { useHistory, useLocation } from 'react-router';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
@@ -33,7 +32,7 @@ import Message from '../Message';
 import { login, logout, register } from '../../actions/userAction';
 
 export default function AccountMenu({ anchorEl, setAnchorEl }) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -54,19 +53,31 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
 
   const open = Boolean(anchorEl);
 
+  const userRegister = useSelector((state) => state.userRegister);
+  const {
+    error: errorRegister,
+    loading: loadingRegister,
+    success: successRegister,
+  } = userRegister;
+
   const userLogin = useSelector((state) => state.userLogin);
-  const { error, loading, success, userInfo } = userLogin;
+  const {
+    error: errorLogin,
+    loading: loadingLogin,
+    success: successLogin,
+    userInfo,
+  } = userLogin;
 
   // close dialogues if logged in
   useEffect(() => {
-    if (success) {
+    if (successLogin) {
       setLoginDialogue(false);
       setRegisterDialogue(false);
     } else if (redirect === '/login') {
       // e.g. cart button need auth
       setLoginDialogue(true);
     }
-  }, [success, location, redirect]);
+  }, [successLogin, location, redirect]);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -86,7 +97,8 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
     e.preventDefault();
     setRegisterDialogue(false);
   };
-  const handleRegister = () => {
+  const handleRegister = (e) => {
+    e.preventDefault();
     dispatch(
       register(values.firstName, values.lastName, values.email, values.password)
     );
@@ -174,7 +186,7 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
           </div>
         ) : (
           <div>
-            <MenuItem onClick={() => history.push('/users/profile')}>
+            <MenuItem onClick={() => navigate('/users/profile')}>
               <Avatar /> Profile
             </MenuItem>
             <MenuItem onClick={() => handleLogOut()}>
@@ -270,7 +282,7 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
                   <Grid item xs={12} sx={{ marginTop: 4 }}>
                     <LoadingButton
                       type="submit"
-                      loading={loading}
+                      loading={loadingLogin}
                       variant="contained"
                       color="secondary"
                       sx={{ width: '100%', marginBottom: 2 }}
@@ -301,10 +313,10 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
                     </Grid>
                   </Grid>
                 </Grid>
-                {error && (
+                {errorLogin && (
                   <Grid sx={{ marginTop: 2 }}>
                     <Message variant="" severity="error">
-                      {error}
+                      {errorLogin}
                     </Message>
                   </Grid>
                 )}
@@ -448,7 +460,7 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
                   <Grid item xs={12} sx={{ marginTop: 4 }}>
                     <LoadingButton
                       type="submit"
-                      loading={loading}
+                      loading={loadingLogin}
                       variant="contained"
                       color="secondary"
                       sx={{ width: '100%', marginBottom: 2 }}
@@ -479,10 +491,10 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
                     </Grid>
                   </Grid>
                 </Grid>
-                {error && (
+                {(errorRegister || errorLogin) && (
                   <Grid sx={{ marginTop: 2 }}>
                     <Message variant="" severity="error">
-                      {error}
+                      {errorRegister || errorLogin}
                     </Message>
                   </Grid>
                 )}

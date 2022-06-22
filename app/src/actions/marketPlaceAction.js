@@ -62,9 +62,7 @@ export const deployMarketPlace = () => async (dispatch) => {
     dispatch({
       type: DEPLOY_MARKET_PLACE_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -92,9 +90,7 @@ export const fetchMarketFees = (artworkId) => async (dispatch) => {
     dispatch({
       type: MARKET_FEE_SHIPPING_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -118,9 +114,7 @@ export const fetchMarketPlace = () => async (dispatch) => {
     dispatch({
       type: MARKET_PLACE_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -145,9 +139,7 @@ export const fetchMarketBalance = (contractAddress) => async (dispatch) => {
     dispatch({
       type: MARKET_BALANCE_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -193,9 +185,7 @@ export const createMarketSell =
       dispatch({
         type: MARKET_ADD_FAIL,
         payload:
-          e.response && e.response.data.details
-            ? e.response.data.details
-            : e.message,
+          e.response && e.response.data[0] ? e.response.data[0] : e.message,
       });
     }
   };
@@ -222,9 +212,7 @@ export const fetchEthPrice = () => async (dispatch) => {
     dispatch({
       type: MARKET_ETH_PRICE_FAIL,
       payload:
-        e.response && e.response.data.details
-          ? e.response.data.details
-          : e.message,
+        e.response && e.response.data[0] ? e.response.data[0] : e.message,
     });
   }
 };
@@ -256,8 +244,8 @@ export const marketWithdrawAll = (marketAddress) => async (dispatch) => {
       type: MARKET_WITHDRAW_FAIL,
       payload: e.error
         ? e.error.message
-        : e.response && e.response.data.details
-        ? e.response.data.details
+        : e.response && e.response.data[0]
+        ? e.response.data[0]
         : e.message,
     });
   }
