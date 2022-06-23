@@ -125,23 +125,17 @@ function ArtistList() {
   // }, [dispatch]);
 
   //  filter
-  // useEffect(() => {
-  //   if (!successOrigins) {
-  //     dispatch(filterByRegion());
-  //   }
-  //   if (!successArtistList) {
-  //     dispatch(fetchArtistList());
-  //   }
-  //   if (!successCategories) {
-  //     dispatch(fetchCategories());
-  //   }
-  // }, [
-  //   successOrigins,
-  //   successArtistList,
-  //   successCategories,
-  //   dispatch,
-  //   navigate,
-  // ]);
+  useEffect(() => {
+    if (!successOrigins) {
+      dispatch(filterByRegion());
+    }
+    if (!successArtistList) {
+      dispatch(fetchArtistList());
+    }
+    if (!successCategories) {
+      dispatch(fetchCategories());
+    }
+  }, []);
 
   // keyword
   useEffect(() => {
@@ -240,21 +234,21 @@ function ArtistList() {
                 <Grid item xs={8} className={classes.root}>
                   <Box sx={{ overflowY: 'hidden' }}>
                     <Divider style={{ marginBottom: 30 }} variant="middle" />
-                    {artists &&
-                      artists.artists.map((artist, index) => (
-                        <ImageList
-                          key={index}
-                          variant="masonry"
-                          cols={window.innerWidth < 800 ? 2 : 3}
-                          gap={35}
-                          sx={{
-                            width: '100%',
-                            marginTop: '0px !important',
-                          }}
-                        >
-                          <ArtistCard artist={artist} />
-                        </ImageList>
-                      ))}
+
+                    <ImageList
+                      variant="masonry"
+                      cols={window.innerWidth < 800 ? 2 : 3}
+                      gap={35}
+                      sx={{
+                        width: '100%',
+                        marginTop: '0px !important',
+                      }}
+                    >
+                      {artists &&
+                        artists.artists.map((artist, index) => (
+                          <ArtistCard artist={artist} key={index} />
+                        ))}
+                    </ImageList>
                   </Box>
                   <Grid>
                     {pages > 1 && (
