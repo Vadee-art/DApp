@@ -16,12 +16,12 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles } from '@mui/styles';
 import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
 import CarouselTop from '../components/carousel/CarouselTop';
-import Loader from '../components/Loader';
 import CarouselCategories from '../components/carousel/CarouselCategories';
 import CarouselCategory from '../components/carousel/CarouselCategory';
 import CarouselArtistList from '../components/carousel/CarouselArtistList';
 import { deployMarketPlace } from '../actions/marketPlaceAction';
 import { fetchArtistList, fetchIsTalentArtist } from '../actions/artistAction';
+import LastArtwork from '../components/LastArtwork';
 
 const useStyles = makeStyles((theme) => ({
   priceCategories: {
@@ -293,109 +293,14 @@ const Main = () => {
                 </Container>
 
                 {/* Last artwork */}
-                {/* {artworks && artworks.artist && (
-                    <Container maxWidth="xl">
-                      <Grid
-                        sx={{
-                          width: '100%',
-                          paddingLeft: 8,
-                          paddingRight: 8,
-                        }}
-                      >
-                        <Grid
-                          container
-                          direction="row"
-                          justifyContent="flex-end"
-                          sx={{
-                            color: 'white',
-                            backgroundColor: '#000',
-                            width: '100%',
-                            padding: 7,
-                            paddingLeft: 2.5,
-                          }}
-                        >
-                          <Grid item xs={2}>
-                            <Typography
-                              variant="subtitle1"
-                              sx={{
-                                fontWeight: 300,
-                                lineHeight: 1.3,
-                                fontSize: '1.4rem',
-                              }}
-                            >
-                              Last
-                            </Typography>
-                            <Typography
-                              sx={{
-                                fontSize: '1.4rem',
-                                fontWeight: 300,
-                              }}
-                              variant="subtitle1"
-                            >
-                              Artwork
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography
-                              variant="h2"
-                              sx={{ fontStyle: 'italic', p: 0 }}
-                            >
-                              {artworks.artist.firstName}
-                              {artworks.artist.lastName}
-                            </Typography>
-                            <Typography
-                              variant="h6"
-                              sx={{ fontSize: '0.9rem' }}
-                            >
-                              {artworks.title}
-                            </Typography>
-                            <br />
-                            <Typography
-                              variant="subtitle2"
-                              sx={{
-                                padding: 0,
-                                margin: 0,
-                                fontWeight: 800,
-                                fontSize: '0.9rem',
-                              }}
-                            >
-                              <Link
-                                style={{ color: '#A2A28F' }}
-                                to={`/artworks/${artworks._id}`}
-                              >
-                                Browse work
-                              </Link>
-                            </Typography>
-                          </Grid>
-                          <Grid
-                            item
-                            xs={4}
-                            display="flex"
-                            justifyContent="flex-end"
-                          >
-                            <Card sx={{ maxWidth: 250, maxHeight: 150 }}>
-                              <CardActionArea
-                                onClick={() =>
-                                  navigate.push(
-                                    `artworks/${
-                                      artworks[artworks.length - 1]._id
-                                    }`
-                                  )
-                                }
-                              >
-                                <img
-                                  style={{ height: '100%', width: '100%' }}
-                                  srcSet={artworks.image}
-                                  alt=""
-                                  loading="lazy"
-                                />
-                              </CardActionArea>
-                            </Card>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Container>
-                  )} */}
+                {artworks && (
+                  <Container maxWidth="xl">
+                    <LastArtwork artworks={artworks} />
+                  </Container>
+                )}
+                {/* Last artwork */}
+
+                {/* Shop by Price Categories */}
                 <Container maxWidth="xl">
                   <Grid
                     sx={{
@@ -413,7 +318,6 @@ const Main = () => {
                         marginBottom: 8,
                       }}
                     >
-                      {/* Categories */}
                       <Grid item xs={12}>
                         <Box
                           component="div"
@@ -471,6 +375,7 @@ const Main = () => {
                     </Grid>
                   </Grid>
                 </Container>
+                {/* Shop by Price Categories */}
 
                 {/* Talented photographer */}
                 {theTalent && (
@@ -585,6 +490,8 @@ const Main = () => {
                     </Grid>
                   </Container>
                 )}
+                {/* Talented photographer */}
+                {/* Fine Art Category */}
                 <Container maxWidth="xl">
                   <Grid
                     container
@@ -631,6 +538,7 @@ const Main = () => {
                     </Grid>
                   </Grid>
                 </Container>
+                {/* Fine Art Category */}
                 <Container maxWidth="xl">
                   <Grid
                     sx={{
@@ -672,6 +580,7 @@ const Main = () => {
                     </Grid>
                   </Grid>
                 </Container>
+                {/* Street Category */}
                 <Container maxWidth="xl">
                   <Grid
                     container
@@ -713,6 +622,7 @@ const Main = () => {
                     </Grid>
                   </Grid>
                 </Container>
+                {/* Street Category */}
               </Grid>
             </Grid>
           )}
