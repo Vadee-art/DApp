@@ -13,6 +13,8 @@ import {
   Container,
   Typography,
   Button,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
@@ -120,43 +122,20 @@ function ArtworksList() {
 
   useEffect(() => {
     dispatch(fetchAllArtWorks(pathName || keywordValue));
-    if (!successArticles) {
-      dispatch(fetchArticlesList());
-    }
-    return () => {
-      dispatch({ type: ARTWORK_LIST_RESET });
-    };
-  }, [dispatch, pathName, artworkId, successArticles, keywordValue]);
+    dispatch(fetchArticlesList());
+    dispatch(filterByRegion());
+    dispatch(fetchArtistList());
+    dispatch(fetchCategories());
+  }, []);
 
   // clean up
-  useEffect(() => {
-    dispatch(cleanLocalCart());
-    dispatch({ type: ARTWORK_DETAILS_RESET });
-    return () => {
-      dispatch(cleanLocalCart());
-    };
-  }, [dispatch]);
-
-  //  filter
-  useEffect(() => {
-    if (!successOrigins) {
-      dispatch(filterByRegion());
-    }
-    if (!successArtistList) {
-      dispatch(fetchArtistList());
-    }
-    if (!successCategories) {
-      dispatch(fetchCategories());
-    }
-  }, [
-    successOrigins,
-    successArtistList,
-    successCategories,
-    dispatch,
-    navigate,
-  ]);
-
-  useEffect(() => {}, [successArtistList, dispatch]);
+  // useEffect(() => {
+  //   dispatch(cleanLocalCart());
+  //   dispatch({ type: ARTWORK_DETAILS_RESET });
+  //   return () => {
+  //     dispatch(cleanLocalCart());
+  //   };
+  // }, [dispatch]);
 
   // pagination
   const handlePageChange = (event, value) => {
@@ -185,6 +164,7 @@ function ArtworksList() {
         <Loader />
       ) : (
         <Container maxWidth="xl">
+          {/* article */}
           {successArticles && articles[0] && (
             <Grid
               sx={{
@@ -208,7 +188,7 @@ function ArtworksList() {
                   <Grid
                     item
                     xs
-                    // sm={2}
+                    sm={2}
                     sx={{
                       marginTop: 0,
                       marginRight: 4,
@@ -224,12 +204,7 @@ function ArtworksList() {
                       {articles[0].title}
                     </Typography>
                   </Grid>
-                  <Grid
-                    xs={10}
-                    // sm={10}
-                    // md={6}
-                    item
-                  >
+                  <Grid xs={10} sm={10} md={6} item>
                     <Typography
                       style={{
                         fontSize: '1.1rem',
@@ -244,6 +219,7 @@ function ArtworksList() {
               </Paper>
             </Grid>
           )}
+          {/* article */}
 
           <Grid
             container
@@ -255,12 +231,11 @@ function ArtworksList() {
               marginTop: 10,
             }}
           >
-            <Grid item xs sx={{ marginTop: 0, marginRight: 4 }}>
+            <Grid item md={2} xs={12}>
               {/* FIXME:on market */}
-              {/* <Divider style={{ margin: 'auto' }} variant="middle" /> */}
-              {/* <FormControlLabel
-                // label="On Market"
-                label="none"
+              <Divider style={{ margin: 'auto' }} variant="middle" />
+              <FormControlLabel
+                label="On Market"
                 control={
                   <Checkbox
                     checked={checked}
@@ -268,7 +243,7 @@ function ArtworksList() {
                     inputProps={{ 'aria-label': 'controlled' }}
                   />
                 }
-              /> */}
+              />
               {artists && artists[0] && (
                 <SideFilter title="Artist" list={artists} kind="artworks" />
               )}
@@ -301,26 +276,16 @@ function ArtworksList() {
                 <SideFilter title="Decade" list={decade} kind="artworks" />
               )}
             </Grid>
-            <Grid
-              item
-              xs={10}
-              className={classes.root}
-              style={{
-                margin: 0,
-                padding: 0,
-              }}
-            >
+            <Grid item xs={10} className={classes.root}>
               <Box
                 sx={{
                   overflowY: 'hidden',
-                  padding: 0,
+                  padding: 10,
                   paddingTop: 0,
                 }}
               >
-                {/* <Divider style={{ marginBottom: 30 }} variant="middle" /> */}
+                <Divider style={{ marginBottom: 30 }} variant="middle" />
                 <ImageList
-                  // justifyContent="space-between"
-                  // variant="woven"
                   cols={window.innerWidth < 800 ? 2 : 3}
                   gap={35}
                   sx={{
@@ -328,16 +293,11 @@ function ArtworksList() {
                     marginTop: '0px !important',
                   }}
                 >
-                  {artworks && checked
-                    ? artworks.map(
-                        (artwork) =>
-                          artwork.edition_number <= artwork.edition_total &&
-                          artwork.on_market && (
-                            <ArtCard key={artwork._id} data={artwork} />
-                          )
-                      )
-                    : artworks.map((artwork) => (
-                        <ArtCard key={artwork._id} data={artwork} />
+                  {artworks &&
+                    artworks
+                      .filter((artwork) => artwork.artist.first_name)
+                      .map((artwork) => (
+                        <ArtCard key={artwork._id} artwork={artwork} />
                       ))}
                 </ImageList>
               </Box>

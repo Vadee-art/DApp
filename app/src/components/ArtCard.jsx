@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { favArtwork } from '../actions/userAction';
 
-export default function ArtCard({ data }) {
+export default function ArtCard({ artwork }) {
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(false);
   const userDetails = useSelector((state) => state.userDetails);
@@ -21,15 +21,15 @@ export default function ArtCard({ data }) {
   // favorite artworks
   useEffect(() => {
     if (user) {
-      for (let i = 0; i < data.favorites.length; i++) {
-        if (data.favorites[i] === user._id) {
+      for (let i = 0; i < artwork.favorites.length; i++) {
+        if (artwork.favorites[i] === user._id) {
           setIsFav(true);
         } else {
           setIsFav(true);
         }
       }
     }
-  }, [user, data]);
+  }, [user, artwork]);
 
   return (
     <Grid
@@ -49,18 +49,18 @@ export default function ArtCard({ data }) {
           style={{ background: 'transparent' }}
           actionPosition="right"
           actionIcon={
-            data.artist ? (
+            artwork.artist ? (
               <IconButton
-                onClick={() => dispatch(favArtwork(data._id))}
-                aria-label={`star ${data.title}`}
+                onClick={() => dispatch(favArtwork(artwork._id))}
+                aria-label={`star ${artwork.title}`}
                 style={{ zIndex: 10, bottom: '70px' }}
               >
                 {isFav ? <FavoriteIcon /> : <FavoriteBorder color="primary" />}
               </IconButton>
             ) : (
               <IconButton
-                // onClick={() => dispatch(favArtwork(data._id))}
-                aria-label={`star ${data.title}`}
+                // onClick={() => dispatch(favArtwork(artwork._id))}
+                aria-label={`star ${artwork.title}`}
                 style={{ zIndex: 10, bottom: '70px' }}
               >
                 {/* {isFav ? <FavoriteIcon /> : <FavoriteBorder color="primary" />} */}
@@ -68,41 +68,20 @@ export default function ArtCard({ data }) {
             )
           }
         />
-        {data.artist ? (
-          <Link
-            style={{ position: 'absolute', width: '100%', height: '100%' }}
-            to={`/artworks/${data._id}`}
-          />
-        ) : (
-          <Link
-            style={{ position: 'absolute', width: '100%', height: '100%' }}
-            to={`/artists/${data._id}`}
-          />
-        )}
-        {data.artist ? (
-          <img
-            srcSet={
-              data.image.includes('default')
-                ? 'static/defaultImage.png'
-                : `${data.image}?w=161&fit=crop&auto=format 1x,
-              ${data.image}?w=161&fit=crop&auto=format&dpr=2 2x`
-            }
-            alt={data.title}
-            loading="lazy"
-          />
-        ) : (
-          <img
-            srcSet={
-              data.photo.includes('default')
-                ? 'static/defaultImage.png'
-                : `${data.photo}?w=161&fit=crop&auto=format 1x,
-                ${data.photo}?w=161&fit=crop&auto=format&dpr=2 2x`
-            }
-            alt={data.firstName}
-            loading="lazy"
-          />
-        )}
-
+        <Link
+          style={{ position: 'absolute', width: '100%', height: '100%' }}
+          to={`/artworks/${artwork._id}`}
+        />
+        <img
+          srcSet={
+            artwork.image.includes('default')
+              ? 'static/defaultImage.png'
+              : `${artwork.image}?w=161&fit=crop&auto=format 1x,
+              ${artwork.image}?w=161&fit=crop&auto=format&dpr=2 2x`
+          }
+          alt={artwork.title}
+          loading="lazy"
+        />
         <Typography
           variant="h6"
           sx={{
@@ -113,9 +92,9 @@ export default function ArtCard({ data }) {
             marginBottom: 0,
           }}
         >
-          {data.artist
-            ? data.artist.firstName + data.artist.lastName
-            : data.firstName + data.lastName}
+          {artwork.artist
+            ? artwork.artist.first_name + artwork.artist.last_name
+            : artwork.first_name + artwork.last_name}
         </Typography>
         <Typography
           // variant="subtitle1"
@@ -127,8 +106,8 @@ export default function ArtCard({ data }) {
             margin: 0,
           }}
         >
-          {data.category ? data.category?.name : 'Unknown'}
-          {/* FIXME:data.nationality */}
+          {artwork.category ? artwork.category?.name : 'Unknown'}
+          {/* FIXME:artwork.nationality */}
         </Typography>
         <Typography
           // variant="subtitle1"
@@ -140,15 +119,15 @@ export default function ArtCard({ data }) {
             margin: 0,
           }}
         >
-          {data.artist ? data.artist?.origin : 'Origin'}
-          {/* FIXME:data.nationality */}
+          {artwork.artist ? artwork.artist?.origin : 'Origin'}
+          {/* FIXME:artwork.nationality */}
         </Typography>
-        {data.price && (
+        {artwork.price && (
           <Typography
             // variant="subtitle1"
             sx={{ width: '100%', margin: 0, color: '#000', fontSize: '1rem' }}
           >
-            ${data.price}
+            ${artwork.price}
           </Typography>
         )}
       </ImageListItem>
@@ -157,5 +136,5 @@ export default function ArtCard({ data }) {
 }
 
 ArtCard.propTypes = {
-  data: PropTypes.object.isRequired, // artist or artwork
+  artwork: PropTypes.object.isRequired, // artist or artwork
 };

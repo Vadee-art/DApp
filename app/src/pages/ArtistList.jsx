@@ -87,6 +87,7 @@ function ArtistList() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [alph, setAlph] = useState('');
   const [page, setPage] = useState(1);
 
   const artworksList = useSelector((state) => state.artworks);
@@ -162,6 +163,7 @@ function ArtistList() {
 
   const handleAlphabet = (e) => {
     console.log(e.target.innerText);
+    setAlph(e.target.innerText); // needed for shadow after onClick
     dispatch(fetchArtistList(`?alphabet=${e.target.innerText}`));
   };
   const classes = useStyles();
@@ -199,12 +201,23 @@ function ArtistList() {
                   {alphabets &&
                     alphabets.map((alphabet, index) => (
                       <IconButton
-                        // name={alphabet}
                         value={alphabet}
                         key={index}
                         onClick={handleAlphabet}
                       >
-                        <Typography sx={{ fontSize: '15px', color: '#A2A28F' }}>
+                        <Typography
+                          sx={{
+                            borderRadius: 100,
+                            boxShadow:
+                              alph === alphabet
+                                ? `inset 0 0 2px rgba(0, 0, 0, 0.3)`
+                                : 0,
+                            fontSize: '15px',
+                            color: '#A2A28F',
+                            p: 2,
+                            border: alph === alphabet ? '1px solid #99CCCC' : 0,
+                          }}
+                        >
                           {alphabet}
                         </Typography>
                       </IconButton>

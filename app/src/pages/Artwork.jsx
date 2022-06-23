@@ -22,6 +22,7 @@ import {
   MINT_AND_REDEEM_RESET,
   SIGN_MY_ITEM_RESET,
 } from '../constants/lazyFactoryConstants';
+import { fetchArtistList } from '../actions/artistAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,6 +81,9 @@ function Artwork() {
     success: successArtwork,
     artwork,
   } = theArtwork;
+
+  const artistList = useSelector((state) => state.artistList);
+  const { artists, success } = artistList;
 
   const theCart = useSelector((state) => state.theCart);
   const { loading: loadingCart, success: successCart } = theCart;
@@ -144,6 +148,10 @@ function Artwork() {
       setPriceEth(convertedPrice);
     }
   }, [artwork]);
+
+  useEffect(() => {
+    dispatch(fetchArtistList());
+  }, []);
 
   const onAddToCart = () => {
     dispatch({ type: MINT_AND_REDEEM_RESET });
@@ -686,7 +694,9 @@ function Artwork() {
                   marginLeft: 0.3,
                 }}
               >
-                <CarouselPhotographers />
+                {artists.artists && (
+                  <CarouselPhotographers artists={artists.artists} />
+                )}
               </Grid>
             </Grid>
           </Hidden>
