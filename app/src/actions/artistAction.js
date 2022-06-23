@@ -56,11 +56,12 @@ export const fetchArtistList =
         payload: data,
       });
     } catch (e) {
+      console.log(e.response);
       // check for generic and custom message to return using ternary statement
       dispatch({
         type: ARTIST_LIST_FAIL,
         payload:
-          e.response && e.response.data[0] ? e.response.data[0] : e.message,
+          e.response && e.response.status ? e.response.status : e.message,
       });
     }
   };

@@ -267,7 +267,7 @@ const Header = () => {
           >
             <Grid item xs={12} container direction="row" alignItems="center">
               <Grid item>
-                <Link to="/artists" onClick={() => setCurrent(0)}>
+                <Link to="/artists/search" onClick={() => setCurrent(0)}>
                   <Typography
                     variant="body2"
                     sx={{

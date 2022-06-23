@@ -31,11 +31,11 @@ const Router = [
       { path: '/artworks/:workId', element: <Artwork /> },
       { path: '/artworks/', element: <ArtworkList /> },
       { path: '/artists/:artistId', element: <Artist /> },
-      { path: '/artists/', element: <ArtistList /> },
+      { path: '/artists/search', element: <ArtistList /> },
       { path: '/regions/', element: <Regions /> },
       { path: '/users/profile', element: <UserProfile /> },
       { path: '/cart/shippingAddress/:workId?', element: <Cart /> },
-      { path: '*', element: <Navigate to="/auth/404" /> },
+      // { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
   {
