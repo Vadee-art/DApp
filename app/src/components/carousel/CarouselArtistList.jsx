@@ -112,7 +112,7 @@ export default function CarouselArtistList() {
     <Grid className={classes.root}>
       {successArtistList && (
         <Slider {...settings} style={{ position: 'unset' }}>
-          {artists.map((artist, index) => (
+          {artists.artists.map((artist, index) => (
             <div
               className="artworks-images"
               key={index}
