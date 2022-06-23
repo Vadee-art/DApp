@@ -12,8 +12,6 @@ import {
   Hidden,
   Container,
   Typography,
-  Checkbox,
-  FormControlLabel,
   Button,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -63,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 function ArtworksList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [page, setPage] = useState(1);
   const [checked, setChecked] = useState(false);
@@ -118,7 +115,6 @@ function ArtworksList() {
     { name: 'decade 3' },
     { name: 'decade 4' },
   ];
-  const data = useSelector((state) => state);
 
   const { pathName } = useLocation();
 

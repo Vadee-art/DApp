@@ -75,16 +75,8 @@ function SamplePrevArrow(props) {
 }
 
 export default function CarouselArtistList() {
-  const dispatch = useDispatch();
-
   const artistList = useSelector((state) => state.artistList);
   const { artists, success: successArtistList } = artistList;
-
-  useEffect(() => {
-    if (!successArtistList) {
-      dispatch(fetchArtistList());
-    }
-  }, [dispatch, successArtistList]);
 
   const settings = {
     className: 'slider variable-width',

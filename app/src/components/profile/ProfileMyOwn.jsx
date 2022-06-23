@@ -95,7 +95,7 @@ function ProfileMyOwn() {
   }, [galleryName]);
 
   useEffect(() => {
-    dispatch(fetchMarketPlace());
+    // dispatch(fetchMarketPlace());
     dispatch(fetchArtistWorks());
     dispatch(fetchEthPrice());
   }, [dispatch, successSignature, successDeleteVoucher]);

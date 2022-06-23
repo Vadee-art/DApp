@@ -34,6 +34,9 @@ import {
   USER_ARTIST_WORKS_REQUEST,
   USER_ARTIST_WORKS_SUCCESS,
   USER_ARTIST_WORKS_FAIL,
+  USER_FAVORITE_ARTIST_REQUEST,
+  USER_FAVORITE_ARTIST_SUCCESS,
+  USER_FAVORITE_ARTIST_FAIL,
 } from '../constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -149,6 +152,19 @@ export const favArtworkReducer = (state = {}, action) => {
     case USER_FAVORITE_ARTWORK_SUCCESS:
       return { loading: false, success: true, artworkId: action.payload };
     case USER_FAVORITE_ARTWORK_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const favArtistReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_FAVORITE_ARTIST_REQUEST:
+      return { loading: true };
+    case USER_FAVORITE_ARTIST_SUCCESS:
+      return { loading: false, success: true, artistId: action.payload };
+    case USER_FAVORITE_ARTIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

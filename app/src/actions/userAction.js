@@ -199,6 +199,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 };
 
 export const favArtist = (artistId) => async (dispatch, getState) => {
+  console.log('inja');
   try {
     dispatch({ type: USER_FAVORITE_ARTIST_REQUEST });
     const {

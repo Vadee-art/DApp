@@ -8,24 +8,16 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Typography, Button, Container, Divider, Box } from '@mui/material';
-import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
-import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
-import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { fetchOneArtWork } from '../actions/artworkAction';
 import { addToCart } from '../actions/cartAction';
-import Dialog from '../components/Dialog';
 import TheTab from '../components/TheTab';
-import { favArtwork, fetchUserDetails } from '../actions/userAction';
+import { favArtist, favArtwork, fetchUserDetails } from '../actions/userAction';
 import CarouselArtistArtworks from '../components/carousel/CarouselArtistArtworks';
-import RelatedCategory from '../components/carousel/RelatedCategory';
 import CarouselPhotographers from '../components/carousel/CarouselRelatedPhotographers';
-import { ARTIST_LIST_RESET } from '../constants/artistConstants';
-import {
-  ARTWORK_DETAILS_RESET,
-  ARTWORK_UPDATE_RESET,
-} from '../constants/artworkConstants';
+import { ARTWORK_UPDATE_RESET } from '../constants/artworkConstants';
 import {
   MINT_AND_REDEEM_RESET,
   SIGN_MY_ITEM_RESET,
@@ -107,41 +99,41 @@ function Artwork() {
   // check user auth
   useEffect(() => {
     dispatch(fetchUserDetails());
-    navigate(`/artworks/${workId}`);
+    // navigate(`/artworks/${workId}`);
   }, [dispatch, userInfo]);
 
   // user favorite artwork + reset artist works
-  useEffect(() => {
-    dispatch({ type: ARTIST_LIST_RESET });
-    if (user && successArtwork) {
-      for (let i = 0; i < artwork.favorites.length; i += 1) {
-        if (artwork.favorites[i] === user._id) {
-          setIsFav(true);
-        } else {
-          setIsFav(true);
-        }
-      }
-    }
-  }, [user, artwork, successArtwork, dispatch]);
+  // useEffect(() => {
+  //   dispatch({ type: ARTIST_LIST_RESET });
+  //   if (user && successArtwork) {
+  //     for (let i = 0; i < artwork.favorites.length; i += 1) {
+  //       if (artwork.favorites[i] === user._id) {
+  //         setIsFav(true);
+  //       } else {
+  //         setIsFav(true);
+  //       }
+  //     }
+  //   }
+  // }, [user, artwork, successArtwork, dispatch]);
 
   // fetch artwork if not success
   useEffect(() => {
     if (workId) {
       dispatch(fetchOneArtWork(workId));
     }
-    return () => {
-      dispatch({ type: ARTWORK_DETAILS_RESET });
-    };
-  }, [dispatch, workId]);
+    // return () => {
+    //   dispatch({ type: ARTWORK_DETAILS_RESET });
+    // };
+  }, [workId]);
 
-  // quantity = 0
-  useEffect(() => {
-    if (artwork && artwork.quantity < 1) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [artwork]);
+  // // quantity = 0
+  // useEffect(() => {
+  //   if (artwork && artwork.quantity < 1) {
+  //     setIsDisabled(true);
+  //   } else {
+  //     setIsDisabled(false);
+  //   }
+  // }, [artwork]);
 
   // convert price to ETH
   useEffect(() => {
@@ -302,7 +294,7 @@ function Artwork() {
                           artwork.artist.origin
                         }, ${artwork.artist.birthday.slice(0, 4)}`}
                     </Typography>
-                    <Button
+                    <LoadingButton
                       variant="contained"
                       type="submit"
                       sx={{
@@ -317,9 +309,10 @@ function Artwork() {
                         },
                       }}
                       disabled={isDisabled}
+                      onClick={() => dispatch(favArtist(artwork.artist._id))}
                     >
                       Follow
-                    </Button>
+                    </LoadingButton>
                   </Grid>
                 </Grid>
                 <Grid>
@@ -494,6 +487,7 @@ function Artwork() {
                       },
                     }}
                     disabled={isDisabled}
+                    onClick={() => dispatch(favArtist(artwork.artist._id))}
                   >
                     Follow
                   </Button>
@@ -544,7 +538,7 @@ function Artwork() {
                 sx={{ marginLeft: 0.4 }}
               >
                 {artwork && artwork.artist && (
-                  <CarouselArtistArtworks artistId={artwork.artist._id} />
+                  <CarouselArtistArtworks artistId={artwork.artist} />
                 )}
               </Grid>
             </Grid>
@@ -593,6 +587,7 @@ function Artwork() {
                     marginLeft: 0.3,
                   }}
                   xs={10.2}
+                  item
                   display="flex"
                   justifyContent="space-between"
                 >
@@ -648,7 +643,7 @@ function Artwork() {
                 sx={{ marginLeft: 0.4 }}
               >
                 {artwork && artwork.artist && (
-                  <CarouselArtistArtworks artistId={artwork.artist._id} />
+                  <CarouselArtistArtworks artistId={artwork.artist} />
                 )}
               </Grid>
             </Grid>

@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { fetchArtistList } from '../../actions/artistAction';
+import { favArtist } from '../../actions/userAction';
 
 export default function CarouselRelatedPhotograaphers() {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ export default function CarouselRelatedPhotograaphers() {
               height: '100px',
             }}
           >
-            <Grid xs={3.5}>
+            <Grid item xs={3.5}>
               <img
                 style={{
                   margin: 0,
@@ -81,6 +82,7 @@ export default function CarouselRelatedPhotograaphers() {
               />
             </Grid>
             <Grid
+              item
               xs={8.5}
               container
               display="flex"
@@ -122,6 +124,7 @@ export default function CarouselRelatedPhotograaphers() {
                 }}
                 fullWidth
                 // disabled={disabled}
+                onClick={() => dispatch(favArtist(artist._id))}
               >
                 Follow
               </Button>

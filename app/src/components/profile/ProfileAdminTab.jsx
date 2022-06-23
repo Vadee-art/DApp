@@ -30,9 +30,9 @@ const ProfileAdminTab = () => {
   const marketWithdraw = useSelector((state) => state.marketWithdraw);
   const { error: errorWithdraw } = marketWithdraw;
 
-  useEffect(() => {
-    dispatch(fetchMarketPlace());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchMarketPlace());
+  // }, [dispatch]);
 
   // loading button
   useEffect(() => {

@@ -10,11 +10,11 @@ function App() {
   const routing = useRoutes(Router);
   return (
     <ThemeProvider theme={customTheme}>
-      <React.StrictMode>
-        <CssBaseline />
-        {routing}
-        );
-      </React.StrictMode>
+      {/* hint: if on useEffect will Dispatch twice to check for errors */}
+      {/* <React.StrictMode> */}
+      <CssBaseline />
+      {routing}
+      {/* </React.StrictMode> */}
       <Footer />
     </ThemeProvider>
   );

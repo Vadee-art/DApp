@@ -20,6 +20,7 @@ import {
   favArtworkReducer,
   favArtworkListReducer,
   artistArtworksReducer,
+  favArtistReducer,
 } from './userReducer';
 import headerReducer from './headerReducer';
 import {
@@ -61,6 +62,7 @@ export default combineReducers({
   isTalent: artistIsTalentReducer,
   artworkUpdate: artworkUpdateReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  favArtist: favArtistReducer,
   favArtwork: favArtworkReducer,
   favArtworkList: favArtworkListReducer,
   userDeleteList: userDeleteReducer,

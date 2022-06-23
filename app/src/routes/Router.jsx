@@ -35,7 +35,6 @@ const Router = [
       { path: '/regions/', element: <Regions /> },
       { path: '/users/profile', element: <UserProfile /> },
       { path: '/cart/shippingAddress/:workId?', element: <Cart /> },
-
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },

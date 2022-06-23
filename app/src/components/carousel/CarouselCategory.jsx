@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import Slider from 'react-slick';
@@ -9,145 +10,62 @@ import {
   Card,
 } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
-import { Link } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const itemData = [
-  {
-    artist: 'Unknown',
-    origin: 'Iran',
-    price: '$1000',
-    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-    title: 'Breakfast',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Turkey',
-    price: '$2000',
-    img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    title: 'Burger',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Pakistan',
-    price: '$100',
-    img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-    title: 'Camera',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Iran',
-    price: '$1300',
-    img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-    title: 'Coffee',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Turkey',
-    price: '$700',
-    img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-    title: 'Hats',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'US',
-    price: '$4000',
-    img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-    title: 'Honey',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Iran',
-    price: '$900',
-    img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-    title: 'Basketball',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Turkey',
-    price: '$8300',
-    img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-    title: 'Fern',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Iran',
-    price: '$300',
-    img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-    title: 'Mushrooms',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Turkey',
-    price: '$2300',
-    img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-    title: 'Tomato basil',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Iran',
-    price: '$350',
-    img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-    title: 'Sea star',
-  },
-  {
-    artist: 'Unknown',
-    origin: 'Pakistan',
-    price: '$2000',
-    img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-    title: 'Bike',
-  },
-];
-
-export default class CarouselCategory extends Component {
-  render() {
-    const settings = {
-      dots: false,
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      variableWidth: true,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-          },
+export default function CarouselCategories({ artworks, slug }) {
+  // const navigate = useNavigate();
+  //
+  const categoryArtworks = artworks.filter(
+    (artwork) => artwork.category.slug === slug
+  );
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
         },
-        {
-          breakpoint: 900,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          },
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
         },
-        {
-          breakpoint: 680,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
+      },
+      {
+        breakpoint: 680,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
-      ],
-    };
-    return (
-      <>
-        <div>
-          <Slider {...settings}>
-            {itemData.map((item) => (
+      },
+    ],
+  };
+  return (
+    <>
+      <div>
+        <Slider {...settings}>
+          {categoryArtworks &&
+            categoryArtworks.map((artwork, index) => (
               <Grid
                 className="mid-images"
-                key={item.title}
+                key={index}
                 sx={{ padding: 2, textAlign: 'left', paddingTop: 0 }}
               >
                 <Card sx={{ width: 260 }} elevation={0}>
                   <CardActionArea>
                     <CardMedia
                       sx={{ height: 140 }}
-                      image={item.img}
+                      image={artwork.image}
                       title="Contemplative Reptile"
                     />
                     <CardContent>
@@ -159,7 +77,7 @@ export default class CarouselCategory extends Component {
                           fontWeight: 600,
                         }}
                       >
-                        {item.title}
+                        {artwork.title}
                       </Typography>
                       <Typography
                         variant="subtitle1"
@@ -170,7 +88,7 @@ export default class CarouselCategory extends Component {
                           margin: '3px 0px',
                         }}
                       >
-                        {item.artist}
+                        {artwork.artist._id}
                       </Typography>
                       <Typography
                         variant="subtitle1"
@@ -181,7 +99,7 @@ export default class CarouselCategory extends Component {
                           marginBottom: '3px',
                         }}
                       >
-                        {item.origin}
+                        {artwork.origin}
                       </Typography>
                       <Typography
                         sx={{
@@ -191,9 +109,11 @@ export default class CarouselCategory extends Component {
                         }}
                         variant="subtitle1"
                       >
-                        {item.price}
+                        {artwork.price}
                       </Typography>
-                      {/* <Typography variant="subtitle1">{item.title}</Typography> */}
+                      <Typography variant="subtitle1">
+                        {artwork.title}
+                      </Typography>
                     </CardContent>
                   </CardActionArea>
                   {/* FIXME:is this part in design? */}
@@ -212,9 +132,8 @@ export default class CarouselCategory extends Component {
                 </Card>
               </Grid>
             ))}
-          </Slider>
-        </div>
-      </>
-    );
-  }
+        </Slider>
+      </div>
+    </>
+  );
 }

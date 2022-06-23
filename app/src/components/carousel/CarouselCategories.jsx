@@ -95,7 +95,7 @@ export default function CarouselCategories() {
                     <Card sx={{ width: 260 }} elevation={0}>
                       <CardActionArea
                         onClick={() =>
-                          navigate(`artworks/?category=${category._id}`)
+                          navigate(`artworks/categories/${category._id}`)
                         }
                       >
                         <CardMedia

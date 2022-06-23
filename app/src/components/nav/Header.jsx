@@ -66,22 +66,24 @@ const Header = () => {
   const [flag, setFlag] = useState(false);
 
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
-  const { marketPlace } = theMarketPlace;
-
-  // useEffect(() => {
-  //   if (
-  //     pathname === '/users/profile' ||
-  //     pathname.includes('/cart/shippingAddress/')
-  //   ) {
-  //     setIsHeader(false);
-  //   } else {
-  //     setIsHeader(true);
-  //   }
-  // }, [pathname, navigate]);
+  const { marketPlace, success } = theMarketPlace;
 
   useEffect(() => {
-    dispatch(fetchMarketPlace());
-  }, [dispatch]);
+    if (
+      pathname === '/users/profile' ||
+      pathname.includes('/cart/shippingAddress/')
+    ) {
+      setIsHeader(false);
+    } else {
+      setIsHeader(true);
+    }
+  }, [pathname, navigate]);
+
+  useEffect(() => {
+    if (!marketPlace && !success) {
+      dispatch(fetchMarketPlace());
+    }
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

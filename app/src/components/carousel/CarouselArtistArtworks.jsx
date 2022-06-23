@@ -70,17 +70,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function CarouselArtistArtworks({ artistId }) {
-  const dispatch = useDispatch();
-  const theArtist = useSelector((state) => state.theArtist);
-  const { error, loading, artist, success } = theArtist;
-
-  useEffect(() => {
-    if (!success) {
-      dispatch(fetchArtistById(artistId));
-    }
-  }, [success, dispatch, artistId]);
-
+export default function CarouselArtistArtworks({ artist }) {
   const settings = {
     className: 'slider variable-width',
     dots: false,
@@ -108,11 +98,11 @@ export default function CarouselArtistArtworks({ artistId }) {
       },
     ],
   };
-
+  console.log(artist);
   const classes = useStyles();
   return (
     <Grid className={classes.root}>
-      {success && (
+      {artist && (
         <Slider
           {...settings}
           style={{
@@ -131,6 +121,7 @@ export default function CarouselArtistArtworks({ artistId }) {
                 justifyContent: 'flex-end',
                 alignSelf: 'flex-end ',
               }}
+              key={index}
             >
               <img
                 srcSet={`${artwork.image}?w=164&h=164&fit=crop&auto=format 2x,

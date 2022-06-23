@@ -14,26 +14,14 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles } from '@mui/styles';
-import {
-  fetchAllArtWorks,
-  fetchCategories,
-  fetchIsCarousel,
-} from '../actions/artworkAction';
-import { cleanLocalCart } from '../actions/cartAction';
-import {
-  ARTWORK_DETAILS_RESET,
-  ARTWORK_LIST_RESET,
-} from '../constants/artworkConstants';
+import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
 import CarouselTop from '../components/carousel/CarouselTop';
 import Loader from '../components/Loader';
 import CarouselCategories from '../components/carousel/CarouselCategories';
 import CarouselCategory from '../components/carousel/CarouselCategory';
 import CarouselArtistList from '../components/carousel/CarouselArtistList';
-import {
-  deployMarketPlace,
-  fetchMarketPlace,
-} from '../actions/marketPlaceAction';
-import { fetchIsTalentArtist } from '../actions/artistAction';
+import { deployMarketPlace } from '../actions/marketPlaceAction';
+import { fetchArtistList, fetchIsTalentArtist } from '../actions/artistAction';
 
 const useStyles = makeStyles((theme) => ({
   priceCategories: {
@@ -78,8 +66,8 @@ const Main = () => {
   const artworksList = useSelector((state) => state.artworks);
   const { artworks, loading: loadingArtworks } = artworksList;
 
-  const isCarousels = useSelector((state) => state.isCarousels);
-  const { carousels } = isCarousels;
+  const artistList = useSelector((state) => state.artistList);
+  const { artists, success: successArtistList } = artistList;
 
   const isTalent = useSelector((state) => state.isTalent);
   const { theTalent } = isTalent;
@@ -106,22 +94,22 @@ const Main = () => {
 
   // artworks
   useEffect(() => {
-    dispatch(fetchIsCarousel());
     dispatch(fetchIsTalentArtist());
-    dispatch(fetchAllArtWorks('?last=true'));
-    dispatch(fetchMarketPlace());
-    return () => {
-      dispatch({ type: ARTWORK_LIST_RESET });
-    };
+    dispatch(fetchAllArtWorks());
+    dispatch(fetchArtistList());
+
+    // return () => {
+    //   dispatch({ type: ARTWORK_LIST_RESET });
+    // };
   }, [navigate, dispatch, keyword, successMarketDeploy]);
 
-  useEffect(() => {
-    dispatch(cleanLocalCart());
-    dispatch({ type: ARTWORK_DETAILS_RESET });
-    return () => {
-      dispatch(cleanLocalCart());
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(cleanLocalCart());
+  //   dispatch({ type: ARTWORK_DETAILS_RESET });
+  //   return () => {
+  //     dispatch(cleanLocalCart());
+  //   };
+  // }, [dispatch]);
 
   //  categories
   useEffect(() => {
@@ -159,7 +147,7 @@ const Main = () => {
                   sx={{ color: '#A2A28F' }}
                 >
                   <Grid item xs={12} sx={{ width: '100%', marginBottom: 2 }}>
-                    {carousels && <CarouselTop carousels={carousels} />}
+                    {artworks && <CarouselTop artworks={artworks} />}
                   </Grid>
 
                   {/* photographers */}
@@ -206,7 +194,7 @@ const Main = () => {
                             padding: 0,
                           }}
                         >
-                          <CarouselArtistList artistId={1} />
+                          {artists && <CarouselArtistList />}
                         </Grid>
                       </Grid>
                     </Container>
@@ -310,7 +298,7 @@ const Main = () => {
                   </Container>
 
                   {/* Last artwork */}
-                  {artworks && artworks.artist && (
+                  {/* {artworks && artworks.artist && (
                     <Container maxWidth="xl">
                       <Grid
                         sx={{
@@ -412,7 +400,7 @@ const Main = () => {
                         </Grid>
                       </Grid>
                     </Container>
-                  )}
+                  )} */}
                   <Container maxWidth="xl">
                     <Grid
                       sx={{
@@ -649,7 +637,7 @@ const Main = () => {
                           maxHeight: 350,
                         }}
                       >
-                        <CarouselCategory />
+                        <CarouselCategory artworks={artworks} slug="fine-art" />
                       </Grid>
                     </Grid>
                   </Container>
@@ -729,7 +717,9 @@ const Main = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={10} sx={{ maxHeight: 300 }}>
-                        <CarouselCategory />
+                        {artworks[0] && (
+                          <CarouselCategory artworks={artworks} slug="street" />
+                        )}
                       </Grid>
                     </Grid>
                   </Container>

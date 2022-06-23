@@ -46,7 +46,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function CarouselTop({ carousels }) {
+export default function CarouselTop({ artworks }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -57,10 +57,12 @@ export default function CarouselTop({ carousels }) {
     prevArrow: <SamplePrevArrow />,
   };
 
+  const theArtworks = artworks.filter((artwork) => artwork.is_carousel);
+
   return (
     <Slider {...settings} style={{ height: '700px' }}>
-      {carousels &&
-        carousels.map((artwork, index) => (
+      {theArtworks &&
+        theArtworks.map((artwork, index) => (
           <div key={index}>
             <div
               loading="lazy"

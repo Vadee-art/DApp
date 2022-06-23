@@ -59,7 +59,6 @@ const Regions = () => {
     dispatch(fetchIsCarousel());
     dispatch(fetchIsTalentArtist());
     dispatch(fetchAllArtWorks('?last=true'));
-    dispatch(fetchMarketPlace());
     return () => {
       dispatch({ type: ARTWORK_LIST_RESET });
     };

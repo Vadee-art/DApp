@@ -16,7 +16,6 @@ import {
 
 export const fetchArtistById = (id) => async (dispatch) => {
   try {
-    console.log(id);
     dispatch({ type: ARTIST_BY_ID_REQUEST });
 
     const config = {
