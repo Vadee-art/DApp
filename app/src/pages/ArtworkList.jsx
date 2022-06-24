@@ -4,7 +4,6 @@
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ImageList from '@mui/material/ImageList';
 import {
   Grid,
   Box,
@@ -17,23 +16,18 @@ import {
   Checkbox,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Pagination from '@mui/material/Pagination';
 import Divider from '@mui/material/Divider';
 import usePagination from '@mui/material/usePagination';
 import { styled } from '@mui/material/styles';
-import ArtCard from '../components/ArtCard';
 import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
-import { cleanLocalCart } from '../actions/cartAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import {
-  ARTWORK_DETAILS_RESET,
-  ARTWORK_LIST_RESET,
-} from '../constants/artworkConstants';
 import SideFilter from '../components/SideFilter';
 import { fetchArticlesList } from '../actions/articleAction';
 import { filterByRegion } from '../actions/filterAction';
 import { fetchArtistList } from '../actions/artistAction';
+import ArtworkImageList from '../components/artworks/ArtworkImageList';
+import ArtCard from '../components/artworks/ArtCard';
 
 const List = styled('ul')({
   listStyle: 'none',
@@ -60,6 +54,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const prices = [
+  { name: 'Under $500' },
+  { name: 'Under $1000' },
+  { name: 'Under $2000' },
+  { name: 'Under $5000' },
+  { name: 'Under $10000' },
+  { name: 'Under $15000' },
+  { name: 'Under $20000' },
+];
+const genres = [
+  { name: 'genres 1' },
+  { name: 'genres 2' },
+  { name: 'genres 3' },
+  { name: 'genres 4' },
+];
+const size = [
+  { name: 'size 1' },
+  { name: 'size 2' },
+  { name: 'size 3' },
+  { name: 'size 4' },
+];
+const decade = [
+  { name: 'decade 1' },
+  { name: 'decade 2' },
+  { name: 'decade 3' },
+  { name: 'decade 4' },
+];
+
 function ArtworksList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,9 +90,6 @@ function ArtworksList() {
   const [checked, setChecked] = useState(false);
   const [keywordValue, setKeywordValue] = useState();
 
-  const favArtwork = useSelector((state) => state.favArtwork);
-  const { artworkId } = favArtwork;
-
   const artworksList = useSelector((state) => state.artworks);
   const { error, artworks, pages } = artworksList;
 
@@ -78,45 +97,20 @@ function ArtworksList() {
   const { articles, success: successArticles } = articlesList;
 
   const filterOrigin = useSelector((state) => state.filterOrigin);
-  const { origins, success: successOrigins } = filterOrigin;
+  const { origins } = filterOrigin;
 
   const artistList = useSelector((state) => state.artistList);
-  const { artists, success: successArtistList } = artistList;
+  const { artists } = artistList;
 
   const categoryList = useSelector((state) => state.categoryList);
-  const { categories, success: successCategories } = categoryList;
+  const { categories } = categoryList;
+
+  const favArtwork = useSelector((state) => state.favArtwork);
+  const { success: successFavArtwork } = favArtwork;
 
   const { items } = usePagination({
     count: pages,
   });
-
-  const prices = [
-    { name: 'Under $500' },
-    { name: 'Under $1000' },
-    { name: 'Under $2000' },
-    { name: 'Under $5000' },
-    { name: 'Under $10000' },
-    { name: 'Under $15000' },
-    { name: 'Under $20000' },
-  ];
-  const genres = [
-    { name: 'genres 1' },
-    { name: 'genres 2' },
-    { name: 'genres 3' },
-    { name: 'genres 4' },
-  ];
-  const size = [
-    { name: 'size 1' },
-    { name: 'size 2' },
-    { name: 'size 3' },
-    { name: 'size 4' },
-  ];
-  const decade = [
-    { name: 'decade 1' },
-    { name: 'decade 2' },
-    { name: 'decade 3' },
-    { name: 'decade 4' },
-  ];
 
   const { pathName } = useLocation();
 
@@ -128,6 +122,11 @@ function ArtworksList() {
     dispatch(fetchCategories());
   }, []);
 
+  useEffect(() => {
+    if (successFavArtwork) {
+      dispatch(fetchAllArtWorks(pathName || keywordValue));
+    }
+  }, [successFavArtwork]);
   // clean up
   // useEffect(() => {
   //   dispatch(cleanLocalCart());
@@ -285,21 +284,7 @@ function ArtworksList() {
                 }}
               >
                 <Divider style={{ marginBottom: 30 }} variant="middle" />
-                <ImageList
-                  cols={window.innerWidth < 800 ? 2 : 3}
-                  gap={35}
-                  sx={{
-                    width: '100%',
-                    marginTop: '0px !important',
-                  }}
-                >
-                  {artworks &&
-                    artworks
-                      .filter((artwork) => artwork.artist.first_name)
-                      .map((artwork) => (
-                        <ArtCard key={artwork._id} artwork={artwork} />
-                      ))}
-                </ImageList>
+                {artworks && <ArtworkImageList artworks={artworks} />}
               </Box>
               <Grid>
                 {pages > 1 && (

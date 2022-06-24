@@ -162,7 +162,6 @@ function ArtistList() {
   };
 
   const handleAlphabet = (e) => {
-    console.log(e.target.innerText);
     setAlph(e.target.innerText); // needed for shadow after onClick
     dispatch(fetchArtistList(`?alphabet=${e.target.innerText}`));
   };

@@ -37,7 +37,26 @@ import {
   USER_FAVORITE_ARTIST_REQUEST,
   USER_FAVORITE_ARTIST_SUCCESS,
   USER_FAVORITE_ARTIST_FAIL,
+  DIALOG_REQUEST,
+  DIALOG_SUCCESS,
+  DIALOG_FAIL,
+  DIALOG_RESET,
 } from '../constants/userConstants';
+
+export const dialogReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DIALOG_REQUEST:
+      return { status: 'loading', loading: true };
+    case DIALOG_SUCCESS:
+      return { loading: false, success: true, status: action.payload };
+    case DIALOG_FAIL:
+      return { loading: false, error: action.payload };
+    case DIALOG_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
 
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
@@ -69,7 +88,7 @@ export const userRegisterReducer = (state = {}, action) => {
   }
 };
 
-export const userDetailsReducer = (state = { user: {} }, action) => {
+export const userDetailsReducer = (state = { user: undefined }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return { ...state, loading: true };
@@ -78,7 +97,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
     case USER_DETAILS_FAIL:
       return { loading: false, error: action.payload };
     case USER_DETAILS_RESET:
-      return { user: {} };
+      return { user: undefined };
     default:
       return state;
   }

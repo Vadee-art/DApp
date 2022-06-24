@@ -12,8 +12,9 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import UserMenu from './UserMenu';
+import AccountMenu from './AccountMenu';
 import { fetchMarketPlace } from '../../actions/marketPlaceAction';
+import { fetchUserDetails } from '../../actions/userAction';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -82,6 +83,7 @@ const Header = () => {
   useEffect(() => {
     if (!marketPlace && !success) {
       dispatch(fetchMarketPlace());
+      dispatch(fetchUserDetails());
     }
   }, []);
 
@@ -203,7 +205,7 @@ const Header = () => {
                           />
                         </IconButton>
                         {/* Menu to login and Register, ... */}
-                        <UserMenu
+                        <AccountMenu
                           anchorEl={anchorEl}
                           setAnchorEl={setAnchorEl}
                         />

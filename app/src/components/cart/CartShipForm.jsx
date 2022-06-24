@@ -105,7 +105,6 @@ function CartShipForm({ setTabValue, formValues, setFormValues }) {
   });
 
   const onSubmit = async (data) => {
-    // console.log(JSON.stringify(data, null, 2));
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     await sleep(300);
     dispatch(

@@ -21,6 +21,7 @@ import {
   favArtworkListReducer,
   artistArtworksReducer,
   favArtistReducer,
+  dialogReducer,
 } from './userReducer';
 import headerReducer from './headerReducer';
 import {
@@ -47,6 +48,7 @@ import {
 } from './marketPlaceReducer.js';
 
 export default combineReducers({
+  dialog: dialogReducer,
   headerStatus: headerReducer,
   artworks: artworksReducer,
   isCarousels: artworkCarouselsReducer,

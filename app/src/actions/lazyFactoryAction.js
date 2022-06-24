@@ -82,8 +82,8 @@ export const deployMyGallery =
         type: DEPLOY_MY_GALLERY_FAIL,
         payload: e.error
           ? e.error.message
-          : e.response && e.response.data[0]
-          ? e.response.data[0]
+          : e.response && e.response.data.detail
+          ? e.response.data.detail
           : e.message,
       });
     }
@@ -154,8 +154,8 @@ export const signMyItem =
         type: SIGN_MY_ITEM_FAIL,
         payload: e.error
           ? e.error.message
-          : e.response && e.response.data[0]
-          ? e.response.data[0]
+          : e.response && e.response.data.detail
+          ? e.response.data.detail
           : e.message,
       });
     }
@@ -239,8 +239,8 @@ export const mintAndRedeem =
         type: MINT_AND_REDEEM_FAIL,
         payload: e.error
           ? e.error.message
-          : e.response && e.response.data[0]
-          ? e.response.data[0]
+          : e.response && e.response.data.detail
+          ? e.response.data.detail
           : e.message,
       });
     }

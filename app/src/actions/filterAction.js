@@ -17,7 +17,9 @@ export const filterByRegion = () => async (dispatch) => {
     dispatch({
       type: FILTER_BY_REGION_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };

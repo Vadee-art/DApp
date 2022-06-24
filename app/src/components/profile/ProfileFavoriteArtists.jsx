@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ImageList from '@mui/material/ImageList';
 import { Grid, Paper, Hidden } from '@mui/material';
-import ArtCard from '../ArtCard';
+import ArtCard from '../artworks/ArtCard';
 import Loader from '../Loader';
 import Message from '../Message';
 import { fetchFavArtistList } from '../../actions/userAction';

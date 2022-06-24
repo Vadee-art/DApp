@@ -25,7 +25,9 @@ export const fetchArticlesList = () => async (dispatch) => {
     dispatch({
       type: ARTICLE_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };

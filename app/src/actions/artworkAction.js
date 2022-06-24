@@ -36,7 +36,9 @@ export const fetchAllArtWorks =
       dispatch({
         type: ARTWORK_LIST_FAIL,
         payload:
-          e.response && e.response.data[0] ? e.response.data[0] : e.message,
+          e.response && e.response.data.detail
+            ? e.response.data.detail
+            : e.message,
       });
     }
   };
@@ -55,7 +57,9 @@ export const fetchOneArtWork = (workId) => async (dispatch) => {
     dispatch({
       type: ARTWORK_DETAILS_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };
@@ -73,7 +77,9 @@ export const fetchCategories = () => async (dispatch) => {
     dispatch({
       type: CATEGORY_LIST_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };
@@ -158,7 +164,9 @@ export const updateArtwork =
       dispatch({
         type: ARTWORK_UPDATE_FAIL,
         payload:
-          e.response && e.response.data[0] ? e.response.data[0] : e.message,
+          e.response && e.response.data.detail
+            ? e.response.data.detail
+            : e.message,
       });
     }
   };
@@ -189,7 +197,9 @@ export const deleteVoucher = (voucherId) => async (dispatch, getState) => {
     dispatch({
       type: ARTWORK_VOUCHER_DELETE_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };
@@ -213,7 +223,9 @@ export const fetchIsCarousel = () => async (dispatch) => {
     dispatch({
       type: ARTWORK_IS_CAROUSEL_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };

@@ -34,12 +34,13 @@ export const addToCart = (workId) => async (dispatch, getState) => {
       JSON.stringify(getState().theCart.cartItems)
     );
   } catch (e) {
-    console.log(e);
     // check for generic and custom message to return using ternary statement
     dispatch({
       type: CART_ADD_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };

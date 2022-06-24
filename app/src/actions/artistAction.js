@@ -34,7 +34,9 @@ export const fetchArtistById = (id) => async (dispatch) => {
     dispatch({
       type: ARTIST_BY_ID_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };
@@ -56,7 +58,6 @@ export const fetchArtistList =
         payload: data,
       });
     } catch (e) {
-      console.log(e.response);
       // check for generic and custom message to return using ternary statement
       dispatch({
         type: ARTIST_LIST_FAIL,
@@ -101,7 +102,9 @@ export const updateArtistGallery =
       dispatch({
         type: ARTIST_GALLERY_ADDRESS_UPDATE_FAIL,
         payload:
-          e.response && e.response.data[0] ? e.response.data[0] : e.message,
+          e.response && e.response.data.detail
+            ? e.response.data.detail
+            : e.message,
       });
     }
   };
@@ -127,7 +130,9 @@ export const fetchIsTalentArtist = () => async (dispatch) => {
     dispatch({
       type: ARTIST_IS_TALENT_FAIL,
       payload:
-        e.response && e.response.data[0] ? e.response.data[0] : e.message,
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
     });
   }
 };

@@ -153,9 +153,6 @@ const customTheme = createTheme({
         titleWrapBelow: {
           display: 'none',
         },
-        actionIconActionPosRight: {
-          width: '100%',
-        },
       },
     },
   },
