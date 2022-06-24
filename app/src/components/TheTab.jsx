@@ -75,13 +75,11 @@ function TabPanel(props) {
           <span>
             <Typography
               style={{
-                color: '#000',
-                fontSize: '19px',
-                fontWeight: 300,
                 lineHeight: 1.8,
                 maxHeight: '310px',
                 overflowY: 'hidden',
               }}
+              variant="body2"
             >
               {children}
             </Typography>

@@ -92,15 +92,15 @@ const Header = () => {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ marginTop: 10, marginBottom: 5 }}>
+    <Container maxWidth="xl" sx={{ marginTop: 10 }}>
       {isHeader && marketPlace && marketPlace.contract && (
         <Grid
           container
           sx={{
             width: '100%',
-            paddingLeft: 8,
-            paddingRight: 8,
-            marginBottom: 8,
+            paddingLeft: 2,
+            paddingRight: 2,
+            marginBottom: 4,
           }}
         >
           <AppBar position="static" elevation={0}>

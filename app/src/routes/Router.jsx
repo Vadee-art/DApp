@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
-import Loadable from '../layout/full-layout/loadable/Loadable';
-import Header from '../components/nav/Header';
+import Loadable from '../layout/loadable/Loadable';
 import FullLayout from '../layout/full-layout/FullLayout';
 import BlankLayout from '../layout/plain-layout/PlainLayout';
 
@@ -19,12 +18,7 @@ const Cart = Loadable(lazy(() => import('../pages/Cart')));
 const Router = [
   {
     path: '/',
-    element: (
-      <>
-        <Header />
-        <FullLayout />
-      </>
-    ),
+    element: <FullLayout />,
     children: [
       { path: '/', element: <Navigate to="/main" /> },
       { path: '/main', element: <Main /> },
