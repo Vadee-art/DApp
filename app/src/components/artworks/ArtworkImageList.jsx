@@ -14,23 +14,9 @@ import { favArtwork, openAuthDialog } from '../../actions/userAction';
 
 export default function ArtworkImageList({ artworks }) {
   const dispatch = useDispatch();
-  const [isFav, setIsFav] = useState(false);
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
-
-  // favorite artworks
-  // useEffect(() => {
-  //   if (user) {
-  //     for (let i = 0; i < artwork.favorites.length; i++) {
-  //       if (artwork.favorites[i] === user._id) {
-  //         setIsFav(true);
-  //       } else {
-  //         setIsFav(true);
-  //       }
-  //     }
-  //   }
-  // }, [user, artworks]);
 
   const handleFavorite = (artworkId) => {
     if (!user) {
@@ -78,7 +64,8 @@ export default function ArtworkImageList({ artworks }) {
                     aria-label={`star ${artwork.title}`}
                     style={{ zIndex: 10 }}
                   >
-                    {artwork.favorite_artworks.find(
+                    {user &&
+                    artwork.favorite_artworks.find(
                       (theUser) => theUser === user.id
                     ) ? (
                       <FavoriteIcon />
