@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-/* eslint-disable react/no-unused-state */
 import React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -20,24 +18,58 @@ export default function TheTab({ artist }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
-    <div style={{ width: '70%', textAlign: 'left' }}>
+    <div style={{ width: '100%', textAlign: 'left' }}>
       <Box>
         <Tabs
           indicatorColor="secondary"
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example"
+          aria-label="basic tabs"
+          sx={{
+            '& .MuiTabs-scroller': {
+              height: '55px',
+            },
+          }}
         >
           <Tab
             label="Biography"
-            style={{ fontSize: '17px', fontWeight: 600 }}
+            style={{
+              fontSize: '17px',
+              fontWeight: 600,
+            }}
             {...a11yProps(0)}
+            icon={
+              <div
+                id="borderRight"
+                style={{
+                  minHeight: '20px',
+                  borderRight: '2px solid #a3a290',
+                  position: 'absolute',
+                  width: '100%',
+                }}
+              />
+            }
           />
           <Tab
             label="Achievements"
-            style={{ fontSize: '17px', fontWeight: 600 }}
+            style={{
+              fontSize: '17px',
+              fontWeight: 600,
+            }}
             {...a11yProps(1)}
+            icon={
+              <div
+                id="borderRight"
+                style={{
+                  minHeight: '20px',
+                  borderRight: '2px solid #a3a290',
+                  position: 'absolute',
+                  width: '100%',
+                }}
+              />
+            }
           />
           <Tab
             label="CV"

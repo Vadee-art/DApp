@@ -22,8 +22,11 @@ const PageWrapper = experimentalStyled('div')(({ theme }) => ({
 
   backgroundColor: theme.palette.background.default,
 
-  [theme.breakpoints.down('lg')]: {
+  [theme.breakpoints.up('md')]: {
     paddingTop: '64px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    // paddingTop: '10px',
   },
 }));
 

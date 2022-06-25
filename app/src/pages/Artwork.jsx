@@ -7,7 +7,7 @@ import { makeStyles } from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Typography, Button, Container, Divider } from '@mui/material';
+import { Typography, Button, Container, Divider, Card } from '@mui/material';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -30,6 +30,8 @@ import {
   MINT_AND_REDEEM_RESET,
   SIGN_MY_ITEM_RESET,
 } from '../constants/lazyFactoryConstants';
+import { fetchArtistById } from '../actions/artistAction';
+import CarouselRelatedArtist from '../components/carousel/CarouselRelatedArtist';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,6 +95,13 @@ function Artwork() {
       dispatch(fetchOneArtWork(workId));
     }
   }, [dispatch, workId]);
+
+  // fetch artist
+  useEffect(() => {
+    if (artwork.artist) {
+      dispatch(fetchArtistById(artwork.artist._id));
+    }
+  }, [artwork]);
 
   // quantity = 0
   useEffect(() => {
@@ -218,7 +227,12 @@ function Artwork() {
                         `${artwork.artist.origin}, ${artwork.artist.birthday}`}
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  <Grid
+                    item
+                    sx={{
+                      width: '50%',
+                    }}
+                  >
                     <Button
                       variant="contained"
                       type="submit"
@@ -229,8 +243,7 @@ function Artwork() {
                         '&:hover': {
                           backgroundColor: 'black',
                         },
-                        paddingLeft: 8,
-                        paddingRight: 8,
+                        width: '100%',
                       }}
                       disabled={isDisabled}
                     >
@@ -285,7 +298,7 @@ function Artwork() {
               </Grid>
               <Divider
                 className={classes.divider}
-                style={{ marginTop: 20, marginBottom: 20 }}
+                style={{ marginTop: 20, marginBottom: 10 }}
               />
               <Grid item container>
                 <Grid
@@ -303,7 +316,7 @@ function Artwork() {
                         : `$ ${artwork.price.toLocaleString()}`}
                     </Typography>
                   </Grid>
-                  <Grid item sx={{ mt: 3, width: '100%' }}>
+                  <Grid item sx={{ mt: 2, width: '100%' }}>
                     <LoadingButton
                       loading={isLoading}
                       onClick={(e) => onAddToCart(e)}
@@ -318,7 +331,6 @@ function Artwork() {
                     </LoadingButton>
                   </Grid>
                 </Grid>
-                <Grid item md={2} />
               </Grid>
             </Grid>
           </Grid>
@@ -356,8 +368,10 @@ function Artwork() {
                 </Typography>
               </Grid>
             </Hidden>
-            <Grid item xs={10} sx={{ marginLeft: 4 }}>
-              <TheTab artist={artwork.artist} />
+            <Grid item xs={12} sm={6}>
+              <Card sx={{ minHeight: '400px' }} elevation={0}>
+                <TheTab artist={artwork.artist} />
+              </Card>
             </Grid>
           </Grid>
           <Hidden smDown>
@@ -388,7 +402,7 @@ function Artwork() {
               </Grid>
             </Grid>
             <Grid sx={{ paddingLeft: 2, paddingRight: 2 }}>
-              <RelatedCategory />
+              <CarouselRelatedArtist />
             </Grid>
             <Grid
               container

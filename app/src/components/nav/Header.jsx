@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Divider,
+  Drawer,
+  Grid,
+  List,
+  ListItem,
+  ListItemButton,
+  Typography,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import Container from '@mui/material/Container';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,9 +25,13 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { makeStyles } from '@mui/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import Avatar from '@mui/material/Avatar';
+import Logout from '@mui/icons-material/Logout';
 import AccountMenu from './AccountMenu';
 import { fetchMarketPlace } from '../../actions/marketPlaceAction';
-import { fetchUserDetails } from '../../actions/userAction';
+import { fetchUserDetails, logout } from '../../actions/userAction';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,31 +71,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.up('md')]: {
+      marginTop: '50px',
+    },
+    [theme.breakpoints.down('md')]: {
+      marginTop: '20px',
+    },
+  },
+  logo: {
+    [theme.breakpoints.up('md')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '50%',
+    },
+  },
+}));
+
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
-
+  const location = useLocation();
   const [current, setCurrent] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const [isHeader, setIsHeader] = useState(true);
-
-  const [flag, setFlag] = useState(false);
-
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
   const { marketPlace, success } = theMarketPlace;
-
-  useEffect(() => {
-    if (
-      pathname === '/users/profile' ||
-      pathname.includes('/cart/shippingAddress/')
-    ) {
-      setIsHeader(false);
-    } else {
-      setIsHeader(true);
-    }
-  }, [pathname, navigate]);
 
   useEffect(() => {
     if (!marketPlace && !success) {
@@ -87,50 +107,107 @@ const Header = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (location.pathname.includes('artist')) {
+      setCurrent(0);
+    } else if (location.pathname.includes('artwork')) {
+      setCurrent(1);
+    } else if (location.pathname.includes('region')) {
+      setCurrent(2);
+    } else {
+      setCurrent('');
+    }
+  }, [location]);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  // log out
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
+
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      <Typography variant="h6" sx={{ mt: 2 }}>
+        Vadee
+      </Typography>
+      <Divider />
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => navigate('/users/profile')}
+            sx={{ textAlign: 'center' }}
+          >
+            <ListItemText primary="Profile" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => handleLogOut()}
+            sx={{ textAlign: 'center' }}
+          >
+            <ListItemText primary="Logout" />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
+
+  const container =
+    window !== undefined ? () => window.document.body : undefined;
+  const drawerWidth = 240;
+
+  const classes = useStyles();
   return (
-    <Container maxWidth="xl" sx={{ marginTop: 10 }}>
-      {isHeader && marketPlace && marketPlace.contract && (
+    <Container maxWidth="xl" className={classes.root}>
+      {marketPlace && marketPlace.contract && (
         <Grid
           container
           sx={{
             width: '100%',
             paddingLeft: 2,
             paddingRight: 2,
-            marginBottom: 4,
+            marginBottom: { xs: 0, ms: 4 },
           }}
         >
           <AppBar position="static" elevation={0}>
             <Toolbar style={{ padding: 0 }}>
               <Grid container direction="row">
-                <Grid item xs={12} md={3}>
-                  <Link
-                    to="/"
-                    style={{ color: current === 0 ? '#99CCCC' : 'black' }}
-                  >
+                <Grid item xs={12} md={3} sx={{ textAlign: 'center' }}>
+                  <Link to="/">
                     <img
+                      className={classes.logo}
                       src="/static/logo.svg"
                       alt="logo"
-                      style={{
-                        width: '100%',
-                      }}
                     />
                     <Typography
-                      sx={{
-                        fontSize: '1.2rem',
-                        margin: '15px 0px',
-                        fontWeight: 300,
-                      }}
+                      sx={{ display: { xs: 'none', md: 'unset' } }}
                       variant="subtitle1"
                     >
                       Change you lense, change your story
                     </Typography>
                   </Link>
                 </Grid>
-                <Grid item xs={8} md={7}>
+                <Grid item>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={handleDrawerToggle}
+                    sx={{ mr: 2, display: { md: 'none' } }}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item xs md={7}>
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon
@@ -153,109 +230,73 @@ const Header = () => {
                   direction="row"
                   justifyContent="flex-end"
                 >
-                  {!flag ? (
-                    <>
-                      <Grid item>
-                        <IconButton
-                          size="medium"
-                          sx={{
-                            border: '1px solid #A2A28F',
-                            borderRadius: '10%',
-                            height: '45px',
-                            width: '45px',
-                          }}
-                        >
-                          <NotificationsNoneIcon
-                            fontSize="inherit"
-                            style={{ color: '#A2A28F' }}
-                          />
-                        </IconButton>
-                      </Grid>
-                      <Grid item>
-                        <IconButton
-                          size="medium"
-                          sx={{
-                            border: '1px solid #A2A28F',
-                            borderRadius: '10%',
-                            height: '45px',
-                            width: '45px',
-                            margin: '0px 10px',
-                          }}
-                        >
-                          <MailOutlineIcon
-                            fontSize="inherit"
-                            style={{ color: '#A2A28F' }}
-                          />
-                        </IconButton>
-                      </Grid>
-                      <Grid item>
-                        <IconButton
-                          onClick={handleClick}
-                          size="medium"
-                          sx={{
-                            border: '1px solid #A2A28F',
-                            borderRadius: '10%',
-                            height: '45px',
-                            width: '45px',
-                          }}
-                        >
-                          <PersonOutlineIcon
-                            fontSize="inherit"
-                            style={{ color: '#A2A28F' }}
-                          />
-                        </IconButton>
-                        {/* Menu to login and Register, ... */}
-                        <AccountMenu
-                          anchorEl={anchorEl}
-                          setAnchorEl={setAnchorEl}
+                  <>
+                    <Grid item>
+                      <IconButton
+                        size="medium"
+                        sx={{
+                          border: '1px solid #A2A28F',
+                          borderRadius: '10%',
+                          height: '45px',
+                          width: '45px',
+                          display: { xs: 'none', md: 'unset' },
+                        }}
+                      >
+                        <NotificationsNoneIcon
+                          fontSize="inherit"
+                          style={{ color: '#A2A28F' }}
                         />
-                      </Grid>
-                    </>
-                  ) : (
-                    <Grid
-                      container
-                      direction="row"
-                      width="100%"
-                      justifyContent="flex-end"
-                      style={{ paddingLeft: 10 }}
-                    >
-                      <Button
-                        style={{
-                          width: '33%',
-                          backgroundColor: '#26262648',
-                          color: '#fff',
-                          height: '45px',
-                          borderRadius: 0,
-                          outline: 'none',
-                          fontSize: '0.8rem',
-                          fontWeight: 300,
-                        }}
-                        onClick={() => setFlag(false)}
-                      >
-                        Log In
-                      </Button>
-                      <Button
-                        onClick={() => setFlag(false)}
-                        style={{
-                          width: '33%',
-                          backgroundColor: '#A2A28F',
-                          color: '#fff',
-                          height: '45px',
-                          borderRadius: 0,
-                          outline: 'none',
-                          fontSize: '0.8rem',
-                          fontWeight: 300,
-                          marginLeft: '10px',
-                        }}
-                      >
-                        Sign Up
-                      </Button>
+                      </IconButton>
                     </Grid>
-                  )}
+                    <Grid item>
+                      <IconButton
+                        size="medium"
+                        sx={{
+                          border: '1px solid #A2A28F',
+                          borderRadius: '10%',
+                          height: '45px',
+                          width: '45px',
+                          margin: '0px 10px',
+                          display: { xs: 'none', md: 'unset' },
+                        }}
+                      >
+                        <MailOutlineIcon
+                          fontSize="inherit"
+                          style={{
+                            color: '#A2A28F',
+                          }}
+                        />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        onClick={handleClick}
+                        size="medium"
+                        sx={{
+                          border: '1px solid #A2A28F',
+                          borderRadius: '10%',
+                          height: '45px',
+                          width: '45px',
+                          display: { xs: 'none', md: 'unset' },
+                        }}
+                      >
+                        <PersonOutlineIcon
+                          fontSize="inherit"
+                          style={{ color: '#A2A28F' }}
+                        />
+                      </IconButton>
+                      {/* Menu to login and Register, ... */}
+                      <AccountMenu
+                        anchorEl={anchorEl}
+                        setAnchorEl={setAnchorEl}
+                      />
+                    </Grid>
+                  </>
                 </Grid>
               </Grid>
             </Toolbar>
           </AppBar>
+
           <Grid
             container
             direction="row"
@@ -267,13 +308,22 @@ const Header = () => {
               paddingBottom: '10px',
             }}
           >
-            <Grid item xs={12} container direction="row" alignItems="center">
+            <Grid
+              item
+              xs={12}
+              container
+              direction="row"
+              alignItems="center"
+              sx={{
+                justifyContent: { xs: 'center', md: 'flex-start' },
+              }}
+            >
               <Grid item>
-                <Link to="/artists/search" onClick={() => setCurrent(0)}>
+                <Link to="/artists/search">
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: '19px',
+                      fontSize: { sm: 15, md: 20 },
                       fontWeight: 300,
                       color: current === 0 ? '#99CCCC' : 'black',
                     }}
@@ -283,11 +333,11 @@ const Header = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/artworks" onClick={() => setCurrent(1)}>
+                <Link to="/artworks">
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: '19px',
+                      fontSize: { sm: 15, md: 20 },
                       fontWeight: 300,
                       margin: '0px 20px',
                       color: current === 1 ? '#99CCCC' : 'black',
@@ -298,11 +348,11 @@ const Header = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/regions" onClick={() => setCurrent(2)}>
+                <Link to="/regions">
                   <Typography
                     variant="body2"
                     sx={{
-                      fontSize: '19px',
+                      fontSize: { sm: 15, md: 20 },
                       fontWeight: 300,
                       color: current === 2 ? '#99CCCC' : 'black',
                     }}
@@ -313,6 +363,26 @@ const Header = () => {
               </Grid>
             </Grid>
           </Grid>
+          <Box component="nav">
+            <Drawer
+              container={container}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+              sx={{
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': {
+                  boxSizing: 'border-box',
+                  width: drawerWidth,
+                },
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Box>
         </Grid>
       )}
     </Container>

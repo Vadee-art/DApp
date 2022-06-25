@@ -11,14 +11,8 @@ import { fetchArtistList } from '../../actions/artistAction';
 export default function CarouselRelatedArtist() {
   const dispatch = useDispatch();
 
-  const artistList = useSelector((state) => state.artistList);
-  const { error, loading, artists, success } = artistList;
-
-  useEffect(() => {
-    if (!success) {
-      dispatch(fetchArtistList());
-    }
-  }, [success, dispatch]);
+  const theArtist = useSelector((state) => state.theArtist);
+  const { error, loading, artist, success } = theArtist;
 
   const settings = {
     className: 'center',
@@ -55,7 +49,7 @@ export default function CarouselRelatedArtist() {
   return (
     <Slider {...settings}>
       {success &&
-        artists.map((artist, index) => (
+        artist.artworks.map((artwork, index) => (
           <Grid
             key={index}
             container
@@ -75,7 +69,7 @@ export default function CarouselRelatedArtist() {
                 maxHeight: '180px',
                 marginBottom: '30px',
               }}
-              src={artist.photo}
+              src={artist.artist.photo}
               alt="artist"
             />
 
@@ -87,7 +81,8 @@ export default function CarouselRelatedArtist() {
                 marginBottom: '10px',
               }}
             >
-              {/* {artist && `${artist.firstName} ${artist.lastName}`} */}
+              {artist &&
+                `${artist.artist.first_name} ${artist.artist.last_name}`}
             </Typography>
             <Typography
               style={{
@@ -95,7 +90,11 @@ export default function CarouselRelatedArtist() {
                 marginBottom: '15px',
               }}
             >
-              {/* {artist && `${artist.origin}, ${artist.birthday.slice(0, 4)}`} */}
+              {artist &&
+                `${artist.artist.origin}, ${artist.artist.birthday.slice(
+                  0,
+                  4
+                )}`}
             </Typography>
             <Button
               variant="contained"

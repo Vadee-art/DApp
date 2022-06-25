@@ -70,7 +70,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function CarouselArtistArtworks({ artist }) {
+export default function CarouselArtistArtworks() {
   const settings = {
     className: 'slider variable-width',
     dots: false,
@@ -98,6 +98,10 @@ export default function CarouselArtistArtworks({ artist }) {
       },
     ],
   };
+
+  const theArtist = useSelector((state) => state.theArtist);
+  const { artist } = theArtist;
+
   const classes = useStyles();
   return (
     <Grid className={classes.root}>
