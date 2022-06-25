@@ -2,8 +2,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import { Typography, Grid, Button } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import PropTypes from 'prop-types';

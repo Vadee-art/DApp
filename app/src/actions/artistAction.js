@@ -12,6 +12,9 @@ import {
   ARTIST_IS_TALENT_FAIL,
   ARTIST_IS_TALENT_REQUEST,
   ARTIST_IS_TALENT_SUCCESS,
+  ARTIST_RELATED_REQUEST,
+  ARTIST_RELATED_SUCCESS,
+  ARTIST_RELATED_FAIL,
 } from '../constants/artistConstants';
 
 export const fetchArtistById = (id) => async (dispatch) => {
@@ -33,6 +36,34 @@ export const fetchArtistById = (id) => async (dispatch) => {
     // check for generic and custom message to return using ternary statement
     dispatch({
       type: ARTIST_BY_ID_FAIL,
+      payload:
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
+    });
+  }
+};
+
+export const fetchArtistRelatedArt = (artistId) => async (dispatch) => {
+  try {
+    dispatch({ type: ARTIST_RELATED_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+    const response = await artworksBase.get(
+      `artists/artist/related/${artistId}/`,
+      config
+    );
+    dispatch({
+      type: ARTIST_RELATED_SUCCESS,
+      payload: response.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: ARTIST_RELATED_FAIL,
       payload:
         e.response && e.response.data.detail
           ? e.response.data.detail

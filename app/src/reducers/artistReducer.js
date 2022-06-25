@@ -13,6 +13,10 @@ import {
   ARTIST_LIST_REQUEST,
   ARTIST_LIST_RESET,
   ARTIST_LIST_SUCCESS,
+  ARTIST_RELATED_FAIL,
+  ARTIST_RELATED_REQUEST,
+  ARTIST_RELATED_RESET,
+  ARTIST_RELATED_SUCCESS,
 } from '../constants/artistConstants';
 
 export const artistByIdReducer = (state = {}, action) => {
@@ -20,10 +24,28 @@ export const artistByIdReducer = (state = {}, action) => {
     case ARTIST_BY_ID_REQUEST:
       return { loading: true };
     case ARTIST_BY_ID_SUCCESS:
-      return { loading: false, success: true, artist: action.payload };
+      return {
+        loading: false,
+        success: true,
+        artist: action.payload,
+        ...state,
+      };
     case ARTIST_BY_ID_FAIL:
       return { loading: false, error: action.payload };
     case ARTIST_BY_ID_RESET:
+      return {};
+    case ARTIST_RELATED_REQUEST:
+      return { loading: true };
+    case ARTIST_RELATED_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        ...state,
+        relatedTags: action.payload,
+      };
+    case ARTIST_RELATED_FAIL:
+      return { loading: false, error: action.payload };
+    case ARTIST_RELATED_RESET:
       return {};
     default:
       return state;

@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Typography, Grid } from '@mui/material';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // marginTop: 100,
     marginBottom: 100,
   },
   paper: {
@@ -18,10 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// match params has the id from the router /:workId
-function RelatedCategory() {
-  const dispatch = useDispatch();
-
+function RelatedCategory({ categories }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -36,22 +31,26 @@ function RelatedCategory() {
           opacity: '50%',
         }}
       >
-        <Grid item sm={1}>
+        <Grid item xs={1}>
           <Typography variant="subtitle1">Related</Typography>
-          <Typography variant="subtitle1">Artworks</Typography>
+          <Typography variant="subtitle1">Categories</Typography>
         </Grid>
         <Grid
           container
           direction="row"
+          justifyContent="center"
+          alignItems="center"
           item
           xs={10}
           sx={{
             marginLeft: 4,
           }}
         >
-          <Grid item sm={10}>
-            <Typography variant="subtitle1">Artworks</Typography>
-          </Grid>
+          {categories.map((cat) => (
+            <Grid key={cat._id} item xs>
+              <Typography variant="subtitle1">{cat.name}</Typography>
+            </Grid>
+          ))}
         </Grid>
       </Grid>
     </div>
@@ -59,3 +58,7 @@ function RelatedCategory() {
 }
 
 export default RelatedCategory;
+
+RelatedCategory.propTypes = {
+  categories: PropTypes.array.isRequired,
+};

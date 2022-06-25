@@ -1,5 +1,7 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import Slider from 'react-slick';
 import { Typography, Grid } from '@mui/material';
@@ -9,7 +11,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { makeStyles } from '@mui/styles';
-import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -67,7 +68,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function CarouselArtistArtworks({ artist }) {
+export default function CarouselArtistSimilarArtworks({ relatedTags }) {
   const settings = {
     className: 'slider variable-width',
     dots: false,
@@ -95,8 +96,8 @@ export default function CarouselArtistArtworks({ artist }) {
       },
     ],
   };
+  console.log(relatedTags);
 
-  console.log(artist.artworks);
   const classes = useStyles();
   return (
     <Grid
@@ -107,8 +108,8 @@ export default function CarouselArtistArtworks({ artist }) {
       className={classes.root}
     >
       <Grid item sm={1}>
-        <Typography variant="subtitle1">Artist</Typography>
-        <Typography variant="subtitle1">Works</Typography>
+        <Typography variant="subtitle1">Similar</Typography>
+        <Typography variant="subtitle1">Artworks</Typography>
       </Grid>
       <Grid
         item
@@ -118,14 +119,14 @@ export default function CarouselArtistArtworks({ artist }) {
           marginLeft: 4,
         }}
       >
-        {artist && artist.artworks && (
+        {relatedTags && (
           <Slider
             {...settings}
             style={{
               padding: 0,
             }}
           >
-            {artist.artworks.map((artwork, index) => (
+            {relatedTags.map((artwork, index) => (
               <Grid
                 sx={{
                   padding: 0,
@@ -186,7 +187,3 @@ export default function CarouselArtistArtworks({ artist }) {
     </Grid>
   );
 }
-
-CarouselArtistArtworks.propTypes = {
-  artist: PropTypes.object.isRequired, // artist or artwork
-};
