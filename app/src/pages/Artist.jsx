@@ -10,13 +10,13 @@ import { Typography, Button, Container, Box } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { fetchOneArtWork } from '../actions/artworkAction';
+import { fetchCategories, fetchOneArtWork } from '../actions/artworkAction';
 import TheTab from '../components/TheTab';
-import CarouselRelatedArtist from '../components/carousel/CarouselRelatedArtist';
+import CarouselRelatedArtistTwo from '../components/carousel/CarouselRelatedArtist-2';
 import { ARTIST_BY_ID_RESET } from '../constants/artistConstants';
 import { fetchArtistById, fetchSimilarArtists } from '../actions/artistAction';
 import { favArtwork } from '../actions/userAction';
-import NotableArts from '../components/ArtSeriesCard';
+import ArtistNotableArts from '../components/ArtistNotableArts';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '16px',
     marginLeft: theme.spacing(2),
   },
-  priceCategories: {
-    color: '#000',
+  categories: {
     fontWeight: 300,
     fontSize: '1.3rem',
     paddingBottom: 5,
@@ -49,15 +48,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const categories = [
-  { name: 'Fine Art' },
-  { name: 'Documentary' },
-  { name: 'Analog' },
-  { name: 'Iranian Photographer' },
-  { name: 'Woman Photographer' },
-  { name: 'Black & White' },
-  { name: 'Sephia' },
-];
 // match params has the id from the router /:workId
 function Artist() {
   const dispatch = useDispatch();
@@ -67,6 +57,9 @@ function Artist() {
   const theArtist = useSelector((state) => state.theArtist);
   const { artist, relatedArtists, error, loading, success } = theArtist;
 
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories, success: successCategories } = categoryList;
+
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 
@@ -74,6 +67,9 @@ function Artist() {
     if (!success) {
       dispatch(fetchSimilarArtists(artistId));
       dispatch(fetchArtistById(artistId));
+      if (!successCategories) {
+        dispatch(fetchCategories());
+      }
     }
   }, [artistId]);
 
@@ -143,7 +139,12 @@ function Artist() {
                   alt="artist"
                 />
               </Grid>
-              <Grid item>
+              <Grid
+                item
+                sx={{
+                  width: '80%',
+                }}
+              >
                 <Typography
                   style={{
                     color: '#000',
@@ -167,7 +168,12 @@ function Artist() {
                   {artist.artist.birthday.slice(0, 4)}
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid
+                item
+                sx={{
+                  width: '80%',
+                }}
+              >
                 <Button
                   variant="outlined"
                   type="submit"
@@ -175,12 +181,13 @@ function Artist() {
                     width: '100%',
                     border: '1px solid #A2A28F',
                     color: '#A2A28F',
-                    fontSize: '18px',
+                    fontSize: '16px',
                     fontWeight: 500,
                     marginTop: '5px',
                     '&:hover': {
                       backgroundColor: 'black',
                     },
+                    padding: 0,
                   }}
                   onClick={() => dispatch(favArtwork(artist.artist._id))}
                 >
@@ -188,7 +195,7 @@ function Artist() {
                 </Button>
               </Grid>
             </Grid>
-            <Grid item xs sx={{ marginLeft: 0 }} md>
+            <Grid item xs md>
               <TheTab artist={artist.artist} />
             </Grid>
           </Grid>
@@ -202,56 +209,16 @@ function Artist() {
                 padding: 0,
               }}
             >
-              <Grid item xs={2}>
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    fontWeight: 300,
-                    lineHeight: 1,
-                    fontSize: '1.4rem',
-                    marginBottom: '5px',
-                  }}
-                >
-                  Notable
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: '1.4rem',
-                    fontWeight: 300,
-                  }}
-                  variant="subtitle1"
-                >
-                  Works
-                </Typography>
-              </Grid>
               <Grid
                 item
-                md={10}
+                md={12}
                 sx={{
                   marginLeft: 0,
                 }}
               >
-                <ImageList
-                  cols={window.innerWidth < 800 ? 2 : 3}
-                  gap={35}
-                  sx={{
-                    width: '100%',
-                    marginTop: '0px !important',
-                  }}
-                >
-                  {artist.artworks &&
-                    artist.artworks
-                      // .slice(0, 6)
-                      .filter((artwork) => artwork.is_notable)
-                      .map((artwork) => (
-                        <NotableArts key={artwork._id} artwork={artwork} />
-                      ))}
-                </ImageList>
+                <ArtistNotableArts artist={artist} />
               </Grid>
             </Grid>
-            {/* <Grid sx={{ paddingLeft: 2, paddingRight: 2 }}>
-              <Related />
-            </Grid> */}
             <Grid item xs={12}>
               <Box
                 component="div"
@@ -271,7 +238,7 @@ function Artist() {
                   <Typography
                     variant="subtitle1"
                     style={{
-                      fontSize: '1.4rem',
+                      fontSize: '1.2rem',
                       fontWeight: 300,
                       lineHeight: 1.3,
                       marginBottom: 5,
@@ -282,7 +249,7 @@ function Artist() {
                   <Typography
                     variant="subtitle1"
                     style={{
-                      fontSize: '1.4rem',
+                      fontSize: '1.2rem',
                       fontWeight: 300,
                     }}
                   >
@@ -300,12 +267,8 @@ function Artist() {
                 >
                   {categories &&
                     categories.map((category, index) => (
-                      <Button
-                        key={index}
-                        className={classes.priceCategories}
-                        sx={{ textTransform: 'none !important' }}
-                      >
-                        {category.name}
+                      <Button key={index} className={classes.categories}>
+                        <Typography variant="body1">{category.name}</Typography>
                       </Button>
                     ))}
                 </Grid>
@@ -321,7 +284,7 @@ function Artist() {
               }}
             >
               {relatedArtists && (
-                <CarouselRelatedArtist relatedArtists={relatedArtists} />
+                <CarouselRelatedArtistTwo relatedArtists={relatedArtists} />
               )}
             </Grid>
           </Hidden>

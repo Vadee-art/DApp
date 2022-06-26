@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import PropTypes from 'prop-types';
 
-export default function CarouselRelatedArtist({ relatedArtists }) {
+export default function CarouselRelatedArtistOne({ relatedArtists }) {
   const settings = {
     className: 'center',
     dots: false,
@@ -69,15 +69,13 @@ export default function CarouselRelatedArtist({ relatedArtists }) {
                 display: 'flex !important',
                 border: '1px solid #A2A28F',
                 maxWidth: '250px',
-                maxHeight: '90px',
               }}
             >
               <Grid item xs={4}>
                 <img
                   style={{
-                    margin: 0,
                     width: '100%',
-                    marginBottom: '30px',
+                    maxHeight: '80px',
                   }}
                   src={artist.photo}
                   alt="artist"
@@ -147,6 +145,6 @@ export default function CarouselRelatedArtist({ relatedArtists }) {
     </Grid>
   );
 }
-CarouselRelatedArtist.propTypes = {
+CarouselRelatedArtistOne.propTypes = {
   relatedArtists: PropTypes.array.isRequired,
 };

@@ -72,6 +72,9 @@ const customTheme = createTheme({
     },
     MuiButton: {
       styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
         contained: {
           backgroundColor: 'black',
           textTransform: 'none',

@@ -19,8 +19,8 @@ import {
 
 import { fetchMarketPlace } from '../actions/marketPlaceAction';
 import { fetchIsTalentArtist, fetchArtistById } from '../actions/artistAction';
-import ArtSeriesCard from '../components/ArtSeriesCard';
-import CarouselRelatedArtist from '../components/carousel/CarouselRelatedArtist';
+import ArtistNotableArts from '../components/ArtistNotableArts';
+import CarouselRelatedArtistOne from '../components/carousel/CarouselRelatedArtist-1';
 
 const useStyles = makeStyles((theme) => ({
   priceCategories: {
@@ -237,9 +237,9 @@ const Regions = () => {
                     marginTop: '0px !important',
                   }}
                 >
-                  {artist?.artworks?.slice(0, 6).map((artwork) => (
+                  {/* {artist?.artworks?.slice(0, 6).map((artwork) => (
                     <ArtSeriesCard key={artwork?._id} data={artwork} />
-                  ))}
+                  ))} */}
                 </ImageList>
               </Grid>
             </Grid>
@@ -299,11 +299,7 @@ const Regions = () => {
                 >
                   {categories &&
                     categories.map((category, index) => (
-                      <Button
-                        key={index}
-                        className={classes.priceCategories}
-                        sx={{ textTransform: 'none !important' }}
-                      >
+                      <Button key={index} className={classes.priceCategories}>
                         {category.name}
                       </Button>
                     ))}
@@ -350,7 +346,7 @@ const Regions = () => {
                   marginLeft: 0.3,
                 }}
               >
-                <CarouselRelatedArtist relatedArtists={relatedArtists} />
+                <CarouselRelatedArtistOne relatedArtists={relatedArtists} />
               </Grid>
             </Grid>
           </Container>

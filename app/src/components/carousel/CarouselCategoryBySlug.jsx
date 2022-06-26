@@ -13,7 +13,7 @@ import CardMedia from '@mui/material/CardMedia';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export default function CarouselCategories({ artworks, slug }) {
+export default function CarouselCategoryBySlug({ artworks, slug }) {
   // const navigate = useNavigate();
   //
   const categoryArtworks = artworks.filter(

@@ -30,7 +30,7 @@ import {
 } from '../actions/artistAction';
 import CarouselArtistSimilarArtworks from '../components/carousel/CarouselArtistSimilarArtworks';
 import CarouselArtistArtworks from '../components/carousel/CarouselArtistArtworks.jsx';
-import CarouselRelatedArtist from '../components/carousel/CarouselRelatedArtist';
+import CarouselRelatedArtistOne from '../components/carousel/CarouselRelatedArtist-1';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -421,7 +421,7 @@ function Artwork() {
               }}
             >
               {relatedArtists && (
-                <CarouselRelatedArtist relatedArtists={relatedArtists} />
+                <CarouselRelatedArtistOne relatedArtists={relatedArtists} />
               )}
             </Grid>
           </>

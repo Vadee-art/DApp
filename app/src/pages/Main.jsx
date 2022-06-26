@@ -16,8 +16,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles } from '@mui/styles';
 import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
 import CarouselTop from '../components/carousel/CarouselTop';
-import CarouselCategories from '../components/carousel/CarouselCategories';
-import CarouselCategory from '../components/carousel/CarouselCategory';
+import CarouselFeaturedCategories from '../components/carousel/CarouselFeaturedCategories';
+import CarouselCategoryBySlug from '../components/carousel/CarouselCategoryBySlug';
 import CarouselArtistList from '../components/carousel/CarouselArtistList';
 import { deployMarketPlace } from '../actions/marketPlaceAction';
 import { fetchArtistList, fetchIsTalentArtist } from '../actions/artistAction';
@@ -97,11 +97,14 @@ const Main = () => {
     dispatch(fetchIsTalentArtist());
     dispatch(fetchAllArtWorks());
     dispatch(fetchArtistList());
+    if (!successCategories) {
+      dispatch(fetchCategories());
+    }
 
     // return () => {
     //   dispatch({ type: ARTWORK_LIST_RESET });
     // };
-  }, [navigate, dispatch, keyword, successMarketDeploy]);
+  }, [successMarketDeploy, successCategories]);
 
   // useEffect(() => {
   //   dispatch(cleanLocalCart());
@@ -112,11 +115,6 @@ const Main = () => {
   // }, [dispatch]);
 
   //  categories
-  useEffect(() => {
-    if (!successCategories) {
-      dispatch(fetchCategories());
-    }
-  }, [successCategories, dispatch, navigate]);
 
   return (
     <>
@@ -231,7 +229,9 @@ const Main = () => {
                       </Typography>
                     </Grid>
                     <Grid item xs={10}>
-                      <CarouselCategories />
+                      {categories && (
+                        <CarouselFeaturedCategories categories={categories} />
+                      )}
                     </Grid>
                     {/* Categories */}
                     <Grid item xs={12}>
@@ -280,7 +280,6 @@ const Main = () => {
                                 <Button
                                   key={index}
                                   className={classes.priceCategories}
-                                  sx={{ textTransform: 'none !important' }}
                                 >
                                   {category.name}
                                 </Button>
@@ -363,7 +362,6 @@ const Main = () => {
                                 <Button
                                   key={index}
                                   className={classes.priceCategories}
-                                  sx={{ textTransform: 'none !important' }}
                                 >
                                   {priceCat}
                                 </Button>
@@ -534,7 +532,10 @@ const Main = () => {
                         maxHeight: 350,
                       }}
                     >
-                      <CarouselCategory artworks={artworks} slug="fine-art" />
+                      <CarouselCategoryBySlug
+                        artworks={artworks}
+                        slug="fine-art"
+                      />
                     </Grid>
                   </Grid>
                 </Container>
@@ -617,7 +618,10 @@ const Main = () => {
                     </Grid>
                     <Grid item xs={10} sx={{ maxHeight: 300 }}>
                       {artworks[0] && (
-                        <CarouselCategory artworks={artworks} slug="street" />
+                        <CarouselCategoryBySlug
+                          artworks={artworks}
+                          slug="street"
+                        />
                       )}
                     </Grid>
                   </Grid>
