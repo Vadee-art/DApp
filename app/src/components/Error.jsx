@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import PageContainer from '../components/container/PageContainer';
+import PageContainer from './container/PageContainer';
 
 const Error = () => (
   <PageContainer title="Error" description="this is Error page">

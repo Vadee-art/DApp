@@ -1,38 +1,41 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Slider from 'react-slick';
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import Container from '@mui/material/Container';
+import { filterByRegion } from '../actions/filterAction';
+import { fetchAllArtWorks } from '../actions/artworkAction';
 
 const useStyles = makeStyles(() => ({
   root: {
-    maxWidth: '100%',
-    position: 'relative',
+    // maxWidth: '100%',
+    // position: 'relative',
     // overflowX: 'scroll',
-    '&::-webkit-scrollbar': {
-      height: 2,
-      width: '20px',
-    },
-    '&::-webkit-scrollbar-track': {
-      boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-      width: '20px',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'black',
-      width: '20px',
-    },
+    // '&::-webkit-scrollbar': {
+    //   // height: 2,
+    //   width: '20px',
+    // },
+    // '&::-webkit-scrollbar-track': {
+    //   boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
+    //   width: '20px',
+    // },
+    // '&::-webkit-scrollbar-thumb': {
+    //   backgroundColor: 'black',
+    //   width: '20px',
+    // },
   },
 }));
 
 function SampleNextArrow(props) {
+  // eslint-disable-next-line react/prop-types
   const { className, onClick } = props;
   return (
     <ArrowForwardIosIcon
@@ -52,6 +55,7 @@ function SampleNextArrow(props) {
 }
 
 function SamplePrevArrow(props) {
+  // eslint-disable-next-line react/prop-types
   const { className, onClick } = props;
   return (
     <ArrowBackIosNewIcon
@@ -68,7 +72,8 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function CarouselArtistSimilarArtworks({ relatedTags }) {
+function Region({ region, artworks }) {
+  const classes = useStyles();
   const settings = {
     className: 'slider variable-width',
     dots: false,
@@ -83,7 +88,7 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
           slidesToScroll: 1,
         },
       },
@@ -96,38 +101,39 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
       },
     ],
   };
-  console.log(relatedTags);
 
-  const classes = useStyles();
   return (
-    <Grid
-      container
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="flex-start"
-      className={classes.root}
-    >
-      {relatedTags && (
-        <>
-          <Grid item sm={1}>
-            <Typography variant="subtitle1">Similar</Typography>
-            <Typography variant="subtitle1">Artworks</Typography>
+    <>
+      {artworks && (
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
+        >
+          <Grid item xs={2}>
+            <Link
+              style={{
+                position: 'absolute',
+                width: '50px',
+                height: '20px',
+              }}
+              to={`/regions/${region}`}
+            />
+            <Typography variant="body2">{region}</Typography>
           </Grid>
           <Grid
             item
             xs={10}
             md={10}
             sx={{
-              marginLeft: 4,
+              mb: 8,
+              // p: 8,
             }}
+            className={classes.root}
           >
-            <Slider
-              {...settings}
-              style={{
-                padding: 0,
-              }}
-            >
-              {relatedTags.map((artwork, index) => (
+            <Slider {...settings}>
+              {artworks.map((artwork, index) => (
                 <Grid
                   sx={{
                     padding: 0,
@@ -166,7 +172,8 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
                     }}
                   >
                     <Link style={{ color: 'black' }} to="#">
-                      {artwork?.category?.name}
+                      {artwork?.artist?.first_name}
+                      {artwork?.artist?.last_name}
                     </Link>
                   </Typography>
                   <Typography
@@ -177,7 +184,7 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
                       marginTop: '10px',
                     }}
                   >
-                    {artwork.artist.origin}
+                    {artwork.title}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -191,9 +198,56 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
                 </Grid>
               ))}
             </Slider>
+            <Divider sx={{ mt: 4 }} variant="middle" />
           </Grid>
-        </>
+        </Grid>
       )}
-    </Grid>
+    </>
   );
 }
+const Regionlist = () => {
+  const dispatch = useDispatch();
+
+  const artworksList = useSelector((state) => state.artworks);
+  const { artworks, pages } = artworksList;
+
+  const filterOrigin = useSelector((state) => state.filterOrigin);
+  const { origins, success: successOrigins } = filterOrigin;
+
+  useEffect(() => {
+    dispatch(filterByRegion());
+    dispatch(fetchAllArtWorks());
+  }, []);
+
+  const list = [];
+  let regionArtworks;
+  if (artworks[0] && origins && origins.origins) {
+    for (let i = 0; i < origins.origins.length; i += 1) {
+      if (origins.origins[i].country) {
+        regionArtworks = artworks.filter(
+          (artwork) => artwork.origin === origins.origins[i]._id
+        );
+        list.push({
+          origin: origins.origins[i].country,
+          artworks: regionArtworks,
+        });
+      }
+    }
+  }
+  console.log(artworks);
+  console.log(list);
+  return (
+    <Container maxWidth="xl">
+      {list.map((item, index) => (
+        <Region key={index} region={item.origin} artworks={item.artworks} />
+      ))}
+    </Container>
+  );
+};
+
+export default Regionlist;
+
+Region.propTypes = {
+  region: PropTypes.string.isRequired,
+  artworks: PropTypes.array.isRequired,
+};

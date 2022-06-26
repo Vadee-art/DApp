@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
 
 // match params has the id from the router /:workId
 function Artist() {
+  window.scrollTo(0, 0);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { artistId } = useParams();
 
   const theArtist = useSelector((state) => state.theArtist);
@@ -64,12 +64,10 @@ function Artist() {
   const { user } = userDetails;
 
   useEffect(() => {
-    if (!success) {
-      dispatch(fetchSimilarArtists(artistId));
-      dispatch(fetchArtistById(artistId));
-      if (!successCategories) {
-        dispatch(fetchCategories());
-      }
+    dispatch(fetchSimilarArtists(artistId));
+    dispatch(fetchArtistById(artistId));
+    if (!successCategories) {
+      dispatch(fetchCategories());
     }
   }, [artistId]);
 

@@ -5,6 +5,7 @@ import { Typography, Grid, Button } from '@mui/material';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function CarouselRelatedArtistTwo({ relatedArtists }) {
   const settings = {
@@ -72,6 +73,14 @@ export default function CarouselRelatedArtistTwo({ relatedArtists }) {
               }}
             >
               <Grid item xs={4}>
+                <Link
+                  style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  to={`/artists/${artist._id}`}
+                />
                 <img
                   style={{
                     width: '100%',

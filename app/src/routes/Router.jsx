@@ -4,16 +4,17 @@ import Loadable from '../layout/loadable/Loadable';
 import FullLayout from '../layout/full-layout/FullLayout';
 import BlankLayout from '../layout/plain-layout/PlainLayout';
 
-const Error = Loadable(lazy(() => import('../pages/Error')));
+const Error = Loadable(lazy(() => import('../components/Error')));
 
-const Main = Loadable(lazy(() => import('../pages/Main')));
-const Artwork = Loadable(lazy(() => import('../pages/Artwork')));
-const ArtworkList = Loadable(lazy(() => import('../pages/ArtworkList')));
-const Artist = Loadable(lazy(() => import('../pages/Artist')));
-const ArtistList = Loadable(lazy(() => import('../pages/ArtistList')));
-const Regions = Loadable(lazy(() => import('../pages/Regions')));
-const UserProfile = Loadable(lazy(() => import('../pages/UserProfile')));
-const Cart = Loadable(lazy(() => import('../pages/Cart')));
+const Main = Loadable(lazy(() => import('../pages/main')));
+const Artwork = Loadable(lazy(() => import('../pages/artwork')));
+const ArtworkList = Loadable(lazy(() => import('../pages/artworkList')));
+const Artist = Loadable(lazy(() => import('../pages/artist')));
+const ArtistList = Loadable(lazy(() => import('../pages/artistList')));
+const RegionList = Loadable(lazy(() => import('../pages/regionList')));
+const Region = Loadable(lazy(() => import('../pages/region')));
+const UserProfile = Loadable(lazy(() => import('../pages/userProfile')));
+const Cart = Loadable(lazy(() => import('../pages/cart')));
 
 const Router = [
   {
@@ -22,14 +23,15 @@ const Router = [
     children: [
       { path: '/', element: <Navigate to="/main" /> },
       { path: '/main', element: <Main /> },
-      { path: '/artworks/:workId', element: <Artwork /> },
       { path: '/artworks/', element: <ArtworkList /> },
-      { path: '/artists/:artistId', element: <Artist /> },
+      { path: '/artworks/:workId', element: <Artwork /> },
       { path: '/artists/search', element: <ArtistList /> },
-      { path: '/regions/', element: <Regions /> },
+      { path: '/artists/:artistId', element: <Artist /> },
+      { path: '/regions/', element: <RegionList /> },
+      { path: '/regions/:country', element: <Region /> },
       { path: '/users/profile', element: <UserProfile /> },
       { path: '/cart/shippingAddress/:workId?', element: <Cart /> },
-      // { path: '*', element: <Navigate to="/auth/404" /> },
+      { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
   {

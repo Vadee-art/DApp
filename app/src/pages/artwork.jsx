@@ -17,7 +17,10 @@ import TheTab from '../components/TheTab';
 import { favArtwork, fetchUserDetails } from '../actions/userAction';
 import RelatedCategory from '../components/carousel/RelatedCategory';
 // import CarouselArtist from '../components/carousel/CarouselArtist';
-import { ARTWORK_UPDATE_RESET } from '../constants/artworkConstants';
+import {
+  ARTWORK_DETAILS_RESET,
+  ARTWORK_UPDATE_RESET,
+} from '../constants/artworkConstants';
 import {
   MINT_AND_REDEEM_RESET,
   SIGN_MY_ITEM_RESET,
@@ -31,6 +34,7 @@ import {
 import CarouselArtistSimilarArtworks from '../components/carousel/CarouselArtistSimilarArtworks';
 import CarouselArtistArtworks from '../components/carousel/CarouselArtistArtworks.jsx';
 import CarouselRelatedArtistOne from '../components/carousel/CarouselRelatedArtist-1';
+import { ARTIST_BY_ID_RESET } from '../constants/artistConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,11 +51,13 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '16px',
     paddingBottom: '16px',
     marginLeft: theme.spacing(2),
+    position: 'relative',
   },
 }));
 
 // match params has the id from the router /:workId
 function Artwork() {
+  window.scrollTo(0, 0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { workId } = useParams();
@@ -94,6 +100,10 @@ function Artwork() {
       dispatch(fetchOneArtWork(workId));
       dispatch(fetchCategories());
     }
+    return () => {
+      dispatch({ type: ARTWORK_DETAILS_RESET });
+      dispatch({ type: ARTIST_BY_ID_RESET });
+    };
   }, [dispatch, workId]);
 
   // fetch artist
@@ -196,6 +206,14 @@ function Artwork() {
               </Grid>
               <Grid item xs sx={{ textAlign: 'center', margin: 'auto' }}>
                 <Paper className={classes.paper} elevation={0}>
+                  <Link
+                    style={{
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                    to={`/artists/${artist.artist._id}`}
+                  />
                   <img
                     onLoad={() => setIsImageLoading(true)}
                     src={`${artwork.image}?w=248&fit=crop&auto=format`}

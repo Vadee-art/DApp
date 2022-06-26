@@ -5,16 +5,13 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { Grid, ImageList, Typography } from '@mui/material';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function ArtistNotableArts({ artist }) {
   return (
     <Grid
       sx={{
         marginBottom: 5,
-        opacity: 0.8,
-        ':hover': {
-          opacity: 1,
-        },
       }}
       display="flex"
       justifyContent="space-between"
@@ -57,35 +54,38 @@ export default function ArtistNotableArts({ artist }) {
                 // .slice(0, 6)
                 .filter((artwork) => artwork.is_notable)
                 .map((artwork) => (
-                  <ImageListItem key={artwork._id} style={{ color: '#666666' }}>
+                  <ImageListItem
+                    key={artwork._id}
+                    sx={{
+                      color: '#666666',
+                      opacity: 0.8,
+                      ':hover': {
+                        opacity: 1,
+                      },
+                    }}
+                  >
                     <ImageListItemBar
                       style={{ background: 'transparent' }}
                       actionPosition="right"
                     />
-                    {artwork.artist ? (
-                      <img
-                        srcSet={
-                          artwork.image.includes('default')
-                            ? 'static/defaultImage.png'
-                            : `${artwork.image}?w=161&fit=crop&auto=format 1x,
-              ${artwork.image}?w=161&fit=crop&auto=format&dpr=2 2x`
-                        }
-                        alt={artwork.title}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <img
-                        srcSet={
-                          artwork.photo.includes('default')
-                            ? 'static/defaultImage.png'
-                            : `${artwork.photo}?w=161&fit=crop&auto=format 1x,
-                ${artwork.photo}?w=161&fit=crop&auto=format&dpr=2 2x`
-                        }
-                        alt={artwork.firstName}
-                        loading="lazy"
-                      />
-                    )}
-
+                    <Link
+                      style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                      }}
+                      to={`/artworks/${artwork._id}`}
+                    />
+                    <img
+                      srcSet={
+                        artwork.image.includes('default')
+                          ? 'static/defaultImage.png'
+                          : `${artwork.image}?w=161&fit=crop&auto=format 1x,
+                          ${artwork.image}?w=161&fit=crop&auto=format&dpr=2 2x`
+                      }
+                      alt={artwork.title}
+                      loading="lazy"
+                    />
                     <Typography
                       sx={{
                         color: '#000',

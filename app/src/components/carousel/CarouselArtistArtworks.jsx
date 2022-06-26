@@ -138,6 +138,14 @@ export default function CarouselArtistArtworks({ artist }) {
                 }}
                 key={index}
               >
+                <Link
+                  style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  to={`/artworks/${artwork._id}`}
+                />
                 <img
                   srcSet={`${artwork.image}?w=164&h=164&fit=crop&auto=format 2x,
                   ${artwork.image}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
