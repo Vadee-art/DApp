@@ -38,7 +38,7 @@ export default function ArtistCard({ artist }) {
               aria-label={`star ${artist.title}`}
               style={{ zIndex: 10, bottom: '70px' }}
             >
-              {isFav ? <FavoriteIcon /> : <FavoriteBorder color="primary" />}
+              {true ? <FavoriteIcon /> : <FavoriteBorder color="primary" />}
             </IconButton>
           }
         />
