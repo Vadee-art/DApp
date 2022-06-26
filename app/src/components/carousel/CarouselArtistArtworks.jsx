@@ -96,7 +96,6 @@ export default function CarouselArtistArtworks({ artist }) {
     ],
   };
 
-  console.log(artist.artworks);
   const classes = useStyles();
   return (
     <Grid

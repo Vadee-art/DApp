@@ -163,6 +163,10 @@ function ArtistList() {
 
   const handleAlphabet = (e) => {
     setAlph(e.target.innerText); // needed for shadow after onClick
+    if (alph === e.target.innerText) {
+      dispatch(fetchArtistList());
+      setAlph();
+    }
     dispatch(fetchArtistList(`?alphabet=${e.target.innerText}`));
   };
   const classes = useStyles();
@@ -181,22 +185,9 @@ function ArtistList() {
                 paddingRight: 8,
               }}
             >
-              <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ paddingY: 5 }}
-              >
-                <Grid item xs sx={{ marginTop: 0, marginRight: 4 }} />
-                <Grid
-                  item
-                  xs={10}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  }}
-                >
+              <Grid container direction="row" sx={{ paddingTop: 5 }}>
+                <Grid item xs sx={{ marginTop: 0 }} />
+                <Grid item xs={10}>
                   {alphabets &&
                     alphabets.map((alphabet, index) => (
                       <IconButton
@@ -213,7 +204,7 @@ function ArtistList() {
                                 : 0,
                             fontSize: '15px',
                             color: '#A2A28F',
-                            p: 2,
+                            p: '5px',
                             border: alph === alphabet ? '1px solid #99CCCC' : 0,
                           }}
                         >

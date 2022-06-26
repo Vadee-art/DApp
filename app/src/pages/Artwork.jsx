@@ -25,6 +25,8 @@ import {
 import {
   fetchArtistById,
   fetchArtistRelatedArt,
+  fetchArtistList,
+  fetchSimilarArtists,
 } from '../actions/artistAction';
 import CarouselArtistSimilarArtworks from '../components/carousel/CarouselArtistSimilarArtworks';
 import CarouselArtistArtworks from '../components/carousel/CarouselArtistArtworks.jsx';
@@ -57,28 +59,22 @@ function Artwork() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
-  const [isFav, setIsFav] = useState(false);
   const [priceEth, setPriceEth] = useState();
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
 
   const theArtwork = useSelector((state) => state.theArtwork);
-  const {
-    error,
-    loading: loadingArtwork,
-    success: successArtwork,
-    artwork,
-  } = theArtwork;
+  const { error, loading: loadingArtwork, artwork } = theArtwork;
 
   const theArtist = useSelector((state) => state.theArtist);
-  const { artist, relatedTags } = theArtist;
+  const { artist, relatedTags, relatedArtists } = theArtist;
+
+  const artistList = useSelector((state) => state.artistList);
+  const { artists, success: successArtistList } = artistList;
 
   const theCart = useSelector((state) => state.theCart);
-  const { loading: loadingCart, success: successCart } = theCart;
+  const { loading: loadingCart } = theCart;
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user, success: successUserDetails } = userDetails;
@@ -103,8 +99,10 @@ function Artwork() {
   // fetch artist
   useEffect(() => {
     if (artwork.artist) {
-      dispatch(fetchArtistById(artwork.artist._id));
       dispatch(fetchArtistRelatedArt(artwork.artist._id));
+      dispatch(fetchSimilarArtists(artwork.artist._id));
+      dispatch(fetchArtistById(artwork.artist._id));
+      if (!successArtistList) dispatch(fetchArtistList());
     }
   }, [artwork]);
 
@@ -147,9 +145,9 @@ function Artwork() {
   const classes = useStyles();
   const renderElement = () => (
     <Container maxWidth="xl">
-      {artist &&
+      {artists &&
+        artist &&
         artist.artworks &&
-        relatedTags &&
         categories &&
         artwork &&
         artwork.price && (
@@ -180,7 +178,7 @@ function Artwork() {
                       textAlign: 'left',
                     }}
                   >
-                    {isFav ? 'Save' : 'UnSave'}
+                    {true ? 'Save' : 'UnSave'}
                   </Button>
                 </Grid>
                 <Grid>
@@ -409,7 +407,9 @@ function Artwork() {
                 marginTop: 8,
               }}
             >
-              <CarouselArtistSimilarArtworks relatedTags={relatedTags} />
+              {relatedTags && (
+                <CarouselArtistSimilarArtworks relatedTags={relatedTags} />
+              )}
             </Grid>
             <Grid
               container
@@ -420,7 +420,9 @@ function Artwork() {
                 marginTop: 8,
               }}
             >
-              <CarouselRelatedArtist artist={artist} />
+              {relatedArtists && (
+                <CarouselRelatedArtist relatedArtists={relatedArtists} />
+              )}
             </Grid>
           </>
         )}

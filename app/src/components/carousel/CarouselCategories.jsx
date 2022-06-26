@@ -88,7 +88,8 @@ export default function CarouselCategories() {
                     className="mid-images"
                     key={index}
                     sx={{
-                      paddingX: 2,
+                      pl: 1,
+                      pr: 1,
                       textAlign: 'left',
                     }}
                   >

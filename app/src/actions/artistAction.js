@@ -15,6 +15,9 @@ import {
   ARTIST_RELATED_REQUEST,
   ARTIST_RELATED_SUCCESS,
   ARTIST_RELATED_FAIL,
+  SIMILAR_ARTISTS_REQUEST,
+  SIMILAR_ARTISTS_SUCCESS,
+  SIMILAR_ARTISTS_FAIL,
 } from '../constants/artistConstants';
 
 export const fetchArtistById = (id) => async (dispatch) => {
@@ -64,6 +67,34 @@ export const fetchArtistRelatedArt = (artistId) => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: ARTIST_RELATED_FAIL,
+      payload:
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
+    });
+  }
+};
+
+export const fetchSimilarArtists = (artistId) => async (dispatch) => {
+  try {
+    dispatch({ type: SIMILAR_ARTISTS_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+    const response = await artworksBase.get(
+      `artists/artist/similar/${artistId}/`,
+      config
+    );
+    dispatch({
+      type: SIMILAR_ARTISTS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: SIMILAR_ARTISTS_FAIL,
       payload:
         e.response && e.response.data.detail
           ? e.response.data.detail

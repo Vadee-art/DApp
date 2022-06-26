@@ -12,7 +12,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import { fetchArtistById, fetchArtistList } from '../../actions/artistAction';
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -74,7 +74,7 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
     dots: false,
     infinite: true,
     centerMode: true,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     variableWidth: true,
     nextArrow: <SampleNextArrow />,
@@ -107,83 +107,85 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
       alignItems="flex-start"
       className={classes.root}
     >
-      <Grid item sm={1}>
-        <Typography variant="subtitle1">Similar</Typography>
-        <Typography variant="subtitle1">Artworks</Typography>
-      </Grid>
-      <Grid
-        item
-        xs={10}
-        md={10}
-        sx={{
-          marginLeft: 4,
-        }}
-      >
-        {relatedTags && (
-          <Slider
-            {...settings}
-            style={{
-              padding: 0,
+      {relatedTags && (
+        <>
+          <Grid item sm={1}>
+            <Typography variant="subtitle1">Similar</Typography>
+            <Typography variant="subtitle1">Artworks</Typography>
+          </Grid>
+          <Grid
+            item
+            xs={10}
+            md={10}
+            sx={{
+              marginLeft: 4,
             }}
           >
-            {relatedTags.map((artwork, index) => (
-              <Grid
-                sx={{
-                  padding: 0,
-                  margin: 0,
-                  maxWidth: '300px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                  alignSelf: 'flex-end ',
-                }}
-                key={index}
-              >
-                <img
-                  srcSet={`${artwork.image}?w=164&h=164&fit=crop&auto=format 2x,
-                  ${artwork.image}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
-                  alt={artwork.title}
-                  loading="lazy"
-                  style={{ maxWidth: '90%', marginBottom: '20px' }}
-                />
-                <Typography
-                  variant="subtitle2"
+            <Slider
+              {...settings}
+              style={{
+                padding: 0,
+              }}
+            >
+              {relatedTags.map((artwork, index) => (
+                <Grid
                   sx={{
                     padding: 0,
                     margin: 0,
-                    fontWeight: 600,
-                    fontSize: '16px',
+                    maxWidth: '300px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    alignSelf: 'flex-end ',
                   }}
+                  key={index}
                 >
-                  <Link style={{ color: 'black' }} to="#">
-                    {artwork?.category?.name}
-                  </Link>
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    padding: 0,
-                    fontSize: '14px',
-                    marginTop: '10px',
-                  }}
-                >
-                  {artwork.artist.origin}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontSize: '14px',
-                    marginTop: '3px',
-                  }}
-                >
-                  ${artwork.price.toLocaleString()}
-                </Typography>
-              </Grid>
-            ))}
-          </Slider>
-        )}
-      </Grid>
+                  <img
+                    srcSet={`${artwork.image}?w=164&h=164&fit=crop&auto=format 2x,
+                  ${artwork.image}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+                    alt={artwork.title}
+                    loading="lazy"
+                    style={{ maxWidth: '90%', marginBottom: '20px' }}
+                  />
+                  <Typography
+                    variant="subtitle2"
+                    sx={{
+                      padding: 0,
+                      margin: 0,
+                      fontWeight: 600,
+                      fontSize: '16px',
+                    }}
+                  >
+                    <Link style={{ color: 'black' }} to="#">
+                      {artwork?.category?.name}
+                    </Link>
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      padding: 0,
+                      fontSize: '14px',
+                      marginTop: '10px',
+                    }}
+                  >
+                    {artwork.artist.origin}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: '14px',
+                      marginTop: '3px',
+                    }}
+                  >
+                    ${artwork.price.toLocaleString()}
+                  </Typography>
+                </Grid>
+              ))}
+            </Slider>
+          </Grid>
+        </>
+      )}
     </Grid>
   );
 }

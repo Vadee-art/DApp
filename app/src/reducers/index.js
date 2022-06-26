@@ -25,7 +25,7 @@ import {
 } from './userReducer';
 import headerReducer from './headerReducer';
 import {
-  artistByIdReducer,
+  artistRelated,
   artistGalleryReducer,
   artistIsTalentReducer,
   artistListReducer,
@@ -60,7 +60,7 @@ export default combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   artistList: artistListReducer,
-  theArtist: artistByIdReducer,
+  theArtist: artistRelated,
   isTalent: artistIsTalentReducer,
   artworkUpdate: artworkUpdateReducer,
   userUpdateProfile: userUpdateProfileReducer,

@@ -47,6 +47,10 @@ const Regions = () => {
   const categoryList = useSelector((state) => state.categoryList);
   const { categories, success: successCategories } = categoryList;
 
+  const theArtist = useSelector((state) => state.theArtist);
+  const { artist, relatedTags, relatedArtists, error, loading, success } =
+    theArtist;
+
   const marketPlaceDeployment = useSelector(
     (state) => state.marketPlaceDeployment
   );
@@ -78,9 +82,6 @@ const Regions = () => {
       dispatch(fetchCategories());
     }
   }, [successCategories, dispatch, navigate]);
-
-  const theArtist = useSelector((state) => state.theArtist);
-  const { success, artist } = theArtist;
 
   useEffect(() => {
     if (!success) {
@@ -350,7 +351,7 @@ const Regions = () => {
                   marginLeft: 0.3,
                 }}
               >
-                <CarouselRelatedArtist />
+                <CarouselRelatedArtist relatedArtists={relatedArtists} />
               </Grid>
             </Grid>
           </Container>

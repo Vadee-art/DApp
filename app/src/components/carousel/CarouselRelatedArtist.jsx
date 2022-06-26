@@ -6,39 +6,38 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import PropTypes from 'prop-types';
 
-const settings = {
-  className: 'center',
-  dots: false,
-  infinite: true,
-  slidesToShow: 3.5,
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
+export default function CarouselRelatedArtist({ relatedArtists }) {
+  const settings = {
+    className: 'center',
+    dots: false,
+    infinite: true,
+    slidesToShow: relatedArtists.length > 2 ? 3 : 2,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        },
       },
-    },
-    {
-      breakpoint: 900,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
       },
-    },
-    {
-      breakpoint: 680,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
+      {
+        breakpoint: 680,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
       },
-    },
-  ],
-};
-
-export default function CarouselRelatedArtist({ artist }) {
+    ],
+  };
   return (
     <Grid
       container
@@ -59,71 +58,88 @@ export default function CarouselRelatedArtist({ artist }) {
         }}
       >
         <Slider {...settings}>
-          {artist.artworks.map((artwork, index) => (
+          {relatedArtists.map((artist, index) => (
             <Grid
               key={index}
               container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
               sx={{
                 display: 'flex !important',
                 border: '1px solid #A2A28F',
-                maxWidth: '300px',
+                maxWidth: '250px',
+                maxHeight: '90px',
               }}
             >
-              <img
-                style={{
-                  margin: 0,
-                  width: '100%',
-                  maxHeight: '180px',
-                  marginBottom: '30px',
-                }}
-                src={artist.artist.photo}
-                alt="artist"
-              />
-
-              <Typography
-                style={{
-                  color: '#000',
-                  fontSize: '21px',
-                  fontWeight: 500,
-                  marginBottom: '10px',
-                }}
+              <Grid item xs={4}>
+                <img
+                  style={{
+                    margin: 0,
+                    width: '100%',
+                    marginBottom: '30px',
+                  }}
+                  src={artist.photo}
+                  alt="artist"
+                />
+              </Grid>
+              <Grid
+                item
+                xs={8}
+                container
+                direction="column"
+                justifyContent="space-between"
+                alignItems="center"
               >
-                {artist &&
-                  `${artist.artist.first_name} ${artist.artist.last_name}`}
-              </Typography>
-              <Typography
-                style={{
-                  fontSize: '15px',
-                  marginBottom: '15px',
-                }}
-              >
-                {artist &&
-                  `${artist.artist.origin}, ${artist.artist.birthday.slice(
-                    0,
-                    4
-                  )}`}
-              </Typography>
-              <Button
-                variant="contained"
-                type="submit"
-                sx={{
-                  backgroundColor: '#A2A28F',
-                  color: '#fff',
-                  paddingY: 1,
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  '&:hover': {
-                    backgroundColor: 'black',
-                  },
-                }}
-                fullWidth
-                // disabled={disabled}
-              >
-                Follow
-              </Button>
+                <Grid item>
+                  <Typography
+                    style={{
+                      color: '#000',
+                      fontSize: '21px',
+                      fontWeight: 500,
+                      marginBottom: '10px',
+                    }}
+                  >
+                    {artist && `${artist.first_name} ${artist.last_name}`}
+                  </Typography>
+                  <Typography
+                    style={{
+                      fontSize: '15px',
+                      marginBottom: '15px',
+                    }}
+                  >
+                    {artist &&
+                      `${artist.origin}, ${artist.birthday.slice(0, 4)}`}
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  sx={{
+                    width: '100%',
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    sx={{
+                      backgroundColor: '#A2A28F',
+                      color: '#fff',
+                      paddingTop: 1,
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      '&:hover': {
+                        backgroundColor: 'black',
+                      },
+                      width: '100%',
+                      maxHeight: '30px',
+                    }}
+                    fullWidth
+                    // disabled={disabled}
+                  >
+                    Follow
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           ))}
         </Slider>
@@ -132,5 +148,5 @@ export default function CarouselRelatedArtist({ artist }) {
   );
 }
 CarouselRelatedArtist.propTypes = {
-  artist: PropTypes.object.isRequired, // artist or artwork
+  relatedArtists: PropTypes.array.isRequired,
 };

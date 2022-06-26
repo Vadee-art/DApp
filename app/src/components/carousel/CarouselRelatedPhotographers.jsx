@@ -103,7 +103,7 @@ export default function CarouselRelatedPhotograaphers({ artists }) {
               sx={{
                 backgroundColor: '#A2A28F',
                 color: '#000',
-                paddingY: 0.7,
+                paddingTop: 1,
                 fontSize: '15px',
                 fontWeight: 400,
                 // lineHeight: '0.4rem',

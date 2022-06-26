@@ -67,7 +67,8 @@ function Artist() {
   const [isFav, setIsFav] = useState(false);
 
   const theArtist = useSelector((state) => state.theArtist);
-  const { error, loading, success, artist } = theArtist;
+  const { artist, relatedTags, relatedArtists, error, loading, success } =
+    theArtist;
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
@@ -121,19 +122,19 @@ function Artist() {
             justifyContent="space-between"
             alignItems="flex-start"
           >
-            <Hidden>
-              <Grid
-                item
-                container
-                direction="column"
-                xs={1.5}
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                // sm={8} md={1}
-                sx={{
-                  marginTop: '15px',
-                }}
-              >
+            <Grid
+              item
+              container
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              sm={8}
+              md={2}
+              sx={{
+                marginTop: '15px',
+              }}
+            >
+              <Grid item>
                 <img
                   style={{
                     height: '110px',
@@ -143,16 +144,17 @@ function Artist() {
                   src={artist.artist.photo}
                   alt="artist"
                 />
+              </Grid>
+              <Grid item>
                 <Typography
                   style={{
                     color: '#000',
                     fontSize: '20px',
                     fontWeight: 600,
-                    lineHeight: 1.4,
                   }}
                 >
                   {artist &&
-                    `${artist.artist.firstName} ${artist.artist.lastName}`}
+                    `${artist.artist.first_name} ${artist.artist.last_name}`}
                 </Typography>
                 <Typography
                   style={{
@@ -164,15 +166,16 @@ function Artist() {
                   }}
                 >
                   {artist.artist.origin}
-                  {' , '} {artist.artist.birthday.slice(0, 4)}
+                  {artist.artist.birthday.slice(0, 4)}
                 </Typography>
+              </Grid>
+              <Grid item>
                 <Button
                   variant="outlined"
                   type="submit"
                   sx={{
                     width: '100%',
                     border: '1px solid #A2A28F',
-                    padding: '8px 0px',
                     color: '#A2A28F',
                     fontSize: '18px',
                     fontWeight: 500,
@@ -186,13 +189,8 @@ function Artist() {
                   Follow
                 </Button>
               </Grid>
-            </Hidden>
-            <Grid
-              item
-              xs={10.2}
-              sx={{ marginLeft: 0.3 }}
-              // md
-            >
+            </Grid>
+            <Grid item xs sx={{ marginLeft: 0 }} md>
               <TheTab artist={artist.artist} />
             </Grid>
           </Grid>
@@ -206,12 +204,12 @@ function Artist() {
                 padding: 0,
               }}
             >
-              <Grid item xs={1.5}>
+              <Grid item xs={2}>
                 <Typography
                   variant="subtitle1"
                   sx={{
                     fontWeight: 300,
-                    lineHeight: 1.3,
+                    lineHeight: 1,
                     fontSize: '1.4rem',
                     marginBottom: '5px',
                   }}
@@ -230,10 +228,9 @@ function Artist() {
               </Grid>
               <Grid
                 item
-                xs={10.2}
-                // md={10}
+                md={10}
                 sx={{
-                  marginLeft: 0.3,
+                  marginLeft: 0,
                 }}
               >
                 <ImageList
@@ -262,16 +259,16 @@ function Artist() {
                 sx={{
                   p: 3,
                   width: '100%',
-                  border: '0.5px solid #A2A28F',
+                  border: '1px solid #A2A28F',
                   overflowX: 'hidden',
                   marginTop: 5,
-                  paddingLeft: 0.5,
+                  paddingLeft: 1,
                   display: 'flex',
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                 }}
               >
-                <Grid item xs={1.5}>
+                <Grid item xs={2}>
                   <Typography
                     variant="subtitle1"
                     style={{
@@ -295,9 +292,10 @@ function Artist() {
                 </Grid>
                 <Grid
                   sx={{
-                    marginLeft: 0.3,
+                    marginLeft: 0,
                   }}
-                  xs={10.2}
+                  xs={10}
+                  item
                   display="flex"
                   justifyContent="space-between"
                 >
@@ -323,13 +321,13 @@ function Artist() {
                 marginTop: 8,
               }}
             >
-              <Grid item sm={1.5}>
+              <Grid item sm={2}>
                 <Typography
                   variant="subtitle1"
                   style={{
                     fontSize: '1.4rem',
                     fontWeight: 300,
-                    lineHeight: 1.3,
+                    lineHeight: 1,
                     marginBottom: 5,
                   }}
                 >
@@ -347,13 +345,14 @@ function Artist() {
               </Grid>
               <Grid
                 item
-                xs={10.2}
-                // md={10}
+                md={10}
                 sx={{
-                  marginLeft: 0.3,
+                  marginLeft: 0,
                 }}
               >
-                <CarouselRelatedArtist />
+                {relatedArtists && (
+                  <CarouselRelatedArtist relatedArtists={relatedArtists} />
+                )}
               </Grid>
             </Grid>
           </Hidden>

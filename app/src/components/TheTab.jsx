@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 function a11yProps(index) {
   return {
@@ -14,7 +16,8 @@ function a11yProps(index) {
 }
 
 export default function TheTab({ artist }) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -92,8 +95,17 @@ export default function TheTab({ artist }) {
 }
 
 function TabPanel(props) {
+  const [expand, setExpand] = useState(false);
+
   const { children, value, index, ...other } = props;
 
+  const handleExpand = () => {
+    if (expand) {
+      setExpand(false);
+    } else {
+      setExpand(true);
+    }
+  };
   return (
     <div
       role="tabpanel"
@@ -103,29 +115,32 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ paddingY: 3 }}>
-          <span>
-            <Typography
-              style={{
-                lineHeight: 1.8,
-                maxHeight: '310px',
-                overflowY: 'hidden',
-              }}
-              variant="body2"
+        <Box sx={{ pt: 3 }}>
+          <Typography
+            style={{
+              lineHeight: 2,
+              maxHeight: expand ? '600px' : '250px',
+              overflowY: expand ? 'scroll' : 'hidden',
+            }}
+            variant="body2"
+          >
+            {children}
+          </Typography>
+          <Typography
+            style={{
+              color: '#99CCCC',
+              fontSize: '19px',
+              fontWeight: 400,
+              lineHeight: 2,
+            }}
+          >
+            <Button
+              color={expand ? 'primary' : 'secondary'}
+              onClick={handleExpand}
             >
-              {children}
-            </Typography>
-            <Typography
-              style={{
-                color: '#99CCCC',
-                fontSize: '19px',
-                fontWeight: 400,
-                lineHeight: 1.8,
-              }}
-            >
-              {children.length > 300 ? '... Read more' : ''}
-            </Typography>
-          </span>
+              {!expand ? '... Read more' : 'Read Less'}
+            </Button>
+          </Typography>
         </Box>
       )}
     </div>

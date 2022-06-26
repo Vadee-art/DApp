@@ -31,7 +31,7 @@ function RelatedCategory({ categories }) {
           opacity: '50%',
         }}
       >
-        <Grid item xs={1}>
+        <Grid item xs={2}>
           <Typography variant="subtitle1">Related</Typography>
           <Typography variant="subtitle1">Categories</Typography>
         </Grid>
@@ -42,9 +42,6 @@ function RelatedCategory({ categories }) {
           alignItems="center"
           item
           xs={10}
-          sx={{
-            marginLeft: 4,
-          }}
         >
           {categories.map((cat) => (
             <Grid key={cat._id} item xs>
