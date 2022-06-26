@@ -345,8 +345,7 @@ const Regions = () => {
               </Grid>
               <Grid
                 item
-                xs={10.2}
-                // md={10}
+                md={10}
                 sx={{
                   marginLeft: 0.3,
                 }}

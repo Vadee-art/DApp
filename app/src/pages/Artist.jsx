@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Hidden from '@mui/material/Hidden';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
@@ -14,9 +14,9 @@ import { fetchOneArtWork } from '../actions/artworkAction';
 import TheTab from '../components/TheTab';
 import CarouselRelatedArtist from '../components/carousel/CarouselRelatedArtist';
 import { ARTIST_BY_ID_RESET } from '../constants/artistConstants';
-import { fetchArtistById } from '../actions/artistAction';
-import ArtSeriesCard from '../components/ArtSeriesCard';
+import { fetchArtistById, fetchSimilarArtists } from '../actions/artistAction';
 import { favArtwork } from '../actions/userAction';
+import NotableArts from '../components/ArtSeriesCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,20 +64,18 @@ function Artist() {
   const navigate = useNavigate();
   const { artistId } = useParams();
 
-  const [isFav, setIsFav] = useState(false);
-
   const theArtist = useSelector((state) => state.theArtist);
-  const { artist, relatedTags, relatedArtists, error, loading, success } =
-    theArtist;
+  const { artist, relatedArtists, error, loading, success } = theArtist;
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 
   useEffect(() => {
     if (!success) {
+      dispatch(fetchSimilarArtists(artistId));
       dispatch(fetchArtistById(artistId));
     }
-  }, [success, dispatch, artistId]);
+  }, [artistId]);
 
   //   user favorite artist + reset artist works
   useEffect(() => {
@@ -243,16 +241,17 @@ function Artist() {
                 >
                   {artist.artworks &&
                     artist.artworks
-                      .slice(0, 6)
+                      // .slice(0, 6)
+                      .filter((artwork) => artwork.is_notable)
                       .map((artwork) => (
-                        <ArtSeriesCard key={artwork._id} data={artwork} />
+                        <NotableArts key={artwork._id} artwork={artwork} />
                       ))}
                 </ImageList>
               </Grid>
             </Grid>
             {/* <Grid sx={{ paddingLeft: 2, paddingRight: 2 }}>
-                <RelatedCategory />
-              </Grid> */}
+              <Related />
+            </Grid> */}
             <Grid item xs={12}>
               <Box
                 component="div"
@@ -321,39 +320,9 @@ function Artist() {
                 marginTop: 8,
               }}
             >
-              <Grid item sm={2}>
-                <Typography
-                  variant="subtitle1"
-                  style={{
-                    fontSize: '1.4rem',
-                    fontWeight: 300,
-                    lineHeight: 1,
-                    marginBottom: 5,
-                  }}
-                >
-                  Related
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  style={{
-                    fontSize: '1.4rem',
-                    fontWeight: 300,
-                  }}
-                >
-                  Artists
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                md={10}
-                sx={{
-                  marginLeft: 0,
-                }}
-              >
-                {relatedArtists && (
-                  <CarouselRelatedArtist relatedArtists={relatedArtists} />
-                )}
-              </Grid>
+              {relatedArtists && (
+                <CarouselRelatedArtist relatedArtists={relatedArtists} />
+              )}
             </Grid>
           </Hidden>
         </Grid>

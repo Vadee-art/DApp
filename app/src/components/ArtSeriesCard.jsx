@@ -6,7 +6,7 @@ import { Grid, Typography } from '@mui/material';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import PropTypes from 'prop-types';
 
-export default function ArtSeriesCard({ data }) {
+export default function NotableArts({ artwork }) {
   return (
     <Grid
       sx={{
@@ -25,26 +25,26 @@ export default function ArtSeriesCard({ data }) {
           style={{ background: 'transparent' }}
           actionPosition="right"
         />
-        {data.artist ? (
+        {artwork.artist ? (
           <img
             srcSet={
-              data.image.includes('default')
+              artwork.image.includes('default')
                 ? 'static/defaultImage.png'
-                : `${data.image}?w=161&fit=crop&auto=format 1x,
-              ${data.image}?w=161&fit=crop&auto=format&dpr=2 2x`
+                : `${artwork.image}?w=161&fit=crop&auto=format 1x,
+              ${artwork.image}?w=161&fit=crop&auto=format&dpr=2 2x`
             }
-            alt={data.title}
+            alt={artwork.title}
             loading="lazy"
           />
         ) : (
           <img
             srcSet={
-              data.photo.includes('default')
+              artwork.photo.includes('default')
                 ? 'static/defaultImage.png'
-                : `${data.photo}?w=161&fit=crop&auto=format 1x,
-                ${data.photo}?w=161&fit=crop&auto=format&dpr=2 2x`
+                : `${artwork.photo}?w=161&fit=crop&auto=format 1x,
+                ${artwork.photo}?w=161&fit=crop&auto=format&dpr=2 2x`
             }
-            alt={data.firstName}
+            alt={artwork.firstName}
             loading="lazy"
           />
         )}
@@ -58,7 +58,7 @@ export default function ArtSeriesCard({ data }) {
             marginBottom: '8px',
           }}
         >
-          {data.category ? data.category?.name : 'Unknown'}
+          {artwork.category ? artwork.category?.name : 'Unknown'}
         </Typography>
         <Typography
           sx={{
@@ -69,13 +69,13 @@ export default function ArtSeriesCard({ data }) {
             margin: 0,
           }}
         >
-          {data.artist ? data.artist?.origin : 'Origin'}
+          {artwork.artist ? artwork.artist?.origin : 'Origin'}
         </Typography>
-        {data.price && (
+        {artwork.price && (
           <Typography
             sx={{ width: '100%', margin: 0, color: '#000', fontSize: '1rem' }}
           >
-            ${data.price}
+            ${artwork.price}
           </Typography>
         )}
       </ImageListItem>
@@ -83,6 +83,6 @@ export default function ArtSeriesCard({ data }) {
   );
 }
 
-ArtSeriesCard.propTypes = {
-  data: PropTypes.object.isRequired, // artist or artwork
+NotableArts.propTypes = {
+  artwork: PropTypes.object.isRequired, // artist or artwork
 };
