@@ -20,10 +20,8 @@ import Divider from '@mui/material/Divider';
 import usePagination from '@mui/material/usePagination';
 import { styled } from '@mui/material/styles';
 import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
-import { cleanLocalCart } from '../actions/cartAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { ARTWORK_DETAILS_RESET } from '../constants/artworkConstants';
 import SideFilter from '../components/SideFilter';
 import { filterByRegion } from '../actions/filterAction';
 import { fetchArtistList } from '../actions/artistAction';
@@ -91,13 +89,7 @@ function ArtistList() {
   const [page, setPage] = useState(1);
 
   const artworksList = useSelector((state) => state.artworks);
-  const {
-    error: errorArtworkList,
-    loading,
-    success: successArtworks,
-    artworks,
-    pages,
-  } = artworksList;
+  const { error: errorArtworkList, loading, pages } = artworksList;
 
   const filterOrigin = useSelector((state) => state.filterOrigin);
   const { origins, success: successOrigins } = filterOrigin;

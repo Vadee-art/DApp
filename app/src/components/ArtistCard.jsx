@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState } from 'react';
+import React from 'react';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Grid, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -8,25 +8,12 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { favArtwork } from '../actions/userAction';
 
 export default function ArtistCard({ artist }) {
   const dispatch = useDispatch();
-  const [isFav, setIsFav] = useState(false);
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
-
-  // favorite artist
-
-  for (let i = 0; i < artist.favorites.length; i++) {
-    if (artist.favorites[i] === user._id) {
-      setIsFav(true);
-    } else {
-      setIsFav(true);
-    }
-  }
 
   return (
     <Grid
