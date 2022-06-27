@@ -10,7 +10,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { favArtwork, openAuthDialog } from '../../actions/userAction';
+import { favArtworkChange, openAuthDialog } from '../../actions/userAction';
 
 export default function ArtworkImageList({ artworks }) {
   const dispatch = useDispatch();
@@ -18,11 +18,11 @@ export default function ArtworkImageList({ artworks }) {
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 
-  const handleFavorite = (artworkId) => {
+  const handleFavoriteArtwork = (artworkId) => {
     if (!user) {
       dispatch(openAuthDialog('login'));
     } else {
-      dispatch(favArtwork(artworkId));
+      dispatch(favArtworkChange(artworkId));
     }
   };
 
@@ -60,7 +60,7 @@ export default function ArtworkImageList({ artworks }) {
                 position="top"
                 actionIcon={
                   <IconButton
-                    onClick={() => handleFavorite(artwork._id)}
+                    onClick={() => handleFavoriteArtwork(artwork._id)}
                     aria-label={`star ${artwork.title}`}
                     style={{ zIndex: 10 }}
                   >

@@ -8,12 +8,24 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { favArtwork } from '../actions/userAction';
+import { favArtistChange, openAuthDialog } from '../../actions/userAction';
 
 export default function ArtistCard({ artist }) {
   const dispatch = useDispatch();
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user, success: successUserDetails } = userDetails;
+
+  // fav artist
+  const handleFavoriteArtist = (artistId) => {
+    if (!user) {
+      dispatch(openAuthDialog('login'));
+    } else {
+      dispatch(favArtistChange(artistId));
+    }
+  };
 
   return (
     <Grid
@@ -34,11 +46,16 @@ export default function ArtistCard({ artist }) {
           actionPosition="right"
           actionIcon={
             <IconButton
-              onClick={() => dispatch(favArtwork(artist._id))}
+              onClick={() => handleFavoriteArtist(artist.artist._id)}
               aria-label={`star ${artist.title}`}
               style={{ zIndex: 10, bottom: '70px' }}
             >
-              {true ? <FavoriteIcon /> : <FavoriteBorder color="primary" />}
+              {user &&
+              artist.artist.favorites.find((theUser) => theUser === user.id) ? (
+                <FavoriteIcon />
+              ) : (
+                <FavoriteBorder color="primary" />
+              )}
             </IconButton>
           }
         />

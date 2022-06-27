@@ -113,8 +113,6 @@ function ArtworksList() {
     count: pages,
   });
 
-  console.log(search);
-
   let pathName;
   useEffect(() => {
     dispatch(fetchAllArtWorks(search || keywordValue));
@@ -129,6 +127,7 @@ function ArtworksList() {
       dispatch(fetchAllArtWorks(search || keywordValue));
     }
   }, [successFavArtwork]);
+
   // clean up
   // useEffect(() => {
   //   dispatch(cleanLocalCart());
@@ -233,7 +232,6 @@ function ArtworksList() {
             }}
           >
             <Grid item md={2} xs={12}>
-              {/* FIXME:on market */}
               <Divider style={{ margin: 'auto' }} variant="middle" />
               <FormControlLabel
                 label="On Market"

@@ -96,7 +96,6 @@ export default function CarouselArtistSimilarArtworks({ relatedTags }) {
       },
     ],
   };
-  console.log(relatedTags);
 
   const classes = useStyles();
   return (

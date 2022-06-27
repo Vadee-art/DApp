@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Hidden from '@mui/material/Hidden';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
@@ -15,8 +15,12 @@ import TheTab from '../components/TheTab';
 import CarouselRelatedArtistTwo from '../components/carousel/CarouselRelatedArtist-2';
 import { ARTIST_BY_ID_RESET } from '../constants/artistConstants';
 import { fetchArtistById, fetchSimilarArtists } from '../actions/artistAction';
-import { favArtwork } from '../actions/userAction';
-import ArtistNotableArts from '../components/ArtistNotableArts';
+import {
+  favArtistChange,
+  favArtworkChange,
+  openAuthDialog,
+} from '../actions/userAction';
+import ArtistNotableArts from '../components/artists/ArtistNotableArts';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +58,8 @@ function Artist() {
   const dispatch = useDispatch();
   const { artistId } = useParams();
 
+  const [isFavoriteArtist, setIsFavoriteArtist] = useState(false);
+
   const theArtist = useSelector((state) => state.theArtist);
   const { artist, relatedArtists, error, loading, success } = theArtist;
 
@@ -63,6 +69,9 @@ function Artist() {
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 
+  const favArtist = useSelector((state) => state.favArtist);
+  const { success: successFavArtist } = favArtist;
+
   useEffect(() => {
     dispatch(fetchSimilarArtists(artistId));
     dispatch(fetchArtistById(artistId));
@@ -71,20 +80,22 @@ function Artist() {
     }
   }, [artistId]);
 
-  //   user favorite artist + reset artist works
+  // after fav
   useEffect(() => {
-    // dispatch({ type: ARTIST_BY_ID_RESET });
-    // dispatch({ type: ARTIST_LIST_RESET });
-    // if (user && success) {
-    //   for (let i = 0; i < artist.favorites.length; i += 1) {
-    //     if (artist.favorites[i] === user._id) {
-    //       setIsFav(true);
-    //     } else {
-    //       setIsFav(true);
-    //     }
-    //   }
-    // }
-  }, [user, artist, success, dispatch]);
+    if (successFavArtist) {
+      dispatch(fetchArtistById(artistId));
+    }
+  }, [successFavArtist]);
+
+  // check if is fav
+  useEffect(() => {
+    if (user && artist && artist.artist && artist.artist.favorites) {
+      const isFavArtist = artist.artist.favorites.find(
+        (userId) => userId === user.id
+      );
+      setIsFavoriteArtist(isFavArtist);
+    }
+  }, [artist]);
 
   // fetch artist if not success
   useEffect(() => {
@@ -95,6 +106,15 @@ function Artist() {
       dispatch({ type: ARTIST_BY_ID_RESET });
     };
   }, [dispatch]);
+
+  // fav artist
+  const handleFavoriteArtist = (id) => {
+    if (!user) {
+      dispatch(openAuthDialog('login'));
+    } else {
+      dispatch(favArtistChange(id));
+    }
+  };
 
   const classes = useStyles();
 
@@ -187,9 +207,9 @@ function Artist() {
                     },
                     padding: 0,
                   }}
-                  onClick={() => dispatch(favArtwork(artist.artist._id))}
+                  onClick={() => handleFavoriteArtist(artist.artist._id)}
                 >
-                  Follow
+                  {!isFavoriteArtist ? 'Follow' : 'UnFllow'}
                 </Button>
               </Grid>
             </Grid>

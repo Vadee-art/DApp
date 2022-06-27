@@ -25,7 +25,8 @@ import Message from '../components/Message';
 import SideFilter from '../components/SideFilter';
 import { filterByRegion } from '../actions/filterAction';
 import { fetchArtistList } from '../actions/artistAction';
-import ArtistCard from '../components/ArtistCard';
+import ArtistImageList from '../components/artists/ArtistImageList';
+import ArtistCard from '../components/artists/ArtistCard';
 
 const List = styled('ul')({
   listStyle: 'none',
@@ -104,9 +105,18 @@ function ArtistList() {
   const categoryList = useSelector((state) => state.categoryList);
   const { categories, success: successCategories } = categoryList;
 
+  const favArtist = useSelector((state) => state.favArtist);
+  const { success: successFavArtist } = favArtist;
+
   const { items } = usePagination({
     count: pages,
   });
+
+  useEffect(() => {
+    if (successFavArtist) {
+      dispatch(fetchArtistList());
+    }
+  }, [successFavArtist]);
 
   // clean up
   // useEffect(() => {
@@ -207,7 +217,7 @@ function ArtistList() {
                 </Grid>
               </Grid>
               <Grid container direction="row">
-                <Grid item xs={12} md={2} sx={{ marginTop: 0, marginRight: 4 }}>
+                <Grid item md={2} xs={12}>
                   <Divider style={{ margin: 'auto' }} variant="middle" />
                   {origins && origins.origins && (
                     <SideFilter
@@ -226,24 +236,18 @@ function ArtistList() {
                   )}
                   <Divider style={{ margin: 'auto' }} variant="middle" />
                 </Grid>
-                <Grid item xs={8} className={classes.root}>
-                  <Box sx={{ overflowY: 'hidden' }}>
+                <Grid item xs={10} className={classes.root}>
+                  <Box
+                    sx={{
+                      overflowY: 'hidden',
+                      padding: 10,
+                      paddingTop: 0,
+                    }}
+                  >
                     <Divider style={{ marginBottom: 30 }} variant="middle" />
-
-                    <ImageList
-                      variant="masonry"
-                      cols={window.innerWidth < 800 ? 2 : 3}
-                      gap={35}
-                      sx={{
-                        width: '100%',
-                        marginTop: '0px !important',
-                      }}
-                    >
-                      {artists &&
-                        artists.artists.map((artist, index) => (
-                          <ArtistCard artist={artist} key={index} />
-                        ))}
-                    </ImageList>
+                    {artists.artists && (
+                      <ArtistImageList artists={artists.artists} />
+                    )}
                   </Box>
                   <Grid>
                     {pages > 1 && (

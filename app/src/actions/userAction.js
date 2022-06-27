@@ -229,7 +229,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
-export const favArtist = (artistId) => async (dispatch, getState) => {
+export const favArtistChange = (artistId) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_FAVORITE_ARTIST_REQUEST });
     const {
@@ -265,7 +265,7 @@ export const favArtist = (artistId) => async (dispatch, getState) => {
   }
 };
 
-export const favArtwork = (artworkId) => async (dispatch, getState) => {
+export const favArtworkChange = (artworkId) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_FAVORITE_ARTWORK_REQUEST });
     const {

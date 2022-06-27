@@ -11,10 +11,18 @@ import { Typography, Button, Container, Divider, Card } from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { fetchCategories, fetchOneArtWork } from '../actions/artworkAction';
+import {
+  fetchAllArtWorks,
+  fetchCategories,
+  fetchOneArtWork,
+} from '../actions/artworkAction';
 import { addToCart } from '../actions/cartAction';
 import TheTab from '../components/TheTab';
-import { favArtwork, fetchUserDetails } from '../actions/userAction';
+import {
+  favArtistChange,
+  favArtworkChange,
+  openAuthDialog,
+} from '../actions/userAction';
 import RelatedCategory from '../components/carousel/RelatedCategory';
 // import CarouselArtist from '../components/carousel/CarouselArtist';
 import {
@@ -66,6 +74,8 @@ function Artwork() {
   const [isLoading, setIsLoading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [priceEth, setPriceEth] = useState();
+  const [isFavoriteArtwork, setIsFavoriteArtwork] = useState(false);
+  const [isFavoriteArtist, setIsFavoriteArtist] = useState(false);
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
@@ -84,6 +94,12 @@ function Artwork() {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user, success: successUserDetails } = userDetails;
+
+  const favArtwork = useSelector((state) => state.favArtwork);
+  const { success: successFavArtwork } = favArtwork;
+
+  const favArtist = useSelector((state) => state.favArtist);
+  const { success: successFavArtist } = favArtist;
 
   // loading button
   useEffect(() => {
@@ -143,6 +159,29 @@ function Artwork() {
     }
   }, [artwork]);
 
+  // after fav
+  useEffect(() => {
+    if (successFavArtwork || successFavArtist) {
+      dispatch(fetchOneArtWork(workId));
+    }
+  }, [successFavArtwork, successFavArtist]);
+
+  // check if is fav
+  useEffect(() => {
+    if (user && artwork.favorite_artworks) {
+      const isFavArt = artwork.favorite_artworks.find(
+        (userId) => userId === user.id
+      );
+      setIsFavoriteArtwork(isFavArt);
+    }
+    if (user && artist && artist.artist && artist.artist.favorites) {
+      const isFavArtist = artist.artist.favorites.find(
+        (userId) => userId === user.id
+      );
+      setIsFavoriteArtist(isFavArtist);
+    }
+  }, [artwork, artist]);
+
   const onAddToCart = () => {
     dispatch({ type: MINT_AND_REDEEM_RESET });
     dispatch({ type: ARTWORK_UPDATE_RESET });
@@ -150,6 +189,24 @@ function Artwork() {
 
     dispatch(addToCart(workId));
     navigate(`/cart/shippingAddress/${workId}?title=${artwork.title}`);
+  };
+
+  // fav artist
+  const handleFavoriteArtist = (artistId) => {
+    if (!user) {
+      dispatch(openAuthDialog('login'));
+    } else {
+      dispatch(favArtistChange(artistId));
+    }
+  };
+
+  // fav artwork
+  const handleFavoriteArtwork = (artworkId) => {
+    if (!user) {
+      dispatch(openAuthDialog('login'));
+    } else {
+      dispatch(favArtworkChange(artworkId));
+    }
   };
 
   const classes = useStyles();
@@ -181,14 +238,14 @@ function Artwork() {
                 <Grid>
                   <Button
                     size="small"
-                    onClick={() => dispatch(favArtwork(artwork._id))}
+                    onClick={() => handleFavoriteArtwork(artwork._id)}
                     sx={{
                       fontSize: 15,
                       textTransform: 'none',
                       textAlign: 'left',
                     }}
                   >
-                    {true ? 'Save' : 'UnSave'}
+                    {!isFavoriteArtwork ? 'Save' : 'Unsave'}
                   </Button>
                 </Grid>
                 <Grid>
@@ -198,7 +255,6 @@ function Artwork() {
                       fontSize: 15,
                       textTransform: 'none',
                     }}
-                    onClick={() => dispatch(favArtwork(artwork._id))}
                   >
                     Share
                   </Button>
@@ -272,8 +328,9 @@ function Artwork() {
                           width: '100%',
                         }}
                         disabled={isDisabled}
+                        onClick={() => handleFavoriteArtist(artist.artist._id)}
                       >
-                        Follow
+                        {!isFavoriteArtist ? 'Follow' : 'UnFllow'}
                       </Button>
                     </Grid>
                   </Grid>
@@ -390,8 +447,9 @@ function Artwork() {
                         },
                       }}
                       disabled={isDisabled}
+                      onClick={() => handleFavoriteArtist(artist.artist._id)}
                     >
-                      Follow
+                      {!isFavoriteArtist ? 'Follow' : 'UnFllow'}
                     </Button>
                   </Typography>
                 </Grid>

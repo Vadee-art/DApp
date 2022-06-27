@@ -1,16 +1,11 @@
 /* eslint-disable prefer-destructuring */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Box, Container } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
-import ImageList from '@mui/material/ImageList';
-import {
-  fetchAllArtWorks,
-  fetchCategories,
-  fetchIsCarousel,
-} from '../actions/artworkAction';
+import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
 import { cleanLocalCart } from '../actions/cartAction';
 import {
   ARTWORK_DETAILS_RESET,
@@ -18,13 +13,7 @@ import {
 } from '../constants/artworkConstants';
 import CarouselRelatedArtistTwo from '../components/carousel/CarouselRelatedArtist-2';
 import { fetchMarketPlace } from '../actions/marketPlaceAction';
-import {
-  fetchIsTalentArtist,
-  fetchArtistById,
-  fetchArtistList,
-} from '../actions/artistAction';
-import ArtistNotableArts from '../components/ArtistNotableArts';
-import CarouselRelatedArtistOne from '../components/carousel/CarouselRelatedArtist-1';
+import { fetchArtistList } from '../actions/artistAction';
 import ArtworkImageList from '../components/artworks/ArtworkImageList';
 import { filterByRegion } from '../actions/filterAction';
 
