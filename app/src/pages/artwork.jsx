@@ -250,7 +250,7 @@ function Artwork() {
                       </Typography>
                       <Typography>
                         {artwork.artist &&
-                          `${artwork.artist.origin.country.country}, ${artwork.artist.birthday}`}
+                          `${artwork.artist.origin.country}, ${artwork.artist.birthday}`}
                       </Typography>
                     </Grid>
                     <Grid
