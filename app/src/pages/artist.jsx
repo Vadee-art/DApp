@@ -73,8 +73,11 @@ function Artist() {
   const { success: successFavArtist } = favArtist;
 
   useEffect(() => {
-    dispatch(fetchSimilarArtists(artistId));
-    dispatch(fetchArtistById(artistId));
+    if (artistId) {
+      dispatch(fetchSimilarArtists(artistId));
+      dispatch(fetchArtistById(artistId));
+    }
+
     if (!successCategories) {
       dispatch(fetchCategories());
     }
