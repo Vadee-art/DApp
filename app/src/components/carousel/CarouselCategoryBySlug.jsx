@@ -50,12 +50,13 @@ export default function CarouselCategoryBySlug({ artworks, slug }) {
       },
     ],
   };
+  console.log(categoryArtworks);
   return (
     <>
       <div>
-        <Slider {...settings}>
-          {categoryArtworks &&
-            categoryArtworks.map((artwork, index) => (
+        {categoryArtworks[0] && (
+          <Slider {...settings}>
+            {categoryArtworks.map((artwork, index) => (
               <Grid
                 className="mid-images"
                 key={index}
@@ -99,7 +100,7 @@ export default function CarouselCategoryBySlug({ artworks, slug }) {
                           marginBottom: '3px',
                         }}
                       >
-                        {artwork.origin}
+                        {artwork.origin.country}
                       </Typography>
                       <Typography
                         sx={{
@@ -132,7 +133,8 @@ export default function CarouselCategoryBySlug({ artworks, slug }) {
                 </Card>
               </Grid>
             ))}
-        </Slider>
+          </Slider>
+        )}
       </div>
     </>
   );
