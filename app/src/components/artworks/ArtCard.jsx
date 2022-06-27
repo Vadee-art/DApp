@@ -10,7 +10,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { favArtwork, openAuthDialog } from '../../actions/userAction';
+import { openAuthDialog } from '../../actions/userAction';
 
 export default function ArtCard({ artwork }) {
   const dispatch = useDispatch();
