@@ -15,7 +15,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import usePagination from '@mui/material/usePagination';
 import { styled } from '@mui/material/styles';
@@ -85,6 +85,7 @@ const decade = [
 function ArtworksList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname, search } = useLocation();
 
   const [page, setPage] = useState(1);
   const [checked, setChecked] = useState(false);
@@ -112,19 +113,20 @@ function ArtworksList() {
     count: pages,
   });
 
-  const { pathName } = useLocation();
+  console.log(search);
 
+  let pathName;
   useEffect(() => {
-    dispatch(fetchAllArtWorks(pathName || keywordValue));
+    dispatch(fetchAllArtWorks(search || keywordValue));
     dispatch(fetchArticlesList());
     dispatch(filterByRegion());
     dispatch(fetchArtistList());
     dispatch(fetchCategories());
-  }, []);
+  }, [search]);
 
   useEffect(() => {
     if (successFavArtwork) {
-      dispatch(fetchAllArtWorks(pathName || keywordValue));
+      dispatch(fetchAllArtWorks(search || keywordValue));
     }
   }, [successFavArtwork]);
   // clean up

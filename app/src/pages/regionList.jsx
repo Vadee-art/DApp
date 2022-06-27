@@ -225,7 +225,7 @@ const Regionlist = () => {
     for (let i = 0; i < origins.origins.length; i += 1) {
       if (origins.origins[i].country) {
         regionArtworks = artworks.filter(
-          (artwork) => artwork.origin === origins.origins[i]._id
+          (artwork) => artwork.origin._id === origins.origins[i]._id
         );
         list.push({
           origin: origins.origins[i].country,
@@ -234,13 +234,15 @@ const Regionlist = () => {
       }
     }
   }
-  console.log(artworks);
-  console.log(list);
+
   return (
     <Container maxWidth="xl">
-      {list.map((item, index) => (
-        <Region key={index} region={item.origin} artworks={item.artworks} />
-      ))}
+      {list.map(
+        (item, index) =>
+          item.artworks[0] && (
+            <Region key={index} region={item.origin} artworks={item.artworks} />
+          )
+      )}
     </Container>
   );
 };

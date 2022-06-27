@@ -32,6 +32,7 @@ import Logout from '@mui/icons-material/Logout';
 import AccountMenu from './AccountMenu';
 import { fetchMarketPlace } from '../../actions/marketPlaceAction';
 import { fetchUserDetails, logout } from '../../actions/userAction';
+import { fetchAllArtWorks } from '../../actions/artworkAction';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -96,6 +97,7 @@ const Header = () => {
   const location = useLocation();
   const [current, setCurrent] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [keyword, setKeyword] = useState('');
 
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
   const { marketPlace, success } = theMarketPlace;
@@ -161,10 +163,16 @@ const Header = () => {
     </Box>
   );
 
+  const changeHandler = (event) => {
+    // navigate(`/?keyword=${event.target.value}&page=1`);
+    // const theKeyword = `?keyword=${event.target.value}`;
+    // dispatch(fetchAllArtWorks(theKeyword));
+    console.log(event.target.value);
+  };
+
   const container =
     window !== undefined ? () => window.document.body : undefined;
   const drawerWidth = 240;
-
   const classes = useStyles();
   return (
     <Container maxWidth="xl" className={classes.root}>
@@ -208,7 +216,7 @@ const Header = () => {
                   </IconButton>
                 </Grid>
                 <Grid item xs md={7}>
-                  <Search>
+                  <Search onChange={(event) => changeHandler(event)}>
                     <SearchIconWrapper>
                       <SearchIcon
                         color="primary"

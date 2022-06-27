@@ -115,7 +115,10 @@ export default function CarouselRelatedArtistTwo({ relatedArtists }) {
                     }}
                   >
                     {artist &&
-                      `${artist.origin}, ${artist.birthday.slice(0, 4)}`}
+                      `${artist.origin.country}, ${artist.birthday.slice(
+                        0,
+                        4
+                      )}`}
                   </Typography>
                 </Grid>
                 <Grid

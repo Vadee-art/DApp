@@ -16,9 +16,13 @@ import {
   ARTWORK_DETAILS_RESET,
   ARTWORK_LIST_RESET,
 } from '../constants/artworkConstants';
-
+import CarouselRelatedArtistTwo from '../components/carousel/CarouselRelatedArtist-2';
 import { fetchMarketPlace } from '../actions/marketPlaceAction';
-import { fetchIsTalentArtist, fetchArtistById } from '../actions/artistAction';
+import {
+  fetchIsTalentArtist,
+  fetchArtistById,
+  fetchArtistList,
+} from '../actions/artistAction';
 import ArtistNotableArts from '../components/ArtistNotableArts';
 import CarouselRelatedArtistOne from '../components/carousel/CarouselRelatedArtist-1';
 import ArtworkImageList from '../components/artworks/ArtworkImageList';
@@ -46,9 +50,16 @@ const Region = () => {
   const location = useLocation();
   const { country } = useParams();
   const navigate = useNavigate();
-  console.log(country);
+
   const artworksList = useSelector((state) => state.artworks);
   const { artworks, pages } = artworksList;
+
+  const artistList = useSelector((state) => state.artistList);
+  const {
+    artists,
+    error: errorArtworks,
+    success: successArtistList,
+  } = artistList;
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories, success: successCategories } = categoryList;
@@ -58,9 +69,9 @@ const Region = () => {
 
   // artworks
   useEffect(() => {
-    dispatch(fetchIsTalentArtist());
     dispatch(fetchAllArtWorks(`?regions=${country}`));
     if (!successOrigins) dispatch(filterByRegion());
+    if (!successArtistList) dispatch(fetchArtistList());
     return () => {
       dispatch({ type: ARTWORK_LIST_RESET });
     };
@@ -89,17 +100,18 @@ const Region = () => {
     successOrigins &&
     origins.origins.find((origin) => origin.country === country);
 
+  const artistsSameOrigin =
+    artists &&
+    artists.artists &&
+    artists.artists.filter((artist) => artist.origin.country === country);
+
+  console.log(artistsSameOrigin);
   const classes = useStyles();
   return (
     <Grid sx={{ minHeight: '100vh' }}>
       <Container maxWidth="xl">
         {theOrigin && artworksByRegion && (
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Grid container direction="column">
             <Grid
               container
               direction="row"
@@ -144,30 +156,9 @@ const Region = () => {
                     >
                       {theOrigin.description}
                     </Typography>
-                    <Typography
-                      style={{
-                        color: '#99CCCC',
-                        fontSize: '19px',
-                        fontWeight: 400,
-                        lineHeight: 1.8,
-                      }}
-                    >
-                      {` Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                        Facere magni pariatur illum asperiores nam nulla,
-                        explicabo ipsa, distinctio placeat amet, nobis odit
-                        perspiciatis corporis possimus mollitia quibusdam porro.
-                        Ab, obcaecati! Lorem, ipsum dolor sit amet consectetur
-                        adipisicing elit. Esse nihil sunt dolore accusamus
-                        dolorum. Blanditiis ea maiores praesentium numquam,
-                        eveniet dolorem, reprehenderit dicta exercitationem soluta
-                        facere quasi quae vero recusandae.`.length > 300
-                        ? '... Read more'
-                        : ''}
-                    </Typography>
                   </span>
                 </Box>
               </Grid>
-              <Grid item xs={3} />
             </Grid>
             <Grid
               container
@@ -201,35 +192,20 @@ const Region = () => {
                   Works
                 </Typography>
               </Grid>
-              <Grid
-                item
-                md={10}
-                sx={{
-                  marginLeft: 0,
-                }}
-              >
+              <Grid item xs={10}>
                 {artworks && <ArtworkImageList artworks={artworksByRegion} />}
               </Grid>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={{
-                marginTop: 15,
-                marginBottom: 15,
-                paddingLeft: 8,
-                paddingRight: 8,
-              }}
-            >
+            <Grid item xs={12}>
               <Box
                 component="div"
                 sx={{
                   p: 3,
                   width: '100%',
-                  border: '0.5px solid #A2A28F',
+                  border: '1px solid #A2A28F',
                   overflowX: 'hidden',
                   marginTop: 5,
-                  paddingLeft: 0.5,
+                  paddingLeft: 1,
                   display: 'flex',
                   flexDirection: 'row',
                   justifyContent: 'space-between',
@@ -239,7 +215,7 @@ const Region = () => {
                   <Typography
                     variant="subtitle1"
                     style={{
-                      fontSize: '1.4rem',
+                      fontSize: '1.2rem',
                       fontWeight: 300,
                       lineHeight: 1.3,
                       marginBottom: 5,
@@ -250,7 +226,7 @@ const Region = () => {
                   <Typography
                     variant="subtitle1"
                     style={{
-                      fontSize: '1.4rem',
+                      fontSize: '1.2rem',
                       fontWeight: 300,
                     }}
                   >
@@ -259,17 +235,17 @@ const Region = () => {
                 </Grid>
                 <Grid
                   sx={{
-                    marginLeft: 0.3,
+                    marginLeft: 0,
                   }}
-                  item
                   xs={10}
+                  item
                   display="flex"
                   justifyContent="space-between"
                 >
                   {categories &&
                     categories.map((category, index) => (
-                      <Button key={index} className={classes.priceCategories}>
-                        {category.name}
+                      <Button key={index} className={classes.categories}>
+                        <Typography variant="body1">{category.name}</Typography>
                       </Button>
                     ))}
                 </Grid>
@@ -286,37 +262,7 @@ const Region = () => {
                 paddingRight: 8,
               }}
             >
-              <Grid item sm={2}>
-                <Typography
-                  variant="subtitle1"
-                  style={{
-                    fontSize: '1.4rem',
-                    fontWeight: 300,
-                    lineHeight: 1.3,
-                    marginBottom: 5,
-                  }}
-                >
-                  Related
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  style={{
-                    fontSize: '1.4rem',
-                    fontWeight: 300,
-                  }}
-                >
-                  Artists
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                md={10}
-                sx={{
-                  marginLeft: 0.3,
-                }}
-              >
-                {/* <CarouselRelatedArtistOne relatedArtists={relatedArtists} /> */}
-              </Grid>
+              <CarouselRelatedArtistTwo relatedArtists={artistsSameOrigin} />
             </Grid>
           </Grid>
         )}

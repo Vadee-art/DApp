@@ -95,7 +95,8 @@ export default function CarouselRelatedPhotograaphers({ artists }) {
                 marginBottom: '15px',
               }}
             >
-              {artist && `${artist.origin}, ${artist.birthday.slice(0, 4)}`}
+              {artist &&
+                `${artist.origin.country}, ${artist.birthday.slice(0, 4)}`}
             </Typography>
             <Button
               variant="contained"

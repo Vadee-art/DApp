@@ -162,7 +162,7 @@ function Artist() {
                     margin: '8px 0px',
                   }}
                 >
-                  {artist.artist.origin}
+                  {artist.artist.origin.country.country}
                   {artist.artist.birthday.slice(0, 4)}
                 </Typography>
               </Grid>

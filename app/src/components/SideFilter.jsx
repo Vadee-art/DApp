@@ -46,15 +46,15 @@ export default function SideFilter({ title, list, kind }) {
     setValue(e.target.name);
     if (item.country) {
       const country = e.target.name;
-      navigate(`/${kind}/?regions=${country.toLowerCase()}`); // filter after push
+      navigate(`/${kind}/?regions=${country.toLowerCase()}`);
     }
     if (item.firstName) {
       const artist = e.target.name;
-      navigate(`/${kind}/?artist=${artist.toLowerCase()}`); // filter after push
+      navigate(`/${kind}/?artist=${artist.toLowerCase()}`);
     }
     if (item.name) {
       const category = e.target.name;
-      navigate(`/${kind}/?category=${category}`); // filter after push
+      navigate(`/${kind}/?category=${category}`);
     }
   };
 

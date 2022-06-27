@@ -113,7 +113,6 @@ export default function ArtCard({ artwork }) {
         }}
       >
         {artwork.category ? artwork.category?.name : 'Unknown'}
-        {/* FIXME:artwork.nationality */}
       </Typography>
       <Typography
         // variant="subtitle1"
@@ -125,14 +124,10 @@ export default function ArtCard({ artwork }) {
           margin: 0,
         }}
       >
-        {artwork.artist ? artwork.artist?.origin : 'Origin'}
-        {/* FIXME:artwork.nationality */}
+        {artwork && artwork.origin.country}
       </Typography>
       {artwork.price && (
-        <Typography
-          // variant="subtitle1"
-          sx={{ width: '100%', margin: 0, color: '#000', fontSize: '1rem' }}
-        >
+        <Typography variant="subtitle1" sx={{ width: '100%', margin: 0 }}>
           ${artwork.price}
         </Typography>
       )}

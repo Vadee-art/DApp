@@ -174,7 +174,7 @@ export default function CarouselArtistArtworks({ artist }) {
                     marginTop: '10px',
                   }}
                 >
-                  {artwork.artist.origin}
+                  {artwork.artist.origin.country.country}
                 </Typography>
                 <Typography
                   variant="body1"

@@ -106,7 +106,9 @@ export default function ArtistNotableArts({ artist }) {
                         margin: 0,
                       }}
                     >
-                      {artwork.artist ? artwork.artist?.origin : 'Origin'}
+                      {artwork.artist
+                        ? artwork.artist?.origin.country
+                        : 'Origin'}
                     </Typography>
                     {artwork.price && (
                       <Typography
