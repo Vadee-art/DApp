@@ -83,6 +83,8 @@ const decade = [
 ];
 
 function ArtworksList() {
+  window.scrollTo(0, 0);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname, search } = useLocation();

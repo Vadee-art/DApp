@@ -82,6 +82,8 @@ const alphabets = [
   'Z',
 ];
 function ArtistList() {
+  window.scrollTo(0, 0);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

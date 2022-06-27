@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 // match params has the id from the router /:workId
 function Artwork() {
   window.scrollTo(0, 0);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { workId } = useParams();
