@@ -76,7 +76,7 @@ export default function ArtistCard({ artist }) {
             margin: 0,
           }}
         >
-          {artist?.origin}
+          {artist?.origin.country}
         </Typography>
       </ImageListItem>
     </Grid>
