@@ -573,7 +573,7 @@ const Main = () => {
                             fontSize: '1.2rem',
                           }}
                           color="secondary"
-                          variant="text"
+                          variant="contained"
                         >
                           Join
                         </Button>
