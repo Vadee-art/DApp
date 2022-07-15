@@ -6,7 +6,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 
 function a11yProps(index) {
   return {
@@ -85,7 +85,17 @@ export default function TheTab({ artist }) {
         {artist.biography}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {artist.achievements}
+        {artist.achievements &&
+          artist.achievements.map((acheive) => (
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography variant="h6">{acheive.title} </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1">{acheive.description} </Typography>
+              </Grid>
+            </Grid>
+          ))}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {artist.cv}
