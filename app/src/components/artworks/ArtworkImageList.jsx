@@ -103,9 +103,8 @@ export default function ArtworkImageList({ artworks }) {
                   marginBottom: 0,
                 }}
               >
-                {artwork.artist
-                  ? artwork.artist.first_name + artwork.artist.last_name
-                  : artwork.first_name + artwork.last_name}
+                {artwork.artist &&
+                  `${artwork.artist.first_name}  ${artwork.artist.last_name}`}
               </Typography>
               <Typography
                 // variant="subtitle1"
