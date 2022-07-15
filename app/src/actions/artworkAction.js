@@ -3,6 +3,9 @@ import {
   ARTWORK_LIST_REQUEST,
   ARTWORK_LIST_SUCCESS,
   ARTWORK_LIST_FAIL,
+  ARTWORK_TOP_CAROUSEL_REQUEST,
+  ARTWORK_TOP_CAROUSEL_SUCCESS,
+  ARTWORK_TOP_CAROUSEL_FAIL,
   ARTWORK_DETAILS_REQUEST,
   ARTWORK_DETAILS_SUCCESS,
   ARTWORK_DETAILS_FAIL,
@@ -42,6 +45,26 @@ export const fetchAllArtWorks =
       });
     }
   };
+
+export const fetchTopCarouselArtworks = () => async (dispatch) => {
+  try {
+    dispatch({ type: ARTWORK_TOP_CAROUSEL_REQUEST });
+    const response = await artworksBase.get(`/artworks/carousel`);
+
+    dispatch({
+      type: ARTWORK_TOP_CAROUSEL_SUCCESS,
+      payload: response.data,
+    });
+  } catch (e) {
+    dispatch({
+      type: ARTWORK_TOP_CAROUSEL_FAIL,
+      payload:
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
+    });
+  }
+};
 
 export const fetchOneArtWork = (workId) => async (dispatch) => {
   try {

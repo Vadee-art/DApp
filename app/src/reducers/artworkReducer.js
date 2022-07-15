@@ -29,6 +29,9 @@ import {
   ARTWORK_IS_CAROUSEL_REQUEST,
   ARTWORK_IS_CAROUSEL_SUCCESS,
   ARTWORK_IS_CAROUSEL_FAIL,
+  ARTWORK_TOP_CAROUSEL_REQUEST,
+  ARTWORK_TOP_CAROUSEL_SUCCESS,
+  ARTWORK_TOP_CAROUSEL_FAIL,
 } from '../constants/artworkConstants';
 
 export const artworksReducer = (state = { artworks: [] }, action) => {
@@ -43,6 +46,18 @@ export const artworksReducer = (state = { artworks: [] }, action) => {
         pages: action.payload.pages,
       };
     case ARTWORK_LIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case ARTWORK_TOP_CAROUSEL_REQUEST:
+      return { ...state, loading: true };
+    case ARTWORK_TOP_CAROUSEL_SUCCESS:
+      return {
+        ...state,
+        topCarousel: action.payload.artworks,
+      };
+    case ARTWORK_TOP_CAROUSEL_FAIL:
       return {
         loading: false,
         error: action.payload,

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Slider from 'react-slick';
 import { Typography, Grid, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import '../../styles/carouselTop.scss';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchIsCarousel,
+  fetchTopCarouselArtworks,
+} from '../../actions/artworkAction';
 
 function SampleNextArrow(props) {
   const { className, onClick } = props;
@@ -46,7 +51,8 @@ function SamplePrevArrow(props) {
   );
 }
 
-export default function CarouselTop({ artworks }) {
+export default function CarouselTop() {
+  const dispatch = useDispatch();
   const settings = {
     dots: true,
     infinite: true,
@@ -57,12 +63,17 @@ export default function CarouselTop({ artworks }) {
     prevArrow: <SamplePrevArrow />,
   };
 
-  const theArtworks = artworks.filter((artwork) => artwork.is_carousel);
+  const isCarousels = useSelector((state) => state.isCarousels);
+  const { carousels, loading: loadingisCarousel } = isCarousels;
+
+  useEffect(() => {
+    dispatch(fetchIsCarousel());
+  }, []);
 
   return (
     <Slider {...settings} style={{ height: '700px' }}>
-      {theArtworks &&
-        theArtworks.map((artwork, index) => (
+      {carousels &&
+        carousels.map((artwork, index) => (
           <div key={index}>
             <div
               loading="lazy"
