@@ -565,7 +565,7 @@ const Main = () => {
                     >
                       <Grid item>
                         <Typography color="primary" variant="h2">
-                          Ready to join?
+                          Ready to Start?
                         </Typography>
                       </Grid>
                       <Grid item>
