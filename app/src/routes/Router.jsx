@@ -1,7 +1,8 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
-import Loadable from '../layout/loadable/Loadable';
 import FullLayout from '../layout/full-layout/FullLayout';
+import Loadable from '../layout/loadable/Loadable';
+import MainLayout from '../layout/main-layout/MainLayout';
 import BlankLayout from '../layout/plain-layout/PlainLayout';
 
 const Error = Loadable(lazy(() => import('../components/Error')));
@@ -19,17 +20,52 @@ const Cart = Loadable(lazy(() => import('../pages/cart')));
 const Router = [
   {
     path: '/',
-    element: <FullLayout />,
+    element: <MainLayout />,
     children: [
       { path: '/', element: <Navigate to="/main" /> },
       { path: '/main', element: <Main /> },
+    ],
+  },
+  {
+    path: '/artworks',
+    element: <FullLayout />,
+    children: [
       { path: '/artworks/', element: <ArtworkList /> },
       { path: '/artworks/:workId', element: <Artwork /> },
+      { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+  },
+  {
+    path: '/artists',
+    element: <FullLayout />,
+    children: [
       { path: '/artists/search', element: <ArtistList /> },
       { path: '/artists/:artistId', element: <Artist /> },
+      { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+  },
+  {
+    path: '/regions',
+    element: <FullLayout />,
+    children: [
       { path: '/regions/', element: <RegionList /> },
       { path: '/regions/:country', element: <Region /> },
+      // { path: '/cart/shippingAddress/:workId?', element: <Cart /> },
+      { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+  },
+  {
+    path: '/users',
+    element: <FullLayout />,
+    children: [
       { path: '/users/profile', element: <UserProfile /> },
+      { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+  },
+  {
+    path: '/cart',
+    element: <FullLayout />,
+    children: [
       { path: '/cart/shippingAddress/:workId?', element: <Cart /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],

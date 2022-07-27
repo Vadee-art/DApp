@@ -15,7 +15,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
   root: {
-    maxWidth: '95%',
+    // maxWidth: '95%',
     position: 'relative',
     // overflowX: 'scroll',
     '&::-webkit-scrollbar': {
@@ -32,26 +32,6 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
-
-function SampleNextArrow(props) {
-  const { className, onClick } = props;
-  return (
-    <ArrowForwardIosIcon
-      fontSize="large"
-      className={className}
-      style={{
-        display: 'block',
-        color: 'black',
-        right: '-7%',
-        // right: -30,
-        // right: window.innerWidth < 600 ? -10 : -80,
-        position: 'absolute',
-        opacity: '10%',
-      }}
-      onClick={onClick}
-    />
-  );
-}
 
 function SamplePrevArrow(props) {
   const { className, onClick } = props;
@@ -73,6 +53,26 @@ function SamplePrevArrow(props) {
   );
 }
 
+function SampleNextArrow(props) {
+  const { className, onClick } = props;
+  return (
+    <ArrowForwardIosIcon
+      fontSize="large"
+      className={className}
+      style={{
+        display: 'block',
+        color: 'black',
+        margin: 5,
+        right: window.innerWidth < 900 ? -50 : -80,
+        top: '90px',
+        position: 'absolute',
+        opacity: '10%',
+      }}
+      onClick={onClick}
+    />
+  );
+}
+
 export default function CarouselArtistList() {
   const artistList = useSelector((state) => state.artistList);
   const { artists, success: successArtistList } = artistList;
@@ -82,7 +82,7 @@ export default function CarouselArtistList() {
     dots: false,
     infinite: true,
     centerMode: true,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     // variableWidth: true,
     nextArrow: <SampleNextArrow />,
@@ -91,7 +91,7 @@ export default function CarouselArtistList() {
       {
         breakpoint: 980,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },

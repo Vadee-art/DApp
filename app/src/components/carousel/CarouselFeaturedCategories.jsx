@@ -14,6 +14,27 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import PropTypes from 'prop-types';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
+function SamplePrevArrow(props) {
+  const { className, onClick } = props;
+  return (
+    <ArrowBackIosNewIcon
+      fontSize="large"
+      className={className}
+      style={{
+        display: 'none',
+        height: 0,
+        width: 0,
+        color: 'black',
+        margin: 2,
+        // left: 0,
+        opacity: '10%',
+      }}
+      onClick={onClick}
+    />
+  );
+}
 
 function SampleNextArrow(props) {
   const { className, onClick } = props;
@@ -40,25 +61,17 @@ export default function CarouselFeaturedCategories({ categories }) {
     className: 'center',
     dots: false,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
     variableWidth: true,
     nextArrow: <SampleNextArrow />,
-
+    prevArrow: <SamplePrevArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 980,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
         },
       },
       {

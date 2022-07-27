@@ -120,7 +120,7 @@ const Main = () => {
     <>
       {!isLoading && (
         <Grid>
-          {(!marketPlace || !marketPlace.contract) && loadingMarketPlace ? (
+          {(!marketPlace || !marketPlace.contract) && !loadingMarketPlace ? (
             <Grid sx={{ margin: 'auto', textAlign: 'center' }}>
               <LoadingButton
                 loading={loadingMarketDeploy}
@@ -157,21 +157,20 @@ const Main = () => {
                     <Grid
                       container
                       direction="row"
-                      justifyContent="flex-end"
+                      justifyContent="space-around"
                       sx={{
-                        minHeight: '25vh',
                         width: '100%',
-                        paddingLeft: 8,
-                        paddingRight: 8,
+                        paddingLeft: 5,
+                        paddingRight: 6,
                         paddingTop: '20px',
+                        marginBottom: 8,
                       }}
                     >
-                      <Grid item xs={2}>
+                      <Grid item md={2} xs={12}>
                         <Typography
                           variant="h6"
                           sx={{
                             color: '#818172',
-                            fontSize: '1.4rem',
                             fontWeight: 300,
                             margin: 0,
                           }}
@@ -181,10 +180,11 @@ const Main = () => {
                       </Grid>
                       <Grid
                         item
-                        xs={10}
+                        md={10}
+                        xs={12}
                         sx={{
                           marginTop: 2,
-                          padding: 0,
+                          // padding: 0,
                         }}
                       >
                         {artists && <CarouselArtistList />}
@@ -207,7 +207,7 @@ const Main = () => {
                       marginBottom: 8,
                     }}
                   >
-                    <Grid item xs={2}>
+                    <Grid item md={2} xs={12}>
                       <Typography
                         variant="subtitle1"
                         style={{
@@ -216,7 +216,9 @@ const Main = () => {
                           marginBottom: '10px',
                         }}
                       >
-                        Featured
+                        {window.innerWidth > 900
+                          ? 'Featured'
+                          : 'Featured Categories'}
                       </Typography>
                       <Typography
                         variant="subtitle1"
@@ -225,10 +227,10 @@ const Main = () => {
                           fontWeight: 300,
                         }}
                       >
-                        Categories
+                        {window.innerWidth < 900 ? '' : ' Categories'}
                       </Typography>
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item md={10} xs={12}>
                       {categories && (
                         <CarouselFeaturedCategories categories={categories} />
                       )}
@@ -247,7 +249,7 @@ const Main = () => {
                         }}
                       >
                         <Stack direction="row" spacing={1}>
-                          <Grid item xs={2}>
+                          <Grid item xs={12} md={2}>
                             <Typography
                               variant="subtitle1"
                               style={{
@@ -271,7 +273,8 @@ const Main = () => {
 
                           <Grid
                             item
-                            xs={10}
+                            md={10}
+                            xs={12}
                             display="flex"
                             justifyContent="space-between"
                           >
