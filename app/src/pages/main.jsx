@@ -564,7 +564,10 @@ const Main = () => {
                       }}
                     >
                       <Grid item>
-                        <Typography color="primary" variant="h2">
+                        <Typography
+                          color="primary"
+                          variant={window.innerWidth > 900 ? 'h2' : 'h4'}
+                        >
                           Ready to Start?
                         </Typography>
                       </Grid>
