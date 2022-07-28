@@ -104,7 +104,7 @@ export const fetchSimilarArtists = (artistId) => async (dispatch) => {
 };
 
 export const fetchArtistList =
-  (keyword = '') =>
+  (keyword = '', page = 1) =>
   async (dispatch) => {
     try {
       dispatch({ type: ARTIST_LIST_REQUEST });
@@ -114,10 +114,19 @@ export const fetchArtistList =
           'Content-type': 'application/json',
         },
       };
-      const { data } = await artworksBase.get(`artists/${keyword}`, config);
+      let response;
+      if (keyword) {
+        response = await artworksBase.get(
+          `/artists/${keyword}&page=${page}`,
+          config
+        );
+      } else {
+        response = await artworksBase.get(`/artists/?page=${page}`, config);
+      }
+
       dispatch({
         type: ARTIST_LIST_SUCCESS,
-        payload: data,
+        payload: response.data,
       });
     } catch (e) {
       // check for generic and custom message to return using ternary statement

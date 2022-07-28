@@ -11,12 +11,11 @@ import {
   Hidden,
   Container,
   Typography,
-  Button,
   FormControlLabel,
   Checkbox,
   Pagination,
 } from '@mui/material';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import usePagination from '@mui/material/usePagination';
 import { styled } from '@mui/material/styles';
@@ -30,12 +29,6 @@ import { fetchArtistList } from '../actions/artistAction';
 import ArtworkImageList from '../components/artworks/ArtworkImageList';
 import ArtCard from '../components/artworks/ArtCard';
 
-const List = styled('ul')({
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
-  display: 'flex',
-});
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 10,
@@ -111,7 +104,6 @@ function ArtworksList() {
   const favArtwork = useSelector((state) => state.favArtwork);
   const { success: successFavArtwork } = favArtwork;
 
-  let pathName;
   useEffect(() => {
     dispatch(fetchAllArtWorks(keywordValue, page));
     dispatch(fetchArticlesList());
@@ -126,30 +118,19 @@ function ArtworksList() {
     }
   }, [successFavArtwork, page]);
 
+  // pagination
   useEffect(() => {
     if (page > 1) {
       dispatch(fetchAllArtWorks(keywordValue, page));
     }
   }, [page]);
-  // clean up
-  // useEffect(() => {
-  //   dispatch(cleanLocalCart());
-  //   dispatch({ type: ARTWORK_DETAILS_RESET });
-  //   return () => {
-  //     dispatch(cleanLocalCart());
-  //   };
-  // }, [dispatch]);
-  // useEffect(() => {
-  //   if (page > 1) {
-  //   }
-  // }, [page]);
 
   // pagination
   const handlePageChange = (event, value) => {
     let keyword;
-    if (pathName) {
-      keyword = pathName.split('?keyword=')[1].split('&')[0]; // example: ?keyword=اکبر&page=1  ===> اکبر
-    }
+    // if (pathName) {
+    //   keyword = pathName.split('?keyword=')[1].split('&')[0]; // example: ?keyword=اکبر&page=1  ===> اکبر
+    // }
     if (keyword) {
       navigate(`/artworks/?keyword=${keyword}&page=${value}`);
     } else {
@@ -298,84 +279,13 @@ function ArtworksList() {
                 {artworks && <ArtworkImageList artworks={artworks} />}
               </Box>
               <Grid>
-                {pages > 1 && (
-                  // FIXME:change to MUI Pagination
-                  <Pagination
-                    count={pages}
-                    page={page}
-                    onChange={handlePageChange}
-                    variant="text"
-                    color="secondary"
-                  />
-                  // <nav
-                  //   style={{
-                  //     padding: 0,
-                  //     margin: 0,
-                  //     marginBottom: '35px',
-                  //   }}
-                  // >
-                  //   <List
-                  //     style={{
-                  //       width: '100%',
-                  //       padding: 0,
-                  //       alignItems: 'center',
-                  //     }}
-                  //   >
-                  //     {items.map(({ p, type, selected, ...item }, index) => {
-                  //       let children = null;
-
-                  //       if (type === 'page') {
-                  //         children = (
-                  //           <Button
-                  //             variant="text"
-                  //             color="primary"
-                  //             style={{
-                  //               fontWeight: selected ? 'bold' : undefined,
-                  //             }}
-                  //             sx={{
-                  //               fontSize: '20px',
-                  //               overflow: 'hidden',
-                  //               maxWidth: '20px',
-                  //               padding: '0 !important',
-                  //             }}
-                  //             {...item}
-                  //           >
-                  //             {index}
-                  //           </Button>
-                  //         );
-                  //       } else {
-                  //         children = (
-                  //           <Button
-                  //             sx={{
-                  //               fontSize: '20px',
-                  //               fontWeight: 100,
-                  //               textTransform: 'none',
-                  //               paddingLeft: 0,
-                  //               paddingRight: 0,
-                  //               marginRight: type === 'previous' ? 10 : 0,
-                  //               marginLeft: type === 'previous' ? 0 : 10,
-                  //             }}
-                  //             // variant="text"
-                  //             {...item}
-                  //           >
-                  //             {type === 'previous' ? '< Prev' : 'Next >'}
-                  //           </Button>
-                  //         );
-                  //       }
-                  //       return (
-                  //         <li
-                  //           style={{
-                  //             maxWidth: type === 'page' ? '20px' : 'auto',
-                  //           }}
-                  //           key={index}
-                  //         >
-                  //           {children}
-                  //         </li>
-                  //       );
-                  //     })}
-                  //   </List>
-                  // </nav>
-                )}
+                <Pagination
+                  count={pages}
+                  page={page}
+                  onChange={handlePageChange}
+                  variant="text"
+                  color="secondary"
+                />
               </Grid>
             </Grid>
           </Grid>

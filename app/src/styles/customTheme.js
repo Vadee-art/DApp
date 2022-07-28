@@ -158,6 +158,16 @@ const customTheme = createTheme({
         },
       },
     },
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            backgroundColor: 'transparent',
+            opacity: 0.3,
+          },
+        },
+      },
+    },
   },
 });
 

@@ -14,6 +14,7 @@ import {
   Typography,
   IconButton,
   Button,
+  Pagination,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
@@ -92,7 +93,7 @@ function ArtistList() {
   const [page, setPage] = useState(1);
 
   const artworksList = useSelector((state) => state.artworks);
-  const { error: errorArtworkList, loading, pages } = artworksList;
+  const { error: errorArtworkList, loading } = artworksList;
 
   const filterOrigin = useSelector((state) => state.filterOrigin);
   const { origins, success: successOrigins } = filterOrigin;
@@ -109,10 +110,6 @@ function ArtistList() {
 
   const favArtist = useSelector((state) => state.favArtist);
   const { success: successFavArtist } = favArtist;
-
-  const { items } = usePagination({
-    count: pages,
-  });
 
   useEffect(() => {
     if (successFavArtist) {
@@ -157,11 +154,27 @@ function ArtistList() {
 
     if (!successArtistList) {
       dispatch(fetchAllArtWorks(keyword));
-      dispatch(fetchArtistList(''));
+      dispatch(fetchArtistList('', page));
     }
   }, [navigate]);
 
+  // pagination
+  useEffect(() => {
+    if (page > 1) {
+      dispatch(fetchArtistList('', page));
+    }
+  }, [page]);
+
   const handlePageChange = (event, value) => {
+    let keyword;
+    // if (pathName) {
+    //   keyword = pathName.split('?keyword=')[1].split('&')[0]; // example: ?keyword=اکبر&page=1  ===> اکبر
+    // }
+    if (keyword) {
+      navigate(`/artists/search/?keyword=${keyword}&page=${value}`);
+    } else {
+      navigate(`/artists/search/?page=${value}`);
+    }
     setPage(value);
   };
 
@@ -252,85 +265,13 @@ function ArtistList() {
                     )}
                   </Box>
                   <Grid>
-                    {pages > 1 && (
-                      <nav
-                        style={{
-                          padding: 0,
-                          margin: 0,
-                          marginBottom: '35px',
-                        }}
-                      >
-                        <List
-                          style={{
-                            width: '100%',
-                            padding: 0,
-                            alignItems: 'center',
-                          }}
-                        >
-                          {items.map(
-                            ({ p, type, selected, ...item }, index) => {
-                              let children = null;
-
-                              if (type === 'page') {
-                                children = (
-                                  <Button
-                                    variant="text"
-                                    color="primary"
-                                    style={{
-                                      fontWeight: selected ? 'bold' : undefined,
-                                    }}
-                                    sx={{
-                                      fontSize: '20px',
-                                      overflow: 'hidden',
-                                      maxWidth: '20px',
-                                      padding: '0 !important',
-                                    }}
-                                    {...item}
-                                  >
-                                    {index}
-                                  </Button>
-                                );
-                              } else {
-                                children = (
-                                  <Button
-                                    sx={{
-                                      fontSize: '20px',
-                                      fontWeight: 100,
-                                      textTransform: 'none',
-                                      paddingLeft: 0,
-                                      paddingRight: 0,
-                                      marginRight: type === 'previous' ? 10 : 0,
-                                      marginLeft: type === 'previous' ? 0 : 10,
-                                    }}
-                                    // variant="text"
-                                    {...item}
-                                  >
-                                    {type === 'previous' ? '< Prev' : 'Next >'}
-                                  </Button>
-                                );
-                              }
-                              return (
-                                <li
-                                  style={{
-                                    maxWidth: type === 'page' ? '20px' : 'auto',
-                                  }}
-                                  key={index}
-                                >
-                                  {children}
-                                </li>
-                              );
-                            }
-                          )}
-                        </List>
-                      </nav>
-                      // <Pagination
-                      //   count={pages}
-                      //   page={page}
-                      //   onChange={handlePageChange}
-                      //   variant="outlined"
-                      //   color="secondary"
-                      // />
-                    )}
+                    <Pagination
+                      count={artists.pages}
+                      page={page}
+                      onChange={handlePageChange}
+                      variant="outlined"
+                      color="secondary"
+                    />
                   </Grid>
                 </Grid>
               </Grid>
