@@ -50,7 +50,6 @@ export default function CarouselCategoryBySlug({ artworks, slug }) {
       },
     ],
   };
-  console.log(categoryArtworks);
   return (
     <>
       <div>

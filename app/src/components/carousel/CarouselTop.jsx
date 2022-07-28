@@ -10,10 +10,7 @@ import '../../styles/carouselTop.scss';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchIsCarousel,
-  fetchTopCarouselArtworks,
-} from '../../actions/artworkAction';
+import { fetchIsCarousel } from '../../actions/artworkAction';
 
 function SampleNextArrow(props) {
   const { className, onClick } = props;
@@ -152,7 +149,7 @@ export default function CarouselTop() {
                   >
                     <Link
                       style={{ color: '#fff' }}
-                      to={`artworks/${artwork._id}`}
+                      to={`/artworks/${artwork._id}`}
                     >
                       Browse Works
                     </Link>

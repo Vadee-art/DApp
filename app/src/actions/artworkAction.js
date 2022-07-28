@@ -25,11 +25,16 @@ import {
 import { weiToEth } from '../converter';
 
 export const fetchAllArtWorks =
-  (keyword = '') =>
+  (keyword = '', page = 1) =>
   async (dispatch) => {
+    let response;
     try {
       dispatch({ type: ARTWORK_LIST_REQUEST });
-      const response = await artworksBase.get(`/artworks/${keyword}`);
+      if (keyword) {
+        response = await artworksBase.get(`/artworks/${keyword}&page=${page}`);
+      } else {
+        response = await artworksBase.get(`/artworks/?page=${page}`);
+      }
 
       dispatch({
         type: ARTWORK_LIST_SUCCESS,

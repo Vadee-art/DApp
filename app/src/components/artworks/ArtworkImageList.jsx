@@ -1,8 +1,8 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable react/destructuring-assignment */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ImageListItem from '@mui/material/ImageListItem';
-import { Grid, ImageList, Typography } from '@mui/material';
+import { ImageList, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';

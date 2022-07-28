@@ -14,6 +14,7 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
+  Pagination,
 } from '@mui/material';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
@@ -87,7 +88,6 @@ function ArtworksList() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { pathname, search } = useLocation();
 
   const [page, setPage] = useState(1);
   const [checked, setChecked] = useState(false);
@@ -111,25 +111,26 @@ function ArtworksList() {
   const favArtwork = useSelector((state) => state.favArtwork);
   const { success: successFavArtwork } = favArtwork;
 
-  const { items } = usePagination({
-    count: pages,
-  });
-
   let pathName;
   useEffect(() => {
-    dispatch(fetchAllArtWorks(search || keywordValue));
+    dispatch(fetchAllArtWorks(keywordValue, page));
     dispatch(fetchArticlesList());
     dispatch(filterByRegion());
     dispatch(fetchArtistList());
     dispatch(fetchCategories());
-  }, [search]);
+  }, [keywordValue]);
 
   useEffect(() => {
     if (successFavArtwork) {
-      dispatch(fetchAllArtWorks(search || keywordValue));
+      dispatch(fetchAllArtWorks(keywordValue, page));
     }
-  }, [successFavArtwork]);
+  }, [successFavArtwork, page]);
 
+  useEffect(() => {
+    if (page > 1) {
+      dispatch(fetchAllArtWorks(keywordValue, page));
+    }
+  }, [page]);
   // clean up
   // useEffect(() => {
   //   dispatch(cleanLocalCart());
@@ -138,15 +139,23 @@ function ArtworksList() {
   //     dispatch(cleanLocalCart());
   //   };
   // }, [dispatch]);
+  // useEffect(() => {
+  //   if (page > 1) {
+  //   }
+  // }, [page]);
 
   // pagination
   const handlePageChange = (event, value) => {
-    setPage(value);
     let keyword;
     if (pathName) {
       keyword = pathName.split('?keyword=')[1].split('&')[0]; // example: ?keyword=اکبر&page=1  ===> اکبر
     }
-    navigate(`/artworks/?keyword=${keyword}&page=${value}`);
+    if (keyword) {
+      navigate(`/artworks/?keyword=${keyword}&page=${value}`);
+    } else {
+      navigate(`/artworks/?page=${value}`);
+    }
+    setPage(value);
   };
 
   const handleChange = (event) => {
@@ -291,81 +300,81 @@ function ArtworksList() {
               <Grid>
                 {pages > 1 && (
                   // FIXME:change to MUI Pagination
-                  // <Pagination
-                  //   count={pages}
-                  //   page={page}
-                  //   onChange={handlePageChange}
-                  //   variant="text"
-                  //   color="secondary"
-                  // />
-                  <nav
-                    style={{
-                      padding: 0,
-                      margin: 0,
-                      marginBottom: '35px',
-                    }}
-                  >
-                    <List
-                      style={{
-                        width: '100%',
-                        padding: 0,
-                        alignItems: 'center',
-                      }}
-                    >
-                      {items.map(({ p, type, selected, ...item }, index) => {
-                        let children = null;
+                  <Pagination
+                    count={pages}
+                    page={page}
+                    onChange={handlePageChange}
+                    variant="text"
+                    color="secondary"
+                  />
+                  // <nav
+                  //   style={{
+                  //     padding: 0,
+                  //     margin: 0,
+                  //     marginBottom: '35px',
+                  //   }}
+                  // >
+                  //   <List
+                  //     style={{
+                  //       width: '100%',
+                  //       padding: 0,
+                  //       alignItems: 'center',
+                  //     }}
+                  //   >
+                  //     {items.map(({ p, type, selected, ...item }, index) => {
+                  //       let children = null;
 
-                        if (type === 'page') {
-                          children = (
-                            <Button
-                              variant="text"
-                              color="primary"
-                              style={{
-                                fontWeight: selected ? 'bold' : undefined,
-                              }}
-                              sx={{
-                                fontSize: '20px',
-                                overflow: 'hidden',
-                                maxWidth: '20px',
-                                padding: '0 !important',
-                              }}
-                              {...item}
-                            >
-                              {index}
-                            </Button>
-                          );
-                        } else {
-                          children = (
-                            <Button
-                              sx={{
-                                fontSize: '20px',
-                                fontWeight: 100,
-                                textTransform: 'none',
-                                paddingLeft: 0,
-                                paddingRight: 0,
-                                marginRight: type === 'previous' ? 10 : 0,
-                                marginLeft: type === 'previous' ? 0 : 10,
-                              }}
-                              // variant="text"
-                              {...item}
-                            >
-                              {type === 'previous' ? '< Prev' : 'Next >'}
-                            </Button>
-                          );
-                        }
-                        return (
-                          <li
-                            style={{
-                              maxWidth: type === 'page' ? '20px' : 'auto',
-                            }}
-                            key={index}
-                          >
-                            {children}
-                          </li>
-                        );
-                      })}
-                    </List>
-                  </nav>
+                  //       if (type === 'page') {
+                  //         children = (
+                  //           <Button
+                  //             variant="text"
+                  //             color="primary"
+                  //             style={{
+                  //               fontWeight: selected ? 'bold' : undefined,
+                  //             }}
+                  //             sx={{
+                  //               fontSize: '20px',
+                  //               overflow: 'hidden',
+                  //               maxWidth: '20px',
+                  //               padding: '0 !important',
+                  //             }}
+                  //             {...item}
+                  //           >
+                  //             {index}
+                  //           </Button>
+                  //         );
+                  //       } else {
+                  //         children = (
+                  //           <Button
+                  //             sx={{
+                  //               fontSize: '20px',
+                  //               fontWeight: 100,
+                  //               textTransform: 'none',
+                  //               paddingLeft: 0,
+                  //               paddingRight: 0,
+                  //               marginRight: type === 'previous' ? 10 : 0,
+                  //               marginLeft: type === 'previous' ? 0 : 10,
+                  //             }}
+                  //             // variant="text"
+                  //             {...item}
+                  //           >
+                  //             {type === 'previous' ? '< Prev' : 'Next >'}
+                  //           </Button>
+                  //         );
+                  //       }
+                  //       return (
+                  //         <li
+                  //           style={{
+                  //             maxWidth: type === 'page' ? '20px' : 'auto',
+                  //           }}
+                  //           key={index}
+                  //         >
+                  //           {children}
+                  //         </li>
+                  //       );
+                  //     })}
+                  //   </List>
+                  // </nav>
                 )}
               </Grid>
             </Grid>
