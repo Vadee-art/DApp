@@ -67,7 +67,7 @@ const Main = () => {
   const { artworks, loading: loadingArtworks } = artworksList;
 
   const artistList = useSelector((state) => state.artistList);
-  const { artists, success: successArtistList } = artistList;
+  const { artists } = artistList;
 
   const isTalent = useSelector((state) => state.isTalent);
   const { theTalent } = isTalent;
@@ -280,12 +280,13 @@ const Main = () => {
                           >
                             {categories &&
                               categories.map((category, index) => (
-                                <Button
+                                <Link
                                   key={index}
                                   className={classes.priceCategories}
+                                  to="/"
                                 >
                                   {category.name}
-                                </Button>
+                                </Link>
                               ))}
                           </Grid>
                         </Stack>

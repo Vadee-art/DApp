@@ -15,7 +15,10 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
   const open = Boolean(anchorEl);
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { success: successLogin } = userLogin;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { success: successUserDetails } = userDetails;
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -62,7 +65,7 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {!userInfo ? (
+        {!successUserDetails || !successLogin ? (
           <div>
             <MenuItem onClick={() => dispatch(openAuthDialog('login'))}>
               Login

@@ -13,7 +13,6 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Checkbox from '@mui/material/Checkbox';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
@@ -21,13 +20,16 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Message from '../Message';
 import { login, openAuthDialog, register } from '../../actions/userAction';
-import { DIALOG_RESET } from '../../constants/userConstants';
+import {
+  DIALOG_RESET,
+  USER_DETAILS_RESET,
+} from '../../constants/userConstants';
 
 export default function LoginDialog() {
   const dispatch = useDispatch();
 
-  const [logindialog, setLogindialog] = useState(false);
-  const [registerdialog, setRegisterdialog] = useState(false);
+  const [loginDialog, setLoginDialog] = useState(false);
+  const [registerDialog, setRegisterDialog] = useState(false);
   const [checked, setChecked] = React.useState(true);
   const [values, setValues] = React.useState({
     firstName: '',
@@ -40,38 +42,40 @@ export default function LoginDialog() {
   const { error: errorRegister } = userRegister;
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { error: errorLogin, loading: loadingLogin } = userLogin;
+  const {
+    error: errorLogin,
+    loading: loadingLogin,
+    success: successLogin,
+  } = userLogin;
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { success: successUserDetails } = userDetails;
+  const { error: errorUserDetails, success: successUserDetails } = userDetails;
 
   const dialog = useSelector((state) => state.dialog);
-  const {
-    error: errorDialog,
-    loading: loadingDialog,
-    success: successDialog,
-    status,
-  } = dialog;
+  const { loading: loadingDialog, status } = dialog;
 
   // close dialogs if logged in
   useEffect(() => {
-    if (status === 'register') {
-      setRegisterdialog(true);
-    }
-    if (status === 'login') {
-      setLogindialog(true);
-    }
-    if (successUserDetails) {
-      setRegisterdialog(false);
-      setLogindialog(false);
+    if (!successUserDetails) {
+      if (status === 'register') {
+        setRegisterDialog(true);
+      }
+      if (status === 'login') {
+        dispatch({ type: USER_DETAILS_RESET });
+        setLoginDialog(true);
+      }
+    } else {
+      setRegisterDialog(false);
+      setLoginDialog(false);
     }
   }, [status, successUserDetails]);
 
   // login
   const handleCloseLogin = () => {
     dispatch({ type: DIALOG_RESET });
-    setLogindialog(false);
+    setLoginDialog(false);
   };
+
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(login(values.email, values.password));
@@ -81,8 +85,9 @@ export default function LoginDialog() {
   const handleCloseRegister = (e) => {
     e.preventDefault();
     dispatch({ type: DIALOG_RESET });
-    setRegisterdialog(false);
+    setRegisterDialog(false);
   };
+
   const handleRegister = (e) => {
     e.preventDefault();
     dispatch(
@@ -96,8 +101,8 @@ export default function LoginDialog() {
   };
 
   // Already have an account?
-  const handleSwitchToLgin = () => {
-    setRegisterdialog(false);
+  const handleSwitchToLogin = () => {
+    setRegisterDialog(false);
     dispatch(openAuthDialog('login'));
   };
 
@@ -126,7 +131,7 @@ export default function LoginDialog() {
     <>
       <div>
         {/* Login dialog */}
-        <Dialog open={logindialog} onClose={handleCloseLogin}>
+        <Dialog open={loginDialog} onClose={handleCloseLogin}>
           <Box
             sx={{
               maxWidth: 450,
@@ -239,10 +244,10 @@ export default function LoginDialog() {
                     </Grid>
                   </Grid>
                 </Grid>
-                {errorLogin && (
-                  <Grid sx={{ marginTop: 2 }}>
-                    <Message variant="" severity="error">
-                      {errorLogin}
+                {(errorUserDetails || errorLogin) && (
+                  <Grid sx={{ margin: 2 }}>
+                    <Message variant="outlined" severity="error">
+                      {errorUserDetails || errorLogin}
                     </Message>
                   </Grid>
                 )}
@@ -251,7 +256,7 @@ export default function LoginDialog() {
           </Box>
         </Dialog>
         {/* Register dialog */}
-        <Dialog open={registerdialog} onClose={handleCloseRegister}>
+        <Dialog open={registerDialog} onClose={handleCloseRegister}>
           <Box
             sx={{
               maxWidth: 450,
@@ -402,7 +407,7 @@ export default function LoginDialog() {
                         textAlign: 'center',
                       }}
                     >
-                      <Link to="#" onClick={handleSwitchToLgin}>
+                      <Link to="#" onClick={handleSwitchToLogin}>
                         <Typography variant="subtitle1" color="primary">
                           Already have an account?
                           <Typography

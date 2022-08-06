@@ -47,12 +47,12 @@ export const openAuthDialog = (whichOne) => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: DIALOG_FAIL,
-      payload: 'Somwthing went wrong :(',
+      payload: 'Something went wrong :(',
     });
   }
 };
 
-export const fetchUserDetails = () => async (dispatch, getState) => {
+export const fetchUserDetails = () => async (dispatch) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
 
@@ -62,12 +62,13 @@ export const fetchUserDetails = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfoFromStorage.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfoFromStorage.access}`,
       },
     };
 
-    const { data } = await artworksBase.get(`users/profile`, config);
+    const { data } = await artworksBase.get(`/users/profile/me`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,

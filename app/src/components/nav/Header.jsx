@@ -9,8 +9,6 @@ import {
   ListItem,
   ListItemButton,
   Typography,
-  MenuItem,
-  ListItemIcon,
   ListItemText,
 } from '@mui/material';
 import Container from '@mui/material/Container';
@@ -27,12 +25,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import Avatar from '@mui/material/Avatar';
-import Logout from '@mui/icons-material/Logout';
 import AccountMenu from './AccountMenu';
 import { fetchMarketPlace } from '../../actions/marketPlaceAction';
 import { fetchUserDetails, logout } from '../../actions/userAction';
-import { fetchAllArtWorks } from '../../actions/artworkAction';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,7 +44,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(() => ({
   height: '100%',
   aspectRatio: 1,
   position: 'absolute',
