@@ -81,7 +81,7 @@ export default function ArtistCard({ artist }) {
             marginBottom: 0,
           }}
         >
-          {artist.first_name + artist.last_name}
+          {artist.artist.first_name + artist.artist.last_name}
         </Typography>
         <Typography
           // variant="subtitle1"

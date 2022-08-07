@@ -103,7 +103,6 @@ export default function ArtCard({ artwork }) {
           : artwork.first_name + artwork.last_name}
       </Typography>
       <Typography
-        // variant="subtitle1"
         sx={{
           color: '#000',
           fontWeight: 300,
@@ -115,7 +114,6 @@ export default function ArtCard({ artwork }) {
         {artwork.category ? artwork.category?.name : 'Unknown'}
       </Typography>
       <Typography
-        // variant="subtitle1"
         sx={{
           color: '#000',
           fontWeight: 300,

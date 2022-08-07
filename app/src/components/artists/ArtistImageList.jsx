@@ -81,7 +81,7 @@ export default function ArtistImageList({ artists }) {
                 marginBottom: 0,
               }}
             >
-              {artist.first_name + artist.last_name}
+              {`${artist.first_name} ${artist.last_name}`}
             </Typography>
             <Typography
               // variant="subtitle1"
