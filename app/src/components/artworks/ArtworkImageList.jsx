@@ -115,7 +115,9 @@ export default function ArtworkImageList({ artworks }) {
                   margin: 0,
                 }}
               >
-                {artwork.category ? artwork.category?.name : 'Unknown'}
+                {artwork.collection.title
+                  ? artwork.collection.title
+                  : 'Unknown'}
               </Typography>
               <Typography
                 variant="subtitle1"
