@@ -107,11 +107,10 @@ export default function ArtworkImageList({ artworks }) {
                   `${artwork.artist.first_name}  ${artwork.artist.last_name}`}
               </Typography>
               <Typography
-                // variant="subtitle1"
                 sx={{
                   color: '#000',
                   fontWeight: 300,
-                  fontSize: '1.1rem',
+                  fontSize: '1rem',
                   width: '100%',
                   margin: 0,
                 }}
@@ -123,7 +122,7 @@ export default function ArtworkImageList({ artworks }) {
                 sx={{
                   color: '#000',
                   fontWeight: 300,
-                  // fontSize: '1.1rem',
+                  fontSize: '1rem',
                   width: '100%',
                   margin: 0,
                 }}
@@ -136,8 +135,8 @@ export default function ArtworkImageList({ artworks }) {
                   sx={{
                     width: '100%',
                     margin: 0,
-                    // color: '#000',
-                    // fontSize: '1rem',
+                    color: '#000',
+                    fontSize: '1rem',
                   }}
                 >
                   ${artwork.price}

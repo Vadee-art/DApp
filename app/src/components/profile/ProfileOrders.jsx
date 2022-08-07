@@ -10,10 +10,7 @@ import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import {
-  fetchIsTalentArtist,
-  fetchArtistById,
-} from '../../actions/artistAction';
+import { fetchArtistById } from '../../actions/artistAction';
 
 function createData(name, order, seller, buyer, price) {
   return { name, order, seller, buyer, price };
