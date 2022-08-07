@@ -32,6 +32,9 @@ import {
   ARTWORK_TOP_CAROUSEL_REQUEST,
   ARTWORK_TOP_CAROUSEL_SUCCESS,
   ARTWORK_TOP_CAROUSEL_FAIL,
+  ARTWORK_IS_TALENT_REQUEST,
+  ARTWORK_IS_TALENT_SUCCESS,
+  ARTWORK_IS_TALENT_FAIL,
 } from '../constants/artworkConstants';
 
 export const artworksReducer = (state = { artworks: [] }, action) => {
@@ -165,6 +168,19 @@ export const artworkCarouselsReducer = (state = {}, action) => {
       return { loading: false, success: true, carousels: action.payload };
     case ARTWORK_IS_CAROUSEL_FAIL:
       return { loading: false, success: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const artworkIsTalentReducer = (state = { theArtist: {} }, action) => {
+  switch (action.type) {
+    case ARTWORK_IS_TALENT_REQUEST:
+      return { ...state, loading: true };
+    case ARTWORK_IS_TALENT_SUCCESS:
+      return { loading: false, success: true, theTalent: action.payload };
+    case ARTWORK_IS_TALENT_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

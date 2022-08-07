@@ -4,7 +4,6 @@
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ImageList from '@mui/material/ImageList';
 import {
   Grid,
   Box,
@@ -13,13 +12,10 @@ import {
   Container,
   Typography,
   IconButton,
-  Button,
   Pagination,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
-import usePagination from '@mui/material/usePagination';
-import { styled } from '@mui/material/styles';
 import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -29,12 +25,6 @@ import { fetchArtistList } from '../actions/artistAction';
 import ArtistImageList from '../components/artists/ArtistImageList';
 import ArtistCard from '../components/artists/ArtistCard';
 
-const List = styled('ul')({
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
-  display: 'flex',
-});
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 10,

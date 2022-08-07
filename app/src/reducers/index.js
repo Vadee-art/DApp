@@ -8,6 +8,7 @@ import {
   categoriesReducer,
   artworkVoucherDeleteReducer,
   artworkCarouselsReducer,
+  artworkIsTalentReducer,
 } from './artworkReducer.js';
 import cartReducer from './cartReducer.js';
 import {
@@ -20,14 +21,14 @@ import {
   favArtworkReducer,
   favArtworkListReducer,
   artistArtworksReducer,
-  favArtistReducer,
   dialogReducer,
+  favArtistListReducer,
+  favArtistReducer,
 } from './userReducer';
 import headerReducer from './headerReducer';
 import {
   artistRelated,
   artistGalleryReducer,
-  artistIsTalentReducer,
   artistListReducer,
 } from './artistReducer.js';
 import { articleListReducer } from './articleReducer.js';
@@ -61,12 +62,13 @@ export default combineReducers({
   userDetails: userDetailsReducer,
   artistList: artistListReducer,
   theArtist: artistRelated,
-  isTalent: artistIsTalentReducer,
+  isTalent: artworkIsTalentReducer,
   artworkUpdate: artworkUpdateReducer,
   userUpdateProfile: userUpdateProfileReducer,
   favArtist: favArtistReducer,
   favArtwork: favArtworkReducer,
   favArtworkList: favArtworkListReducer,
+  favArtistList: favArtistListReducer,
   userDeleteList: userDeleteReducer,
   artworkCreate: artworkCreateReducer,
   userUpdate: userUpdateReducer, // update user from admin

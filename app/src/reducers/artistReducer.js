@@ -99,16 +99,3 @@ export const artistGalleryReducer = (state = { theArtist: {} }, action) => {
       return state;
   }
 };
-
-export const artistIsTalentReducer = (state = { theArtist: {} }, action) => {
-  switch (action.type) {
-    case ARTIST_IS_TALENT_REQUEST:
-      return { ...state, loading: true };
-    case ARTIST_IS_TALENT_SUCCESS:
-      return { loading: false, success: true, theTalent: action.payload };
-    case ARTIST_IS_TALENT_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};

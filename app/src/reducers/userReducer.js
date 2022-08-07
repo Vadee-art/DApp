@@ -34,13 +34,16 @@ import {
   USER_ARTIST_WORKS_REQUEST,
   USER_ARTIST_WORKS_SUCCESS,
   USER_ARTIST_WORKS_FAIL,
-  USER_FAVORITE_ARTIST_REQUEST,
-  USER_FAVORITE_ARTIST_SUCCESS,
-  USER_FAVORITE_ARTIST_FAIL,
   DIALOG_REQUEST,
   DIALOG_SUCCESS,
   DIALOG_FAIL,
   DIALOG_RESET,
+  USER_FAVORITE_ARTIST_LIST_REQUEST,
+  USER_FAVORITE_ARTIST_LIST_SUCCESS,
+  USER_FAVORITE_ARTIST_LIST_FAIL,
+  USER_FAVORITE_ARTIST_REQUEST,
+  USER_FAVORITE_ARTIST_SUCCESS,
+  USER_FAVORITE_ARTIST_FAIL,
 } from '../constants/userConstants';
 
 export const dialogReducer = (state = {}, action) => {
@@ -177,13 +180,13 @@ export const favArtworkReducer = (state = {}, action) => {
   }
 };
 
-export const favArtistReducer = (state = {}, action) => {
+export const favArtistListReducer = (state = {}, action) => {
   switch (action.type) {
-    case USER_FAVORITE_ARTIST_REQUEST:
+    case USER_FAVORITE_ARTIST_LIST_REQUEST:
       return { loading: true };
-    case USER_FAVORITE_ARTIST_SUCCESS:
-      return { loading: false, success: true, artistId: action.payload };
-    case USER_FAVORITE_ARTIST_FAIL:
+    case USER_FAVORITE_ARTIST_LIST_SUCCESS:
+      return { loading: false, success: true, favArtists: action.payload };
+    case USER_FAVORITE_ARTIST_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
@@ -203,6 +206,18 @@ export const favArtworkListReducer = (state = {}, action) => {
   }
 };
 
+export const favArtistReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_FAVORITE_ARTIST_REQUEST:
+      return { loading: true };
+    case USER_FAVORITE_ARTIST_SUCCESS:
+      return { loading: false, success: true, artistId: action.payload };
+    case USER_FAVORITE_ARTIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 export const artistArtworksReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_ARTIST_WORKS_REQUEST:

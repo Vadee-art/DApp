@@ -9,9 +9,6 @@ import {
   ARTIST_GALLERY_ADDRESS_UPDATE_REQUEST,
   ARTIST_GALLERY_ADDRESS_UPDATE_SUCCESS,
   ARTIST_GALLERY_ADDRESS_UPDATE_FAIL,
-  ARTIST_IS_TALENT_FAIL,
-  ARTIST_IS_TALENT_REQUEST,
-  ARTIST_IS_TALENT_SUCCESS,
   ARTIST_RELATED_REQUEST,
   ARTIST_RELATED_SUCCESS,
   ARTIST_RELATED_FAIL,
@@ -179,31 +176,3 @@ export const updateArtistGallery =
       });
     }
   };
-
-export const fetchIsTalentArtist = () => async (dispatch) => {
-  try {
-    dispatch({ type: ARTIST_IS_TALENT_REQUEST });
-
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-      },
-    };
-
-    const { data } = await artworksBase.get(`/artists/talent/`, config);
-
-    dispatch({
-      type: ARTIST_IS_TALENT_SUCCESS,
-      payload: data,
-    });
-  } catch (e) {
-    // check for generic and custom message to return using ternary statement
-    dispatch({
-      type: ARTIST_IS_TALENT_FAIL,
-      payload:
-        e.response && e.response.data.detail
-          ? e.response.data.detail
-          : e.message,
-    });
-  }
-};

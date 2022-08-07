@@ -8,10 +8,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ImageList from '@mui/material/ImageList';
 import { Grid, Paper, Hidden } from '@mui/material';
-import ArtCard from '../artworks/ArtCard';
 import Loader from '../Loader';
 import Message from '../Message';
 import { fetchFavArtistList } from '../../actions/userAction';
+import ArtistCard from '../artists/ArtistCard';
+import FavArtistCard from '../artists/FavArtistCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +33,7 @@ function ProfileFavoriteArtists() {
   const dispatch = useDispatch();
 
   const favArtistList = useSelector((state) => state.favArtistList);
-  const { error, loading, success, favArtworks } = favArtistList;
+  const { error, loading, favArtists } = favArtistList;
 
   const favArtwork = useSelector((state) => state.favArtwork);
   const { artworkId } = favArtwork;
@@ -42,10 +43,9 @@ function ProfileFavoriteArtists() {
   }, [dispatch, artworkId]);
 
   const classes = useStyles();
-
   return (
     <div style={{ minHeight: '100vh', maxWidth: '70%' }}>
-      {!success || loading ? (
+      {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="outlined" severity="error">
@@ -53,35 +53,39 @@ function ProfileFavoriteArtists() {
         </Message>
       ) : (
         <>
-          <Grid container direction="row" spacing={0}>
-            <Grid item xs={9} className={classes.root}>
-              <ImageList
-                variant="masonry"
-                cols={3}
-                gap={30}
-                sx={{ paddingRight: 5 }}
-              >
-                {favArtworks.favorites.map((artwork) => (
-                  <ArtCard key={artwork._id} data={artwork} />
-                ))}
-              </ImageList>
-            </Grid>
-          </Grid>
-          <Grid>
-            <Hidden mdUp>
-              <Grid container>
-                <Paper className={classes.responsive} elevation={0}>
-                  {favArtworks.favorites.map((artwork) => (
-                    <Grid key={artwork._id}>
-                      <Paper className={classes.paper}>
-                        <ArtCard data={artwork} />
-                      </Paper>
-                    </Grid>
-                  ))}
-                </Paper>
+          {favArtists && favArtists.favorites && (
+            <>
+              <Grid container direction="row" spacing={0}>
+                <Grid item xs={9} className={classes.root}>
+                  <ImageList
+                    variant="masonry"
+                    cols={3}
+                    gap={30}
+                    sx={{ paddingRight: 5 }}
+                  >
+                    {favArtists.favorites.map((artist) => (
+                      <FavArtistCard key={artist._id} artist={artist} />
+                    ))}
+                  </ImageList>
+                </Grid>
               </Grid>
-            </Hidden>
-          </Grid>
+              <Grid>
+                <Hidden mdUp>
+                  <Grid container>
+                    <Paper className={classes.responsive} elevation={0}>
+                      {favArtists.favorites.map((artist) => (
+                        <Grid key={artist._id}>
+                          <Paper className={classes.paper}>
+                            <ArtistCard artist={artist} />
+                          </Paper>
+                        </Grid>
+                      ))}
+                    </Paper>
+                  </Grid>
+                </Hidden>
+              </Grid>
+            </>
+          )}
         </>
       )}
     </div>

@@ -65,7 +65,7 @@ export default function AccountMenu({ anchorEl, setAnchorEl }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {!successUserDetails || !successLogin ? (
+        {!successUserDetails ? (
           <div>
             <MenuItem onClick={() => dispatch(openAuthDialog('login'))}>
               Login

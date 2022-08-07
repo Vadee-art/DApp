@@ -86,13 +86,13 @@ export default function TheTab({ artist }) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         {artist.achievements &&
-          artist.achievements.map((acheive) => (
-            <Grid container>
+          artist.achievements.map((achieve, index) => (
+            <Grid container key={index}>
               <Grid item xs={12}>
-                <Typography variant="h6">{acheive.title} </Typography>
+                <Typography variant="h6">{achieve.title} </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1">{acheive.description} </Typography>
+                <Typography variant="body1">{achieve.description} </Typography>
               </Grid>
             </Grid>
           ))}

@@ -14,13 +14,17 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { makeStyles } from '@mui/styles';
-import { fetchAllArtWorks, fetchCategories } from '../actions/artworkAction';
+import {
+  fetchAllArtWorks,
+  fetchCategories,
+  fetchIsTalentArtist,
+} from '../actions/artworkAction';
 import CarouselTop from '../components/carousel/CarouselTop';
 import CarouselFeaturedCategories from '../components/carousel/CarouselFeaturedCategories';
 import CarouselCategoryBySlug from '../components/carousel/CarouselCategoryBySlug';
 import CarouselArtistList from '../components/carousel/CarouselArtistList';
 import { deployMarketPlace } from '../actions/marketPlaceAction';
-import { fetchArtistList, fetchIsTalentArtist } from '../actions/artistAction';
+import { fetchArtistList } from '../actions/artistAction';
 import LastArtwork from '../components/LastArtwork';
 
 const useStyles = makeStyles((theme) => ({
@@ -424,7 +428,8 @@ const Main = () => {
                                 fontWeight: 300,
                               }}
                             >
-                              {theTalent.firstName} {theTalent.lastName}
+                              {theTalent.artist.first_name}
+                              {theTalent.artist.last_name}
                             </Typography>
                             <Typography
                               variant="h6"
@@ -443,7 +448,7 @@ const Main = () => {
                                 fontWeight: 300,
                               }}
                             >
-                              {theTalent.biography}
+                              {theTalent.artist.biography}
                             </Typography>
                             <Typography
                               variant="subtitle2"
@@ -481,7 +486,7 @@ const Main = () => {
                                   width: '100%',
                                   maxHeight: '400px',
                                 }}
-                                srcSet={theTalent.photo}
+                                srcSet={theTalent.image}
                                 alt=""
                                 loading="lazy"
                               />

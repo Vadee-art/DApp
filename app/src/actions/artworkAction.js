@@ -1,4 +1,5 @@
 import artworksBase from '../apis/artworksBase';
+
 import {
   ARTWORK_LIST_REQUEST,
   ARTWORK_LIST_SUCCESS,
@@ -21,6 +22,9 @@ import {
   ARTWORK_IS_CAROUSEL_REQUEST,
   ARTWORK_IS_CAROUSEL_SUCCESS,
   ARTWORK_IS_CAROUSEL_FAIL,
+  ARTWORK_IS_TALENT_REQUEST,
+  ARTWORK_IS_TALENT_SUCCESS,
+  ARTWORK_IS_TALENT_FAIL,
 } from '../constants/artworkConstants';
 import { weiToEth } from '../converter';
 
@@ -250,6 +254,34 @@ export const fetchIsCarousel = () => async (dispatch) => {
     // check for generic and custom message to return using ternary statement
     dispatch({
       type: ARTWORK_IS_CAROUSEL_FAIL,
+      payload:
+        e.response && e.response.data.detail
+          ? e.response.data.detail
+          : e.message,
+    });
+  }
+};
+
+export const fetchIsTalentArtist = () => async (dispatch) => {
+  try {
+    dispatch({ type: ARTWORK_IS_TALENT_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+
+    const { data } = await artworksBase.get(`/artworks/talent/`, config);
+
+    dispatch({
+      type: ARTWORK_IS_TALENT_SUCCESS,
+      payload: data,
+    });
+  } catch (e) {
+    // check for generic and custom message to return using ternary statement
+    dispatch({
+      type: ARTWORK_IS_TALENT_FAIL,
       payload:
         e.response && e.response.data.detail
           ? e.response.data.detail
