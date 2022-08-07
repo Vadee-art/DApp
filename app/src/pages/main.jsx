@@ -26,6 +26,7 @@ import CarouselArtistList from '../components/carousel/CarouselArtistList';
 import { deployMarketPlace } from '../actions/marketPlaceAction';
 import { fetchArtistList } from '../actions/artistAction';
 import LastArtwork from '../components/LastArtwork';
+import MainSkeleton from '../components/skeleton/MainSkeleton';
 
 const useStyles = makeStyles((theme) => ({
   priceCategories: {
@@ -59,6 +60,8 @@ const Main = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [skeleton, setSkeleton] = useState(true);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const categoryList = useSelector((state) => state.categoryList);
   const {
@@ -110,6 +113,17 @@ const Main = () => {
     // };
   }, [successMarketDeploy, successCategories]);
 
+  // skeleton
+  useEffect(() => {
+    if (!isImageLoaded) {
+      setSkeleton(true);
+    } else {
+      setTimeout(function () {
+        setSkeleton(false);
+      }, 1000);
+    }
+  }, [isImageLoaded]);
+
   // useEffect(() => {
   //   dispatch(cleanLocalCart());
   //   dispatch({ type: ARTWORK_DETAILS_RESET });
@@ -122,6 +136,7 @@ const Main = () => {
 
   return (
     <>
+      {skeleton && <MainSkeleton />}
       {!isLoading && (
         <Grid>
           {(!marketPlace || !marketPlace.contract) && !loadingMarketPlace ? (
@@ -489,6 +504,7 @@ const Main = () => {
                                 srcSet={theTalent.image}
                                 alt=""
                                 loading="lazy"
+                                onLoad={() => setIsImageLoaded(true)}
                               />
                             </CardActionArea>
                           </Grid>

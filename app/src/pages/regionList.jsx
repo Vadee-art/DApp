@@ -219,30 +219,16 @@ const Regionlist = () => {
     dispatch(fetchAllArtWorks());
   }, []);
 
-  const list = [];
-  let regionArtworks;
-  if (artworks[0] && origins && origins.origins) {
-    for (let i = 0; i < origins.origins.length; i += 1) {
-      if (origins.origins[i].country) {
-        regionArtworks = artworks.filter(
-          (artwork) => artwork.origin._id === origins.origins[i]._id
-        );
-        list.push({
-          origin: origins.origins[i].country,
-          artworks: regionArtworks,
-        });
-      }
-    }
-  }
-
   return (
     <Container maxWidth="xl">
-      {list.map(
-        (item, index) =>
-          item.artworks[0] && (
-            <Region key={index} region={item.origin} artworks={item.artworks} />
-          )
-      )}
+      {origins &&
+        origins.map((item, index) => (
+          <Region
+            key={index}
+            region={item.origin.country}
+            artworks={item.artworks}
+          />
+        ))}
     </Container>
   );
 };
