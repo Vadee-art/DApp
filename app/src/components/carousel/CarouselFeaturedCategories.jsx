@@ -15,6 +15,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import PropTypes from 'prop-types';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { useNavigate } from 'react-router-dom';
 
 function SamplePrevArrow(props) {
   const { className, onClick } = props;
@@ -57,6 +58,8 @@ function SampleNextArrow(props) {
 }
 
 export default function CarouselFeaturedCategories({ categories }) {
+  const navigate = useNavigate();
+
   const settings = {
     className: 'center',
     dots: false,
@@ -96,7 +99,11 @@ export default function CarouselFeaturedCategories({ categories }) {
                   sx={{ padding: 2, textAlign: 'left' }}
                 >
                   <Card sx={{ width: 260 }} elevation={0}>
-                    <CardActionArea>
+                    <CardActionArea
+                      onClick={() =>
+                        navigate(`/artworks/?category=${category._id}`)
+                      }
+                    >
                       <CardMedia
                         sx={{ height: 140 }}
                         image={category.image}

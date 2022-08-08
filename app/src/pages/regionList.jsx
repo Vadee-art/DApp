@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import Slider from 'react-slick';
-import { Typography, Grid, Divider } from '@mui/material';
+import { Typography, Grid, Divider, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -205,7 +205,7 @@ function Region({ region, artworks }) {
     </>
   );
 }
-const Regionlist = () => {
+const RegionList = () => {
   const dispatch = useDispatch();
 
   const artworksList = useSelector((state) => state.artworks);
@@ -221,19 +221,22 @@ const Regionlist = () => {
 
   return (
     <Container maxWidth="xl">
-      {origins &&
+      {origins ? (
         origins.map((item, index) => (
           <Region
             key={index}
             region={item.origin.country}
             artworks={item.artworks}
           />
-        ))}
+        ))
+      ) : (
+        <CircularProgress />
+      )}
     </Container>
   );
 };
 
-export default Regionlist;
+export default RegionList;
 
 Region.propTypes = {
   region: PropTypes.string.isRequired,

@@ -12,9 +12,10 @@ import {
 import CardMedia from '@mui/material/CardMedia';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function CarouselCategoryBySlug({ artworks, slug }) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   //
   const categoryArtworks = artworks.filter(
     (artwork) => artwork.category.slug === slug
@@ -62,7 +63,9 @@ export default function CarouselCategoryBySlug({ artworks, slug }) {
                 sx={{ padding: 2, textAlign: 'left', paddingTop: 0 }}
               >
                 <Card sx={{ width: 260 }} elevation={0}>
-                  <CardActionArea>
+                  <CardActionArea
+                    onClick={() => navigate(`/artworks/${artwork._id}`)}
+                  >
                     <CardMedia
                       sx={{ height: 140 }}
                       image={artwork.image}

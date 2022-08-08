@@ -44,6 +44,7 @@ export const artworksReducer = (state = { artworks: [] }, action) => {
     case ARTWORK_LIST_SUCCESS:
       return {
         loading: false,
+        success: true,
         artworks: action.payload.artworks,
         page: action.payload.page,
         pages: action.payload.pages,
@@ -51,6 +52,7 @@ export const artworksReducer = (state = { artworks: [] }, action) => {
     case ARTWORK_LIST_FAIL:
       return {
         loading: false,
+        success: false,
         error: action.payload,
       };
     case ARTWORK_TOP_CAROUSEL_REQUEST:

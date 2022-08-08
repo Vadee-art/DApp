@@ -24,8 +24,7 @@ export default function LastArtwork({ artworks }) {
             color: 'white',
             backgroundColor: '#000',
             width: '100%',
-            padding: 7,
-            paddingLeft: 2.5,
+            padding: 8,
           }}
         >
           <Grid item xs={2}>
@@ -34,7 +33,6 @@ export default function LastArtwork({ artworks }) {
               sx={{
                 fontWeight: 300,
                 lineHeight: 1.3,
-                fontSize: '1.4rem',
               }}
             >
               Last

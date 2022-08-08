@@ -61,7 +61,6 @@ const Main = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [skeleton, setSkeleton] = useState(true);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const categoryList = useSelector((state) => state.categoryList);
   const {
@@ -512,7 +511,6 @@ const Main = () => {
                                 srcSet={theTalent.image}
                                 alt=""
                                 loading="lazy"
-                                onLoad={() => setIsImageLoaded(true)}
                               />
                             </CardActionArea>
                           </Grid>

@@ -15,47 +15,44 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import PropTypes from 'prop-types';
 import Checkbox from '@mui/material/Checkbox';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchAllArtWorks } from '../actions/artworkAction';
 
 export default function SideFilter({ title, list, kind }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { pathName } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const keyword = searchParams.get('keyword');
+  const artistId = searchParams.get('artist');
+  const src = searchParams.get('src');
 
   const [value, setValue] = useState();
+  const [checked, setChecked] = useState(false);
 
-  // use params to check the checkbox
+  // keyword
   useEffect(() => {
-    let keyword;
-
-    if (pathName && pathName.split('?regions=')[1]) {
-      keyword = pathName.split('?regions=')[1].split('&')[0]; // example: ?regions=iran&page=1  ===> iran
-      setValue(keyword);
+    if (artistId) {
+      // dispatch(fetchAllArtWorks(artistId));
     }
-    if (pathName && pathName.split('?artist=')[1]) {
-      keyword = keyword.split('?artist=')[1].split('&')[0]; // example: ?artist=اکبر&page=1  ===> اکبر
-      setValue(keyword);
-    }
-    if (pathName && pathName.split('?category=')[1]) {
-      keyword = keyword.split('?category=')[1].split('&')[0]; // example: ?artist=اکبر&page=1  ===> اکبر
-      setValue(keyword);
-    }
-  }, [navigate]);
+  }, []);
 
   // change checkbox
   const handleChange = (e, item) => {
     setValue(e.target.name);
-    if (item.country) {
-      const country = e.target.name;
-      navigate(`/${kind}/?regions=${country.toLowerCase()}`);
+    // if (item.country) {
+    //   const country = e.target.name;
+    //   navigate(`/${kind}?regions=${country.toLowerCase()}`);
+    // }
+    if (item.first_name) {
+      // navigate(`/${kind}?artist=${item._id}`);
+      console.log(item._id);
     }
-    if (item.firstName) {
-      const artist = e.target.name;
-      navigate(`/${kind}/?artist=${artist.toLowerCase()}`);
-    }
-    if (item.name) {
-      const category = e.target.name;
-      navigate(`/${kind}/?category=${category}`);
-    }
+    // if (item.name) {
+    //   const category = e.target.name;
+    //   navigate(`/${kind}?category=${category}`);
+    // }
   };
 
   return (
@@ -94,8 +91,8 @@ export default function SideFilter({ title, list, kind }) {
                           size="medium"
                           checked={
                             ((item.country && item.country.toLowerCase()) ||
-                              (item.firstName &&
-                                item.firstName.toLowerCase()) ||
+                              (item.first_name &&
+                                item.first_name.toLowerCase()) ||
                               (item.name && item.name.toLowerCase())) ===
                               value && true
                           }
@@ -119,7 +116,7 @@ export default function SideFilter({ title, list, kind }) {
                         >
                           {item.country ||
                             item.name ||
-                            `${item.firstName}  ${item.lastName}`}
+                            `${item.first_name}  ${item.last_name}`}
                         </Typography>
                       }
                     />
