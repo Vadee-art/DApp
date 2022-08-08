@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   priceCategories: {
     color: '#000',
     fontWeight: 300,
-    fontSize: '1.3rem',
+    fontSize: '1.2rem',
     paddingBottom: 5,
     borderBottom: '1px solid transparent',
     borderRadius: 0,
@@ -71,13 +71,17 @@ const Main = () => {
   } = categoryList;
 
   const artworksList = useSelector((state) => state.artworks);
-  const { artworks, loading: loadingArtworks } = artworksList;
+  const {
+    artworks,
+    loading: loadingArtworks,
+    success: successArtworks,
+  } = artworksList;
 
   const artistList = useSelector((state) => state.artistList);
-  const { artists } = artistList;
+  const { artists, success: successArtists } = artistList;
 
   const isTalent = useSelector((state) => state.isTalent);
-  const { theTalent } = isTalent;
+  const { theTalent, success: successTheTalent } = isTalent;
 
   const marketPlaceDeployment = useSelector(
     (state) => state.marketPlaceDeployment
@@ -115,14 +119,14 @@ const Main = () => {
 
   // skeleton
   useEffect(() => {
-    if (!isImageLoaded) {
-      setSkeleton(true);
-    } else {
+    if (!successTheTalent || !successArtists || !successArtworks) {
       setTimeout(function () {
         setSkeleton(false);
-      }, 1000);
+      }, 800);
+    } else {
+      setSkeleton(true);
     }
-  }, [isImageLoaded]);
+  }, [successTheTalent, successArtists, successArtworks]);
 
   // useEffect(() => {
   //   dispatch(cleanLocalCart());
@@ -134,6 +138,9 @@ const Main = () => {
 
   //  categories
 
+  console.log('skeleton');
+  console.log(skeleton);
+  console.log('skeleton');
   return (
     <>
       {skeleton && <MainSkeleton />}
@@ -382,12 +389,13 @@ const Main = () => {
                               justifyContent="space-between"
                             >
                               {priceFilter.map((priceCat, index) => (
-                                <Button
+                                <Link
                                   key={index}
                                   className={classes.priceCategories}
+                                  to="/"
                                 >
                                   {priceCat}
-                                </Button>
+                                </Link>
                               ))}
                             </Grid>
                           </Stack>
@@ -443,8 +451,8 @@ const Main = () => {
                                 fontWeight: 300,
                               }}
                             >
-                              {theTalent.artist.first_name}
-                              {theTalent.artist.last_name}
+                              {theTalent.artist && theTalent.artist.first_name}
+                              {theTalent.artist && theTalent.artist.last_name}
                             </Typography>
                             <Typography
                               variant="h6"
@@ -463,7 +471,7 @@ const Main = () => {
                                 fontWeight: 300,
                               }}
                             >
-                              {theTalent.artist.biography}
+                              {theTalent.artist && theTalent.artist.biography}
                             </Typography>
                             <Typography
                               variant="subtitle2"

@@ -50,9 +50,15 @@ export default function LastArtwork({ artworks }) {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h2" sx={{ fontStyle: 'italic', p: 0 }}>
-              {lastWork.artist.firstName}
-              {lastWork.artist.lastName}
+            <Typography
+              variant="h2"
+              sx={{
+                fontStyle: 'italic',
+                p: 0,
+                fontWeight: 100,
+              }}
+            >
+              {lastWork.artist.first_name} {lastWork.artist.last_name}
             </Typography>
             <Typography variant="h6" sx={{ fontSize: '0.9rem' }}>
               {lastWork.title}

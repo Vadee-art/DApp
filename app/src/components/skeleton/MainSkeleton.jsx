@@ -7,7 +7,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { Container } from '@mui/material';
 
 function Media(props) {
-  const { loading = true } = props;
+  const { loading } = props;
 
   return (
     <Grid container wrap="nowrap">
@@ -18,6 +18,7 @@ function Media(props) {
           paddingBottom: '25px',
           margin: 0,
           marginTop: '20px',
+          marginBottom: 100,
         }}
       >
         <Container maxWidth="xl">
@@ -56,6 +57,7 @@ function Media(props) {
             >
               {(loading && Array.from(new Array(3))).map((item, index) => (
                 <Skeleton
+                  key={index}
                   variant="rectangular"
                   sx={{ m: 2 }}
                   width={300}
@@ -77,10 +79,12 @@ Media.propTypes = {
 export default function MainSkeleton() {
   return (
     <Box sx={{ overflow: 'hidden' }}>
-      <Box sx={{ width: '100%', p: 5 }}>
-        <Skeleton variant="rectangular" sx={{ width: '100%' }} height={700} />
-      </Box>
-      <Media loading />
+      <>
+        <Box sx={{ width: '100%', p: 5 }}>
+          <Skeleton variant="rectangular" sx={{ width: '100%' }} height={700} />
+        </Box>
+        <Media loading />
+      </>
     </Box>
   );
 }
