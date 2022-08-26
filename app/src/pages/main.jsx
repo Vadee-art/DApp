@@ -185,8 +185,8 @@ const Main = () => {
                       justifyContent="space-around"
                       sx={{
                         width: '100%',
-                        paddingLeft: 5,
-                        paddingRight: 6,
+                        paddingLeft: 8,
+                        paddingRight: 8,
                         paddingTop: '20px',
                         marginBottom: 8,
                       }}
