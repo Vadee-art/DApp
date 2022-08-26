@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { favArtistChange, openAuthDialog } from '../../actions/userAction';
+import { DIALOG_RESET } from '../../constants/userConstants';
 
 export default function ArtistCard({ artist }) {
   const dispatch = useDispatch();

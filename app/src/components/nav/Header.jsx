@@ -111,6 +111,17 @@ const Header = () => {
   const userDetails = useSelector((state) => state.userDetails);
   const { error: errorUserDetails, success: successUserDetails } = userDetails;
 
+  const dialog = useSelector((state) => state.dialog);
+  const { status, success: successDialog } = dialog;
+
+  useEffect(() => {
+    if (status) {
+      setLoginDialog(!!true);
+      dispatch({ type: DIALOG_RESET });
+    }
+    // else setLoginDialog(false);
+  }, [status]);
+
   useEffect(() => {
     if (!marketPlace && !success) {
       dispatch(fetchMarketPlace());
