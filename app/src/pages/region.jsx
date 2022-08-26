@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Box, Container } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,6 +40,7 @@ const Region = () => {
   const { country } = useParams();
   const navigate = useNavigate();
 
+  const [theOrigin, setTheOrigin] = useState();
   const artworksList = useSelector((state) => state.artworks);
   const { artworks, pages } = artworksList;
 
@@ -66,6 +67,19 @@ const Region = () => {
     };
   }, [successOrigins]);
 
+  const fetchOrigin = async () => {
+    const result =
+      country &&
+      successOrigins &&
+      origins.find((origin) => origin.origin.country === country);
+
+    setTheOrigin(result);
+  };
+
+  useEffect(() => {
+    fetchOrigin();
+  }, [theOrigin]);
+
   useEffect(() => {
     dispatch(cleanLocalCart());
     dispatch({ type: ARTWORK_DETAILS_RESET });
@@ -84,18 +98,14 @@ const Region = () => {
   const artworksByRegion =
     artworks[0] && artworks.filter((artwork) => artwork.is_notable);
 
-  const theOrigin =
-    country &&
-    successOrigins &&
-    origins.origins.find((origin) => origin.country === country);
-
   const artistsSameOrigin =
     artists &&
     artists.artists &&
     artists.artists.filter((artist) => artist.origin.country === country);
 
-  console.log(artistsSameOrigin);
   const classes = useStyles();
+  console.log(theOrigin);
+
   return (
     <Grid sx={{ minHeight: '100vh' }}>
       <Container maxWidth="xl">
@@ -123,9 +133,9 @@ const Region = () => {
                   {country.toUpperCase()}
                 </Typography>
                 <img
-                  srcSet={`${theOrigin.flag}?w=161&fit=crop&auto=format 1x,
-                  ${theOrigin.flag}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                  alt={theOrigin.name}
+                  srcSet={`${theOrigin.origin.flag}?w=161&fit=crop&auto=format 1x,
+                  ${theOrigin.origin.flag}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                  alt={theOrigin.origin.name}
                   loading="lazy"
                   style={{ maxWidth: '60px' }}
                 />
