@@ -153,7 +153,7 @@ export default function CarouselArtistList() {
                   fontSize: '1rem',
                 }}
               >
-                {artist.origin.country.country}
+                {artist.origin.country}
               </Typography>
               <Typography
                 variant="subtitle2"
