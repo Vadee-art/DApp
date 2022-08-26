@@ -137,10 +137,10 @@ export default function CarouselArtistList() {
                   margin: 0,
                   lineHeight: 1,
                   fontSize: '0.9rem',
-                  fontWeight: 600,
+                  fontWeight: 500,
                 }}
               >
-                <Link style={{ color: 'black' }} to="#">
+                <Link style={{ color: 'black' }} to={`/artists/${artist._id}`}>
                   {artist.first_name} {artist.last_name}
                 </Link>
               </Typography>
@@ -152,22 +152,10 @@ export default function CarouselArtistList() {
                   lineHeight: 1,
                   fontWeight: 300,
                   fontSize: '1rem',
+                  color: 'white',
                 }}
               >
                 {artist.origin.country}
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  padding: 0,
-                  margin: 0,
-                  lineHeight: 1,
-                  fontSize: '0.9rem',
-                }}
-              >
-                <Link style={{ color: 'white' }} to={`/artists/${artist._id}`}>
-                  View
-                </Link>
               </Typography>
             </div>
           ))}
