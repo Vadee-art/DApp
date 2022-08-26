@@ -94,7 +94,8 @@ export default function CarouselTop() {
                   position: 'absolute',
                   top: 0,
                   zIndex: 100,
-                  height: '700px',
+                  // height: '700px',
+                  marginTop: 100,
                   backgroundColor: 'transparent',
                   color: '#fff',
                 }}
@@ -106,52 +107,33 @@ export default function CarouselTop() {
                 }}
               >
                 <Grid item>
-                  <Typography
-                    component="p"
-                    variant="body2"
-                    style={{ fontSize: '1.5rem', fontWeight: 300 }}
-                  >
+                  <Typography variant="h5" style={{ fontWeight: 300 }}>
                     VADEE Collection
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography
                     variant="h5"
-                    component="h5"
                     style={{
                       fontSize: '2.2rem',
                       fontWeight: 400,
-                      marginTop: '5px',
-                      marginBottom: '10px',
+                      marginTop: '0px',
+                      lineHeight: 1,
                     }}
                   >
-                    {artwork.artist.firstName} {artwork.artist.lastName}
+                    s {artwork.artist.firstName} {artwork.artist.lastName}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography
-                    variant="h4"
-                    component="h4"
-                    style={{ fontSize: '2.6rem', fontWeight: 400 }}
-                  >
-                    {artwork && artwork.category.name}
-                  </Typography>
-                </Grid>
-                <Grid>
-                  <Typography
-                    variant="subtitle2"
-                    // component="p"
-                    style={{
-                      marginTop: '150px',
-                      fontSize: '1.1rem',
-                      fontWeight: 800,
-                    }}
+                    variant="h3"
+                    style={{ fontWeight: 400, lineHeight: 1, padding: 0 }}
                   >
                     <Link
                       style={{ color: '#fff' }}
                       to={`/artworks/${artwork._id}`}
                     >
-                      Browse Works
+                      {artwork && artwork.category.name}
                     </Link>
                   </Typography>
                 </Grid>
