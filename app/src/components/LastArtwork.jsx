@@ -24,13 +24,18 @@ export default function LastArtwork({ artworks }) {
             color: 'white',
             backgroundColor: '#000',
             width: '100%',
-            padding: 8,
+            height: '270px',
+            pt: 6,
+            pb: 6,
+            pl: 1,
+            pr: 6,
           }}
         >
           <Grid item xs={2}>
             <Typography
               variant="subtitle1"
               sx={{
+                fontSize: '1.1rem',
                 fontWeight: 300,
                 lineHeight: 1.3,
               }}
@@ -39,7 +44,7 @@ export default function LastArtwork({ artworks }) {
             </Typography>
             <Typography
               sx={{
-                fontSize: '1.4rem',
+                fontSize: '1.1rem',
                 fontWeight: 300,
               }}
               variant="subtitle1"
@@ -58,7 +63,10 @@ export default function LastArtwork({ artworks }) {
             >
               {lastWork.artist.first_name} {lastWork.artist.last_name}
             </Typography>
-            <Typography variant="h6" sx={{ fontSize: '0.9rem' }}>
+            <Typography
+              variant="h6"
+              sx={{ fontSize: '0.9rem', fontWeight: 400 }}
+            >
               {lastWork.title}
             </Typography>
             <br />
@@ -66,13 +74,17 @@ export default function LastArtwork({ artworks }) {
               variant="subtitle2"
               sx={{
                 padding: 0,
-                margin: 0,
+                marginTop: 3,
                 fontWeight: 800,
                 fontSize: '0.9rem',
               }}
             >
               <Link
-                style={{ color: '#A2A28F' }}
+                style={{
+                  color: 'white',
+                  fontSize: '0.6rem',
+                  fontWeight: 500,
+                }}
                 to={`/artworks/${lastWork._id}`}
               >
                 Browse work
