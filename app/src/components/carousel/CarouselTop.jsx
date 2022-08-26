@@ -121,7 +121,7 @@ export default function CarouselTop() {
                       lineHeight: 1,
                     }}
                   >
-                    s {artwork.artist.firstName} {artwork.artist.lastName}
+                    {artwork.artist.first_name} {artwork.artist.last_name}
                   </Typography>
                 </Grid>
                 <Grid item>
