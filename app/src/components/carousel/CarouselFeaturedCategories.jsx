@@ -117,6 +117,7 @@ export default function CarouselFeaturedCategories({ categories }) {
                             margin: 0,
                             lineHeight: 1,
                             color: 'black',
+                            fontWeight: 300,
                           }}
                         >
                           {category.name}
