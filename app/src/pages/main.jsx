@@ -571,50 +571,7 @@ const Main = () => {
                   </Grid>
                 </Container>
                 {/* Fine Art Category */}
-                <Container maxWidth="xl">
-                  <Grid
-                    sx={{
-                      width: '100%',
-                      paddingLeft: 8,
-                      paddingRight: 8,
-                    }}
-                  >
-                    <Grid
-                      container
-                      direction="column"
-                      justifyContent="space-around"
-                      alignItems="center"
-                      sx={{
-                        marginTop: 8,
-                        backgroundColor: '#EDEEE9',
-                        minHeight: '23vh',
-                        width: '100%',
-                      }}
-                    >
-                      <Grid item>
-                        <Typography
-                          color="primary"
-                          variant={window.innerWidth > 900 ? 'h2' : 'h4'}
-                        >
-                          Ready to Start?
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          size="large"
-                          sx={{
-                            textTransform: 'none !important',
-                            fontSize: '1.2rem',
-                          }}
-                          color="secondary"
-                          variant="contained"
-                        >
-                          Join
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Container>
+
                 {/* Street Category */}
                 <Container maxWidth="xl">
                   <Grid
