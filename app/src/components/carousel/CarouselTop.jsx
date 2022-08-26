@@ -133,7 +133,7 @@ export default function CarouselTop() {
                       style={{ color: '#fff' }}
                       to={`/artworks/${artwork._id}`}
                     >
-                      {artwork && artwork.category.name}
+                      {artwork && artwork.collection.title}
                     </Link>
                   </Typography>
                 </Grid>
