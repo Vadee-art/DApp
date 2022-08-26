@@ -150,6 +150,7 @@ export default function CarouselArtistList() {
                   padding: 0,
                   margin: '5px 0px',
                   lineHeight: 1,
+                  fontWeight: 300,
                   fontSize: '1rem',
                 }}
               >
