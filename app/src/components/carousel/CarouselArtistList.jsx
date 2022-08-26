@@ -141,7 +141,7 @@ export default function CarouselArtistList() {
                 }}
               >
                 <Link style={{ color: 'black' }} to="#">
-                  {artist.firstName} {artist.lastName}
+                  {artist.first_name} {artist.last_name}
                 </Link>
               </Typography>
               <Typography
