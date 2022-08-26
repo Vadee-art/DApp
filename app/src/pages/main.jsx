@@ -176,6 +176,8 @@ const Main = () => {
                     paddingBottom: '25px',
                     margin: 0,
                     marginTop: '20px',
+                    paddingLeft: '0px !important',
+                    paddingRight: '0px !important',
                   }}
                 >
                   <Container maxWidth="xl">
