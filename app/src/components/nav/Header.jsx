@@ -10,6 +10,7 @@ import {
   ListItemButton,
   Typography,
   ListItemText,
+  Dialog,
 } from '@mui/material';
 import Container from '@mui/material/Container';
 import { styled, alpha } from '@mui/material/styles';
@@ -25,9 +26,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import LoadingButton from '@mui/lab/LoadingButton';
 import AccountMenu from './AccountMenu';
 import { fetchMarketPlace } from '../../actions/marketPlaceAction';
 import { fetchUserDetails, logout } from '../../actions/userAction';
+import { DIALOG_RESET } from '../../constants/userConstants';
+import LoginDialog from './Login';
+import RegisterDialog from './Register';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,7 +63,7 @@ const SearchIconWrapper = styled('div')(() => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   border: 'solid 1px #A2A28F',
-  height: 45,
+  height: 37,
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -79,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     [theme.breakpoints.up('md')]: {
       width: '100%',
+      maxWidth: '300px',
+      marginleft: 40,
+      marginRight: 40,
     },
     [theme.breakpoints.down('md')]: {
       width: '50%',
@@ -94,8 +102,14 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [keyword, setKeyword] = useState('');
 
+  const [loginDialog, setLoginDialog] = useState(false);
+  const [registerDialog, setRegisterDialog] = useState(false);
+
   const theMarketPlace = useSelector((state) => state.theMarketPlace);
   const { marketPlace, success } = theMarketPlace;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { error: errorUserDetails, success: successUserDetails } = userDetails;
 
   useEffect(() => {
     if (!marketPlace && !success) {
@@ -131,6 +145,15 @@ const Header = () => {
     dispatch(logout());
   };
 
+  // register
+  const handleCloseRegister = (e) => {
+    setRegisterDialog(false);
+  };
+
+  // login
+  const handleCloseLogin = () => {
+    setLoginDialog(false);
+  };
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ mt: 2 }}>
@@ -210,7 +233,7 @@ const Header = () => {
                     <MenuIcon />
                   </IconButton>
                 </Grid>
-                <Grid item xs md={7}>
+                <Grid item xs md={6}>
                   <Search onChange={(event) => changeHandler(event)}>
                     <SearchIconWrapper>
                       <SearchIcon
@@ -226,75 +249,105 @@ const Header = () => {
                   </Search>
                 </Grid>
                 <Grid
-                  md={2}
+                  md={3}
                   item
                   xs={12}
                   container
                   direction="row"
-                  justifyContent="flex-end"
+                  justifyContent="flex-start"
                 >
-                  <>
-                    <Grid item>
-                      <IconButton
-                        size="medium"
-                        sx={{
-                          border: '1px solid #A2A28F',
-                          borderRadius: '10%',
-                          height: '45px',
-                          width: '45px',
-                          display: { xs: 'none', md: 'unset' },
-                        }}
-                      >
-                        <NotificationsNoneIcon
-                          fontSize="inherit"
-                          style={{ color: '#A2A28F' }}
-                        />
-                      </IconButton>
-                    </Grid>
-                    <Grid item>
-                      <IconButton
-                        size="medium"
-                        sx={{
-                          border: '1px solid #A2A28F',
-                          borderRadius: '10%',
-                          height: '45px',
-                          width: '45px',
-                          margin: '0px 10px',
-                          display: { xs: 'none', md: 'unset' },
-                        }}
-                      >
-                        <MailOutlineIcon
-                          fontSize="inherit"
-                          style={{
-                            color: '#A2A28F',
+                  {!successUserDetails ? (
+                    <Grid container spacing={1} sx={{ pl: 1 }}>
+                      <Grid item>
+                        <LoadingButton
+                          onClick={() => setLoginDialog(!!true)}
+                          sx={{
+                            display: { xs: 'none', md: 'unset' },
                           }}
-                        />
-                      </IconButton>
+                          variant="contained"
+                        >
+                          Login
+                        </LoadingButton>
+                      </Grid>
+                      <Grid item>
+                        <LoadingButton
+                          onClick={() => setRegisterDialog(!!true)}
+                          sx={{
+                            display: { xs: 'none', md: 'unset' },
+                          }}
+                          variant="custom"
+                        >
+                          Sign Up
+                        </LoadingButton>
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <IconButton
-                        onClick={handleClick}
-                        size="medium"
-                        sx={{
-                          border: '1px solid #A2A28F',
-                          borderRadius: '10%',
-                          height: '45px',
-                          width: '45px',
-                          display: { xs: 'none', md: 'unset' },
-                        }}
-                      >
-                        <PersonOutlineIcon
-                          fontSize="inherit"
-                          style={{ color: '#A2A28F' }}
+                  ) : (
+                    <Grid container sx={{ pl: 1 }}>
+                      <Grid item>
+                        <IconButton
+                          size="small"
+                          sx={{
+                            border: '1px solid #A2A28F',
+                            borderRadius: '10%',
+                            height: '36px',
+                            width: '36px',
+                            display: { xs: 'none', md: 'unset' },
+                            padding: 1,
+                          }}
+                        >
+                          <NotificationsNoneIcon
+                            fontSize="inherit"
+                            style={{ color: '#A2A28F' }}
+                          />
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <IconButton
+                          size="small"
+                          sx={{
+                            border: '1px solid #A2A28F',
+                            borderRadius: '10%',
+                            height: '36px',
+                            width: '36px',
+                            margin: '0px 8px',
+                            display: { xs: 'none', md: 'unset' },
+                            padding: 1,
+                          }}
+                        >
+                          <MailOutlineIcon
+                            fontSize="inherit"
+                            style={{
+                              color: '#A2A28F',
+                            }}
+                          />
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <IconButton
+                          onClick={handleClick}
+                          size="small"
+                          sx={{
+                            border: '1px solid #A2A28F',
+                            borderRadius: '10%',
+                            height: '36px',
+                            width: '36px',
+                            display: { xs: 'none', md: 'unset' },
+                            padding: 1,
+                          }}
+                        >
+                          <PersonOutlineIcon
+                            fontSize="inherit"
+                            style={{ color: '#A2A28F', padding: 'auto' }}
+                          />
+                        </IconButton>
+                        {/* Menu to login and Register, ... */}
+                        <AccountMenu
+                          anchorEl={anchorEl}
+                          setAnchorEl={setAnchorEl}
                         />
-                      </IconButton>
-                      {/* Menu to login and Register, ... */}
-                      <AccountMenu
-                        anchorEl={anchorEl}
-                        setAnchorEl={setAnchorEl}
-                      />
+                      </Grid>
                     </Grid>
-                  </>
+                  )}
                 </Grid>
               </Grid>
             </Toolbar>
@@ -388,6 +441,32 @@ const Header = () => {
           </Box>
         </Grid>
       )}
+      <Dialog open={loginDialog} onClose={handleCloseLogin}>
+        <Box
+          sx={{
+            maxWidth: 450,
+            minHeight: 400,
+          }}
+        >
+          <LoginDialog
+            setRegisterDialog={setRegisterDialog}
+            setLoginDialog={setLoginDialog}
+          />
+        </Box>
+      </Dialog>
+      <Dialog open={registerDialog} onClose={handleCloseRegister}>
+        <Box
+          sx={{
+            maxWidth: 450,
+            minHeight: 400,
+          }}
+        >
+          <RegisterDialog
+            setRegisterDialog={setRegisterDialog}
+            setLoginDialog={setLoginDialog}
+          />
+        </Box>
+      </Dialog>
     </Container>
   );
 };

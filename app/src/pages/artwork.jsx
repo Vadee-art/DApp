@@ -7,7 +7,15 @@ import { makeStyles } from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Typography, Button, Container, Divider, Card } from '@mui/material';
+import {
+  Typography,
+  Button,
+  Container,
+  Divider,
+  Card,
+  Box,
+  Dialog,
+} from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -43,6 +51,8 @@ import CarouselArtistSimilarArtworks from '../components/carousel/CarouselArtist
 import CarouselArtistArtworks from '../components/carousel/CarouselArtistArtworks.jsx';
 import CarouselRelatedArtistOne from '../components/carousel/CarouselRelatedArtist-1';
 import { ARTIST_BY_ID_RESET } from '../constants/artistConstants';
+import LoginDialog from '../components/nav/Login';
+import RegisterDialog from '../components/nav/Register';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,6 +87,9 @@ function Artwork() {
   const [priceEth, setPriceEth] = useState();
   const [isFavoriteArtwork, setIsFavoriteArtwork] = useState(false);
   const [isFavoriteArtist, setIsFavoriteArtist] = useState(false);
+
+  const [loginDialog, setLoginDialog] = useState(false);
+  const [registerDialog, setRegisterDialog] = useState(false);
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
@@ -403,7 +416,11 @@ function Artwork() {
                     <Grid item sx={{ mt: 2, width: '100%' }}>
                       <LoadingButton
                         loading={isLoading}
-                        onClick={(e) => onAddToCart(e)}
+                        onClick={(e) =>
+                          successUserDetails
+                            ? onAddToCart(e)
+                            : setLoginDialog(!!true)
+                        }
                         variant={!successUserDetails ? 'outlined' : 'contained'}
                         type="submit"
                         fullWidth
@@ -506,6 +523,15 @@ function Artwork() {
     </Container>
   );
 
+  // register
+  const handleCloseRegister = (e) => {
+    setRegisterDialog(false);
+  };
+
+  // login
+  const handleCloseLogin = () => {
+    setLoginDialog(false);
+  };
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -519,6 +545,32 @@ function Artwork() {
           renderElement()
         )}
       </Grid>
+      <Dialog open={loginDialog} onClose={handleCloseLogin}>
+        <Box
+          sx={{
+            maxWidth: 450,
+            minHeight: 400,
+          }}
+        >
+          <LoginDialog
+            setRegisterDialog={setRegisterDialog}
+            setLoginDialog={setLoginDialog}
+          />
+        </Box>
+      </Dialog>
+      <Dialog open={registerDialog} onClose={handleCloseRegister}>
+        <Box
+          sx={{
+            maxWidth: 450,
+            minHeight: 400,
+          }}
+        >
+          <RegisterDialog
+            setRegisterDialog={setRegisterDialog}
+            setLoginDialog={setLoginDialog}
+          />
+        </Box>
+      </Dialog>
     </div>
   );
 }

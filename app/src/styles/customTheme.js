@@ -88,7 +88,7 @@ const customTheme = createTheme({
           },
         },
         custom: {
-          backgroundColor: '#99CCCC',
+          backgroundColor: '#A2A28F',
           textTransform: 'none',
           minWidth: '80px',
           color: 'white',
@@ -96,6 +96,7 @@ const customTheme = createTheme({
           '&:hover': {
             color: 'white',
             backgroundColor: '#A2A28F',
+            opacity: '50%',
             textDecoration: 'none',
           },
         },
@@ -108,6 +109,7 @@ const customTheme = createTheme({
         },
       },
     },
+
     MuiImageList: {
       styleOverrides: {
         root: {

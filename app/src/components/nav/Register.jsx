@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Box,
   TextField,
@@ -12,17 +13,18 @@ import {
 } from '@mui/material/';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingButton from '@mui/lab/LoadingButton';
-import PropTypes from 'prop-types';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Message from '../Message';
-import { login } from '../../actions/userAction';
-import { USER_DETAILS_RESET } from '../../constants/userConstants';
+import { register } from '../../actions/userAction';
 
-export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
+export default function RegisterDialog({ setRegisterDialog, setLoginDialog }) {
   const dispatch = useDispatch();
 
+  const [checked, setChecked] = React.useState(true);
   const [values, setValues] = React.useState({
     firstName: '',
     lastName: '',
@@ -30,31 +32,23 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
     password: '',
   });
 
+  const userRegister = useSelector((state) => state.userRegister);
+  const { error: errorRegister } = userRegister;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { error: errorLogin, loading: loadingLogin } = userLogin;
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { error: errorUserDetails, success: successUserDetails } = userDetails;
-
-  useEffect(() => {
-    dispatch({ type: USER_DETAILS_RESET });
-  }, []);
-
-  useEffect(() => {
-    if (successUserDetails) {
-      setLoginDialog(false);
-    }
-  }, [successUserDetails]);
-
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    dispatch(login(values.email, values.password));
+    dispatch(
+      register(values.firstName, values.lastName, values.email, values.password)
+    );
   };
 
-  // Don't have an account?
-  const handleSwitchToRegister = () => {
-    setLoginDialog(false);
-    setRegisterDialog(true);
+  // Already have an account?
+  const handleSwitchToLogin = () => {
+    setRegisterDialog(false);
+    setLoginDialog(true);
   };
 
   // value change
@@ -74,6 +68,10 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
     event.preventDefault();
   };
 
+  const handleCheck = (event) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <Box
       sx={{
@@ -81,33 +79,69 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
         minHeight: 400,
       }}
     >
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         <Grid
           container
           direction="row"
           alignItems="center"
           justifyContent="center"
         >
-          <Grid item xs={10} sx={{ marginTop: 2, textAlign: 'center' }}>
+          <Grid
+            item
+            xs={10}
+            sx={{ marginTop: 2, marginBottom: 2, textAlign: 'center' }}
+          >
             <img
               src="/static/logo.svg"
-              alt="Logo"
-              style={{ width: '60%', margin: 20 }}
+              alt="Paella dish"
+              style={{ width: '60%', marginTop: 20 }}
             />
-            <Typography variant="subtitle2">Login</Typography>
+            <Typography variant="subtitle1" color="primary">
+              Change you lense, change your story
+            </Typography>
           </Grid>
-          <Grid item xs={10} sx={{ margin: 2, width: '100%' }}>
-            <TextField
-              id="email-login"
-              type="email"
-              value={values.email}
-              onChange={handleChange('email')}
-              label="Email"
-              variant="outlined"
-              fullWidth
-              sx={{ borderRadius: '10px' }}
-              required
-            />
+          <Grid item xs={10} sx={{ margin: 1, width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} variant="outlined">
+              <TextField
+                id="first-name"
+                type="text"
+                value={values.firstName}
+                onChange={handleChange('firstName')}
+                label="First name"
+                variant="outlined"
+                fullWidth
+                sx={{ borderRadius: '10px' }}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={10} sx={{ margin: 1, width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} variant="outlined">
+              <TextField
+                id="last-name"
+                type="text"
+                value={values.lastName}
+                onChange={handleChange('lastName')}
+                label="Last name"
+                variant="outlined"
+                fullWidth
+                sx={{ borderRadius: '10px' }}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={10} sx={{ margin: 1, width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} variant="outlined">
+              <TextField
+                id="email-login"
+                type="email"
+                value={values.email}
+                onChange={handleChange('email')}
+                label="Email"
+                variant="outlined"
+                fullWidth
+                sx={{ borderRadius: '10px' }}
+                required
+              />
+            </FormControl>
           </Grid>
           <Grid
             item
@@ -117,7 +151,7 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
             sx={{ margin: 1, width: '100%' }}
           >
             <Grid item xs={12}>
-              <FormControl sx={{ width: '100%' }} variant="outlined">
+              <FormControl sx={{ width: '100%' }} variant="outlined" required>
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
                 </InputLabel>
@@ -147,11 +181,24 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
               </FormControl>
             </Grid>
             <Grid item xs={12} sx={{ marginTop: 1, marginBottom: 1 }}>
-              <Link to="#">
-                <Typography variant="subtitle1" color="primary">
-                  Forgot Password?
-                </Typography>
-              </Link>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checked}
+                    onChange={handleCheck}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                  />
+                }
+                label={
+                  <Typography component="span">
+                    "I agree on the
+                    <Typography component="span" color="secondary">
+                      Terms of Use Privacy Policy Conditions
+                    </Typography>
+                    and to receiving emails from VADEE"
+                  </Typography>
+                }
+              />
             </Grid>
             <Grid item xs={12} sx={{ marginTop: 4 }}>
               <LoadingButton
@@ -161,7 +208,7 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
                 color="secondary"
                 sx={{ width: '100%', marginBottom: 2 }}
               >
-                Login
+                Register
               </LoadingButton>
               <Grid
                 item
@@ -172,25 +219,25 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
                   textAlign: 'center',
                 }}
               >
-                <Link to="#" onClick={handleSwitchToRegister}>
+                <Link to="#" onClick={handleSwitchToLogin}>
                   <Typography variant="subtitle1" color="primary">
-                    Don't have an account?
+                    Already have an account?
                     <Typography
                       variant="subtitle1"
                       component="span"
                       color="secondary"
                     >
-                      Sign up
+                      Sign in
                     </Typography>
                   </Typography>
                 </Link>
               </Grid>
             </Grid>
           </Grid>
-          {(errorUserDetails || errorLogin) && (
-            <Grid sx={{ margin: 2 }}>
-              <Message variant="outlined" severity="error">
-                {errorUserDetails || errorLogin}
+          {(errorRegister || errorLogin) && (
+            <Grid sx={{ marginTop: 2 }}>
+              <Message variant="" severity="error">
+                {errorRegister || errorLogin}
               </Message>
             </Grid>
           )}
@@ -200,7 +247,7 @@ export default function LoginDialog({ setRegisterDialog, setLoginDialog }) {
   );
 }
 
-LoginDialog.propTypes = {
+RegisterDialog.propTypes = {
   setLoginDialog: PropTypes.func.isRequired,
   setRegisterDialog: PropTypes.func.isRequired,
 };
