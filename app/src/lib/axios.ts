@@ -1,6 +1,6 @@
 import Axios, { InternalAxiosRequestConfig } from 'axios';
 
-import { API_URL } from '../config';
+import { API_URL } from '@/config';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   const token = 'token';
