@@ -1,9 +1,9 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AppProvider } from "./providers/app";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { AppProvider } from './providers/app';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <div>Hello world!</div>,
   },
 ]);
