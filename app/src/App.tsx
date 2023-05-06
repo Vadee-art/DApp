@@ -1,8 +1,9 @@
+import { AppProvider } from "./providers/app";
+
 function App() {
   return (
-    <>
-      <h1>start</h1>
-    </>
+    <AppProvider>
+    </AppProvider>
   );
 }
 
