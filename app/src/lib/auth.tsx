@@ -14,14 +14,17 @@ import {
   login,
 } from '@/features/auth';
 import React from 'react';
+import storage from '@/utils/storage';
 
 async function handleUserResponse(data: AuthUser) {
-  // TODO: store data in local storage
+  storage.setUser(data);
   return data;
 }
 
 async function userFn() {
-  //TODO: return user from local storage
+  if (storage.getUser()) {
+    return storage.getUser();
+  }
   return null;
 }
 
@@ -31,7 +34,7 @@ async function loginFn(data: LoginCredentials) {
 }
 
 async function logoutFn() {
-  //TODO: clear local storage
+  storage.clearUser();
   window.location.assign(window.location.origin as unknown as string);
 }
 
