@@ -25,6 +25,9 @@ export const Login = () => {
 
   return (
     <AuthLayout>
+      <h3 className='text-center text-gray-400 font-semibold mb-6'>
+        Login
+      </h3>
       <Form<LoginValues, typeof schema>
         onSubmit={onSubmit}
         schema={schema}

@@ -12,9 +12,9 @@ export const AuthLayout = ({ children }: LayoutProps) => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <div className="sm:mx-auto sm:w-full sm:max-w-md mb-7">
-              <div className="flex justify-between relative">
-                <img className="h-12 w-auto" src={logo} alt="Workflow" />
+            <div className="sm:mx-auto sm:w-full sm:max-w-md mb-2">
+              <div className="flex justify-center relative">
+                <img className="h-9 w-auto" src={logo} alt="Workflow" />
               </div>
             </div>
             {children}
