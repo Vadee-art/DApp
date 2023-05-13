@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import logo from '@assets/img/VADEE_Logo.png';
+import logo from '@/assets/img/VADEE_Logo.png';
 
 type LayoutProps = {
   children: React.ReactNode;

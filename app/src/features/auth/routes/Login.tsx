@@ -15,19 +15,18 @@ type LoginValues = {
   password: string;
 };
 
-type LoginProps = {
-  onSuccess: () => void;
-};
-
-export const Login = ({onSuccess}: LoginProps) => {
+export const Login = () => {
   const {mutateAsync: login, isLoading} = useLogin();
+
+  const onSubmit = async (values: LoginValues) => {
+    await login(values);
+    console.log('success');
+  };
+
   return (
     <AuthLayout>
       <Form<LoginValues, typeof schema>
-        onSubmit={async (values) => {
-          await login(values);
-          onSuccess();
-        }}
+        onSubmit={onSubmit}
         schema={schema}
       >
         {({ register, formState }) => (
