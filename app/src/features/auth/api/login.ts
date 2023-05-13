@@ -6,6 +6,6 @@ export type LoginCredentials = {
   password: string;
 };
 
-export const register = (data: LoginCredentials): Promise<AuthUser> => {
+export const login = (data: LoginCredentials): Promise<AuthUser> => {
   return axios.post('/users/login', data);
 };
