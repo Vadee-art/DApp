@@ -17,15 +17,19 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
   const { label, className, error, children, hidden } = props;
   return (
     <div className={clsx('flex-1 mb-5', hidden ? 'hidden' : '')}>
-      <label className={clsx('block text-sm font-medium text-gray-700', className)}>
-        {label}
+      {label ? (
+        <label className={clsx('block text-sm font-medium text-gray-700', className)}>
+          {label}
+          <div className={label && 'mt-1'}>{children}</div>
+        </label>
+      ) : (
         <div className={label && 'mt-1'}>{children}</div>
-      </label>
+      )}
       {error?.message && (
         <div
           role="alert"
           aria-label={error.message}
-          className="text-sm font-semibold text-red-500 mt-1"
+          className="text-xs text-red-500 mt-1"
         >
           {error.message}
         </div>

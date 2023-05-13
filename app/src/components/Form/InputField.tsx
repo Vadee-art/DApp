@@ -28,36 +28,46 @@ export const InputField = (props: InputFieldProps) => {
   if (type === 'textarea') {
     return (
       <FieldWrapper label={label} error={error} hidden={hidden}>
-        <textarea
-          autoFocus={autoFocus}
-          placeholder={placeholder}
-          maxLength={maxLength}
-          className={clsx(
-            `border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150 w-full ${
-              error && 'ring-red-300'
-            }`,
-            className
-          )}
-          {...registration}
-        />
+        <div className='relative'>
+          <textarea
+            id={registration.name}
+            autoFocus={autoFocus}
+            placeholder={placeholder}
+            maxLength={maxLength}
+            className={clsx(
+              `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent border border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer`,
+              error && 'border-red-300 focus:border-red-300',
+              className
+            )}
+            {...registration}
+          />
+          <label htmlFor={registration.name} className={clsx("absolute text-sm text-gray-500 duration-150 transform peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:top-2 z-10 origin-[0] bg-white px-2 peer-focus:text-blue-600 scale-100 -translate-y-1/2 top-1/2 left-1",
+            error && 'text-red-300 peer-focus:text-red-600'
+          )}>{label}</label>
+        </div>
       </FieldWrapper>
     );
   }
   return (
-    <FieldWrapper label={label} error={error} hidden={hidden}>
-      <input
-        autoFocus={autoFocus}
-        placeholder={placeholder}
-        type={type}
-        maxLength={maxLength}
-        className={clsx(
-          `border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150 w-full ${
-            error && 'ring-red-300'
-          }`,
-          className
-        )}
-        {...registration}
-      />
+    <FieldWrapper error={error} hidden={hidden}>
+      <div className='relative'>
+        <input
+          id={registration.name}
+          autoFocus={autoFocus}
+          placeholder={placeholder}
+          type={type}
+          maxLength={maxLength}
+          className={clsx(
+            `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent border border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer`,
+            error && 'border-red-300 focus:border-red-300',
+            className
+          )}
+          {...registration}
+        />
+        <label htmlFor={registration.name} className={clsx("absolute text-sm text-gray-500 duration-150 transform peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:top-2 z-10 origin-[0] bg-white px-2 peer-focus:text-blue-600 scale-100 -translate-y-1/2 top-1/2 left-1",
+          error && 'text-red-300 peer-focus:text-red-600'
+        )}>{label}</label>
+      </div>
     </FieldWrapper>
   );
 };
