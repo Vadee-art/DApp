@@ -1,9 +1,9 @@
 import * as z from 'zod';
 
-import { Form } from "@/components/Form/Form";
+import { Form, InputField } from "@/components/Form";
 import { AuthLayout } from "../components/AuthLayout";
 import { useLogin } from '@/lib/auth';
-import { InputField } from '@/components/Form/InputField';
+import { Button } from '@/components/Elements';
 
 const schema = z.object({
   email: z.string().min(1).max(255).email(),
@@ -47,7 +47,7 @@ export const Login = () => {
               error={formState.errors['password']}
               registration={register('password')}
             />
-            <button type='submit'>Login</button>
+            <Button type='submit' variant='primary' className='w-full mt-8' isLoading={isLoading}>Login</Button>
           </>
         )}
       </Form>
