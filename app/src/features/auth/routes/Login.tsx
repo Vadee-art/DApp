@@ -7,7 +7,7 @@ import { Button } from '@/components/Elements';
 
 const schema = z.object({
   email: z.string().min(1).max(255).email(),
-  password: z.string().min(1).max(255)
+  password: z.string().min(8).max(255)
 });
 
 type LoginValues = {
