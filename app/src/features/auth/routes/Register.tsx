@@ -26,7 +26,7 @@ export const Register = () => {
   const onSubmit = async (values: RegisterValues) => {
     await register({
       ...values,
-      username: values.email,
+      userName: values.email,
     });
   };
 

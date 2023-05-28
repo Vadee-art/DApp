@@ -1,4 +1,4 @@
-import { axios } from '@/lib/axios';
+import { axiosWithoutAuth } from '@/lib/axios';
 import { AuthUser } from '../types';
 
 export type LoginCredentials = {
@@ -7,5 +7,5 @@ export type LoginCredentials = {
 };
 
 export const login = (data: LoginCredentials): Promise<AuthUser> => {
-  return axios.post('/users/login', data);
+  return axiosWithoutAuth.post('/users/login/', data);
 };
