@@ -54,7 +54,7 @@ export const InputField = (props: InputFieldProps) => {
         <input
           id={registration.name}
           autoFocus={autoFocus}
-          placeholder={placeholder}
+          placeholder={label}
           type={type}
           maxLength={maxLength}
           className={clsx(
