@@ -35,7 +35,7 @@ export const InputField = (props: InputFieldProps) => {
             placeholder={placeholder}
             maxLength={maxLength}
             className={clsx(
-              `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent border border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer`,
+              `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent border border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 placeholder-transparent peer`,
               error && 'border-red-300 focus:border-red-300',
               className
             )}
@@ -58,7 +58,7 @@ export const InputField = (props: InputFieldProps) => {
           type={type}
           maxLength={maxLength}
           className={clsx(
-            `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent border border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 peer`,
+            `block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent border border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-600 placeholder-transparent peer`,
             error && 'border-red-300 focus:border-red-300',
             className
           )}

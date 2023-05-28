@@ -4,6 +4,7 @@ import { Form, InputField } from "@/components/Form";
 import { AuthLayout } from "../components/AuthLayout";
 import { useLogin } from '@/lib/auth';
 import { Button } from '@/components/Elements';
+import { Link } from 'react-router-dom';
 
 const schema = z.object({
   email: z.string().min(1).max(255).email(),
@@ -51,6 +52,9 @@ export const Login = () => {
           </>
         )}
       </Form>
+      <div className='text-sm text-gray-500 mt-4'>
+        Don't have an account? <Link to="/auth/register" className='text-teal-500'>Sign up</Link>
+      </div>
     </AuthLayout>
   )
 };
