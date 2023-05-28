@@ -2,6 +2,7 @@ import { useRoutes } from 'react-router-dom';
 import { useUser } from '@/lib/auth';
 import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
+import { MainLayout } from '@/components/Layout';
 
 export const AppRoutes = () => {
   const { data: user } = useUser({ suspense: true });
@@ -14,9 +15,9 @@ export const AppRoutes = () => {
     {
       path: '/',
       element: (
-        <div>
+        <MainLayout>
           <h1>Home Page</h1>
-        </div>
+        </MainLayout>
       ),
     },
   ];
