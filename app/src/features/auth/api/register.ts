@@ -17,7 +17,7 @@ export const register = (data: RegisterCredentials): Promise<AuthUser> => {
 export const useRegister = (onSuccess: any) => {
   return useMutation(register, {
     onSuccess: (data: AuthUser) => {
-      onSuccess();
+      onSuccess(data);
     },
   });
 }
