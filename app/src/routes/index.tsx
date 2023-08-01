@@ -3,6 +3,7 @@ import { useUser } from '@/lib/auth';
 import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
 import { MainLayout } from '@/components/Layout';
+import { HomePage } from '@/features/misc/routes/HomePage';
 
 export const AppRoutes = () => {
   const { data: user } = useUser({ suspense: true });
@@ -16,7 +17,7 @@ export const AppRoutes = () => {
       path: '/',
       element: (
         <MainLayout>
-          <h1>Home Page</h1>
+          <HomePage />
         </MainLayout>
       ),
     },
