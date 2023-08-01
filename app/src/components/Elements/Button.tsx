@@ -9,6 +9,7 @@ const variants = {
   secondary: 'bg-gray-500 text-white',
   success: 'bg-emerald-500 text-white',
   warning: 'bg-amber-500 text-white',
+  stone: 'bg-stone-500 text-white',
 };
 
 const sizes = {
@@ -41,7 +42,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         className={clsx(
-          'flex justify-center items-center border border-gray-300 disabled:opacity-70 disabled:cursor-not-allowed shadow-sm font-medium focus:outline-none hover:opacity-80 min-h-[2.25rem]',
+          'flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed shadow-sm font-medium focus:outline-none hover:opacity-80 min-h-[2.25rem]',
           variants[variant],
           sizes[size],
           className
