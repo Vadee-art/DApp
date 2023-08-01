@@ -28,3 +28,18 @@ body,
   height: 100%;
   width: 100%;
 }
+
+/* swiper js styles */
+
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
+  color: #fff;
+}
+
+swiper-container::part(button-prev) {
+  margin-left: 3.5rem;
+}
+
+swiper-container::part(button-next) {
+  margin-right: 3.5rem;
+}
