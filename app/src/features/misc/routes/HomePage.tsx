@@ -5,6 +5,7 @@ register();
 
 export const HomePage = () => {
   return (
+    <>
     <swiper-container slides-per-view="1" loop={true} navigation pagination>
       <swiper-slide>
         <div className='absolute top-16 left-16 z-10 flex flex-col items-start justify-start text-white [&>span]:leading-tight'>
@@ -18,6 +19,7 @@ export const HomePage = () => {
       <swiper-slide>Slide 3</swiper-slide>
       <swiper-slide>Slide 4</swiper-slide>
     </swiper-container>
+    </>
   )
 
 }
