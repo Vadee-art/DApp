@@ -1,4 +1,4 @@
-import { axios, axiosWithoutAuth } from "@/lib/axios"
+import { axiosWithoutAuth } from "@/lib/axios"
 import { useQuery } from "react-query";
 import { Artwork } from "../types";
 
@@ -16,7 +16,7 @@ export type getArtworksResponse = {
 
 export const getArtworks = ({
   page = 1,
-  page_size = 30,
+  page_size = 9,
 } : getArtworksParams) : Promise<getArtworksResponse> => {
   return axiosWithoutAuth.get('/artworks', {
     params: {
@@ -27,5 +27,5 @@ export const getArtworks = ({
 }
 
 export const useGetArtworks = (params: getArtworksParams) => {
-  return useQuery(['artworks', params], () => getArtworks(params));
+  return useQuery<getArtworksResponse, string>(['artworks', params], () => getArtworks(params));
 }

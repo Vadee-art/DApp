@@ -7,7 +7,6 @@ type ArtworkProps = {
 export const Artwork = ({
   artwork
 }: ArtworkProps) => {
-  console.log(artwork);
   return (
     <div className="flex flex-col gap-8 self-end">
       <img src={artwork.image} alt="sample pic" className='w-full bject-contain' height={artwork.height} width={artwork.width} loading='lazy' />
@@ -24,6 +23,20 @@ export const Artwork = ({
         <span>
           ${artwork.price}
         </span>
+      </div>
+    </div>
+  )
+}
+
+export const ArtworkSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-8 self-end">
+      <div className={`w-full h-52 bg-gray-200 animate-pulse`} />
+      <div className='flex flex-col gap-2 text-sm font-extralight'>
+        <div className='w-[200px] h-4 bg-gray-200 animate-pulse' />
+        <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
+        <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
+        <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
       </div>
     </div>
   )

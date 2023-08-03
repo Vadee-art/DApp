@@ -1,5 +1,5 @@
 export type Artwork = {
-  id: number;
+  Id: number;
   collection: {
     title: string;
   };
