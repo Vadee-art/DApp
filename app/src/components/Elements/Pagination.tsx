@@ -3,7 +3,6 @@ import {
   ChevronRightIcon,
   EllipsisHorizontalIcon,
 } from '@heroicons/react/24/solid';
-import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useSearchParams } from 'react-router-dom';
 
@@ -16,7 +15,6 @@ type PaginationProps = {
 export const Pagination = (props: PaginationProps) => {
   const { currentPage, totalPages, onChange } = props;
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(searchParams.get('page') ? +searchParams.get('page')! : 1);
 
   if (totalPages <= 1) return null;
 
@@ -27,7 +25,7 @@ export const Pagination = (props: PaginationProps) => {
         pageCount={totalPages}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
-        forcePage={page - 1}
+        forcePage={currentPage - 1}
         onPageChange={(page) => {
           searchParams.set('page', (page.selected + 1).toString());
           setSearchParams(searchParams);
