@@ -27,7 +27,7 @@ export const Artwork = () => {
               <span>Share</span>
             </div>
             <div className="flex-[4]">
-              <img src={API_URL_NO_POSTFIX + data!.image} alt={data!.title} />
+              <img src={API_URL_NO_POSTFIX + data!.image} alt={data!.title} loading="lazy" />
             </div>
           </div>
           
