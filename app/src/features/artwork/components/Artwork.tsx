@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Artwork as ArtworkType } from '../types'
 
 type ArtworkProps = {
@@ -8,7 +9,7 @@ export const Artwork = ({
   artwork
 }: ArtworkProps) => {
   return (
-    <div className="flex flex-col gap-8 self-end">
+    <Link to={`/artworks/${artwork.Id}`} className="cursor-pointer flex flex-col gap-8 self-end">
       <img src={artwork.image} alt="sample pic" className='w-full bject-contain' loading='lazy' />
       <div className='flex flex-col text-sm font-extralight'>
         <h3 className='font-medium'>
@@ -24,7 +25,7 @@ export const Artwork = ({
           ${artwork.price}
         </span>
       </div>
-    </div>
+    </Link>
   )
 }
 

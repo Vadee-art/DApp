@@ -25,7 +25,7 @@ export const AppRoutes = () => {
       ),
     },
     {
-      path: '/artworks',
+      path: '/artworks/*',
       element: (
         <MainLayout>
           <ArtworkRoutes/>
