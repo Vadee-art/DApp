@@ -10,7 +10,7 @@ export const Artworks = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 flex flex-row gap-8">
+    <div className="container mx-auto px-4 flex flex-row gap-8 mt-16">
       <div className="bg-gray-200 animate-pulse flex-1"></div>
       <div className="flex-[4] grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {isLoading ? 
