@@ -16,7 +16,7 @@ export const Artwork = ({
           {artwork.title}
         </h3>
         <span>
-          unknown
+          {artwork.subtitle}
         </span>
         <span>
           {artwork.origin.country}
