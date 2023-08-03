@@ -9,7 +9,7 @@ export const Artwork = ({
 }: ArtworkProps) => {
   return (
     <div className="flex flex-col gap-8 self-end">
-      <img src={artwork.image} alt="sample pic" className='w-full bject-contain' height={artwork.height} width={artwork.width} loading='lazy' />
+      <img src={artwork.image} alt="sample pic" className='w-full bject-contain' loading='lazy' />
       <div className='flex flex-col text-sm font-extralight'>
         <h3 className='font-medium'>
           {artwork.title}

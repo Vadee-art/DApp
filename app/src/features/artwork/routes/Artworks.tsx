@@ -14,7 +14,7 @@ export const Artworks = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="flex flex-row gap-8 mt-16">
+      <div className="flex flex-col md:flex-row gap-8 mt-16">
         <h1 className="flex-1 font-bold">Artworks</h1>
         <p className="flex-[4]">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates incidunt soluta officia distinctio eius, veritatis molestiae, unde deserunt magnam minima ea nisi reprehenderit dicta possimus asperiores quia, a quo eum?
@@ -22,7 +22,7 @@ export const Artworks = () => {
         </p>
       </div>
       <div className="flex flex-row gap-8 mt-16">
-        <div className="bg-gray-200 animate-pulse flex-1"></div>
+        <div className="bg-gray-200 animate-pulse flex-1 hidden md:block"></div>
         <div className="flex-[4]">
           <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             {isLoading ? 
