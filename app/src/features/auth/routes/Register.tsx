@@ -4,7 +4,7 @@ import { Form, InputField } from "@/components/Form";
 import { AuthLayout } from "../components/AuthLayout";
 import { Button } from '@/components/Elements';
 import { useRegister } from '..';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const schema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -21,7 +21,10 @@ type RegisterValues = {
 };
 
 export const Register = () => {
-  const {mutateAsync: register, isLoading} = useRegister(() => {console.log('success')});
+  const navigate = useNavigate();
+  const {mutateAsync: register, isLoading} = useRegister(() => {
+    navigate('/auth/login');
+  });
 
   const onSubmit = async (values: RegisterValues) => {
     await register({

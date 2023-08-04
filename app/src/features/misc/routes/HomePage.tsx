@@ -1,25 +1,48 @@
 import {register} from 'swiper/element/bundle'
-import SamplePic from '@/assets/img/Sample_Pic.png'
+import { useGetArtworkCarousel } from '@/features/artwork/api/getArtworksCarousel';
+import { API_URL_NO_POSTFIX } from '@/config';
+import { Alert } from '@/components/Elements/Alert';
 
 register();
 
 export const HomePage = () => {
   return (
     <>
-    <swiper-container slides-per-view="1" loop={true} navigation pagination>
-      <swiper-slide>
-        <div className='absolute top-16 left-16 z-10 flex flex-col items-start justify-start text-white [&>span]:leading-tight'>
-          <span className='text-[21px] font-extralight'> VADEE Collection </span>
-          <span className='text-[30px] font-normal'> Shadi Ghadirian </span>
-          <span className='text-[40px] font-normal'> Qajar Series </span>
-        </div>
-        <img src={SamplePic} alt="sample pic" className='w-full bject-contain' />
-      </swiper-slide>
-      <swiper-slide>Slide 2</swiper-slide>
-      <swiper-slide>Slide 3</swiper-slide>
-      <swiper-slide>Slide 4</swiper-slide>
-    </swiper-container>
+    <HeaderCarousel />
     </>
+  )
+}
+
+const HeaderCarousel = () => {
+  const {data, isLoading, error} = useGetArtworkCarousel();
+
+  if (error) {
+    return (
+      <div className='w-full h-[505px] bg-gray-300 flex items-center justify-center'>
+        <Alert variant='danger'> {error} </Alert>;
+      </div>
+    )
+  }
+
+  return (
+    <swiper-container slides-per-view="1" loop={true} navigation pagination>
+      {isLoading ? 
+        <div className='w-full h-[505px] bg-gray-300 animate-pulse' /> : 
+        data?.map((artwork) => (
+          <swiper-slide>
+            <div className='h-[505px]'>
+              <div className='absolute top-[15%] left-[15%] z-10 flex flex-col items-start justify-start text-white [&>span]:leading-tight cursor-default'>
+                {artwork.collection.title && <span className='text-[21px] font-extralight'> {artwork.collection.title} </span>}
+                {/* TODO: real artist name */}
+                <span className='text-[30px] font-normal'> Shadi Ghadirian </span> 
+                <span className='text-[40px] font-normal'> {artwork.category.name} </span>
+              </div>
+              <img src={API_URL_NO_POSTFIX + artwork.image} alt="" className='w-full h-full object-cover object-center' />
+            </div>
+          </swiper-slide>
+        ))
+      }
+    </swiper-container>
   )
 
 }

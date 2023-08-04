@@ -4,7 +4,7 @@ import { Form, InputField } from "@/components/Form";
 import { AuthLayout } from "../components/AuthLayout";
 import { useLogin } from '@/lib/auth';
 import { Button } from '@/components/Elements';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const schema = z.object({
   email: z.string().min(1).max(255).email(),
@@ -17,11 +17,15 @@ type LoginValues = {
 };
 
 export const Login = () => {
-  const {mutateAsync: login, isLoading} = useLogin();
+  const navigate = useNavigate();
+  const {mutateAsync: login, isLoading} = useLogin({
+    onSuccess: () => {
+      navigate('/');
+    }
+  });
 
   const onSubmit = async (values: LoginValues) => {
     await login(values);
-    console.log('success');
   };
 
   return (

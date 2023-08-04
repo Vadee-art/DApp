@@ -37,9 +37,9 @@ swiper-container::part(button-next) {
 }
 
 swiper-container::part(button-prev) {
-  margin-left: 3.5rem;
+  margin-left: 5%;
 }
 
 swiper-container::part(button-next) {
-  margin-right: 3.5rem;
+  margin-right: 5%;
 }
