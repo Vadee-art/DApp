@@ -3,7 +3,10 @@ import { useUser } from '@/lib/auth';
 import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
 import { MainLayout } from '@/components/Layout';
-import { HomePage } from '@/features/misc/routes/HomePage';
+import { lazyImport } from '@/utils/lazyImport';
+
+const { ArtworkRoutes } = lazyImport(() => import('@/features/artwork/routes'), 'ArtworkRoutes');
+const { HomePage } = lazyImport(() => import('@/features/misc/routes/HomePage'), 'HomePage');
 
 export const AppRoutes = () => {
   const { data: user } = useUser({ suspense: true });
@@ -21,6 +24,14 @@ export const AppRoutes = () => {
         </MainLayout>
       ),
     },
+    {
+      path: '/artworks/*',
+      element: (
+        <MainLayout>
+          <ArtworkRoutes/>
+        </MainLayout>
+      ),
+    }
   ];
 
   const routes = user ? protectedRoutes : publicRoutes;

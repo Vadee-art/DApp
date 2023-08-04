@@ -1,21 +1,43 @@
-import SamplePic from '@/assets/img/Sample_Pic.png'
-export const Artwork = () => {
+import { Link } from 'react-router-dom';
+import { Artwork as ArtworkType } from '../types'
+
+type ArtworkProps = {
+  artwork: ArtworkType;
+};
+
+export const Artwork = ({
+  artwork
+}: ArtworkProps) => {
   return (
-    <div className="flex flex-col gap-8">
-      <img src={SamplePic} alt="sample pic" className='w-full bject-contain' />
+    <Link to={`/artworks/${artwork.Id}`} className="cursor-pointer flex flex-col gap-8 self-end">
+      <img src={artwork.image} alt="sample pic" className='w-full bject-contain' loading='lazy' />
       <div className='flex flex-col text-sm font-extralight'>
         <h3 className='font-medium'>
-          Hamed Jaberha
+          {artwork.title}
         </h3>
         <span>
-          unknown
+          {artwork.subtitle}
         </span>
         <span>
-          Pakistan
+          {artwork.origin.country}
         </span>
         <span>
-          $21000
+          ${artwork.price}
         </span>
+      </div>
+    </Link>
+  )
+}
+
+export const ArtworkSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-8 self-end">
+      <div className={`w-full h-52 bg-gray-200 animate-pulse`} />
+      <div className='flex flex-col gap-2 text-sm font-extralight'>
+        <div className='w-[200px] h-4 bg-gray-200 animate-pulse' />
+        <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
+        <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
+        <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
       </div>
     </div>
   )

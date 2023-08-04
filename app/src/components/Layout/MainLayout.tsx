@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Logo from '@/assets/img/VADEE_Logo.png';
 import Icon from '@/assets/img/VADEE_Icon.png';
 import { ReactComponent as LogoSvg } from '@/assets/img/VADEE_Logo.svg';
@@ -50,6 +50,33 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 </>
               ) : null}
             </div>
+          </div>
+        </div>
+      </nav>
+      <nav className='mb-4'>
+        <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
+          <div className="flex items-start flex-1 gap-4 font-extralight">
+            <NavLink
+              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
+              to="/"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
+              to="/photographers">
+              Photographers
+            </NavLink>
+            <NavLink
+              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
+              to="/artworks">
+              Artworks
+            </NavLink>
+            <NavLink
+              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
+              to="/regions">
+              Regions
+            </NavLink>
           </div>
         </div>
       </nav>

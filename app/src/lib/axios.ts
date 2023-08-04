@@ -25,8 +25,8 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    // const message = error.response?.data?.message || error.message;
-    return Promise.reject(error);
+    const message : string = error.response?.data?.message || error.message || 'Something went wrong';
+    return Promise.reject(message);
   }
 );
 axiosWithoutAuth.interceptors.response.use(
@@ -34,7 +34,7 @@ axiosWithoutAuth.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    // const message = error.response?.data?.message || error.message;
-    return Promise.reject(error);
+    const message : string = error.response?.data?.message || error.message || 'Something went wrong';
+    return Promise.reject(message);
   }
 );
