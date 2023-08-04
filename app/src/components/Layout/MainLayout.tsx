@@ -106,7 +106,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <div className='flex flex-col justify-between gap-4'>
               <h3>Signup to Discover photos from Middle East</h3>
               <div className='flex flex-row'>
-                <input type='email' placeholder='Enter your Email here' className='text-xs px-2 placeholder:text-stone-500 outline-none flex-1'/>
+                <input type='email' placeholder='Enter your Email here' className='text-xs px-2 text-black placeholder:text-stone-500 outline-none flex-1'/>
                 <Button size='xs' variant='stone'>Subscribe</Button>
               </div>
             </div>
