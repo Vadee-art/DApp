@@ -13,7 +13,7 @@ export const Artwork = () => {
   }
 
   if (isLoading) {
-    return null;
+    return <ArtworkSkeleton />;
   }
 
   return (
@@ -74,6 +74,61 @@ export const Artwork = () => {
           <hr className="my-4 w-full"/>
           <span className="font-semibold text-lg">${data!.price}</span>
           <Button className="w-full mt-4">Buy</Button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ArtworkSkeleton = () => {
+  return (
+    <div className="container mx-auto px-4">
+      <div className="flex flex-col md:flex-row gap-8 mt-16">
+        <div className="flex-[3]">
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="flex-1 self-end space-y-4">
+              <div className="h-4 w-24 bg-gray-200 animate-pulse" />
+              <div className="h-4 w-24 bg-gray-200 animate-pulse" />
+              <div className="h-4 w-24 bg-gray-200 animate-pulse" />
+            </div>
+            <div className="flex-[4]">
+              <div className="w-full h-[400px] bg-gray-200 animate-pulse" />
+            </div>
+          </div>
+          
+          <div className="flex flex-col md:flex-row gap-8 mt-12">
+            <div className="flex-1 flex flex-col md:self-start">
+              <div className="w-[100px] h-4 bg-gray-200 animate-pulse" />
+              <div className="w-[100px] h-4 bg-gray-200 animate-pulse" />
+            </div>
+            <div className="flex-[4] space-y-4">
+              <div className="w-4/5 h-4 bg-gray-200 animate-pulse" />
+              <div className="w-3/5 h-4 bg-gray-200 animate-pulse" />
+              <div className="w-4/5 h-4 bg-gray-200 animate-pulse" />
+              <div className="w-3/5 h-4 bg-gray-200 animate-pulse" />
+              <div className="w-full h-4 bg-gray-200 animate-pulse" />
+              <div className="w-4/5 h-4 bg-gray-200 animate-pulse" />
+            </div>
+
+          </div>
+        </div>
+        <div className="flex-1">
+          <div className="flex flex-row gap-4">
+            <div className="bg-gray-300 h-24 w-24"></div>
+            <div className="flex-1 space-y-4"> 
+              <div className="w-[100px] h-4 bg-gray-200 animate-pulse" />
+              <div className="w-[100px] h-8 bg-gray-200 animate-pulse" />
+            </div>
+          </div>
+          <hr className="my-4 w-full border-gray-400"/>
+          <div className="space-y-4">
+            <div className="w-2/3 h-4 bg-gray-200 animate-pulse" />
+            <div className="w-2/3 h-4 bg-gray-200 animate-pulse" />
+            <div className="w-2/3 h-4 bg-gray-200 animate-pulse" />
+          </div>
+          <hr className="my-4 w-full"/>
+          <div className="w-[100px] h-4 bg-gray-200 animate-pulse mb-4" />
+          <div className="w-full h-12 bg-gray-200 animate-pulse" />
         </div>
       </div>
     </div>
