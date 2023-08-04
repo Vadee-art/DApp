@@ -3,16 +3,18 @@ import { useGetArtwork } from "../api/getArtwork";
 import { Alert } from "@/components/Elements/Alert";
 import { API_URL_NO_POSTFIX } from "@/config";
 import { Button } from "@/components/Elements";
+import { useGetArtist } from "@/features/artist/api/getArtist";
 
 export const Artwork = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetArtwork({ id: +id! })
+  const { data: artist, isLoading: artistLoading, error: artistError } = useGetArtist({ id: data?.artistId || 0 }, { enabled: !!data })
 
-  if (error) {
+  if (error || artistError) {
     return <Alert variant="danger">{error}</Alert>
   }
 
-  if (isLoading) {
+  if (isLoading || artistLoading) {
     return <ArtworkSkeleton />;
   }
 
@@ -33,8 +35,7 @@ export const Artwork = () => {
           
           <div className="flex flex-col md:flex-row gap-8 mt-12">
             <div className="flex-1 flex flex-col md:self-start">
-              {/* TOOD: real artist data */}
-              <span>Shadi Ghadirian</span> 
+              <span>{artist?.name}</span> 
               <Button variant="stone" className="w-full mt-2">Follow</Button>
             </div>
             <div className="flex-[4]">
@@ -48,12 +49,12 @@ export const Artwork = () => {
         </div>
         <div className="flex-1">
           <div className="flex flex-row gap-4">
-            <div className="bg-gray-300 h-24 w-24"></div>
+            <img src={artist?.photo} alt="artist photo" className="bg-gray-300 h-24 w-24" loading="lazy"/>
 
-            {/* TODO: replce with real artist data */}
+            {/* TODO: replce Iran with real artist data */}
             <div className="flex-1"> 
-              <h3>Sahdi Ghadirian</h3>
-              <span>Iran, 1974</span>
+              <h3>{artist?.name}</h3>
+              <span>Iran, {artist?.birthday.split('-')[0]}</span>
               <Button size="sm" variant="stone" className="w-full mt-2">Follow</Button>
             </div>
           </div>
