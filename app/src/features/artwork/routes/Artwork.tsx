@@ -1,14 +1,11 @@
 import { useParams } from "react-router-dom"
 import { useGetArtwork } from "../api/getArtwork";
 import { Alert } from "@/components/Elements/Alert";
-import { API_URL_NO_POSTFIX } from "@/config";
 import { Button } from "@/components/Elements";
-import { useGetArtist } from "@/features/artist/api/getArtist";
 
 export const Artwork = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetArtwork({ id: +id! })
-  // const { data: artist, isLoading: artistLoading, error: artistError } = useGetArtist({ id: data?.artistId || 0 }, { enabled: !!data })
 
   if (error) {
     return <Alert variant="danger">{error}</Alert>
@@ -18,7 +15,6 @@ export const Artwork = () => {
     return <ArtworkSkeleton />;
   }
 
-  console.log(data)
   return (
     <div className="container mx-auto px-4">
       <div className="flex flex-col md:flex-row gap-8 mt-16">

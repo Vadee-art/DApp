@@ -1,6 +1,5 @@
 import {register} from 'swiper/element/bundle'
 import { useGetArtworkCarousel } from '@/features/artwork/api/getArtworksCarousel';
-import { API_URL_NO_POSTFIX } from '@/config';
 import { Alert } from '@/components/Elements/Alert';
 
 register();
