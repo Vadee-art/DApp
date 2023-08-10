@@ -10,13 +10,13 @@ export const Artwork = ({
 }: ArtworkProps) => {
   return (
     <Link to={`/artworks/${artwork.Id}`} className="cursor-pointer flex flex-col gap-8 self-end">
-      <img src={artwork.image} alt="sample pic" className='w-full bject-contain' loading='lazy' />
+      <img src={artwork.imageMediumQuality} alt="sample pic" className='w-full bject-contain' loading='lazy' />
       <div className='flex flex-col text-sm font-extralight'>
         <h3 className='font-medium'>
-          {artwork.title}
+          {artwork.artist.name}
         </h3>
         <span>
-          {artwork.subtitle}
+          {artwork.title}
         </span>
         <span>
           {artwork.origin.country}

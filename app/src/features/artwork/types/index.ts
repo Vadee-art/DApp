@@ -1,3 +1,5 @@
+import { Artist } from "@/features/artist/types";
+
 export type Artwork = {
   Id: number;
   collection: {
@@ -45,6 +47,7 @@ export type Artwork = {
   print: string | null;
   condition: string | null;
   image: string;
+  imageMediumQuality: string;
   width: string;
   height: string;
   depth: number;
@@ -63,6 +66,6 @@ export type Artwork = {
   isCarousel: boolean;
   createdAt: string;
   owner: string | null;
-  artist: number;
+  artist: Artist;
   createdBy: number;
 }

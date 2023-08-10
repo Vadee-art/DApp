@@ -8,16 +8,17 @@ import { useGetArtist } from "@/features/artist/api/getArtist";
 export const Artwork = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetArtwork({ id: +id! })
-  const { data: artist, isLoading: artistLoading, error: artistError } = useGetArtist({ id: data?.artistId || 0 }, { enabled: !!data })
+  // const { data: artist, isLoading: artistLoading, error: artistError } = useGetArtist({ id: data?.artistId || 0 }, { enabled: !!data })
 
-  if (error || artistError) {
+  if (error) {
     return <Alert variant="danger">{error}</Alert>
   }
 
-  if (isLoading || artistLoading) {
+  if (isLoading) {
     return <ArtworkSkeleton />;
   }
 
+  console.log(data)
   return (
     <div className="container mx-auto px-4">
       <div className="flex flex-col md:flex-row gap-8 mt-16">
@@ -29,13 +30,13 @@ export const Artwork = () => {
               <span>Share</span>
             </div>
             <div className="flex-[4]">
-              <img src={API_URL_NO_POSTFIX + data!.image} alt={data!.title} loading="lazy" />
+              <img src={data!.image} alt={data!.title} loading="lazy" />
             </div>
           </div>
           
           <div className="flex flex-col md:flex-row gap-8 mt-12">
             <div className="flex-1 flex flex-col md:self-start">
-              <span>{artist?.name}</span> 
+              <span>{data!.artist.name}</span> 
               <Button variant="stone" className="w-full mt-2">Follow</Button>
             </div>
             <div className="flex-[4]">
@@ -49,12 +50,12 @@ export const Artwork = () => {
         </div>
         <div className="flex-1">
           <div className="flex flex-row gap-4">
-            <img src={artist?.photo} alt="artist photo" className="bg-gray-300 h-24 w-24" loading="lazy"/>
+            <img src={data!.artist.photo} alt="artist photo" className="bg-gray-300 h-24 w-24" loading="lazy"/>
 
             {/* TODO: replce Iran with real artist data */}
             <div className="flex-1"> 
-              <h3>{artist?.name}</h3>
-              <span>Iran, {artist?.birthday.split('-')[0]}</span>
+              <h3>{data!.artist.name}</h3>
+              <span>Iran, {data!.artist.birthday.split('-')[0]}</span>
               <Button size="sm" variant="stone" className="w-full mt-2">Follow</Button>
             </div>
           </div>

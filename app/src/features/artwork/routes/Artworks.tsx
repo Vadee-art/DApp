@@ -12,6 +12,8 @@ export const Artworks = () => {
     return <Alert variant="danger">{error}</Alert>;
   }
 
+  console.log(data);
+
   return (
     <div className="container mx-auto px-4">
       <div className="flex flex-col md:flex-row gap-8 mt-16">
@@ -34,7 +36,7 @@ export const Artworks = () => {
           </div>
           <Pagination           
             currentPage={page}
-            totalPages={20} //TODO: replace with api data
+            totalPages={isLoading ? 1 : Math.ceil(data!.count/9)}
             onChange={(p) => {
               setPage(p);
             }}/>
