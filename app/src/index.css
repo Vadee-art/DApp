@@ -31,6 +31,11 @@ body,
 
 /* swiper js styles */
 
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
 swiper-container::part(button-prev),
 swiper-container::part(button-next) {
   color: #fff;
