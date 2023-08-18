@@ -7,28 +7,9 @@ export type Artwork = {
   };
   artistId: number;
   tags: string[];
-  category: {
-    id: number;
-    name: string;
-    slug: string;
-    createdAt: string;
-    isFeatured: boolean;
-    image: string;
-  };
-  subCategory: {
-    id: number;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-    category: number;
-  };
-  origin: {
-    id: number;
-    country: string;
-    city: string;
-    description: string;
-    flag: string;
-  };
+  category: Category;
+  subCategory: SubCategory;
+  origin: Origin;
   voucher: {
     title: string;
     artworkId: number | null;
@@ -69,3 +50,28 @@ export type Artwork = {
   artist: Artist;
   createdBy: number;
 }
+
+export type Category = {
+  Id: number;
+  name: string;
+  slug: string;
+  createdAt: string;
+  isFeatured: boolean;
+  image: string;
+}
+
+export type SubCategory = {
+  Id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  category: number;
+}
+
+export type Origin = {
+  id: number;
+  country: string;
+  city: string;
+  description: string;
+  flag: string;
+};
