@@ -6,6 +6,7 @@ import { MainLayout } from '@/components/Layout';
 import { lazyImport } from '@/utils/lazyImport';
 
 const { ArtworkRoutes } = lazyImport(() => import('@/features/artwork/routes'), 'ArtworkRoutes');
+const { ArtistRoutes } = lazyImport(() => import('@/features/artist/routes'), 'ArtistRoutes');
 const { HomePage } = lazyImport(() => import('@/features/misc/routes/HomePage'), 'HomePage');
 
 export const AppRoutes = () => {
@@ -29,6 +30,14 @@ export const AppRoutes = () => {
       element: (
         <MainLayout>
           <ArtworkRoutes/>
+        </MainLayout>
+      ),
+    },
+    {
+      path: '/artists/*',
+      element: (
+        <MainLayout>
+          <ArtistRoutes/>
         </MainLayout>
       ),
     }

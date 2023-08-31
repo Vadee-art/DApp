@@ -16,7 +16,7 @@ export const ArtworksFilterForm = ({filters, onChange}: Props) => {
     origin: [],
   });
 
-  const [visibleFilters, setVisibleFilters] = useState<{ category: boolean, sub_category: boolean, origin: boolean }>({
+  const [visibleFilters, setVisibleFilters] = useState<{ [k in keyof ArtworksFilters]: boolean }>({
     category: true,
     sub_category: true,
     origin: true,
@@ -26,7 +26,7 @@ export const ArtworksFilterForm = ({filters, onChange}: Props) => {
     onChange(selectedFilters);
   }, [selectedFilters]);
 
-  const handleFilterChange = (type: 'category' | 'sub_category' | 'origin', value: number) => {
+  const handleFilterChange = (type: keyof ArtworksFilters, value: number) => {
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
       [type]: prevFilters[type].includes(value)
@@ -35,7 +35,7 @@ export const ArtworksFilterForm = ({filters, onChange}: Props) => {
     }));
   };
 
-  const toggleFilterVisibility = (type: 'category' | 'sub_category' | 'origin') => {
+  const toggleFilterVisibility = (type: keyof ArtworksFilters) => {
     setVisibleFilters((prevVisibleFilters) => ({
       ...prevVisibleFilters,
       [type]: !prevVisibleFilters[type],

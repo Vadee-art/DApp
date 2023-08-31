@@ -64,7 +64,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </NavLink>
             <NavLink
               className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
-              to="/photographers">
+              to="/artists">
               Photographers
             </NavLink>
             <NavLink
