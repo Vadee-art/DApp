@@ -37,9 +37,9 @@ export const Artwork = () => {
             </div>
             <div className="flex-[4]">
               <h3 className="text-sm text-stone-500 mb-4">
-                About the <strong>{data!.title}</strong> artwork from <strong>{data?.category.name}</strong>
+                About the <strong>{data!.title}</strong> artwork {data?.collection ? (<span>from <strong>{data?.collection.title}</strong></span>) : null}
               </h3>
-              <p> {data!.aboutWork} </p>
+              <p> {data!.artist.biography} </p>
             </div>
 
           </div>
@@ -47,11 +47,9 @@ export const Artwork = () => {
         <div className="flex-1">
           <div className="flex flex-row gap-4">
             <img src={data!.artist.photo} alt="artist photo" className="bg-gray-300 h-24 w-24" loading="lazy"/>
-
-            {/* TODO: replce Iran with real artist data */}
             <div className="flex-1"> 
               <h3>{data!.artist.name}</h3>
-              <span>Iran, {data!.artist.birthday.split('-')[0]}</span>
+              <span>{data!.artist.origin.country}, {data!.artist.birthday.split('-')[0]}</span>
               <Button size="sm" variant="stone" className="w-full mt-2">Follow</Button>
             </div>
           </div>
