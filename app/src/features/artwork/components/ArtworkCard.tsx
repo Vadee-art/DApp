@@ -5,7 +5,7 @@ type ArtworkProps = {
   artwork: ArtworkType;
 };
 
-export const Artwork = ({
+export const ArtworkCard = ({
   artwork
 }: ArtworkProps) => {
   return (
@@ -29,7 +29,7 @@ export const Artwork = ({
   )
 }
 
-export const ArtworkSkeleton = () => {
+export const ArtworkCardSkeleton = () => {
   return (
     <div className="flex flex-col gap-8 self-end">
       <div className={`w-full h-52 bg-gray-200 animate-pulse`} />

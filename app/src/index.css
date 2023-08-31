@@ -48,3 +48,8 @@ swiper-container::part(button-prev) {
 swiper-container::part(button-next) {
   margin-right: 5%;
 }
+
+swiper-container::part(scrollbar) {
+  left: 0;
+  width: 100%;
+}

@@ -1,6 +1,6 @@
 import { Alert } from "@/components/Elements/Alert";
 import { ArtworksFilters, useGetArtworks } from "../api/getArtworks";
-import { Artwork, ArtworkSkeleton } from "../components/Artwork";
+import { ArtworkCard, ArtworkCardSkeleton } from "../components/ArtworkCard";
 import { Pagination } from "@/components/Elements/Pagination";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetArtworkFilters } from "../api/getArtworkFilters";
@@ -47,9 +47,9 @@ export const Artworks = () => {
         <div className="flex-[4]">
           <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             {isLoading ? 
-              Array.from({ length: 9 }, (_, i) => <ArtworkSkeleton key={i} />) : 
+              Array.from({ length: 9 }, (_, i) => <ArtworkCardSkeleton key={i} />) : 
               data!.results.map((artwork) => (
-                <Artwork key={artwork.Id} artwork={artwork} />
+                <ArtworkCard key={artwork.Id} artwork={artwork} />
               ))
             }
           </div>

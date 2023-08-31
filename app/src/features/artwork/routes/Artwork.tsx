@@ -1,17 +1,23 @@
+import {register} from 'swiper/element/bundle'
 import { useParams } from "react-router-dom"
 import { useGetArtwork } from "../api/getArtwork";
 import { Alert } from "@/components/Elements/Alert";
 import { Button } from "@/components/Elements";
+import { useGetArtist } from "@/features/artist/api/getArtist";
+import { ArtworkCard } from "../components/ArtworkCard";
+
+register();
 
 export const Artwork = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetArtwork({ id: +id! })
+  const { data: artist, isLoading: artistLoading, error: artistError } = useGetArtist({ id: data?.artist.Id || 0 }, { enabled: !!data })
 
-  if (error) {
+  if (error || artistError) {
     return <Alert variant="danger">{error}</Alert>
   }
 
-  if (isLoading) {
+  if (isLoading || artistLoading) {
     return <ArtworkSkeleton />;
   }
 
@@ -70,6 +76,23 @@ export const Artwork = () => {
           <hr className="my-4 w-full"/>
           <span className="font-semibold text-lg">${data!.price}</span>
           <Button className="w-full mt-4">Buy</Button>
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-8 mt-12">
+        <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+          {artist?.name} Notable Works
+        </div>
+        <div className="flex-[6] overflow-hidden">
+            <swiper-container space-between='60' slides-per-view="auto" navigation scrollbar>
+              {
+                artist?.artworks.map((artwork) => (
+                  <swiper-slide style={{width: '300px', display: 'flex', paddingBottom: '20px'}}>
+                    <ArtworkCard artwork={artwork} />
+                  </swiper-slide>
+                ))
+              }
+            </swiper-container> 
         </div>
       </div>
     </div>

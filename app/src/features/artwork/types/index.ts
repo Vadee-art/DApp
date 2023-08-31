@@ -5,7 +5,6 @@ export type Artwork = {
   collection: {
     title: string;
   } | null;
-  artistId: number;
   tags: string[];
   category: Category;
   subCategory: SubCategory;
