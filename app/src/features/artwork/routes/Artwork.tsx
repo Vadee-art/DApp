@@ -4,7 +4,8 @@ import { useGetArtwork } from "../api/getArtwork";
 import { Alert } from "@/components/Elements/Alert";
 import { Button } from "@/components/Elements";
 import { useGetArtist } from "@/features/artist/api/getArtist";
-import { ArtworkCard } from "../components/ArtworkCard";
+import { ArtworkCard, ArtworkCardSkeleton } from "../components/ArtworkCard";
+import { useGetRelatedArtworks } from '@/features/artist/api/getRelatedArtworks';
 
 register();
 
@@ -87,7 +88,7 @@ export const Artwork = () => {
             <swiper-container space-between='60' slides-per-view="auto" navigation scrollbar>
               {
                 artist?.artworks.map((artwork) => (
-                  <swiper-slide style={{width: '300px', display: 'flex', paddingBottom: '20px'}}>
+                  <swiper-slide style={{width: '300px', display: 'flex', paddingBottom: '20px'}} key={artwork.Id}>
                     <ArtworkCard artwork={artwork} />
                   </swiper-slide>
                 ))
@@ -95,6 +96,8 @@ export const Artwork = () => {
             </swiper-container> 
         </div>
       </div>
+
+      <SimilarArtworks artistId={data?.artist.Id}/>
     </div>
   )
 }
@@ -152,4 +155,57 @@ export const ArtworkSkeleton = () => {
       </div>
     </div>
   )
+}
+
+const SimilarArtworks = ({artistId}: {artistId: number | undefined}) => {
+  const { data: relatedArtworks, isLoading: relatedArtworksLoading, error: relatedArtworksError } = useGetRelatedArtworks({ artistId: artistId || 0 }, { enabled: !!artistId });
+
+  if (relatedArtworksError) {
+    return <Alert variant="danger">{relatedArtworksError}</Alert>
+  }
+
+  if (relatedArtworksLoading) {
+    return (
+      <div className="flex flex-col md:flex-row gap-8 mt-12">
+        <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+          Similar Artworks
+        </div>
+        <div className="flex-[6] overflow-hidden">
+            <swiper-container space-between='60' slides-per-view="auto" navigation scrollbar>
+              {
+                Array.from({ length: 3 }, (_, i) => (
+                  <swiper-slide style={{width: '300px', display: 'flex', paddingBottom: '20px'}}>
+                    <ArtworkCardSkeleton />
+                  </swiper-slide>
+                ))
+              }
+            </swiper-container> 
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      {relatedArtworks?.results && relatedArtworks.results.length > 0 ? (
+        <div className="flex flex-col md:flex-row gap-8 mt-12">
+          <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+            Similar Artworks
+          </div>
+          <div className="flex-[6] overflow-hidden">
+              <swiper-container space-between='60' slides-per-view="auto" navigation scrollbar>
+                {
+                  relatedArtworks?.results?.map((artwork) => (
+                    <swiper-slide style={{width: '300px', display: 'flex', paddingBottom: '20px'}} key={artwork.Id}>
+                      <ArtworkCard artwork={artwork} />
+                    </swiper-slide>
+                  ))
+                }
+              </swiper-container> 
+          </div>
+        </div>
+      ) : null}
+    </>
+  )
+
 }
