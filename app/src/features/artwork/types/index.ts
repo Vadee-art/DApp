@@ -4,7 +4,7 @@ export type Artwork = {
   Id: number;
   collection: {
     title: string;
-  };
+  } | null;
   artistId: number;
   tags: string[];
   category: Category;
@@ -69,7 +69,7 @@ export type SubCategory = {
 }
 
 export type Origin = {
-  id: number;
+  Id: number;
   country: string;
   city: string;
   description: string;

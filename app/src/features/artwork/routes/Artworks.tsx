@@ -1,18 +1,29 @@
 import { Alert } from "@/components/Elements/Alert";
-import { useGetArtworks } from "../api/getArtworks";
+import { ArtworksFilters, useGetArtworks } from "../api/getArtworks";
 import { Artwork, ArtworkSkeleton } from "../components/Artwork";
 import { Pagination } from "@/components/Elements/Pagination";
 import { usePagination } from "@/hooks/usePagination";
+import { useGetArtworkFilters } from "../api/getArtworkFilters";
+import { ArtworksFilterForm } from "../components/ArtworksFilterForm";
+import { useState } from "react";
 
 export const Artworks = () => {
   const {page, setPage} = usePagination();
-  const { data, isLoading, error } = useGetArtworks({page});
+  const [artworksFilters, setArtworksFilters] = useState<ArtworksFilters>({
+    category: [],
+    sub_category: [],
+    origin: [],
+  });
+  const { data, isLoading, error } = useGetArtworks({page, ...artworksFilters});
+  const {
+    data: filters,
+    isLoading: filtersLoading,
+    error: filtersError,
+  } = useGetArtworkFilters();
 
-  if (error) {
+  if (error || filtersError) {
     return <Alert variant="danger">{error}</Alert>;
   }
-
-  console.log(data);
 
   return (
     <div className="container mx-auto px-4">
@@ -24,7 +35,15 @@ export const Artworks = () => {
         </p>
       </div>
       <div className="flex flex-row gap-8 mt-16">
-        <div className="bg-gray-200 animate-pulse flex-1 hidden md:block"></div>
+        {filtersLoading ? (
+          <div className="bg-gray-200 animate-pulse flex-1 hidden md:block"></div>
+        ) : (
+          <ArtworksFilterForm filters={filters!} onChange={
+            (filters) => {
+              setArtworksFilters(filters);
+            }
+          }/>
+        )}
         <div className="flex-[4]">
           <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             {isLoading ? 

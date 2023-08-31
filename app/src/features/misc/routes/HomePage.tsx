@@ -40,7 +40,7 @@ export const HomePage = () => {
             <div className='h-[505px]'>
               <div className='absolute top-0 left-0 h-full w-full'>
                 <div className='container mx-auto px-4 mt-16 z-10 flex flex-col items-start justify-start text-white [&>span]:leading-tight cursor-default'>
-                  {artwork.collection.title && <span className='text-[21px] font-extralight'> {artwork.collection.title} </span>}
+                  {artwork.collection?.title && <span className='text-[21px] font-extralight'> {artwork.collection.title} </span>}
                   <span className='text-[30px] font-normal'> {artwork.artist.name} </span> 
                   <span className='text-[40px] font-normal'> {artwork.category.name} </span>
                 </div>
