@@ -64,14 +64,13 @@ export const HomePage = () => {
             <swiper-container space-between='60' slides-per-view="auto" navigation>
               {
                 data?.artists.map((artist) => (
-                  <swiper-slide style={{width: '100px'}}>
+                  <swiper-slide style={{width: '150px'}}>
                     <div className='flex flex-col gap-1 w-full h-full'>
                       <div>
                         <img src={artist.photo} alt="" className='w-full h-full object-cover object-center' height={150} width={150}/>
                       </div>
-                      <span className='text-sm font-semibold line-clamp-1'>{artist.name}</span>
-                      {/* TODO: replace with real origin */}
-                      <span className='text-sm text-white line-clamp-1'>Iran</span> 
+                      <span className='text-sm font-semibold'>{artist.name}</span>
+                      <span className='text-sm text-white'>{artist.origin.country}</span> 
                     </div>
                   </swiper-slide>
                 ))

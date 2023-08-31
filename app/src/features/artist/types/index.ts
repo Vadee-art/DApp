@@ -1,3 +1,5 @@
+import { Origin } from "@/features/artwork/types";
+
 export type Artist = {
   Id: number;
   name: string;
@@ -9,7 +11,7 @@ export type Artist = {
   biography: string;
   cv: string;
   user: number;
-  origin: number;
+  origin: Origin;
   achievements: string[];
   favorites: number[];
 };
