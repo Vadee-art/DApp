@@ -28,5 +28,5 @@ export const getRelatedArtworks = ({
 }
 
 export const useGetRelatedArtworks = (params: GetRelatedArtworksParams, options?: Omit<UseQueryOptions<GetRelatedArtworksResponse, string, GetRelatedArtworksResponse>, "queryKey" | "queryFn">) => {
-  return useQuery<GetRelatedArtworksResponse, string>(['artist-filters', params], () => getRelatedArtworks(params), {...options});
+  return useQuery<GetRelatedArtworksResponse, string>(['related-artworks', params], () => getRelatedArtworks(params), {...options});
 }

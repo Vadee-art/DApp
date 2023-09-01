@@ -6,6 +6,7 @@ import { Button } from "@/components/Elements";
 import { useGetArtist } from "@/features/artist/api/getArtist";
 import { ArtworkCard, ArtworkCardSkeleton } from "../components/ArtworkCard";
 import { useGetRelatedArtworks } from '@/features/artist/api/getRelatedArtworks';
+import { useGetSimilarArtists } from '@/features/artist/api/getSimilarArtists';
 
 register();
 
@@ -98,6 +99,8 @@ export const Artwork = () => {
       </div>
 
       <SimilarArtworks artistId={data?.artist.Id}/>
+
+      <SimilarArtists artistId={data?.artist.Id}/>
     </div>
   )
 }
@@ -173,7 +176,7 @@ const SimilarArtworks = ({artistId}: {artistId: number | undefined}) => {
         <div className="flex-[6] overflow-hidden">
             <swiper-container space-between='60' slides-per-view="auto" navigation scrollbar>
               {
-                Array.from({ length: 3 }, (_, i) => (
+                Array.from({ length: 3 }, (_) => (
                   <swiper-slide style={{width: '300px', display: 'flex', paddingBottom: '20px'}}>
                     <ArtworkCardSkeleton />
                   </swiper-slide>
@@ -198,6 +201,71 @@ const SimilarArtworks = ({artistId}: {artistId: number | undefined}) => {
                   relatedArtworks?.results?.map((artwork) => (
                     <swiper-slide style={{width: '300px', display: 'flex', paddingBottom: '20px'}} key={artwork.Id}>
                       <ArtworkCard artwork={artwork} />
+                    </swiper-slide>
+                  ))
+                }
+              </swiper-container> 
+          </div>
+        </div>
+      ) : null}
+    </>
+  )
+
+}
+
+const SimilarArtists = ({artistId}: {artistId: number | undefined}) => {
+  const { data: similarArtists, isLoading: similarArtistsLoading, error: similarArtistsError } = useGetSimilarArtists({ artistId: artistId || 0 }, { enabled: !!artistId });
+
+  if (similarArtistsError) {
+    return <Alert variant="danger">{similarArtistsError}</Alert>
+  }
+
+  if (similarArtistsLoading) {
+    return (
+      <div className="flex flex-col md:flex-row gap-8 mt-12">
+        <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+          Similar Artists
+        </div>
+        <div className="flex-[6] overflow-hidden">
+            <swiper-container space-between='60' slides-per-view="auto" navigation scrollbar>
+              {
+                Array.from({ length: 3 }, (_) => (
+                  <swiper-slide style={{width: '230px', display: 'flex', paddingBottom: '20px'}}>
+                    <div className='flex flex-col gap-1 w-full h-full items-center border border-stone-500'>
+                      <div className='w-[230px] h-[230px] bg-gray-300 animate-pulse mb-4' />
+                      <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
+                      <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
+                      <div className='w-full h-8 bg-gray-200 animate-pulse mt-2' />
+                    </div>
+                  </swiper-slide>
+                ))
+              }
+            </swiper-container> 
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      {similarArtists?.results && similarArtists.results.length > 0 ? (
+        <div className="flex flex-col md:flex-row gap-8 mt-12">
+          <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+            Similar Artists
+          </div>
+          <div className="flex-[6] overflow-hidden">
+              <swiper-container space-between='60' slides-per-view="auto" navigation scrollbar>
+                {
+                  similarArtists?.results?.map((artist) => (
+                    <swiper-slide style={{width: '230px', display: 'flex', paddingBottom: '20px'}} key={artist.Id}>
+                      <div className='flex flex-col gap-1 w-full h-full items-center border border-stone-500'>
+                        <img src={artist.photo} alt="" className='w-full h-full object-cover object-center mb-4' height={230} width={230}/>
+                        <span className='text-sm font-semibold'>{artist.name}</span>
+                        <span className='text-sm'>
+                          {artist.origin.country}, {artist.birthday.split('-')[0]}
+                        </span>
+                        <Button variant='stone' size='sm' className='w-full mt-2'>Follow</Button>
+                      </div>
                     </swiper-slide>
                   ))
                 }
