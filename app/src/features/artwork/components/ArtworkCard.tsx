@@ -9,9 +9,9 @@ export const ArtworkCard = ({
   artwork
 }: ArtworkProps) => {
   return (
-    <Link to={`/artworks/${artwork.Id}`} className="cursor-pointer flex flex-col gap-8 self-end">
+    <Link to={`/artworks/${artwork.Id}`} className="cursor-pointer flex flex-col gap-8 self-end border border-gray-300">
       <img src={artwork.imageMediumQuality} alt="sample pic" className='w-full bject-contain' loading='lazy' />
-      <div className='flex flex-col text-sm font-extralight'>
+      <div className='flex flex-col text-sm font-extralight p-2'>
         <h3 className='font-medium'>
           {artwork.artist.name}
         </h3>
