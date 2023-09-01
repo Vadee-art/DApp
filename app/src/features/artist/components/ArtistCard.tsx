@@ -5,7 +5,7 @@ type ArtistProps = {
   artist: ArtistType;
 };
 
-export const Artist = ({
+export const ArtistCard = ({
   artist
 }: ArtistProps) => {
   return (
@@ -23,7 +23,7 @@ export const Artist = ({
   )
 }
 
-export const ArtistSkeleton = () => {
+export const ArtistCardSkeleton = () => {
   return (
     <div className="flex flex-col gap-8 self-end">
       <div className={`w-full h-72 bg-gray-200 animate-pulse`} />

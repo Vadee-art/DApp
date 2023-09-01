@@ -1,6 +1,6 @@
 import { Alert } from "@/components/Elements/Alert";
 import { ArtistsFilters, useGetArtists } from "../api/getArtists";
-import { Artist, ArtistSkeleton } from "../components/Artist";
+import { ArtistCard, ArtistCardSkeleton } from "../components/ArtistCard";
 import { Pagination } from "@/components/Elements/Pagination";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetArtistFilters } from "../api/getArtistFilters";
@@ -45,9 +45,9 @@ export const Artists = () => {
         <div className="flex-[4]">
           <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             {isLoading ? 
-              Array.from({ length: 9 }, (_, i) => <ArtistSkeleton key={i} />) : 
+              Array.from({ length: 9 }, (_, i) => <ArtistCardSkeleton key={i} />) : 
               data!.results.map((artist) => (
-                <Artist key={artist.Id} artist={artist} />
+                <ArtistCard key={artist.Id} artist={artist} />
               ))
             }
           </div>
