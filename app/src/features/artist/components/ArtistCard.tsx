@@ -25,11 +25,11 @@ export const ArtistCard = ({
 
 export const ArtistCardSkeleton = () => {
   return (
-    <div className="flex flex-col gap-8 self-end">
-      <div className={`w-full h-72 bg-gray-200 animate-pulse`} />
+    <div className="flex flex-col gap-8 self-end animate-pulse">
+      <div className={`w-full h-72 bg-gray-200`} />
       <div className='flex flex-col gap-2 text-sm font-extralight'>
-        <div className='w-[200px] h-4 bg-gray-200 animate-pulse' />
-        <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
+        <div className='w-[200px] h-4 bg-gray-200' />
+        <div className='w-[100px] h-4 bg-gray-200' />
       </div>
     </div>
   )

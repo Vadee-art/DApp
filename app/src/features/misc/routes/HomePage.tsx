@@ -18,15 +18,15 @@ export const HomePage = () => {
 
   if (isLoading) {
     return (
-      <>
-      <div className='w-full h-[505px] bg-gray-300 animate-pulse' />
-      <div className='w-full h-[200px] bg-gray-300 animate-pulse mt-16' />
-      <div className='w-full h-[200px] bg-gray-300 animate-pulse container mx-auto mt-16' />
-      <div className='w-full h-[75px] bg-gray-300 animate-pulse container mx-auto mt-16' />
-      <div className='w-full h-[300px] bg-gray-300 animate-pulse container mx-auto mt-16' />
-      <div className='w-full h-[450px] bg-gray-300 animate-pulse container mx-auto mt-16' />
-      <div className='w-full h-[75px] bg-gray-300 animate-pulse container mx-auto mt-16' />
-      </>
+      <div className='animate-pulse'>
+        <div className='w-full h-[505px] bg-gray-300' />
+        <div className='w-full h-[200px] bg-gray-300 mt-16' />
+        <div className='w-full h-[200px] bg-gray-300 container mx-auto mt-16' />
+        <div className='w-full h-[75px] bg-gray-300 container mx-auto mt-16' />
+        <div className='w-full h-[300px] bg-gray-300 container mx-auto mt-16' />
+        <div className='w-full h-[450px] bg-gray-300 container mx-auto mt-16' />
+        <div className='w-full h-[75px] bg-gray-300 container mx-auto mt-16' />
+      </div>
     )
   }
 

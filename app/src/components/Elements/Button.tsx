@@ -4,7 +4,7 @@ import Spinner from 'react-spinners/PulseLoader';
 
 const variants = {
   primary: 'bg-black text-white',
-  inverse: 'bg-white text-blue-500',
+  inverse: 'bg-white text-gray-500 border border-gray',
   danger: 'bg-red-500 text-white',
   secondary: 'bg-gray-500 text-white',
   success: 'bg-emerald-500 text-white',

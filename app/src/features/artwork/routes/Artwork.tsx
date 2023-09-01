@@ -107,32 +107,32 @@ export const Artwork = () => {
 
 export const ArtworkSkeleton = () => {
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 animate-pulse">
       <div className="flex flex-col md:flex-row gap-8 mt-16">
         <div className="flex-[3]">
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1 self-end space-y-4">
-              <div className="h-4 w-24 bg-gray-200 animate-pulse" />
-              <div className="h-4 w-24 bg-gray-200 animate-pulse" />
-              <div className="h-4 w-24 bg-gray-200 animate-pulse" />
+              <div className="h-4 w-24 bg-gray-200" />
+              <div className="h-4 w-24 bg-gray-200" />
+              <div className="h-4 w-24 bg-gray-200" />
             </div>
             <div className="flex-[4]">
-              <div className="w-full h-[400px] bg-gray-200 animate-pulse" />
+              <div className="w-full h-[400px] bg-gray-200" />
             </div>
           </div>
           
           <div className="flex flex-col md:flex-row gap-8 mt-12">
             <div className="flex-1 flex flex-col md:self-start">
-              <div className="w-[100px] h-4 bg-gray-200 animate-pulse" />
-              <div className="w-[100px] h-4 bg-gray-200 animate-pulse" />
+              <div className="w-[100px] h-4 bg-gray-200" />
+              <div className="w-[100px] h-4 bg-gray-200" />
             </div>
             <div className="flex-[4] space-y-4">
-              <div className="w-4/5 h-4 bg-gray-200 animate-pulse" />
-              <div className="w-3/5 h-4 bg-gray-200 animate-pulse" />
-              <div className="w-4/5 h-4 bg-gray-200 animate-pulse" />
-              <div className="w-3/5 h-4 bg-gray-200 animate-pulse" />
-              <div className="w-full h-4 bg-gray-200 animate-pulse" />
-              <div className="w-4/5 h-4 bg-gray-200 animate-pulse" />
+              <div className="w-4/5 h-4 bg-gray-200" />
+              <div className="w-3/5 h-4 bg-gray-200" />
+              <div className="w-4/5 h-4 bg-gray-200" />
+              <div className="w-3/5 h-4 bg-gray-200" />
+              <div className="w-full h-4 bg-gray-200" />
+              <div className="w-4/5 h-4 bg-gray-200" />
             </div>
 
           </div>
@@ -141,19 +141,19 @@ export const ArtworkSkeleton = () => {
           <div className="flex flex-row gap-4">
             <div className="bg-gray-300 h-24 w-24"></div>
             <div className="flex-1 space-y-4"> 
-              <div className="w-[100px] h-4 bg-gray-200 animate-pulse" />
-              <div className="w-[100px] h-8 bg-gray-200 animate-pulse" />
+              <div className="w-[100px] h-4 bg-gray-200" />
+              <div className="w-[100px] h-8 bg-gray-200" />
             </div>
           </div>
           <hr className="my-4 w-full border-gray-400"/>
           <div className="space-y-4">
-            <div className="w-2/3 h-4 bg-gray-200 animate-pulse" />
-            <div className="w-2/3 h-4 bg-gray-200 animate-pulse" />
-            <div className="w-2/3 h-4 bg-gray-200 animate-pulse" />
+            <div className="w-2/3 h-4 bg-gray-200" />
+            <div className="w-2/3 h-4 bg-gray-200" />
+            <div className="w-2/3 h-4 bg-gray-200" />
           </div>
           <hr className="my-4 w-full"/>
-          <div className="w-[100px] h-4 bg-gray-200 animate-pulse mb-4" />
-          <div className="w-full h-12 bg-gray-200 animate-pulse" />
+          <div className="w-[100px] h-4 bg-gray-200 mb-4" />
+          <div className="w-full h-12 bg-gray-200" />
         </div>
       </div>
     </div>
@@ -231,11 +231,11 @@ const SimilarArtists = ({artistId}: {artistId: number | undefined}) => {
               {
                 Array.from({ length: 3 }, (_) => (
                   <swiper-slide style={{width: '230px', display: 'flex', paddingBottom: '20px'}}>
-                    <div className='flex flex-col gap-1 w-full h-full items-center border border-stone-500'>
-                      <div className='w-[230px] h-[230px] bg-gray-300 animate-pulse mb-4' />
-                      <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
-                      <div className='w-[100px] h-4 bg-gray-200 animate-pulse' />
-                      <div className='w-full h-8 bg-gray-200 animate-pulse mt-2' />
+                    <div className='flex flex-col gap-1 w-full h-full items-center border border-stone-500 animate-pulse'>
+                      <div className='w-[230px] h-[230px] bg-gray-300 mb-4' />
+                      <div className='w-[100px] h-4 bg-gray-200' />
+                      <div className='w-[100px] h-4 bg-gray-200' />
+                      <div className='w-full h-8 bg-gray-200 mt-2' />
                     </div>
                   </swiper-slide>
                 ))
