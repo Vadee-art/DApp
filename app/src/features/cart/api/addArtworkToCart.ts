@@ -18,13 +18,13 @@ export const useAddArtworkToCart = () => {
   const {addNotification} = useNotificationStore();
 
   return useMutation(addArtworkToCart, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       addNotification({
         type: 'success',
         title: 'Artwork added to cart',
       });
 
-      queryClient.invalidateQueries('cart');
+      queryClient.setQueryData(['cart'], data);
     },
   });
 }

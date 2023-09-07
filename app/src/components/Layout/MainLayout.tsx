@@ -10,11 +10,13 @@ import USDTIcon from '@/assets/img/USDT_icon.png';
 import { FaLinkedinIn, FaInstagram, FaFacebookF } from 'react-icons/fa';
 
 import { useUser } from '@/lib/auth';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { BellIcon, EnvelopeIcon, MagnifyingGlassIcon, ShoppingCartIcon, UserIcon } from '@heroicons/react/24/outline';
 import { Button } from '../Elements';
+import { useGetCart } from '@/features/cart/api/getCart';
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: user } = useUser({});
+  const { data: cart } = useGetCart();
   return (
     <>
       <nav className="w-full flex flex-wrap items-center justify-between py-2 navbar-expand-lg bg-white">
@@ -29,11 +31,41 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </Link>
             <div className="flex items-start flex-1 ">
 
-            <label htmlFor="search" className="relative text-gray-400 focus-within:text-gray-600 block border flex-1">
+            <label htmlFor="search" className="relative text-gray-400 focus-within:text-gray-600 block border border-stone-400 flex-1">
               <MagnifyingGlassIcon className="pointer-events-none w-6 h-6 absolute top-1/2 transform -translate-y-1/2 right-3" />
               <input type="text" name="search" id="search" className="px-3 py-1 w-full focus:outline-1" />
             </label>
-              {!user ? (
+              {user ? (
+                <>
+                <Link
+                  className="relative text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                  to="/"
+                >
+                  <ShoppingCartIcon className="h-6 w-6" />
+                  {cart ? (
+                    <span className="absolute top-0 right-0 inline-flex items-center justify-center p-1 h-4 w-4 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">{cart?.artworks.length}</span>
+                  ) : null}
+                </Link>
+                <Link
+                  className="text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                  to="/"
+                >
+                  <BellIcon className="h-6 w-6" /> 
+                </Link>
+                <Link
+                  className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                  to="/"
+                >
+                  <EnvelopeIcon className="h-6 w-6" />
+                </Link>
+                <Link
+                  className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                  to="/"
+                >
+                  <UserIcon className="h-6 w-6" />
+                </Link>
+                </>
+              ) : (
                 <>
                 <Link
                   className="bg-stone-500 text-white active:bg-stone-600 px-3 py-1 shadow hover:shadow-md outline-none focus:outline-none lg:mb-0 ml-2 ease-linear transition-all duration-150"
@@ -48,7 +80,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   Sign Up
                 </Link>
                 </>
-              ) : null}
+              )}
             </div>
           </div>
         </div>

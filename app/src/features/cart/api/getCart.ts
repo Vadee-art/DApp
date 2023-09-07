@@ -1,5 +1,5 @@
 import { axios } from "@/lib/axios";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Cart } from "../types";
 
 export type GetCartResponse = Cart;
@@ -9,5 +9,5 @@ export const getCart = (): Promise<GetCartResponse> => {
 }
 
 export const useGetCart = () => {
-  return useMutation(getCart);
+  return useQuery(['cart'], getCart);
 }
