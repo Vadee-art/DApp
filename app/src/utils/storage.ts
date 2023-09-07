@@ -4,7 +4,7 @@ const storagePrefix = 'vadee_';
 
 const storage = {
   // User
-  getUser: () => {
+  getUser: (): AuthUser | null => {
     return JSON.parse(window.localStorage.getItem(`${storagePrefix}user`) as string);
   },
   setUser: (user: AuthUser) => {

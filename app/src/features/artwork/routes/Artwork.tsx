@@ -7,6 +7,7 @@ import { useGetArtist } from "@/features/artist/api/getArtist";
 import { ArtworkCard, ArtworkCardSkeleton } from "../components/ArtworkCard";
 import { useGetRelatedArtworks } from '@/features/artist/api/getRelatedArtworks';
 import { useGetSimilarArtists } from '@/features/artist/api/getSimilarArtists';
+import { useAddArtworkToCart } from '@/features/cart/api/addArtworkToCart';
 
 register();
 
@@ -14,6 +15,7 @@ export const Artwork = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetArtwork({ id: +id! })
   const { data: artist, isLoading: artistLoading, error: artistError } = useGetArtist({ id: data?.artist.Id || 0 }, { enabled: !!data })
+  const { mutateAsync: addToCart, isLoading: addToCartLoading } = useAddArtworkToCart();
 
   if (error || artistError) {
     return <Alert variant="danger">{error}</Alert>
@@ -77,7 +79,10 @@ export const Artwork = () => {
           </div>
           <hr className="my-4 w-full"/>
           <span className="font-semibold text-lg">${data!.price}</span>
-          <Button className="w-full mt-4">Buy</Button>
+          <Button className="w-full mt-4" isLoading={addToCartLoading} onClick={async () => {
+            if (addToCartLoading) return;
+            await addToCart({ artworkId: data!.Id })
+          }}>Buy</Button>
         </div>
       </div>
 

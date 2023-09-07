@@ -49,7 +49,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {...props}
       >
-        {isLoading ? <Spinner color='white' size={10} /> : <span>{props.children}</span>}
+        {isLoading ? <Spinner color='white' className={size === 'lg' ? 'py-2' : 'py-1'} size={12} /> : <span>{props.children}</span>}
       </button>
     );
   }

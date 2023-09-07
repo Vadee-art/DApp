@@ -1,9 +1,10 @@
 import Axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { API_URL } from '@/config';
+import storage from '@/utils/storage';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
-  const token = 'token';
+  const token = storage.getUser()?.token;
   if (token) {
     config.headers.authorization = `Bearer ${token}`;
   }
@@ -13,6 +14,9 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
 
 export const axios = Axios.create({
   baseURL: API_URL,
+  paramsSerializer: {
+    indexes: null,
+  }
 });
 
 export const axiosWithoutAuth = Axios.create({
