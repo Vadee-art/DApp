@@ -5,6 +5,7 @@ import { publicRoutes } from './public';
 import { MainLayout } from '@/components/Layout';
 import { lazyImport } from '@/utils/lazyImport';
 import { RegionRoutes } from '@/features/region/routes';
+import { ScrollToTop } from '@/components/Layout/ScrollToTop';
 
 const { ArtworkRoutes } = lazyImport(() => import('@/features/artwork/routes'), 'ArtworkRoutes');
 const { ArtistRoutes } = lazyImport(() => import('@/features/artist/routes'), 'ArtistRoutes');
@@ -56,5 +57,8 @@ export const AppRoutes = () => {
 
   const element = useRoutes([...commonRoutes, ...routes]);
 
-  return <>{element}</>;
+  return <>
+    <ScrollToTop />
+    {element}
+  </>;
 };
