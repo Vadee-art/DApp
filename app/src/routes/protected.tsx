@@ -1,4 +1,5 @@
 import { MainLayout } from "@/components/Layout";
+import { CartRoutes } from "@/features/cart/routes";
 
 export const protectedRoutes = [
   {
@@ -9,4 +10,12 @@ export const protectedRoutes = [
       </MainLayout>
     ),
   },
+  {
+    path: '/cart/*',
+    element: (
+      <MainLayout showNav={false}>
+        <CartRoutes />
+      </MainLayout>
+    ),
+  }
 ];

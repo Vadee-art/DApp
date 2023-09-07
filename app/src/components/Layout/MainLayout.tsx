@@ -14,7 +14,11 @@ import { BellIcon, EnvelopeIcon, MagnifyingGlassIcon, ShoppingCartIcon, UserIcon
 import { Button } from '../Elements';
 import { useGetCart } from '@/features/cart/api/getCart';
 
-export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+type MainLayouProps = {
+  children: React.ReactNode;
+  showNav?: boolean;
+}
+export const MainLayout = ({ children, showNav = true}: MainLayouProps) => {
   const { data: user } = useUser({});
   const { data: cart } = useGetCart();
   return (
@@ -39,7 +43,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 <>
                 <Link
                   className="relative text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
-                  to="/"
+                  to="/cart/shipping"
                 >
                   <ShoppingCartIcon className="h-6 w-6" />
                   {cart ? (
@@ -85,6 +89,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </nav>
+      {showNav && (
       <nav className='mb-4'>
         <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
           <div className="flex items-start flex-1 gap-4 font-extralight">
@@ -112,6 +117,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </nav>
+      )}
       <main>{children}</main>
       <footer className="w-full bg-black mt-12 pt-12 pb-8">
         <div className="container px-4 text-white mx-auto text-xs font-extralight">
