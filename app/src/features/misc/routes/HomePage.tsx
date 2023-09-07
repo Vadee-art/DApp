@@ -65,13 +65,13 @@ export const HomePage = () => {
               {
                 data?.artists.map((artist) => (
                   <swiper-slide style={{width: '150px'}}>
-                    <div className='flex flex-col gap-1 w-full h-full'>
+                    <Link to={`/artists/${artist.Id}`} className='flex flex-col gap-1 w-full h-full'>
                       <div>
                         <img src={artist.photo} alt="" className='w-full h-full object-cover object-center' height={150} width={150}/>
                       </div>
                       <span className='text-sm font-semibold'>{artist.name}</span>
                       <span className='text-sm text-white'>{artist.origin.country}</span> 
-                    </div>
+                    </Link>
                   </swiper-slide>
                 ))
               }
@@ -148,7 +148,7 @@ export const HomePage = () => {
               </span>
             </div>
             <div>
-              <Link to={'/'} className='font-semibold'>Browse Works</Link>
+              <Link to={`/artists/${data?.lastArtwork.artist.Id}`} className='font-semibold'>Browse Works</Link>
             </div>
           </div>
           <div className='max-w-xs flex items-center'>
@@ -172,7 +172,7 @@ export const HomePage = () => {
           <p className='mb-8'>
             {data?.talentedArtwork.artist.biography}
           </p>
-          <Link to={'/'} className='font-semibold'>Browse Works</Link>
+          <Link to={`/artists/${data?.talentedArtwork.artist.Id}`} className='font-semibold'>Browse Works</Link>
         </div>
         <div className='flex-[3]'>
           <img src={data?.talentedArtwork.imageMediumQuality} alt={data?.talentedArtwork.title} className='w-full object-cover object-center' />
@@ -192,7 +192,7 @@ export const HomePage = () => {
             {
               data?.origins.map((origin) => (
                 <swiper-slide style={{width: '100px'}}>
-                  <Link to={'/'} className='border-b border-transparent hover:border-sky-500 hover:text-sky-500 transition-colors duration-150 ease-out'> 
+                  <Link to={`/regions/${origin.Id}`} className='border-b border-transparent hover:border-sky-500 hover:text-sky-500 transition-colors duration-150 ease-out'> 
                     {origin.country}
                   </Link>
                 </swiper-slide>
