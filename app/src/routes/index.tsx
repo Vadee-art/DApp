@@ -4,6 +4,7 @@ import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
 import { MainLayout } from '@/components/Layout';
 import { lazyImport } from '@/utils/lazyImport';
+import { RegionRoutes } from '@/features/region/routes';
 
 const { ArtworkRoutes } = lazyImport(() => import('@/features/artwork/routes'), 'ArtworkRoutes');
 const { ArtistRoutes } = lazyImport(() => import('@/features/artist/routes'), 'ArtistRoutes');
@@ -38,6 +39,14 @@ export const AppRoutes = () => {
       element: (
         <MainLayout>
           <ArtistRoutes/>
+        </MainLayout>
+      ),
+    },
+    {
+      path: '/regions/*',
+      element: (
+        <MainLayout>
+          <RegionRoutes/>
         </MainLayout>
       ),
     }

@@ -1,5 +1,5 @@
 import { axios } from "@/lib/axios";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { Cart } from "../types";
 
 export type GetCartResponse = Cart;
