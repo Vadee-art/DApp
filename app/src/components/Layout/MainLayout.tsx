@@ -26,7 +26,10 @@ type MainLayouProps = {
 };
 export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
   const { data: user } = useUser({});
-  const { data: cart } = useGetCart();
+  const { data: cart } = useGetCart({
+    enabled: !!user,
+  });
+
   return (
     <>
       <nav className="navbar-expand-lg flex w-full flex-wrap items-center justify-between bg-white py-2">

@@ -27,6 +27,13 @@ export const axiosWithoutAuth = Axios.create({
   },
 });
 
+export const axiosWithoutErrorNotification = Axios.create({
+  baseURL: API_URL,
+  paramsSerializer: {
+    indexes: null,
+  },
+});
+
 axios.interceptors.request.use(authRequestInterceptor);
 axios.interceptors.response.use(
   (response) => {
@@ -55,6 +62,18 @@ axiosWithoutAuth.interceptors.response.use(
       title: 'Error!',
       message,
     });
+    return Promise.reject(message);
+  }
+);
+
+axiosWithoutErrorNotification.interceptors.request.use(authRequestInterceptor);
+axiosWithoutErrorNotification.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+    const message: string =
+      error.response?.data?.message || error.message || 'Something went wrong';
     return Promise.reject(message);
   }
 );
