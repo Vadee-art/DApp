@@ -4,24 +4,24 @@ import { queryClient } from "@/lib/react-query";
 import { Cart } from "../types";
 import { useNotificationStore } from "@/stores/notifications";
 
-export type AddArtworkToCartParams = {
+export type DeleteArtworkFromCartParams = {
   artworkId: number;
 };
 
-export type AddArtworkToCartResponse = Cart;
+export type DeleteArtworkFromCartResponse = Cart;
 
-export const addArtworkToCart = (params: AddArtworkToCartParams): Promise<AddArtworkToCartResponse> => {
-    return axios.post('/cart/', params);
+export const deleteArtworkFromCart = (params: DeleteArtworkFromCartParams): Promise<DeleteArtworkFromCartResponse> => {
+    return axios.delete('/cart/', {data: params});
 }
 
-export const useAddArtworkToCart = () => {
+export const useDeleteArtworkFromCart = () => {
   const {addNotification} = useNotificationStore();
 
-  return useMutation(addArtworkToCart, {
+  return useMutation(deleteArtworkFromCart, {
     onSuccess: () => {
       addNotification({
         type: 'success',
-        title: 'Artwork added to cart',
+        title: 'Artwork removed from cart',
       });
 
       queryClient.invalidateQueries('cart');
