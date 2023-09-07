@@ -17,6 +17,9 @@ export const axios = Axios.create({
 
 export const axiosWithoutAuth = Axios.create({
   baseURL: API_URL,
+  paramsSerializer: {
+    indexes: null,
+  }
 });
 
 axios.interceptors.request.use(authRequestInterceptor);

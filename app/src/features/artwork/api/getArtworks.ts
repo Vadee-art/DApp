@@ -29,10 +29,9 @@ export const getArtworks = ({
     params: {
       page,
       page_size,
-      // TODO: fix this to send array of ids
-      category: category?.join(','),
-      sub_category: sub_category?.join(','),
-      origin: origin?.join(','),
+      category: category,
+      sub_category: sub_category,
+      origin: origin,
     },
   });
 }

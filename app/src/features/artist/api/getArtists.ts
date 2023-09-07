@@ -28,8 +28,7 @@ export const getArtists = ({
     params: {
       page,
       page_size,
-      // TODO: fix this to send array of ids
-      origin: origin?.join(','),
+      origin: origin,
       // achievements: achievements?.join(','),
     },
   });
