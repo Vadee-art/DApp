@@ -20,19 +20,19 @@ export const Artist = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="flex flex-col md:flex-row gap-8 mt-16">
+      <div className="mt-16 flex flex-col gap-8 md:flex-row">
         <div className="flex-1">
           <img
             src={data!.photo}
             alt="artist photo"
-            className="bg-gray-300 w-24 h-24 mb-4"
+            className="mb-4 h-24 w-24 bg-gray-300"
             loading="lazy"
           />
           <h3 className="font-semibold">{data!.name}</h3>
           <span>
             {data!.origin.country}, {data!.birthday.split('-')[0]}
           </span>
-          <Button size="sm" variant="inverse" className="w-full mt-2">
+          <Button size="sm" variant="inverse" className="mt-2 w-full">
             Follow
           </Button>
           {/* TODO: show number of followers of the artist here */}
@@ -59,12 +59,12 @@ export const Artist = () => {
           </Tab.Group>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-8 mt-16">
+      <div className="mt-16 flex flex-col gap-8 md:flex-row">
         <div className="flex-1">
           <h3 className="text-gray-500">Artworks</h3>
         </div>
         <div className="flex-[6]">
-          <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
             {isLoading
               ? Array.from({ length: 9 }, (_, i) => <ArtworkCardSkeleton key={i} />)
               : data!.artworks.map((artwork) => <ArtworkCard key={artwork.Id} artwork={artwork} />)}
@@ -77,33 +77,33 @@ export const Artist = () => {
 
 const ArtistSkeleton = () => {
   return (
-    <div className="container mx-auto px-4 animate-pulse">
-      <div className="flex flex-col md:flex-row gap-8 mt-16">
+    <div className="container mx-auto animate-pulse px-4">
+      <div className="mt-16 flex flex-col gap-8 md:flex-row">
         <div className="flex-1">
-          <div className="bg-gray-200 w-24 h-24 mb-4" />
-          <div className="bg-gray-200 w-28 h-4 mb-2" />
-          <div className="bg-gray-200 w-20 h-4 mb-2" />
-          <div className="bg-gray-200 w-full h-8" />
+          <div className="mb-4 h-24 w-24 bg-gray-200" />
+          <div className="mb-2 h-4 w-28 bg-gray-200" />
+          <div className="mb-2 h-4 w-20 bg-gray-200" />
+          <div className="h-8 w-full bg-gray-200" />
         </div>
         <div className="flex-[6]">
-          <div className="flex gap-4 mb-8">
-            <div className="bg-gray-200 w-20 h-4" />
-            <div className="bg-gray-200 w-20 h-4" />
-            <div className="bg-gray-200 w-20 h-4" />
+          <div className="mb-8 flex gap-4">
+            <div className="h-4 w-20 bg-gray-200" />
+            <div className="h-4 w-20 bg-gray-200" />
+            <div className="h-4 w-20 bg-gray-200" />
           </div>
-          <div className="bg-gray-200 w-full h-4 mb-2" />
-          <div className="bg-gray-200 w-full h-4 mb-2" />
-          <div className="bg-gray-200 w-full h-4 mb-2" />
-          <div className="bg-gray-200 w-full h-4 mb-2" />
-          <div className="bg-gray-200 w-full h-4" />
+          <div className="mb-2 h-4 w-full bg-gray-200" />
+          <div className="mb-2 h-4 w-full bg-gray-200" />
+          <div className="mb-2 h-4 w-full bg-gray-200" />
+          <div className="mb-2 h-4 w-full bg-gray-200" />
+          <div className="h-4 w-full bg-gray-200" />
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-8 mt-16">
+      <div className="mt-16 flex flex-col gap-8 md:flex-row">
         <div className="flex-1">
           <h3 className="text-gray-500">Artworks</h3>
         </div>
         <div className="flex-[6]">
-          <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
             {Array.from({ length: 9 }, (_, i) => (
               <ArtworkCardSkeleton key={i} />
             ))}

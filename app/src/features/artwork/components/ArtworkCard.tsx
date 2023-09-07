@@ -9,15 +9,15 @@ export const ArtworkCard = ({ artwork }: ArtworkProps) => {
   return (
     <Link
       to={`/artworks/${artwork.Id}`}
-      className="cursor-pointer flex flex-col gap-8 self-end border border-gray-300"
+      className="flex cursor-pointer flex-col gap-8 self-end border border-gray-300"
     >
       <img
         src={artwork.imageMediumQuality}
         alt="sample pic"
-        className="w-full bject-contain"
+        className="bject-contain w-full"
         loading="lazy"
       />
-      <div className="flex flex-col text-sm font-extralight p-2">
+      <div className="flex flex-col p-2 text-sm font-extralight">
         <h3 className="font-medium">{artwork.artist.name}</h3>
         <span>{artwork.title}</span>
         <span>{artwork.origin.country}</span>
@@ -29,13 +29,13 @@ export const ArtworkCard = ({ artwork }: ArtworkProps) => {
 
 export const ArtworkCardSkeleton = () => {
   return (
-    <div className="flex flex-col gap-8 self-end animate-pulse">
-      <div className={`w-full h-52 bg-gray-200`} />
+    <div className="flex animate-pulse flex-col gap-8 self-end">
+      <div className={`h-52 w-full bg-gray-200`} />
       <div className="flex flex-col gap-2 text-sm font-extralight">
-        <div className="w-[200px] h-4 bg-gray-200" />
-        <div className="w-[100px] h-4 bg-gray-200" />
-        <div className="w-[100px] h-4 bg-gray-200" />
-        <div className="w-[100px] h-4 bg-gray-200" />
+        <div className="h-4 w-[200px] bg-gray-200" />
+        <div className="h-4 w-[100px] bg-gray-200" />
+        <div className="h-4 w-[100px] bg-gray-200" />
+        <div className="h-4 w-[100px] bg-gray-200" />
       </div>
     </div>
   );

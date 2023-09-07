@@ -31,10 +31,10 @@ export const Artwork = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="flex flex-col md:flex-row gap-8 mt-16">
+      <div className="mt-16 flex flex-col gap-8 md:flex-row">
         <div className="flex-[3]">
-          <div className="flex flex-col md:flex-row gap-8">
-            <div className="flex-1 flex flex-col md:self-end">
+          <div className="flex flex-col gap-8 md:flex-row">
+            <div className="flex flex-1 flex-col md:self-end">
               <span>Save</span>
               <span>View in Room</span>
               <span>Share</span>
@@ -44,15 +44,15 @@ export const Artwork = () => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-8 mt-12">
-            <div className="flex-1 flex flex-col md:self-start">
+          <div className="mt-12 flex flex-col gap-8 md:flex-row">
+            <div className="flex flex-1 flex-col md:self-start">
               <span>{data!.artist.name}</span>
-              <Button variant="stone" className="w-full mt-2">
+              <Button variant="stone" className="mt-2 w-full">
                 Follow
               </Button>
             </div>
             <div className="flex-[4]">
-              <h3 className="text-sm text-stone-500 mb-4">
+              <h3 className="mb-4 text-sm text-stone-500">
                 About the <strong>{data!.title}</strong> artwork{' '}
                 {data?.collection ? (
                   <span>
@@ -69,7 +69,7 @@ export const Artwork = () => {
             <img
               src={data!.artist.photo}
               alt="artist photo"
-              className="bg-gray-300 h-24 w-24"
+              className="h-24 w-24 bg-gray-300"
               loading="lazy"
             />
             <div className="flex-1">
@@ -77,14 +77,14 @@ export const Artwork = () => {
               <span>
                 {data!.artist.origin.country}, {data!.artist.birthday.split('-')[0]}
               </span>
-              <Button size="sm" variant="stone" className="w-full mt-2">
+              <Button size="sm" variant="stone" className="mt-2 w-full">
                 Follow
               </Button>
             </div>
           </div>
           <hr className="my-4 w-full border-gray-400" />
           <div>
-            <h1 className="font-semibold text-xl"> {data!.title} </h1>
+            <h1 className="text-xl font-semibold"> {data!.title} </h1>
             <div className="flex flex-col text-gray-500">
               <span> {data!.year} </span>
               <span>
@@ -97,9 +97,9 @@ export const Artwork = () => {
             </div>
           </div>
           <hr className="my-4 w-full" />
-          <span className="font-semibold text-lg">${data!.price}</span>
+          <span className="text-lg font-semibold">${data!.price}</span>
           <Button
-            className="w-full mt-4"
+            className="mt-4 w-full"
             isLoading={addToCartLoading}
             onClick={async () => {
               if (addToCartLoading) return;
@@ -111,8 +111,8 @@ export const Artwork = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8 mt-12">
-        <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+      <div className="mt-12 flex flex-col gap-8 md:flex-row">
+        <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
           {artist?.name} Notable Works
         </div>
         <div className="flex-[6] overflow-hidden">
@@ -138,52 +138,52 @@ export const Artwork = () => {
 
 export const ArtworkSkeleton = () => {
   return (
-    <div className="container mx-auto px-4 animate-pulse">
-      <div className="flex flex-col md:flex-row gap-8 mt-16">
+    <div className="container mx-auto animate-pulse px-4">
+      <div className="mt-16 flex flex-col gap-8 md:flex-row">
         <div className="flex-[3]">
-          <div className="flex flex-col md:flex-row gap-8">
-            <div className="flex-1 self-end space-y-4">
+          <div className="flex flex-col gap-8 md:flex-row">
+            <div className="flex-1 space-y-4 self-end">
               <div className="h-4 w-24 bg-gray-200" />
               <div className="h-4 w-24 bg-gray-200" />
               <div className="h-4 w-24 bg-gray-200" />
             </div>
             <div className="flex-[4]">
-              <div className="w-full h-[400px] bg-gray-200" />
+              <div className="h-[400px] w-full bg-gray-200" />
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-8 mt-12">
-            <div className="flex-1 flex flex-col md:self-start">
-              <div className="w-[100px] h-4 bg-gray-200" />
-              <div className="w-[100px] h-4 bg-gray-200" />
+          <div className="mt-12 flex flex-col gap-8 md:flex-row">
+            <div className="flex flex-1 flex-col md:self-start">
+              <div className="h-4 w-[100px] bg-gray-200" />
+              <div className="h-4 w-[100px] bg-gray-200" />
             </div>
             <div className="flex-[4] space-y-4">
-              <div className="w-4/5 h-4 bg-gray-200" />
-              <div className="w-3/5 h-4 bg-gray-200" />
-              <div className="w-4/5 h-4 bg-gray-200" />
-              <div className="w-3/5 h-4 bg-gray-200" />
-              <div className="w-full h-4 bg-gray-200" />
-              <div className="w-4/5 h-4 bg-gray-200" />
+              <div className="h-4 w-4/5 bg-gray-200" />
+              <div className="h-4 w-3/5 bg-gray-200" />
+              <div className="h-4 w-4/5 bg-gray-200" />
+              <div className="h-4 w-3/5 bg-gray-200" />
+              <div className="h-4 w-full bg-gray-200" />
+              <div className="h-4 w-4/5 bg-gray-200" />
             </div>
           </div>
         </div>
         <div className="flex-1">
           <div className="flex flex-row gap-4">
-            <div className="bg-gray-300 h-24 w-24"></div>
+            <div className="h-24 w-24 bg-gray-300"></div>
             <div className="flex-1 space-y-4">
-              <div className="w-[100px] h-4 bg-gray-200" />
-              <div className="w-[100px] h-8 bg-gray-200" />
+              <div className="h-4 w-[100px] bg-gray-200" />
+              <div className="h-8 w-[100px] bg-gray-200" />
             </div>
           </div>
           <hr className="my-4 w-full border-gray-400" />
           <div className="space-y-4">
-            <div className="w-2/3 h-4 bg-gray-200" />
-            <div className="w-2/3 h-4 bg-gray-200" />
-            <div className="w-2/3 h-4 bg-gray-200" />
+            <div className="h-4 w-2/3 bg-gray-200" />
+            <div className="h-4 w-2/3 bg-gray-200" />
+            <div className="h-4 w-2/3 bg-gray-200" />
           </div>
           <hr className="my-4 w-full" />
-          <div className="w-[100px] h-4 bg-gray-200 mb-4" />
-          <div className="w-full h-12 bg-gray-200" />
+          <div className="mb-4 h-4 w-[100px] bg-gray-200" />
+          <div className="h-12 w-full bg-gray-200" />
         </div>
       </div>
     </div>
@@ -203,8 +203,8 @@ const SimilarArtworks = ({ artistId }: { artistId: number | undefined }) => {
 
   if (relatedArtworksLoading) {
     return (
-      <div className="flex flex-col md:flex-row gap-8 mt-12">
-        <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+      <div className="mt-12 flex flex-col gap-8 md:flex-row">
+        <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
           Similar Artworks
         </div>
         <div className="flex-[6] overflow-hidden">
@@ -223,8 +223,8 @@ const SimilarArtworks = ({ artistId }: { artistId: number | undefined }) => {
   return (
     <>
       {relatedArtworks?.results && relatedArtworks.results.length > 0 ? (
-        <div className="flex flex-col md:flex-row gap-8 mt-12">
-          <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+        <div className="mt-12 flex flex-col gap-8 md:flex-row">
+          <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
             Similar Artworks
           </div>
           <div className="flex-[6] overflow-hidden">
@@ -258,19 +258,19 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
 
   if (similarArtistsLoading) {
     return (
-      <div className="flex flex-col md:flex-row gap-8 mt-12">
-        <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+      <div className="mt-12 flex flex-col gap-8 md:flex-row">
+        <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
           Similar Artists
         </div>
         <div className="flex-[6] overflow-hidden">
           <swiper-container space-between="60" slides-per-view="auto" navigation scrollbar>
             {Array.from({ length: 3 }, (_) => (
               <swiper-slide style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}>
-                <div className="flex flex-col gap-1 w-full h-full items-center border border-stone-500 animate-pulse">
-                  <div className="w-[230px] h-[230px] bg-gray-300 mb-4" />
-                  <div className="w-[100px] h-4 bg-gray-200" />
-                  <div className="w-[100px] h-4 bg-gray-200" />
-                  <div className="w-full h-8 bg-gray-200 mt-2" />
+                <div className="flex h-full w-full animate-pulse flex-col items-center gap-1 border border-stone-500">
+                  <div className="mb-4 h-[230px] w-[230px] bg-gray-300" />
+                  <div className="h-4 w-[100px] bg-gray-200" />
+                  <div className="h-4 w-[100px] bg-gray-200" />
+                  <div className="mt-2 h-8 w-full bg-gray-200" />
                 </div>
               </swiper-slide>
             ))}
@@ -283,8 +283,8 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
   return (
     <>
       {similarArtists?.results && similarArtists.results.length > 0 ? (
-        <div className="flex flex-col md:flex-row gap-8 mt-12">
-          <div className="flex-1 flex flex-col md:self-start text-stone-500 font-extralight">
+        <div className="mt-12 flex flex-col gap-8 md:flex-row">
+          <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
             Similar Artists
           </div>
           <div className="flex-[6] overflow-hidden">
@@ -294,11 +294,11 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
                   style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}
                   key={artist.Id}
                 >
-                  <div className="flex flex-col gap-1 w-full h-full items-center border border-stone-500">
+                  <div className="flex h-full w-full flex-col items-center gap-1 border border-stone-500">
                     <img
                       src={artist.photo}
                       alt=""
-                      className="w-full h-full object-cover object-center mb-4"
+                      className="mb-4 h-full w-full object-cover object-center"
                       height={230}
                       width={230}
                     />
@@ -306,7 +306,7 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
                     <span className="text-sm">
                       {artist.origin.country}, {artist.birthday.split('-')[0]}
                     </span>
-                    <Button variant="stone" size="sm" className="w-full mt-2">
+                    <Button variant="stone" size="sm" className="mt-2 w-full">
                       Follow
                     </Button>
                   </div>

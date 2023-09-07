@@ -34,7 +34,7 @@ export const Notification = ({
   onDismiss,
 }: NotificationProps) => {
   return (
-    <div className="w-full flex flex-col items-center space-y-4 sm:items-start">
+    <div className="flex w-full flex-col items-center space-y-4 sm:items-start">
       <Transition
         appear
         show={true}
@@ -46,7 +46,7 @@ export const Notification = ({
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="max-w-sm w-full bg-white shadow-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+        <div className="pointer-events-auto w-full max-w-sm overflow-hidden bg-white shadow-lg ring-1 ring-black ring-opacity-5">
           <div className="p-4" role="alert" aria-label={title}>
             <div className="flex items-start">
               <div className="flex-shrink-0">{icons[type]}</div>
@@ -54,9 +54,9 @@ export const Notification = ({
                 <p className="text-sm font-medium text-gray-900">{title}</p>
                 <p className="mt-1 text-sm text-gray-500">{message}</p>
               </div>
-              <div className="ml-4 flex-shrink-0 flex">
+              <div className="ml-4 flex flex-shrink-0">
                 <button
-                  className="bg-white inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   onClick={() => {
                     onDismiss(id);
                   }}

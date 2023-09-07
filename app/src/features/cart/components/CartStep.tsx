@@ -4,7 +4,7 @@ type CartStepsProps = {
 
 export const CartSteps = ({ step }: CartStepsProps) => {
   return (
-    <div className="flex items-start flex-1 gap-4 font-extralight">
+    <div className="flex flex-1 items-start gap-4 font-extralight">
       <div className={step === 'shipping' ? 'text-teal-500 underline underline-offset-4' : ''}>
         Shipping
       </div>

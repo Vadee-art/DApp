@@ -38,9 +38,9 @@ export const ArtistsFilterForm = ({ filters, onChange }: Props) => {
   };
 
   return (
-    <div className="flex-1 hidden md:block text-sm">
+    <div className="hidden flex-1 text-sm md:block">
       <div
-        className={`font-semibold text-gray-500 mb-2 cursor-pointer flex justify-between items-center gap-4`}
+        className={`mb-2 flex cursor-pointer items-center justify-between gap-4 font-semibold text-gray-500`}
         onClick={() => toggleFilterVisibility('origin')}
       >
         <span>Regions</span>
@@ -58,7 +58,7 @@ export const ArtistsFilterForm = ({ filters, onChange }: Props) => {
         }`}
       >
         {filters!.origins.map((filter) => (
-          <div key={'origin-' + filter.Id} className="flex gap-1 items-center mt-1">
+          <div key={'origin-' + filter.Id} className="mt-1 flex items-center gap-1">
             <input
               type="checkbox"
               id={'origin-' + filter.Id}

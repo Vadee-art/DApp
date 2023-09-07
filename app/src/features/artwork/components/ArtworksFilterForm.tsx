@@ -51,11 +51,11 @@ export const ArtworksFilterForm = ({
   };
 
   return (
-    <div className="flex-1 hidden md:block text-sm">
+    <div className="hidden flex-1 text-sm md:block">
       {filtersToDisplay.includes('category') && (
         <>
           <div
-            className={`font-semibold text-gray-500 mb-2 cursor-pointer flex justify-between items-center gap-4`}
+            className={`mb-2 flex cursor-pointer items-center justify-between gap-4 font-semibold text-gray-500`}
             onClick={() => toggleFilterVisibility('category')}
           >
             <span>Genres</span>
@@ -73,7 +73,7 @@ export const ArtworksFilterForm = ({
             }`}
           >
             {filters!.categories.map((filter) => (
-              <div key={'category-' + filter.Id} className="flex gap-1 items-center mt-1">
+              <div key={'category-' + filter.Id} className="mt-1 flex items-center gap-1">
                 <input
                   type="checkbox"
                   id={'category-' + filter.Id}
@@ -91,9 +91,9 @@ export const ArtworksFilterForm = ({
       )}
       {filtersToDisplay.includes('sub_category') && (
         <>
-          <hr className="mt-6 mb-2" />
+          <hr className="mb-2 mt-6" />
           <div
-            className={`font-semibold text-gray-500 mb-2 cursor-pointer flex justify-between items-center gap-4`}
+            className={`mb-2 flex cursor-pointer items-center justify-between gap-4 font-semibold text-gray-500`}
             onClick={() => toggleFilterVisibility('sub_category')}
           >
             <span>Technic</span>
@@ -111,7 +111,7 @@ export const ArtworksFilterForm = ({
             }`}
           >
             {filters!.subCategories.map((filter) => (
-              <div key={'subcategory-' + filter.Id} className="flex gap-1 items-center mt-1">
+              <div key={'subcategory-' + filter.Id} className="mt-1 flex items-center gap-1">
                 <input
                   type="checkbox"
                   id={'subcategory-' + filter.Id}
@@ -132,9 +132,9 @@ export const ArtworksFilterForm = ({
       )}
       {filtersToDisplay.includes('origin') && (
         <>
-          <hr className="mt-6 mb-2" />
+          <hr className="mb-2 mt-6" />
           <div
-            className={`font-semibold text-gray-500 mb-2 cursor-pointer flex justify-between items-center gap-4`}
+            className={`mb-2 flex cursor-pointer items-center justify-between gap-4 font-semibold text-gray-500`}
             onClick={() => toggleFilterVisibility('origin')}
           >
             <span>Regions</span>
@@ -152,7 +152,7 @@ export const ArtworksFilterForm = ({
             }`}
           >
             {filters!.origins.map((filter) => (
-              <div key={'origin-' + filter.Id} className="flex gap-1 items-center mt-1">
+              <div key={'origin-' + filter.Id} className="mt-1 flex items-center gap-1">
                 <input
                   type="checkbox"
                   id={'origin-' + filter.Id}

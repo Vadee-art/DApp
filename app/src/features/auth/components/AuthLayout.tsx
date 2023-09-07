@@ -9,11 +9,11 @@ type LayoutProps = {
 export const AuthLayout = ({ children }: LayoutProps) => {
   return (
     <>
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex min-h-screen flex-col justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <div className="sm:mx-auto sm:w-full sm:max-w-md mb-2">
-              <div className="flex justify-center relative">
+          <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
+            <div className="mb-2 sm:mx-auto sm:w-full sm:max-w-md">
+              <div className="relative flex justify-center">
                 <img className="h-9 w-auto" src={logo} alt="Workflow" />
               </div>
             </div>

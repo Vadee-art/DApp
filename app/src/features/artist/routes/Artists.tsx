@@ -21,7 +21,7 @@ export const Artists = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="flex flex-col md:flex-row gap-8 mt-16">
+      <div className="mt-16 flex flex-col gap-8 md:flex-row">
         <h1 className="flex-1 font-bold">Artists</h1>
         <p className="flex-[4]">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates incidunt soluta
@@ -32,9 +32,9 @@ export const Artists = () => {
           adipisci?
         </p>
       </div>
-      <div className="flex flex-row gap-8 mt-16">
+      <div className="mt-16 flex flex-row gap-8">
         {filtersLoading ? (
-          <div className="bg-gray-200 animate-pulse flex-1 hidden md:block"></div>
+          <div className="hidden flex-1 animate-pulse bg-gray-200 md:block"></div>
         ) : (
           <ArtistsFilterForm
             filters={filters!}
@@ -44,7 +44,7 @@ export const Artists = () => {
           />
         )}
         <div className="flex-[4]">
-          <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
             {isLoading
               ? Array.from({ length: 9 }, (_, i) => <ArtistCardSkeleton key={i} />)
               : data!.results.map((artist) => <ArtistCard key={artist.Id} artist={artist} />)}

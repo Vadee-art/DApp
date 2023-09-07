@@ -30,7 +30,7 @@ export const Login = () => {
 
   return (
     <AuthLayout>
-      <h3 className="text-center text-gray-400 font-semibold mb-6">Login</h3>
+      <h3 className="mb-6 text-center font-semibold text-gray-400">Login</h3>
       <Form<LoginValues, typeof schema> onSubmit={onSubmit} schema={schema}>
         {({ register, formState }) => (
           <>
@@ -47,13 +47,13 @@ export const Login = () => {
               error={formState.errors['password']}
               registration={register('password')}
             />
-            <Button type="submit" variant="primary" className="w-full mt-8" isLoading={isLoading}>
+            <Button type="submit" variant="primary" className="mt-8 w-full" isLoading={isLoading}>
               Login
             </Button>
           </>
         )}
       </Form>
-      <div className="text-sm text-gray-500 mt-4">
+      <div className="mt-4 text-sm text-gray-500">
         Don't have an account?{' '}
         <Link to="/auth/register" className="text-teal-500">
           Sign up

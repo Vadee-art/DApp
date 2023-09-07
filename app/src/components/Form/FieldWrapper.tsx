@@ -16,7 +16,7 @@ export type FieldWrapperPassThroughProps = Omit<FieldWrapperProps, 'className' |
 export const FieldWrapper = (props: FieldWrapperProps) => {
   const { label, className, error, children, hidden } = props;
   return (
-    <div className={clsx('flex-1 mb-5', hidden ? 'hidden' : '')}>
+    <div className={clsx('mb-5 flex-1', hidden ? 'hidden' : '')}>
       {label ? (
         <label className={clsx('block text-sm font-medium text-gray-700', className)}>
           {label}
@@ -26,7 +26,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
         <div className={label && 'mt-1'}>{children}</div>
       )}
       {error?.message && (
-        <div role="alert" aria-label={error.message} className="text-xs text-red-500 mt-1">
+        <div role="alert" aria-label={error.message} className="mt-1 text-xs text-red-500">
           {error.message}
         </div>
       )}

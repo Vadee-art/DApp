@@ -27,11 +27,11 @@ export const Region = () => {
     <div className="container mx-auto px-4">
       {data?.results && data.results.length > 0 ? (
         // TODO: read origin data properly, when there is no artwork for this origin, the origin data is not fetched
-        <div className="flex flex-col md:flex-row gap-8 mt-16">
-          <div className="flex-1 flex flex-col gap-2">
+        <div className="mt-16 flex flex-col gap-8 md:flex-row">
+          <div className="flex flex-1 flex-col gap-2">
             <h1 className="font-bold"> {data?.results[0].origin.country} </h1>
             <img
-              className="w-14 h-auto object-cover object-center mb-4"
+              className="mb-4 h-auto w-14 object-cover object-center"
               src={data?.results[0].origin.flag}
               alt="flag"
             />
@@ -41,9 +41,9 @@ export const Region = () => {
       ) : (
         <RegionDescriptionSkeleton />
       )}
-      <div className="flex flex-row gap-8 mt-16">
+      <div className="mt-16 flex flex-row gap-8">
         {filtersLoading ? (
-          <div className="bg-gray-200 animate-pulse flex-1 hidden md:block"></div>
+          <div className="hidden flex-1 animate-pulse bg-gray-200 md:block"></div>
         ) : (
           <ArtworksFilterForm
             filtersToDisplay={['category', 'sub_category']}
@@ -55,7 +55,7 @@ export const Region = () => {
           />
         )}
         <div className="flex-[4]">
-          <div className="grid gap-x-4 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
             {isLoading
               ? Array.from({ length: 9 }, (_, i) => <ArtworkCardSkeleton key={i} />)
               : data!.results.map((artwork) => <ArtworkCard key={artwork.Id} artwork={artwork} />)}
@@ -75,14 +75,14 @@ export const Region = () => {
 
 const RegionDescriptionSkeleton = () => {
   return (
-    <div className="animate-pulse flex flex-col md:flex-row gap-8 mt-16">
-      <div className="flex-1 flex flex-col gap-2">
-        <div className="bg-gray-200 w-12 h-4"></div>
-        <div className="bg-gray-200 w-14 h-8"></div>
+    <div className="mt-16 flex animate-pulse flex-col gap-8 md:flex-row">
+      <div className="flex flex-1 flex-col gap-2">
+        <div className="h-4 w-12 bg-gray-200"></div>
+        <div className="h-8 w-14 bg-gray-200"></div>
       </div>
       <p className="flex-[4] whitespace-pre-line">
         {Array.from({ length: 4 }, (_, i) => (
-          <div key={i} className="bg-gray-200 w-full h-4 mb-2"></div>
+          <div key={i} className="mb-2 h-4 w-full bg-gray-200"></div>
         ))}
       </p>
     </div>

@@ -29,56 +29,56 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
   const { data: cart } = useGetCart();
   return (
     <>
-      <nav className="w-full flex flex-wrap items-center justify-between py-2 navbar-expand-lg bg-white">
+      <nav className="navbar-expand-lg flex w-full flex-wrap items-center justify-between bg-white py-2">
         <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
-          <div className="w-full relative flex justify-between gap-4 lg:static pt-4">
+          <div className="relative flex w-full justify-between gap-4 pt-4 lg:static">
             <Link
-              className="text-stone-500 text-xs leading-relaxed inline-block whitespace-nowrap text-center"
+              className="inline-block whitespace-nowrap text-center text-xs leading-relaxed text-stone-500"
               to="/"
             >
-              <img src={Logo} alt="RCL Logo" className="max-h-6 mb-2" />
+              <img src={Logo} alt="RCL Logo" className="mb-2 max-h-6" />
               <span>Let there be art</span>
             </Link>
-            <div className="flex items-start flex-1 ">
+            <div className="flex flex-1 items-start ">
               <label
                 htmlFor="search"
-                className="relative text-gray-400 focus-within:text-gray-600 block border border-stone-400 flex-1"
+                className="relative block flex-1 border border-stone-400 text-gray-400 focus-within:text-gray-600"
               >
-                <MagnifyingGlassIcon className="pointer-events-none w-6 h-6 absolute top-1/2 transform -translate-y-1/2 right-3" />
+                <MagnifyingGlassIcon className="pointer-events-none absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2 transform" />
                 <input
                   type="text"
                   name="search"
                   id="search"
-                  className="px-3 py-1 w-full focus:outline-1"
+                  className="w-full px-3 py-1 focus:outline-1"
                 />
               </label>
               {user ? (
                 <>
                   <Link
-                    className="relative text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    className="relative ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-stone-600 lg:mb-0"
                     to="/cart/shipping"
                   >
                     <ShoppingCartIcon className="h-6 w-6" />
                     {cart ? (
-                      <span className="absolute top-0 right-0 inline-flex items-center justify-center p-1 h-4 w-4 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+                      <span className="absolute right-0 top-0 inline-flex h-4 w-4 -translate-y-1/2 translate-x-1/2 transform items-center justify-center rounded-full bg-red-500 p-1 text-xs font-bold leading-none text-red-100">
                         {cart?.artworks.length}
                       </span>
                     ) : null}
                   </Link>
                   <Link
-                    className="text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    className="ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-stone-600 lg:mb-0"
                     to="/"
                   >
                     <BellIcon className="h-6 w-6" />
                   </Link>
                   <Link
-                    className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    className="ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
                     to="/"
                   >
                     <EnvelopeIcon className="h-6 w-6" />
                   </Link>
                   <Link
-                    className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    className="ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
                     to="/"
                   >
                     <UserIcon className="h-6 w-6" />
@@ -87,13 +87,13 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               ) : (
                 <>
                   <Link
-                    className="bg-stone-500 text-white active:bg-stone-600 px-3 py-1 shadow hover:shadow-md outline-none focus:outline-none lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    className="ml-2 bg-stone-500 px-3 py-1 text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-md focus:outline-none active:bg-stone-600 lg:mb-0"
                     to="/auth/login"
                   >
                     Log In
                   </Link>
                   <Link
-                    className="bg-black text-white active:bg-slate-950 px-3 py-1 shadow hover:shadow-md outline-none focus:outline-none lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    className="ml-2 bg-black px-3 py-1 text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-md focus:outline-none active:bg-slate-950 lg:mb-0"
                     to="/auth/register"
                   >
                     Sign Up
@@ -107,7 +107,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
       {showNav && (
         <nav className="mb-4">
           <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
-            <div className="flex items-start flex-1 gap-4 font-extralight">
+            <div className="flex flex-1 items-start gap-4 font-extralight">
               <NavLink
                 className={({ isActive }) =>
                   `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
@@ -145,9 +145,9 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
         </nav>
       )}
       <main>{children}</main>
-      <footer className="w-full bg-black mt-12 pt-12 pb-8">
-        <div className="container px-4 text-white mx-auto text-xs font-extralight">
-          <div className="flex flex-row items-stretch justify-between mb-12 flex-wrap gap-8">
+      <footer className="mt-12 w-full bg-black pb-8 pt-12">
+        <div className="container mx-auto px-4 text-xs font-extralight text-white">
+          <div className="mb-12 flex flex-row flex-wrap items-stretch justify-between gap-8">
             <img src={Icon} alt="VADEE Icon" className="object-contain" />
             <p className="max-w-[180px] leading-6">
               VADEE is an online marketplace to find photos & photographers from Middle East
@@ -179,7 +179,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
                 <input
                   type="email"
                   placeholder="Enter your Email here"
-                  className="text-xs px-2 text-black placeholder:text-stone-500 outline-none flex-1"
+                  className="flex-1 px-2 text-xs text-black outline-none placeholder:text-stone-500"
                 />
                 <Button size="xs" variant="stone">
                   Subscribe

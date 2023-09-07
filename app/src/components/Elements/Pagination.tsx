@@ -19,9 +19,9 @@ export const Pagination = (props: PaginationProps) => {
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex justify-center w-full mt-8">
+    <div className="mt-8 flex w-full justify-center">
       <ReactPaginate
-        className="flex flex-wrap gap-4 w-full text-gray-500"
+        className="flex w-full flex-wrap gap-4 text-gray-500"
         pageCount={totalPages}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
@@ -36,19 +36,19 @@ export const Pagination = (props: PaginationProps) => {
         containerClassName="flex flex-wrap gap-4 w-full text-gray-500"
         pageLinkClassName="hover:text-teal-500"
         activeLinkClassName="text-teal-500"
-        breakLabel={<EllipsisHorizontalIcon className="w-6 h-6" />}
+        breakLabel={<EllipsisHorizontalIcon className="h-6 w-6" />}
         breakLinkClassName=""
         nextAriaLabel="next page"
         previousAriaLabel="previous page"
         nextLabel={
-          <div className="flex gap-1 items-center hover:text-teal-500">
+          <div className="flex items-center gap-1 hover:text-teal-500">
             Next
-            <ChevronRightIcon className="w-4 h-4" />
+            <ChevronRightIcon className="h-4 w-4" />
           </div>
         }
         previousLabel={
-          <div className="flex gap-1 items-center hover:text-teal-500">
-            <ChevronLeftIcon className="w-4 h-4" />
+          <div className="flex items-center gap-1 hover:text-teal-500">
+            <ChevronLeftIcon className="h-4 w-4" />
             Prev
           </div>
         }

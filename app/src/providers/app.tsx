@@ -13,7 +13,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <React.Suspense
       fallback={
-        <div className="flex items-center justify-center w-screen h-screen transition-all duration-500 ease-in-out">
+        <div className="flex h-screen w-screen items-center justify-center transition-all duration-500 ease-in-out">
           Loading...
         </div>
       }

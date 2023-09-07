@@ -36,10 +36,10 @@ export const ProgressBar = ({ duration, reverse, variant = 'primary' }: Progress
   }, [duration]);
 
   return (
-    <div className="relative h-2 overflow-hidden w-full bg-gray-200">
+    <div className="relative h-2 w-full overflow-hidden bg-gray-200">
       <div
         className={clsx(
-          'absolute top-0 left-0 h-full transition-all duration-200 ease-linear',
+          'absolute left-0 top-0 h-full transition-all duration-200 ease-linear',
           variants[variant]
         )}
         style={{ width: `${progress}%` }}

@@ -32,16 +32,16 @@ export const Alert = ({
   return (
     <div
       className={clsx(
-        'container mx-auto px-6 py-4 border-0 rounded relative mb-4',
+        'container relative mx-auto mb-4 rounded border-0 px-6 py-4',
         variants[variant],
         className
       )}
     >
-      {icon && <span className="text-xl inline-block mr-5 align-middle">{icon}</span>}
-      <span className="inline-block align-middle ml-8">{props.children}</span>
+      {icon && <span className="mr-5 inline-block align-middle text-xl">{icon}</span>}
+      <span className="ml-8 inline-block align-middle">{props.children}</span>
       {dissmissible && (
         <button
-          className="absolute bg-transparent text-2xl font-semibold leading-none left-0 top-0 mt-4 ml-6 outline-none focus:outline-none"
+          className="absolute left-0 top-0 ml-6 mt-4 bg-transparent text-2xl font-semibold leading-none outline-none focus:outline-none"
           onClick={() => close()}
         >
           <span>×</span>
