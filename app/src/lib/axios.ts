@@ -2,6 +2,7 @@ import Axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { API_URL } from '@/config';
 import storage from '@/utils/storage';
+import { useNotificationStore } from '@/stores/notifications';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   const token = storage.getUser()?.token;
@@ -33,6 +34,11 @@ axios.interceptors.response.use(
   },
   (error) => {
     const message : string = error.response?.data?.message || error.message || 'Something went wrong';
+    useNotificationStore.getState().addNotification({
+      type: 'danger',
+      title: 'Error!',
+      message,
+    });
     return Promise.reject(message);
   }
 );
@@ -42,6 +48,11 @@ axiosWithoutAuth.interceptors.response.use(
   },
   (error) => {
     const message : string = error.response?.data?.message || error.message || 'Something went wrong';
+    useNotificationStore.getState().addNotification({
+      type: 'danger',
+      title: 'Error!',
+      message,
+    });
     return Promise.reject(message);
   }
 );
