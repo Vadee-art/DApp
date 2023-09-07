@@ -5,7 +5,7 @@ import { AppRoutes } from './routes';
 const router = createBrowserRouter([
   {
     path: '*',
-    element: <AppRoutes/>,
+    element: <AppRoutes />,
   },
 ]);
 

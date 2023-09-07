@@ -41,17 +41,17 @@ export const Pagination = (props: PaginationProps) => {
         nextAriaLabel="next page"
         previousAriaLabel="previous page"
         nextLabel={
-          <div className='flex gap-1 items-center hover:text-teal-500'>
+          <div className="flex gap-1 items-center hover:text-teal-500">
             Next
             <ChevronRightIcon className="w-4 h-4" />
           </div>
         }
         previousLabel={
-          <div className='flex gap-1 items-center hover:text-teal-500'>
+          <div className="flex gap-1 items-center hover:text-teal-500">
             <ChevronLeftIcon className="w-4 h-4" />
             Prev
           </div>
-      }
+        }
         nextLinkClassName=""
         previousLinkClassName=""
       />

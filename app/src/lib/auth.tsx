@@ -8,11 +8,7 @@ import {
   useQueryClient,
   UseQueryOptions,
 } from 'react-query';
-import {
-  AuthUser,
-  LoginCredentials,
-  login,
-} from '@/features/auth';
+import { AuthUser, LoginCredentials, login } from '@/features/auth';
 import React from 'react';
 import storage from '@/utils/storage';
 

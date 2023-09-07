@@ -26,11 +26,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
         <div className={label && 'mt-1'}>{children}</div>
       )}
       {error?.message && (
-        <div
-          role="alert"
-          aria-label={error.message}
-          className="text-xs text-red-500 mt-1"
-        >
+        <div role="alert" aria-label={error.message} className="text-xs text-red-500 mt-1">
           {error.message}
         </div>
       )}

@@ -10,15 +10,21 @@ import USDTIcon from '@/assets/img/USDT_icon.png';
 import { FaLinkedinIn, FaInstagram, FaFacebookF } from 'react-icons/fa';
 
 import { useUser } from '@/lib/auth';
-import { BellIcon, EnvelopeIcon, MagnifyingGlassIcon, ShoppingCartIcon, UserIcon } from '@heroicons/react/24/outline';
+import {
+  BellIcon,
+  EnvelopeIcon,
+  MagnifyingGlassIcon,
+  ShoppingCartIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline';
 import { Button } from '../Elements';
 import { useGetCart } from '@/features/cart/api/getCart';
 
 type MainLayouProps = {
   children: React.ReactNode;
   showNav?: boolean;
-}
-export const MainLayout = ({ children, showNav = true}: MainLayouProps) => {
+};
+export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
   const { data: user } = useUser({});
   const { data: cart } = useGetCart();
   return (
@@ -34,55 +40,64 @@ export const MainLayout = ({ children, showNav = true}: MainLayouProps) => {
               <span>Let there be art</span>
             </Link>
             <div className="flex items-start flex-1 ">
-
-            <label htmlFor="search" className="relative text-gray-400 focus-within:text-gray-600 block border border-stone-400 flex-1">
-              <MagnifyingGlassIcon className="pointer-events-none w-6 h-6 absolute top-1/2 transform -translate-y-1/2 right-3" />
-              <input type="text" name="search" id="search" className="px-3 py-1 w-full focus:outline-1" />
-            </label>
+              <label
+                htmlFor="search"
+                className="relative text-gray-400 focus-within:text-gray-600 block border border-stone-400 flex-1"
+              >
+                <MagnifyingGlassIcon className="pointer-events-none w-6 h-6 absolute top-1/2 transform -translate-y-1/2 right-3" />
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  className="px-3 py-1 w-full focus:outline-1"
+                />
+              </label>
               {user ? (
                 <>
-                <Link
-                  className="relative text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
-                  to="/cart/shipping"
-                >
-                  <ShoppingCartIcon className="h-6 w-6" />
-                  {cart ? (
-                    <span className="absolute top-0 right-0 inline-flex items-center justify-center p-1 h-4 w-4 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">{cart?.artworks.length}</span>
-                  ) : null}
-                </Link>
-                <Link
-                  className="text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
-                  to="/"
-                >
-                  <BellIcon className="h-6 w-6" /> 
-                </Link>
-                <Link
-                  className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
-                  to="/"
-                >
-                  <EnvelopeIcon className="h-6 w-6" />
-                </Link>
-                <Link
-                  className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
-                  to="/"
-                >
-                  <UserIcon className="h-6 w-6" />
-                </Link>
+                  <Link
+                    className="relative text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    to="/cart/shipping"
+                  >
+                    <ShoppingCartIcon className="h-6 w-6" />
+                    {cart ? (
+                      <span className="absolute top-0 right-0 inline-flex items-center justify-center p-1 h-4 w-4 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+                        {cart?.artworks.length}
+                      </span>
+                    ) : null}
+                  </Link>
+                  <Link
+                    className="text-stone-400 active:bg-stone-600 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    to="/"
+                  >
+                    <BellIcon className="h-6 w-6" />
+                  </Link>
+                  <Link
+                    className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    to="/"
+                  >
+                    <EnvelopeIcon className="h-6 w-6" />
+                  </Link>
+                  <Link
+                    className="text-stone-400 active:bg-slate-950 px-1 py-1 outline-none focus:outline-none border border-stone-400 lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    to="/"
+                  >
+                    <UserIcon className="h-6 w-6" />
+                  </Link>
                 </>
               ) : (
                 <>
-                <Link
-                  className="bg-stone-500 text-white active:bg-stone-600 px-3 py-1 shadow hover:shadow-md outline-none focus:outline-none lg:mb-0 ml-2 ease-linear transition-all duration-150"
-                  to="/auth/login"
-                >
-                  Log In
-                </Link>
-                <Link
-                  className="bg-black text-white active:bg-slate-950 px-3 py-1 shadow hover:shadow-md outline-none focus:outline-none lg:mb-0 ml-2 ease-linear transition-all duration-150"
-                  to="/auth/register"
-                >
-                  Sign Up
-                </Link>
+                  <Link
+                    className="bg-stone-500 text-white active:bg-stone-600 px-3 py-1 shadow hover:shadow-md outline-none focus:outline-none lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    to="/auth/login"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    className="bg-black text-white active:bg-slate-950 px-3 py-1 shadow hover:shadow-md outline-none focus:outline-none lg:mb-0 ml-2 ease-linear transition-all duration-150"
+                    to="/auth/register"
+                  >
+                    Sign Up
+                  </Link>
                 </>
               )}
             </div>
@@ -90,79 +105,100 @@ export const MainLayout = ({ children, showNav = true}: MainLayouProps) => {
         </div>
       </nav>
       {showNav && (
-      <nav className='mb-4'>
-        <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
-          <div className="flex items-start flex-1 gap-4 font-extralight">
-            <NavLink
-              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
-              to="/"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
-              to="/artists">
-              Photographers
-            </NavLink>
-            <NavLink
-              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
-              to="/artworks">
-              Artworks
-            </NavLink>
-            <NavLink
-              className={({isActive}) => `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`}
-              to="/regions">
-              Regions
-            </NavLink>
+        <nav className="mb-4">
+          <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
+            <div className="flex items-start flex-1 gap-4 font-extralight">
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                }
+                to="/"
+              >
+                Home
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                }
+                to="/artists"
+              >
+                Photographers
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                }
+                to="/artworks"
+              >
+                Artworks
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                }
+                to="/regions"
+              >
+                Regions
+              </NavLink>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
       )}
       <main>{children}</main>
       <footer className="w-full bg-black mt-12 pt-12 pb-8">
         <div className="container px-4 text-white mx-auto text-xs font-extralight">
-          <div className='flex flex-row items-stretch justify-between mb-12 flex-wrap gap-8'>
-            <img src={Icon} alt="VADEE Icon" className='object-contain'/>
-            <p className='max-w-[180px] leading-6'>
+          <div className="flex flex-row items-stretch justify-between mb-12 flex-wrap gap-8">
+            <img src={Icon} alt="VADEE Icon" className="object-contain" />
+            <p className="max-w-[180px] leading-6">
               VADEE is an online marketplace to find photos & photographers from Middle East
             </p>
-            <div className='flex flex-col gap-2'>
+            <div className="flex flex-col gap-2">
               <a href="#">About us</a>
               <a href="#">Contact</a>
               <a href="#">Support</a>
             </div>
-            <div className='flex flex-col gap-2'>
+            <div className="flex flex-col gap-2">
               <a href="#">Terms & Conditions</a>
               <a href="#">Copyright Policy</a>
               <a href="#">Cookie Policy</a>
             </div>
-            <div className='flex flex-col gap-3'>
-              <a href="#"><FaLinkedinIn size={16} /></a>
-              <a href="#"><FaInstagram size={16} /></a>
-              <a href="#"><FaFacebookF size={16} /></a>
+            <div className="flex flex-col gap-3">
+              <a href="#">
+                <FaLinkedinIn size={16} />
+              </a>
+              <a href="#">
+                <FaInstagram size={16} />
+              </a>
+              <a href="#">
+                <FaFacebookF size={16} />
+              </a>
             </div>
-            <div className='flex flex-col justify-between gap-4'>
+            <div className="flex flex-col justify-between gap-4">
               <h3>Signup to Discover photos from Middle East</h3>
-              <div className='flex flex-row'>
-                <input type='email' placeholder='Enter your Email here' className='text-xs px-2 text-black placeholder:text-stone-500 outline-none flex-1'/>
-                <Button size='xs' variant='stone'>Subscribe</Button>
+              <div className="flex flex-row">
+                <input
+                  type="email"
+                  placeholder="Enter your Email here"
+                  className="text-xs px-2 text-black placeholder:text-stone-500 outline-none flex-1"
+                />
+                <Button size="xs" variant="stone">
+                  Subscribe
+                </Button>
               </div>
             </div>
           </div>
-          <div className='flex flex-row items-center justify-between'>
-            <div className='flex flex-row gap-8 md:gap-16'>
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row gap-8 md:gap-16">
               <LogoSvg fill="white" />
-              <span>
-                © 2021 VADEE
-              </span>
+              <span>© 2021 VADEE</span>
             </div>
 
-            <div className='flex flex-row gap-8 lg:gap-64'>
-              <div className='flex gap-1'>
+            <div className="flex flex-row gap-8 lg:gap-64">
+              <div className="flex gap-1">
                 <span>$</span>
                 <img src={AmericanFlag} alt="american flag" />
               </div>
-              <div className='flex gap-4'>
+              <div className="flex gap-4">
                 <img src={USDTIcon} alt="usdt icon" />
                 <img src={MasterCardLogo} alt="mastercard logo" />
                 <img src={PaypalLogo} alt="paypal logo" />

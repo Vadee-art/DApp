@@ -1,4 +1,4 @@
-import { Origin } from "@/features/artwork/types";
+import { Origin } from '@/features/artwork/types';
 
 export type Artist = {
   Id: number;

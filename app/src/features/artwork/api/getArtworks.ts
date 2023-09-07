@@ -1,12 +1,12 @@
-import { axiosWithoutAuth } from "@/lib/axios"
-import { useQuery } from "react-query";
-import { Artwork } from "../types";
+import { axiosWithoutAuth } from '@/lib/axios';
+import { useQuery } from 'react-query';
+import { Artwork } from '../types';
 
 export type ArtworksFilters = {
   category: number[];
   origin: number[];
   sub_category: number[];
-}
+};
 
 export type getArtworksParams = {
   page?: number;
@@ -18,13 +18,15 @@ export type getArtworksResponse = {
   next: string | null;
   previous: string | null;
   results: Artwork[];
-}
+};
 
 export const getArtworks = ({
   page = 1,
   page_size = 9,
-  category, sub_category, origin
-} : getArtworksParams) : Promise<getArtworksResponse> => {
+  category,
+  sub_category,
+  origin,
+}: getArtworksParams): Promise<getArtworksResponse> => {
   return axiosWithoutAuth.get('/artworks', {
     params: {
       page,
@@ -34,8 +36,8 @@ export const getArtworks = ({
       origin: origin,
     },
   });
-}
+};
 
 export const useGetArtworks = (params: getArtworksParams) => {
   return useQuery<getArtworksResponse, string>(['artworks', params], () => getArtworks(params));
-}
+};

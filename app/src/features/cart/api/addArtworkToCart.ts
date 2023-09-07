@@ -1,8 +1,8 @@
-import { axios } from "@/lib/axios";
-import { useMutation } from "react-query";
-import { queryClient } from "@/lib/react-query";
-import { Cart } from "../types";
-import { useNotificationStore } from "@/stores/notifications";
+import { axios } from '@/lib/axios';
+import { useMutation } from 'react-query';
+import { queryClient } from '@/lib/react-query';
+import { Cart } from '../types';
+import { useNotificationStore } from '@/stores/notifications';
 
 export type AddArtworkToCartParams = {
   artworkId: number;
@@ -10,12 +10,14 @@ export type AddArtworkToCartParams = {
 
 export type AddArtworkToCartResponse = Cart;
 
-export const addArtworkToCart = (params: AddArtworkToCartParams): Promise<AddArtworkToCartResponse> => {
-    return axios.post('/cart/', params);
-}
+export const addArtworkToCart = (
+  params: AddArtworkToCartParams
+): Promise<AddArtworkToCartResponse> => {
+  return axios.post('/cart/', params);
+};
 
 export const useAddArtworkToCart = () => {
-  const {addNotification} = useNotificationStore();
+  const { addNotification } = useNotificationStore();
 
   return useMutation(addArtworkToCart, {
     onSuccess: (data) => {
@@ -27,4 +29,4 @@ export const useAddArtworkToCart = () => {
       queryClient.setQueryData(['cart'], data);
     },
   });
-}
+};

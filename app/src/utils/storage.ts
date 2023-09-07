@@ -1,4 +1,4 @@
-import { AuthUser } from "@/features/auth";
+import { AuthUser } from '@/features/auth';
 
 const storagePrefix = 'vadee_';
 

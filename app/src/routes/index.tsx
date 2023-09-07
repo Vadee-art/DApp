@@ -31,7 +31,7 @@ export const AppRoutes = () => {
       path: '/artworks/*',
       element: (
         <MainLayout>
-          <ArtworkRoutes/>
+          <ArtworkRoutes />
         </MainLayout>
       ),
     },
@@ -39,7 +39,7 @@ export const AppRoutes = () => {
       path: '/artists/*',
       element: (
         <MainLayout>
-          <ArtistRoutes/>
+          <ArtistRoutes />
         </MainLayout>
       ),
     },
@@ -47,18 +47,20 @@ export const AppRoutes = () => {
       path: '/regions/*',
       element: (
         <MainLayout>
-          <RegionRoutes/>
+          <RegionRoutes />
         </MainLayout>
       ),
-    }
+    },
   ];
 
   const routes = user ? protectedRoutes : publicRoutes;
 
   const element = useRoutes([...commonRoutes, ...routes]);
 
-  return <>
-    <ScrollToTop />
-    {element}
-  </>;
+  return (
+    <>
+      <ScrollToTop />
+      {element}
+    </>
+  );
 };

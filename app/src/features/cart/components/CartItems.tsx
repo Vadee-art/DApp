@@ -1,19 +1,25 @@
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useGetCart } from "../api/getCart";
-import { useDeleteArtworkFromCart } from "../api/deleteArtworkFromCart";
-import PulseLoader from "react-spinners/PulseLoader";
-import { Alert } from "@/components/Elements/Alert";
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useGetCart } from '../api/getCart';
+import { useDeleteArtworkFromCart } from '../api/deleteArtworkFromCart';
+import PulseLoader from 'react-spinners/PulseLoader';
+import { Alert } from '@/components/Elements/Alert';
 
 export const CartItems = () => {
   const { data: cart, isLoading: cartLoading, error: cartError } = useGetCart();
-  const { mutateAsync: removeCartItem, isLoading: removeCartItemLoading } = useDeleteArtworkFromCart();
+  const { mutateAsync: removeCartItem, isLoading: removeCartItemLoading } =
+    useDeleteArtworkFromCart();
 
   if (cartLoading) {
     return <CartItemsSkeleton />;
   }
 
   if (cartError) {
-    return <Alert variant="danger" dissmissible={false}> Error loading cart items </Alert>
+    return (
+      <Alert variant="danger" dissmissible={false}>
+        {' '}
+        Error loading cart items{' '}
+      </Alert>
+    );
   }
 
   return (
@@ -26,7 +32,11 @@ export const CartItems = () => {
       {cart?.artworks.map((artwork) => (
         <div className="flex flex-row gap-4 mb-2 border-b">
           <div>
-            <img src={artwork.imageMediumQuality} alt={artwork.title} className="w-32 h-32 object-cover object-center" />
+            <img
+              src={artwork.imageMediumQuality}
+              alt={artwork.title}
+              className="w-32 h-32 object-cover object-center"
+            />
           </div>
           <div className="flex flex-col flex-1 justify-between">
             <div className="flex">
@@ -34,9 +44,12 @@ export const CartItems = () => {
                 <span className="font-normal">{artwork.artist.name}</span>
                 <span className="font-extralight text-sm">{artwork.title}</span>
               </div>
-              <div className="flex items-start cursor-pointer" onClick={async () => {
-                await removeCartItem({artworkId: artwork.Id});
-              }}>
+              <div
+                className="flex items-start cursor-pointer"
+                onClick={async () => {
+                  await removeCartItem({ artworkId: artwork.Id });
+                }}
+              >
                 <XMarkIcon className="h-4 w-4 text-gray-500" aria-hidden="true" />
               </div>
             </div>
@@ -53,8 +66,8 @@ export const CartItems = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 const CartItemsSkeleton = () => {
   return (
@@ -82,5 +95,5 @@ const CartItemsSkeleton = () => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};

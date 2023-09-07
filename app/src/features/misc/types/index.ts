@@ -1,5 +1,5 @@
-import { Artist } from "@/features/artist/types";
-import { Artwork, Category, Origin, SubCategory } from "@/features/artwork/types";
+import { Artist } from '@/features/artist/types';
+import { Artwork, Category, Origin, SubCategory } from '@/features/artwork/types';
 
 export type Homepage = {
   carousels: Artwork[];

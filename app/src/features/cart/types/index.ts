@@ -1,4 +1,4 @@
-import { Artwork } from "@/features/artwork/types"
+import { Artwork } from '@/features/artwork/types';
 
 export type Cart = {
   artworks: Artwork[];

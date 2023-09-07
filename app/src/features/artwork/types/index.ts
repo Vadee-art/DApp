@@ -1,4 +1,4 @@
-import { Artist } from "@/features/artist/types";
+import { Artist } from '@/features/artist/types';
 
 export type Artwork = {
   Id: number;
@@ -48,7 +48,7 @@ export type Artwork = {
   owner: string | null;
   artist: Artist;
   createdBy: number;
-}
+};
 
 export type Category = {
   Id: number;
@@ -57,7 +57,7 @@ export type Category = {
   createdAt: string;
   isFeatured: boolean;
   image: string;
-}
+};
 
 export type SubCategory = {
   Id: number;
@@ -65,7 +65,7 @@ export type SubCategory = {
   createdAt: string;
   updatedAt: string;
   category: number;
-}
+};
 
 export type Origin = {
   Id: number;

@@ -20,4 +20,4 @@ export const useRegister = (onSuccess: any) => {
       onSuccess(data);
     },
   });
-}
+};

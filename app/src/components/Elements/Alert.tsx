@@ -30,7 +30,13 @@ export const Alert = ({
   }
 
   return (
-    <div className={clsx('container mx-auto px-6 py-4 border-0 rounded relative mb-4', variants[variant], className)}>
+    <div
+      className={clsx(
+        'container mx-auto px-6 py-4 border-0 rounded relative mb-4',
+        variants[variant],
+        className
+      )}
+    >
       {icon && <span className="text-xl inline-block mr-5 align-middle">{icon}</span>}
       <span className="inline-block align-middle ml-8">{props.children}</span>
       {dissmissible && (
