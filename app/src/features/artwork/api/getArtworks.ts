@@ -31,9 +31,9 @@ export const getArtworks = ({
     params: {
       page,
       page_size,
-      category: category,
-      sub_category: sub_category,
-      origin: origin,
+      category: category?.join(','),
+      sub_category: sub_category?.join(','),
+      origin: origin?.join(','),
     },
   });
 };
