@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Artwork as ArtworkType } from '../types';
+import { Artwork } from '../types';
+import { Artist } from '@/features/artist/types';
 
 type ArtworkProps = {
-  artwork: ArtworkType;
+  artwork: Pick<Artwork, 'Id' | 'imageMediumQuality' | 'title' | 'origin' | 'price'> & {
+    artist: Pick<Artist, 'name'>
+  }
 };
 
 export const ArtworkCard = ({ artwork }: ArtworkProps) => {
