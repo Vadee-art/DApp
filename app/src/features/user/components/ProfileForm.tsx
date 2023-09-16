@@ -2,6 +2,7 @@ import * as z from 'zod';
 
 import { Form, InputField } from '@/components/Form';
 import { Button } from '@/components/Elements';
+import { User } from '../types';
 
 const schema = z.object({
   address: z.string().min(1).max(255),
@@ -24,7 +25,7 @@ type ProfileValues = {
 };
 
 type ProfileFormProps = {
-  onSubmit: (values: ProfileValues) => Promise<void>;
+  onSubmit: (values: ProfileValues) => Promise<User>;
   isLoading: boolean;
   defaultValues?: ProfileValues;
 };

@@ -9,7 +9,7 @@ export type GetCityParams = {
 export type GetCityResponse = City;
 
 export const getCity = (params: GetCityParams): Promise<GetCityResponse> => {
-  return axios.get(`/geo/subregions/${params.id}`);
+  return axios.get(`/geo/cities/${params.id}`);
 };
 
 export const useGetCity = (
