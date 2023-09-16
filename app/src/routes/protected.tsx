@@ -1,12 +1,15 @@
 import { MainLayout } from '@/components/Layout';
-import { CartRoutes } from '@/features/cart/routes';
+import { lazyImport } from '@/utils/lazyImport';
+
+const { UserRoutes } = lazyImport(() => import('@/features/user/routes'), 'UserRoutes');
+const { CartRoutes } = lazyImport(() => import('@/features/cart/routes'), 'CartRoutes');
 
 export const protectedRoutes = [
   {
     path: '/user/*',
     element: (
       <MainLayout>
-        <h1>User Dashboard</h1>
+        <UserRoutes />
       </MainLayout>
     ),
   },
