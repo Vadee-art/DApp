@@ -13,10 +13,8 @@ export const Profile = () => {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl">
-          <ProfileFormSkeleton />
-        </div>
+      <div className="max-w-3xl">
+        <ProfileFormSkeleton />
       </div>
     )
   }
@@ -28,21 +26,19 @@ export const Profile = () => {
   }
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="max-w-3xl">
-        <ProfileForm onSubmit={(v) => updateProfile({
-          id: user!.id,
-          data: v
-        })} isLoading={updateProfileLoading} defaultValues={{
-          address: data?.address || '',
-          country: data?.country?.id || 0,
-          province: data?.region?.id || 0,
-          city: data?.city?.id || 0,
-          email: data?.email || '',
-          phoneNumber: data?.phoneNumber || '',
-          postalCode: data?.postalCode || '',
-        }}/>
-      </div>
+    <div className="max-w-3xl">
+      <ProfileForm onSubmit={(v) => updateProfile({
+        id: user!.id,
+        data: v
+      })} isLoading={updateProfileLoading} defaultValues={{
+        address: data?.address || '',
+        country: data?.country?.id || 0,
+        province: data?.region?.id || 0,
+        city: data?.city?.id || 0,
+        email: data?.email || '',
+        phoneNumber: data?.phoneNumber || '',
+        postalCode: data?.postalCode || '',
+      }}/>
     </div>
   )
 }

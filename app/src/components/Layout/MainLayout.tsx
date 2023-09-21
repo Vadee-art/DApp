@@ -82,7 +82,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
                   </Link>
                   <Link
                     className="ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
-                    to="/"
+                    to="/profile/info"
                   >
                     <UserIcon className="h-6 w-6" />
                   </Link>
