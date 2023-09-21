@@ -3,12 +3,17 @@ import * as z from 'zod';
 import { Form, InputField } from '@/components/Form';
 import { Button } from '@/components/Elements';
 import { User } from '../types';
+import { SelectField } from '@/components/Form/SelectField';
+import { useGetCountries } from '@/features/geo/api/getCountries';
+import { FormState, UseFormRegister } from 'react-hook-form';
+import { useGetRegions } from '@/features/geo/api/getRegions';
+import { useGetCities } from '@/features/geo/api/getCities';
 
 const schema = z.object({
   address: z.string().min(1).max(255),
-  country: z.string().min(1).max(255),
-  province: z.string().min(1).max(255),
-  city: z.string().min(1).max(255),
+  country: z.number().min(1),
+  province: z.number().min(1),
+  city: z.number().min(1),
   postalCode: z.string().min(1).max(255),
   phoneNumber: z.string().min(1).max(255),
   email: z.string().min(1).max(255).email(),
@@ -16,9 +21,9 @@ const schema = z.object({
 
 type ProfileValues = {
   address: string;
-  country: string;
-  province: string;
-  city: string;
+  country: number;
+  province: number;
+  city: number;
   postalCode: string;
   phoneNumber: string;
   email: string;
@@ -31,10 +36,38 @@ type ProfileFormProps = {
 };
 
 export const ProfileForm = ({ onSubmit, isLoading, defaultValues }: ProfileFormProps) => {
+  
   return (
     <div>
       <Form<ProfileValues, typeof schema> onSubmit={onSubmit} schema={schema} options={{defaultValues}}>
-        {({ register, formState }) => (
+        {({ register, formState, watch }) => (
+          <MyForm register={register} formState={formState} watch={watch} isLoading={isLoading} />
+        )}
+      </Form>
+    </div>
+  );
+};
+
+type MyFormProps = {
+  register: UseFormRegister<ProfileValues>;
+  formState: FormState<ProfileValues>;
+  watch: any;
+  isLoading: boolean;
+};
+
+const MyForm = ({ register, formState, watch, isLoading }: MyFormProps) => {
+  const country = watch('country');
+  const region = watch('province');
+  const { data: countries, isLoading: countriesLoading } = useGetCountries({});
+  const { data: regions, isLoading: regionsLoading } = useGetRegions({
+    country: country
+  }, { enabled: !!country })
+  const { data: cities, isLoading: citiesLoading } = useGetCities({
+    country: country,
+    region: region
+  }, { enabled: !!country && !!region })
+
+  return (
           <>
             <InputField
               autoFocus
@@ -44,25 +77,37 @@ export const ProfileForm = ({ onSubmit, isLoading, defaultValues }: ProfileFormP
               registration={register('address')}
             />
             <div className='flex gap-4'>
-              <InputField
-                type="text"
+              <SelectField
                 label="Country"
                 error={formState.errors['country']}
-                registration={register('country')}
+                registration={register('country', {valueAsNumber: true})}
+                isLoading={countriesLoading}
+                options={[{label: 'select', value: 0}].concat(countries?.results.map((c) => ({
+                  label: c.name,
+                  value: c.id,
+                })) || [])}
               />
-              <InputField
-                type="text"
+              <SelectField
                 label="State"
                 error={formState.errors['province']}
-                registration={register('province')}
+                registration={register('province', {valueAsNumber: true})}
+                isLoading={regionsLoading}
+                options={[{label: 'select', value: 0}].concat(regions?.results.map((r) => ({
+                  label: r.displayName,
+                  value: r.id,
+                })) || [])}
               />
             </div>
             <div className='flex gap-4'>
-              <InputField
-                type="text"
+              <SelectField
                 label="City"
                 error={formState.errors['city']}
-                registration={register('city')}
+                registration={register('city', {valueAsNumber: true})}
+                isLoading={citiesLoading}
+                options={[{label: 'select', value: 0}].concat(cities?.results.map((c) => ({
+                  label: c.displayName,
+                  value: c.id,
+                })) || [])}
               />
               <InputField
                 type="text"
@@ -87,11 +132,9 @@ export const ProfileForm = ({ onSubmit, isLoading, defaultValues }: ProfileFormP
               Save
             </Button>
           </>
-        )}
-      </Form>
-    </div>
-  );
-};
+
+  )
+}
 
 export const ProfileFormSkeleton = () => {
   return (

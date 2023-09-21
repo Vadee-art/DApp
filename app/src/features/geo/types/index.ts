@@ -1,4 +1,5 @@
 export type Country = {
+  id: number;
   url: string;
   name: string;
   nameAscii: string;
@@ -13,6 +14,7 @@ export type Country = {
 }
 
 export type Region = {
+  id: number;
   url: string;
   country: string;
   name: string;
@@ -24,6 +26,7 @@ export type Region = {
 }
 
 export type SubRegion = {
+  id: number;
   url: string;
   country: string;
   region: string;
@@ -36,6 +39,7 @@ export type SubRegion = {
 }
 
 export type City = {
+  id: number;
   url: string;
   country: string;
   region: string;

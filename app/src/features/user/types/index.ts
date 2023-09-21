@@ -1,8 +1,11 @@
+import { City, Country, Region } from "@/features/geo/types";
+
 export type User = {
   about: string;
   address: string;
-  city: string | null;
-  country: string | null;
+  country: Country | null;
+  region: Region | null;
+  city: City | null;
   createdAt: Date;
   email: string;
   firstName: string;
@@ -12,8 +15,6 @@ export type User = {
   phoneNumber: string;
   postalCode: string;
   profilePicture: string | null;
-  province: string | null;
-  region: string | null;
   userName: string;
   walletAddress: string | null;
 }

@@ -15,7 +15,7 @@ export type GetCountriesResponse = {
 };
 
 export const getCountries = (params: GetCountriesParams): Promise<GetCountriesResponse> => {
-  return axios.get('/geo/counties/', { params });
+  return axios.get('/geo/countries/', { params });
 };
 
 export const useGetCountries = (
