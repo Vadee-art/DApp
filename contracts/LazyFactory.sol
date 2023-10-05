@@ -32,6 +32,7 @@ contract LazyFactory is
     struct Voucher {
         string title;
         uint256 artworkId;
+        uint256 id;
         string editionNumber;
         string edition;
         uint256 priceWei;
@@ -77,13 +78,13 @@ contract LazyFactory is
         payable(artist).transfer(amount - (100 - vadeeFee));
         payable(vadeeAddress).transfer(amount * vadeeFee);
 
-        _mint(artist, voucher.artworkId);
-        _setTokenURI(voucher.artworkId, voucher.tokenUri);
+        _mint(artist, voucher.id);
+        _setTokenURI(voucher.id, voucher.tokenUri);
 
         // transfer the token to the buyer
-        _transfer(artist, buyer, voucher.artworkId);
+        _transfer(artist, buyer, voucher.id);
 
-        emit RedeemedAndMinted(voucher.artworkId);
+        emit RedeemedAndMinted(voucher.id);
     }
 
     function _hash(Voucher calldata voucher) internal view returns (bytes32) {
@@ -95,6 +96,7 @@ contract LazyFactory is
                         VOUCHER_TYPEHASH,
                         keccak256(bytes(voucher.title)),
                         voucher.artworkId,
+                        voucher.id,
                         keccak256(bytes(voucher.editionNumber)),
                         keccak256(bytes(voucher.edition)),
                         voucher.priceWei,
