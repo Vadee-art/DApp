@@ -29,7 +29,7 @@ export const Regions = () => {
             <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
               {origin.artworks.map((artwork) => <ArtworkCard key={artwork.Id} artwork={{...artwork, origin: {...origin}}} />)}
             </div>
-              <Link className="block w-full bg-stone-500 px-4 py-2 text-center text-white mt-4" to={`/regions/${origin.Id}`}>See more</Link>
+              <Link className="block w-full bg-gray-olive-500 px-4 py-2 text-center text-white mt-4" to={`/regions/${origin.Id}`}>See more</Link>
           </div>
         </div>
       ))}
@@ -60,7 +60,7 @@ const RegionsSkeleton = () => {
               <ArtworkCardSkeleton key={i}/>
             ))}
             </div>
-            <div className="block w-full bg-stone-300 mt-4 h-10" />
+            <div className="block w-full bg-gray-olive-300 mt-4 h-10" />
           </div>
         </div>
       ))}

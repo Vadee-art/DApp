@@ -9,7 +9,7 @@ const variants = {
   secondary: 'bg-gray-500 text-white',
   success: 'bg-emerald-500 text-white',
   warning: 'bg-amber-500 text-white',
-  stone: 'bg-stone-500 text-white',
+  'gray-olive': 'bg-gray-olive-500 text-white',
 };
 
 const sizes = {

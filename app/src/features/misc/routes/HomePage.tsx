@@ -61,7 +61,7 @@ export const HomePage = () => {
           ))
         )}
       </swiper-container>
-      <div className="mt-16 bg-stone-400 py-8">
+      <div className="mt-16 bg-gray-olive-400 py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col gap-8 md:flex-row">
             <div className="flex-1">

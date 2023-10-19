@@ -36,7 +36,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
         <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
           <div className="relative flex w-full justify-between gap-4 pt-4 lg:static">
             <Link
-              className="inline-block whitespace-nowrap text-center text-xs leading-relaxed text-stone-500"
+              className="inline-block whitespace-nowrap text-center text-xs leading-relaxed text-gray-olive-500"
               to="/"
             >
               <img src={Logo} alt="RCL Logo" className="mb-2 max-h-6" />
@@ -45,7 +45,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
             <div className="flex flex-1 items-start ">
               <label
                 htmlFor="search"
-                className="relative block flex-1 border border-stone-400 text-gray-400 focus-within:text-gray-600"
+                className="relative block flex-1 border border-gray-olive-400 text-gray-400 focus-within:text-gray-600"
               >
                 <MagnifyingGlassIcon className="pointer-events-none absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2 transform" />
                 <input
@@ -58,7 +58,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               {user ? (
                 <>
                   <Link
-                    className="relative ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-stone-600 lg:mb-0"
+                    className="relative ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-gray-olive-600 lg:mb-0"
                     to="/cart/shipping"
                   >
                     <ShoppingCartIcon className="h-6 w-6" />
@@ -69,19 +69,19 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
                     ) : null}
                   </Link>
                   <Link
-                    className="ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-stone-600 lg:mb-0"
+                    className="ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-gray-olive-600 lg:mb-0"
                     to="/"
                   >
                     <BellIcon className="h-6 w-6" />
                   </Link>
                   <Link
-                    className="ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
+                    className="ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
                     to="/"
                   >
                     <EnvelopeIcon className="h-6 w-6" />
                   </Link>
                   <Link
-                    className="ml-2 border border-stone-400 px-1 py-1 text-stone-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
+                    className="ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
                     to="/profile/info"
                   >
                     <UserIcon className="h-6 w-6" />
@@ -90,7 +90,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               ) : (
                 <>
                   <Link
-                    className="ml-2 bg-stone-500 px-3 py-1 text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-md focus:outline-none active:bg-stone-600 lg:mb-0"
+                    className="ml-2 bg-gray-olive-500 px-3 py-1 text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-md focus:outline-none active:bg-gray-olive-600 lg:mb-0"
                     to="/auth/login"
                   >
                     Log In
@@ -182,9 +182,9 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
                 <input
                   type="email"
                   placeholder="Enter your Email here"
-                  className="flex-1 px-2 text-xs text-black outline-none placeholder:text-stone-500"
+                  className="flex-1 px-2 text-xs text-black outline-none placeholder:text-gray-olive-500"
                 />
-                <Button size="xs" variant="stone">
+                <Button size="xs" variant="gray-olive">
                   Subscribe
                 </Button>
               </div>

@@ -47,12 +47,12 @@ export const Artwork = () => {
           <div className="mt-12 flex flex-col gap-8 md:flex-row">
             <div className="flex flex-1 flex-col md:self-start">
               <span>{data!.artist.name}</span>
-              <Button variant="stone" className="mt-2 w-full">
+              <Button variant="gray-olive" className="mt-2 w-full">
                 Follow
               </Button>
             </div>
             <div className="flex-[4]">
-              <h3 className="mb-4 text-sm text-stone-500">
+              <h3 className="mb-4 text-sm text-gray-olive-500">
                 About the <strong>{data!.title}</strong> artwork{' '}
                 {data?.collection ? (
                   <span>
@@ -77,7 +77,7 @@ export const Artwork = () => {
               <span>
                 {data!.artist.origin.country}, {data!.artist.birthday.split('-')[0]}
               </span>
-              <Button size="sm" variant="stone" className="mt-2 w-full">
+              <Button size="sm" variant="gray-olive" className="mt-2 w-full">
                 Follow
               </Button>
             </div>
@@ -112,7 +112,7 @@ export const Artwork = () => {
       </div>
 
       <div className="mt-12 flex flex-col gap-8 md:flex-row">
-        <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
+        <div className="flex flex-1 flex-col font-extralight text-gray-olive-500 md:self-start">
           {artist?.name} Notable Works
         </div>
         <div className="flex-[6] overflow-hidden">
@@ -204,7 +204,7 @@ const SimilarArtworks = ({ artistId }: { artistId: number | undefined }) => {
   if (relatedArtworksLoading) {
     return (
       <div className="mt-12 flex flex-col gap-8 md:flex-row">
-        <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
+        <div className="flex flex-1 flex-col font-extralight text-gray-olive-500 md:self-start">
           Similar Artworks
         </div>
         <div className="flex-[6] overflow-hidden">
@@ -224,7 +224,7 @@ const SimilarArtworks = ({ artistId }: { artistId: number | undefined }) => {
     <>
       {relatedArtworks?.results && relatedArtworks.results.length > 0 ? (
         <div className="mt-12 flex flex-col gap-8 md:flex-row">
-          <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
+          <div className="flex flex-1 flex-col font-extralight text-gray-olive-500 md:self-start">
             Similar Artworks
           </div>
           <div className="flex-[6] overflow-hidden">
@@ -259,14 +259,14 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
   if (similarArtistsLoading) {
     return (
       <div className="mt-12 flex flex-col gap-8 md:flex-row">
-        <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
+        <div className="flex flex-1 flex-col font-extralight text-gray-olive-500 md:self-start">
           Similar Artists
         </div>
         <div className="flex-[6] overflow-hidden">
           <swiper-container space-between="60" slides-per-view="auto" navigation scrollbar>
             {Array.from({ length: 3 }, (_) => (
               <swiper-slide style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}>
-                <div className="flex h-full w-full animate-pulse flex-col items-center gap-1 border border-stone-500">
+                <div className="flex h-full w-full animate-pulse flex-col items-center gap-1 border border-gray-olive-500">
                   <div className="mb-4 h-[230px] w-[230px] bg-gray-300" />
                   <div className="h-4 w-[100px] bg-gray-200" />
                   <div className="h-4 w-[100px] bg-gray-200" />
@@ -284,7 +284,7 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
     <>
       {similarArtists?.results && similarArtists.results.length > 0 ? (
         <div className="mt-12 flex flex-col gap-8 md:flex-row">
-          <div className="flex flex-1 flex-col font-extralight text-stone-500 md:self-start">
+          <div className="flex flex-1 flex-col font-extralight text-gray-olive-500 md:self-start">
             Similar Artists
           </div>
           <div className="flex-[6] overflow-hidden">
@@ -294,7 +294,7 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
                   style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}
                   key={artist.Id}
                 >
-                  <div className="flex h-full w-full flex-col items-center gap-1 border border-stone-500">
+                  <div className="flex h-full w-full flex-col items-center gap-1 border border-gray-olive-500">
                     <img
                       src={artist.photo}
                       alt=""
@@ -306,7 +306,7 @@ const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
                     <span className="text-sm">
                       {artist.origin.country}, {artist.birthday.split('-')[0]}
                     </span>
-                    <Button variant="stone" size="sm" className="mt-2 w-full">
+                    <Button variant="gray-olive" size="sm" className="mt-2 w-full">
                       Follow
                     </Button>
                   </div>
