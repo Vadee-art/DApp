@@ -2,6 +2,7 @@ import { register } from 'swiper/element/bundle';
 import { Alert } from '@/components/Elements/Alert';
 import { useGetHomepage } from '../api/getHomepage';
 import { Link } from 'react-router-dom';
+import { ArtworkCard } from '@/features/artwork/components/ArtworkCard';
 
 register();
 
@@ -29,6 +30,15 @@ export const HomePage = () => {
       </div>
     );
   }
+
+  const selectedArtworks1 = Object.keys(data?.selectedArtworks || {})[0] ? {
+    artworks: data?.selectedArtworks[Object.keys(data?.selectedArtworks || {})[0]],
+    categoryName: Object.keys(data?.selectedArtworks || {})[0],
+  } : null;
+  const selectedArtworks2 = Object.keys(data?.selectedArtworks || {})[1] ? {
+    artworks: data?.selectedArtworks[Object.keys(data.selectedArtworks)[1]],
+    categoryName: Object.keys(data?.selectedArtworks || {})[1],
+  } : null;
 
   return (
     <>
@@ -190,6 +200,30 @@ export const HomePage = () => {
         </div>
       </div>
 
+      {selectedArtworks1 ? (
+        <div className="mt-16 bg-gray-olive-400 py-8">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col gap-8 md:flex-row">
+              <div className="flex-1">
+                <span className="font-extralight">{selectedArtworks1.categoryName}</span>
+              </div>
+              <div className="flex-[7] overflow-hidden">
+                <swiper-container space-between="60" slides-per-view="auto" navigation>
+                  {selectedArtworks1.artworks?.map((artwork) => (
+                  <swiper-slide
+                    style={{ width: '300px', display: 'flex', paddingBottom: '20px' }}
+                    key={artwork.Id}
+                  >
+                    <ArtworkCard artwork={artwork} />
+                  </swiper-slide>
+                  ))}
+                </swiper-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <div className="container mx-auto mt-16 px-4">
         <div className="flex flex-col gap-8 border border-gray-500 px-4 py-8 md:flex-row">
           <div className="flex-1">
@@ -211,6 +245,30 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
+
+      {selectedArtworks2 ? (
+        <div className="mt-16 bg-gray-olive-400 py-8">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col gap-8 md:flex-row">
+              <div className="flex-1">
+                <span className="font-extralight">{selectedArtworks2?.categoryName}</span>
+              </div>
+              <div className="flex-[7] overflow-hidden">
+                <swiper-container space-between="60" slides-per-view="auto" navigation>
+                  {selectedArtworks2.artworks?.map((artwork) => (
+                  <swiper-slide
+                    style={{ width: '300px', display: 'flex', paddingBottom: '20px' }}
+                    key={artwork.Id}
+                  >
+                    <ArtworkCard artwork={artwork} />
+                  </swiper-slide>
+                  ))}
+                </swiper-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };

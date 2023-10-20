@@ -9,4 +9,9 @@ export type Homepage = {
   talentedArtwork: Artwork;
   subCategories: SubCategory[];
   origins: Origin[];
+  selectedArtworks: {
+    [key: string]: (Pick<Artwork, 'Id' | 'price' | 'image' | 'title' | 'imageMediumQuality' | 'origin'> & {
+      artist: Pick<Artist, 'Id' | 'name'>;
+    })[];
+  }
 };
