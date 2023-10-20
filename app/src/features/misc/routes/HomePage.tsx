@@ -113,18 +113,23 @@ export const HomePage = () => {
             <swiper-container space-between="30" slides-per-view="auto" navigation>
               {data?.featuredCategories.map((category) => (
                 <swiper-slide style={{ width: '200px' }}>
-                  <div className="flex h-full w-full flex-col gap-1">
-                    <div className="h-[120px]">
-                      <img
-                        src={category.image}
-                        alt=""
-                        className="h-full w-full object-cover object-center"
-                        height={150}
-                        width={150}
-                      />
+                  <Link
+                    to={`/artworks?category=${category.Id}`}
+                    className="flex h-full w-full flex-col gap-1"
+                  >
+                    <div className="flex h-full w-full flex-col gap-1">
+                      <div className="h-[120px]">
+                        <img
+                          src={category.image}
+                          alt=""
+                          className="h-full w-full object-cover object-center"
+                          height={150}
+                          width={150}
+                        />
+                      </div>
+                      <span className="line-clamp-1 text-center text-lg">{category.name}</span>
                     </div>
-                    <span className="line-clamp-1 text-center text-lg">{category.name}</span>
-                  </div>
+                  </Link>
                 </swiper-slide>
               ))}
             </swiper-container>
@@ -142,7 +147,7 @@ export const HomePage = () => {
               {data?.subCategories.map((subCategory) => (
                 <swiper-slide style={{ width: '100px' }}>
                   <Link
-                    to={'/'}
+                    to={`/artworks?sub_category=${subCategory.Id}`}
                     className="border-b border-transparent transition-colors duration-150 ease-out hover:border-sky-500 hover:text-sky-500"
                   >
                     {subCategory.name}
@@ -201,7 +206,7 @@ export const HomePage = () => {
       </div>
 
       {selectedArtworks1 ? (
-        <div className="mt-16 bg-gray-olive-400 py-8">
+        <div className="mt-16">
           <div className="container mx-auto px-4">
             <div className="flex flex-col gap-8 md:flex-row">
               <div className="flex-1">
@@ -247,7 +252,7 @@ export const HomePage = () => {
       </div>
 
       {selectedArtworks2 ? (
-        <div className="mt-16 bg-gray-olive-400 py-8">
+        <div className="mt-16">
           <div className="container mx-auto px-4">
             <div className="flex flex-col gap-8 md:flex-row">
               <div className="flex-1">
