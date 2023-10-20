@@ -10,8 +10,8 @@ export type Homepage = {
   subCategories: SubCategory[];
   origins: Origin[];
   selectedArtworks: {
-    [key: string]: (Pick<Artwork, 'Id' | 'price' | 'image' | 'title' | 'imageMediumQuality' | 'origin'> & {
-      artist: Pick<Artist, 'Id' | 'name'>;
+    [key: string]: (Pick<Artwork, 'Id' | 'price' | 'image' | 'title' | 'imageMediumQuality'> & {
+      artist: Pick<Artist, 'Id' | 'name' | 'origin'>;
     })[];
   }
 };

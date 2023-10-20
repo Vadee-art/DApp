@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Artwork } from '../types';
+import { Artwork, Origin } from '../types';
 import { Artist } from '@/features/artist/types';
 
 type ArtworkProps = {
-  artwork: Pick<Artwork, 'Id' | 'imageMediumQuality' | 'title' | 'origin' | 'price'> & {
-    artist: Pick<Artist, 'name'>
+  artwork: Pick<Artwork, 'Id' | 'imageMediumQuality' | 'title' | 'price'> & {
+    origin?: Origin;
+    artist: Pick<Artist, 'name'> & {origin?: Origin;};
   }
 };
 
@@ -23,7 +24,7 @@ export const ArtworkCard = ({ artwork }: ArtworkProps) => {
       <div className="flex flex-col p-2 text-sm font-extralight">
         <h3 className="font-medium">{artwork.artist.name}</h3>
         <span>{artwork.title}</span>
-        <span>{artwork.origin.country}</span>
+        <span>{artwork.origin?.country ? artwork.origin.country : artwork.artist.origin?.country}</span>
         <span>${artwork.price}</span>
       </div>
     </Link>
