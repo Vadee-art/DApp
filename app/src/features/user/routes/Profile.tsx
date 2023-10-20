@@ -7,7 +7,7 @@ import { Alert } from "@/components/Elements/Alert";
 export const Profile = () => {
   const {data: user} = useUser();
   const {data, isLoading, error} = useGetProfile({
-    id: user!.id
+    id: user!.user.id
   }, { enabled: !!user });
   const { mutateAsync: updateProfile, isLoading: updateProfileLoading } = useUpdateProfile();
 
@@ -28,7 +28,7 @@ export const Profile = () => {
   return (
     <div className="max-w-3xl">
       <ProfileForm onSubmit={(v) => updateProfile({
-        id: user!.id,
+        id: user!.user.id,
         data: v
       })} isLoading={updateProfileLoading} defaultValues={{
         address: data?.address || '',
