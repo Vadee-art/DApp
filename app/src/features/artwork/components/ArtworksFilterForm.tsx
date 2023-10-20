@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { GetArtworkFiltersResponse } from '../api/getArtworkFilters';
 import { ArtworksFilters } from '../api/getArtworks';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { useSearchParams } from 'react-router-dom';
 
 type Props = {
   filters: GetArtworkFiltersResponse;
@@ -16,11 +17,13 @@ export const ArtworksFilterForm = ({
   filtersToDisplay = ['category', 'origin', 'sub_category'],
   defaultValue,
 }: Props) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   const [selectedFilters, setSelectedFilters] = useState<ArtworksFilters>(
     defaultValue || {
-      category: [],
-      sub_category: [],
-      origin: [],
+      category: (searchParams.get('category') && searchParams.get('category')?.split(',').map(el => +el)) || [],
+      sub_category: (searchParams.get('sub_category') && searchParams.get('sub_category')?.split(',').map(el => +el)) || [],
+      origin: (searchParams.get('origin') && searchParams.get('origin')?.split(',').map(el => +el)) || [],
     }
   );
 
@@ -32,6 +35,10 @@ export const ArtworksFilterForm = ({
 
   useEffect(() => {
     onChange(selectedFilters);
+    searchParams.set('category', selectedFilters.category.join(','));
+    searchParams.set('sub_category', selectedFilters.sub_category.join(','));
+    searchParams.set('origin', selectedFilters.origin.join(','));
+    setSearchParams(searchParams);
   }, [selectedFilters]);
 
   const handleFilterChange = (type: keyof ArtworksFilters, value: number) => {
@@ -77,6 +84,7 @@ export const ArtworksFilterForm = ({
                 <input
                   type="checkbox"
                   id={'category-' + filter.Id}
+                  checked={selectedFilters.category.filter(c => filter.Id === c).length > 0}
                   onChange={() => {
                     handleFilterChange('category', filter.Id);
                   }}
@@ -115,6 +123,7 @@ export const ArtworksFilterForm = ({
                 <input
                   type="checkbox"
                   id={'subcategory-' + filter.Id}
+                  checked={selectedFilters.sub_category.filter(s => filter.Id === s).length > 0}
                   onChange={() => {
                     handleFilterChange('sub_category', filter.Id);
                   }}
@@ -156,6 +165,7 @@ export const ArtworksFilterForm = ({
                 <input
                   type="checkbox"
                   id={'origin-' + filter.Id}
+                  checked={selectedFilters.origin.filter(o => filter.Id === o).length > 0}
                   onChange={() => {
                     handleFilterChange('origin', filter.Id);
                   }}
