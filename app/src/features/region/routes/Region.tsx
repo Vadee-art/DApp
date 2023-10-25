@@ -29,14 +29,14 @@ export const Region = () => {
         // TODO: read origin data properly, when there is no artwork for this origin, the origin data is not fetched
         <div className="mt-16 flex flex-col gap-8 md:flex-row">
           <div className="flex flex-1 flex-col gap-2">
-            <h1 className="font-bold"> {data?.results[0].origin.country} </h1>
+            <h1 className="font-bold"> {data?.results[0].artist.origin.country} </h1>
             <img
               className="mb-4 h-auto w-14 object-cover object-center"
-              src={data?.results[0].origin.flag}
+              src={data?.results[0].artist.origin.flag}
               alt="flag"
             />
           </div>
-          <p className="flex-[4] whitespace-pre-line">{data?.results[0].origin.description}</p>
+          <p className="flex-[4] whitespace-pre-line">{data?.results[0].artist.origin.description}</p>
         </div>
       ) : (
         <RegionDescriptionSkeleton />

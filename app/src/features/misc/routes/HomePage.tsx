@@ -58,7 +58,7 @@ export const HomePage = () => {
                       </span>
                     )}
                     <span className="text-[30px] font-normal"> {artwork.artist.name} </span>
-                    <span className="text-[40px] font-normal"> {artwork.category.name} </span>
+                    {/* <span className="text-[40px] font-normal"> {artwork.category.name} </span> */}
                   </div>
                 </div>
                 <img

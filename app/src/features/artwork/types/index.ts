@@ -8,7 +8,6 @@ export type Artwork = {
   tags: string[];
   category: Category;
   subCategory: SubCategory;
-  origin: Origin;
   voucher: {
     title: string;
     artworkId: number | null;

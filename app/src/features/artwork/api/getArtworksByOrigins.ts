@@ -13,8 +13,8 @@ export type GetArtworksByOriginsResponse = {
   next: string | null;
   previous: string | null;
   results: (Origin & {
-    artworks: (Pick<Artwork, 'Id' | 'price' | 'image' | 'title' | 'imageMediumQuality' | 'origin'> & {
-      artist: Pick<Artist, 'Id' | 'name'>;
+    artworks: (Pick<Artwork, 'Id' | 'price' | 'image' | 'title' | 'imageMediumQuality'> & {
+      artist: Pick<Artist, 'Id' | 'name' | 'origin'>;
     })[];
   })[];
 };
