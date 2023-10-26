@@ -8,7 +8,7 @@ export type getArtistParams = {
 };
 
 export type getArtistResponse = Artist & {
-  artworks: Artwork[];
+  artworks: Omit<Artwork, 'artist'>[];
 };
 
 export const getArtist = ({ id }: getArtistParams): Promise<getArtistResponse> => {

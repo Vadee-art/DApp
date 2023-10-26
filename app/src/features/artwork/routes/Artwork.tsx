@@ -122,7 +122,7 @@ export const Artwork = () => {
                 style={{ width: '300px', display: 'flex', paddingBottom: '20px' }}
                 key={artwork.Id}
               >
-                <ArtworkCard artwork={artwork} />
+                <ArtworkCard artwork={{...artwork, artist: artist}} />
               </swiper-slide>
             ))}
           </swiper-container>

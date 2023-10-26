@@ -67,7 +67,7 @@ export const Artist = () => {
           <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
             {isLoading
               ? Array.from({ length: 9 }, (_, i) => <ArtworkCardSkeleton key={i} />)
-              : data!.artworks.map((artwork) => <ArtworkCard key={artwork.Id} artwork={artwork} />)}
+              : data!.artworks.map((artwork) => <ArtworkCard key={artwork.Id} artwork={{...artwork, artist: data!}} />)}
           </div>
         </div>
       </div>
