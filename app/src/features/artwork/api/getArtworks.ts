@@ -3,9 +3,9 @@ import { useQuery } from 'react-query';
 import { Artwork } from '../types';
 
 export type ArtworksFilters = {
-  category: number[];
+  genre: number[];
   origin: number[];
-  sub_category: number[];
+  technique: number[];
 };
 
 export type getArtworksParams = {
@@ -23,16 +23,16 @@ export type getArtworksResponse = {
 export const getArtworks = ({
   page = 1,
   page_size = 9,
-  category,
-  sub_category,
+  genre,
+  technique,
   origin,
 }: getArtworksParams): Promise<getArtworksResponse> => {
   return axiosWithoutAuth.get('/artworks', {
     params: {
       page,
       page_size,
-      category: category?.join(','),
-      sub_category: sub_category?.join(','),
+      genre: genre?.join(','),
+      technique: technique?.join(','),
       origin: origin?.join(','),
     },
   });

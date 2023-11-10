@@ -58,7 +58,7 @@ export const HomePage = () => {
                       </span>
                     )}
                     <span className="text-[30px] font-normal"> {artwork.artist.name} </span>
-                    {/* <span className="text-[40px] font-normal"> {artwork.category.name} </span> */}
+                    {/* <span className="text-[40px] font-normal"> {artwork.genre.name} </span> */}
                   </div>
                 </div>
                 <img
@@ -111,23 +111,23 @@ export const HomePage = () => {
           </div>
           <div className="flex-[7] overflow-hidden">
             <swiper-container space-between="30" slides-per-view="auto" navigation>
-              {data?.featuredCategories.map((category) => (
+              {data?.featuredGenres.map((genre) => (
                 <swiper-slide style={{ width: '200px' }}>
                   <Link
-                    to={`/artworks?category=${category.Id}`}
+                    to={`/artworks?genre=${genre.Id}`}
                     className="flex h-full w-full flex-col gap-1"
                   >
                     <div className="flex h-full w-full flex-col gap-1">
                       <div className="h-[120px]">
                         <img
-                          src={category.image}
+                          src={genre.image}
                           alt=""
                           className="h-full w-full object-cover object-center"
                           height={150}
                           width={150}
                         />
                       </div>
-                      <span className="line-clamp-1 text-center text-lg">{category.name}</span>
+                      <span className="line-clamp-1 text-center text-lg">{genre.name}</span>
                     </div>
                   </Link>
                 </swiper-slide>
@@ -144,13 +144,13 @@ export const HomePage = () => {
           </div>
           <div className="flex-[7] overflow-hidden">
             <swiper-container space-between="60" slides-per-view="auto" navigation>
-              {data?.subCategories.map((subCategory) => (
+              {data?.techniques.map((technique) => (
                 <swiper-slide style={{ width: '100px' }}>
                   <Link
-                    to={`/artworks?sub_category=${subCategory.Id}`}
+                    to={`/artworks?technique=${technique.Id}`}
                     className="border-b border-transparent transition-colors duration-150 ease-out hover:border-sky-500 hover:text-sky-500"
                   >
-                    {subCategory.name}
+                    {technique.name}
                   </Link>
                 </swiper-slide>
               ))}

@@ -14,29 +14,29 @@ type Props = {
 export const ArtworksFilterForm = ({
   filters,
   onChange,
-  filtersToDisplay = ['category', 'origin', 'sub_category'],
+  filtersToDisplay = ['genre', 'origin', 'technique'],
   defaultValue,
 }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const [selectedFilters, setSelectedFilters] = useState<ArtworksFilters>(
     defaultValue || {
-      category: (searchParams.get('category') && searchParams.get('category')?.split(',').map(el => +el)) || [],
-      sub_category: (searchParams.get('sub_category') && searchParams.get('sub_category')?.split(',').map(el => +el)) || [],
+      genre: (searchParams.get('genre') && searchParams.get('genre')?.split(',').map(el => +el)) || [],
+      technique: (searchParams.get('technique') && searchParams.get('technique')?.split(',').map(el => +el)) || [],
       origin: (searchParams.get('origin') && searchParams.get('origin')?.split(',').map(el => +el)) || [],
     }
   );
 
   const [visibleFilters, setVisibleFilters] = useState<{ [k in keyof ArtworksFilters]: boolean }>({
-    category: true,
-    sub_category: true,
+    genre: true,
+    technique: true,
     origin: true,
   });
 
   useEffect(() => {
     onChange(selectedFilters);
-    searchParams.set('category', selectedFilters.category.join(','));
-    searchParams.set('sub_category', selectedFilters.sub_category.join(','));
+    searchParams.set('genre', selectedFilters.genre.join(','));
+    searchParams.set('technique', selectedFilters.technique.join(','));
     searchParams.set('origin', selectedFilters.origin.join(','));
     setSearchParams(searchParams);
   }, [selectedFilters]);
@@ -59,37 +59,37 @@ export const ArtworksFilterForm = ({
 
   return (
     <div className="hidden flex-1 text-sm md:block">
-      {filtersToDisplay.includes('category') && (
+      {filtersToDisplay.includes('genre') && (
         <>
           <div
             className={`mb-2 flex cursor-pointer items-center justify-between gap-4 font-semibold text-gray-500`}
-            onClick={() => toggleFilterVisibility('category')}
+            onClick={() => toggleFilterVisibility('genre')}
           >
             <span>Genres</span>
             <span>
               <ChevronDownIcon
                 className={`h-3 w-3 transform transition-transform duration-500 ${
-                  visibleFilters.category ? 'rotate-180' : ''
+                  visibleFilters.genre ? 'rotate-180' : ''
                 }`}
               />
             </span>
           </div>
           <div
             className={`overflow-hidden transition-all duration-500 ${
-              visibleFilters.category ? 'max-h-[1000px] ease-in' : 'max-h-0 ease-out'
+              visibleFilters.genre ? 'max-h-[1000px] ease-in' : 'max-h-0 ease-out'
             }`}
           >
             {filters!.categories.map((filter) => (
-              <div key={'category-' + filter.Id} className="mt-1 flex items-center gap-1">
+              <div key={'genre-' + filter.Id} className="mt-1 flex items-center gap-1">
                 <input
                   type="checkbox"
-                  id={'category-' + filter.Id}
-                  checked={selectedFilters.category.filter(c => filter.Id === c).length > 0}
+                  id={'genre-' + filter.Id}
+                  checked={selectedFilters.genre.filter(c => filter.Id === c).length > 0}
                   onChange={() => {
-                    handleFilterChange('category', filter.Id);
+                    handleFilterChange('genre', filter.Id);
                   }}
                 />
-                <label className="font-extralight text-gray-500" htmlFor={'category-' + filter.Id}>
+                <label className="font-extralight text-gray-500" htmlFor={'genre-' + filter.Id}>
                   {filter.name}
                 </label>
               </div>
@@ -97,40 +97,40 @@ export const ArtworksFilterForm = ({
           </div>
         </>
       )}
-      {filtersToDisplay.includes('sub_category') && (
+      {filtersToDisplay.includes('technique') && (
         <>
           <hr className="mb-2 mt-6" />
           <div
             className={`mb-2 flex cursor-pointer items-center justify-between gap-4 font-semibold text-gray-500`}
-            onClick={() => toggleFilterVisibility('sub_category')}
+            onClick={() => toggleFilterVisibility('technique')}
           >
             <span>Technic</span>
             <span>
               <ChevronDownIcon
                 className={`h-3 w-3 transform transition-transform duration-500 ${
-                  visibleFilters.sub_category ? 'rotate-180' : ''
+                  visibleFilters.technique ? 'rotate-180' : ''
                 }`}
               />
             </span>
           </div>
           <div
             className={`overflow-hidden transition-all duration-500 ${
-              visibleFilters.sub_category ? 'max-h-[1000px] ease-in' : 'max-h-0 ease-out'
+              visibleFilters.technique ? 'max-h-[1000px] ease-in' : 'max-h-0 ease-out'
             }`}
           >
-            {filters!.subCategories.map((filter) => (
-              <div key={'subcategory-' + filter.Id} className="mt-1 flex items-center gap-1">
+            {filters!.techniques.map((filter) => (
+              <div key={'technique-' + filter.Id} className="mt-1 flex items-center gap-1">
                 <input
                   type="checkbox"
-                  id={'subcategory-' + filter.Id}
-                  checked={selectedFilters.sub_category.filter(s => filter.Id === s).length > 0}
+                  id={'technique-' + filter.Id}
+                  checked={selectedFilters.technique.filter(s => filter.Id === s).length > 0}
                   onChange={() => {
-                    handleFilterChange('sub_category', filter.Id);
+                    handleFilterChange('technique', filter.Id);
                   }}
                 />
                 <label
                   className="font-extralight text-gray-500"
-                  htmlFor={'subcategory-' + filter.Id}
+                  htmlFor={'technique-' + filter.Id}
                 >
                   {filter.name}
                 </label>

@@ -6,8 +6,8 @@ export type Artwork = {
     title: string;
   } | null;
   tags: string[];
-  category: Category;
-  subCategory: SubCategory;
+  genre: Genre;
+  technique: Technique;
   voucher: {
     title: string;
     artworkId: number | null;
@@ -49,7 +49,7 @@ export type Artwork = {
   createdBy: number;
 };
 
-export type Category = {
+export type Genre = {
   Id: number;
   name: string;
   slug: string;
@@ -58,12 +58,12 @@ export type Category = {
   image: string;
 };
 
-export type SubCategory = {
+export type Technique = {
   Id: number;
   name: string;
   createdAt: string;
   updatedAt: string;
-  category: number;
+  genre: number;
 };
 
 export type Origin = {

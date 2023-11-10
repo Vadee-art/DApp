@@ -10,8 +10,8 @@ import { useState } from 'react';
 export const Artworks = () => {
   const { page, setPage } = usePagination();
   const [artworksFilters, setArtworksFilters] = useState<ArtworksFilters>({
-    category: [],
-    sub_category: [],
+    genre: [],
+    technique: [],
     origin: [],
   });
   const { data, isLoading, error } = useGetArtworks({ page, ...artworksFilters });

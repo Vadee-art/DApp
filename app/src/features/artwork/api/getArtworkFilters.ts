@@ -1,11 +1,11 @@
 import { axiosWithoutAuth } from '@/lib/axios';
 import { useQuery } from 'react-query';
-import { Category, Origin, SubCategory } from '../types';
+import { Genre, Origin, Technique } from '../types';
 
 export type GetArtworkFiltersResponse = {
   origins: Origin[];
-  subCategories: SubCategory[];
-  categories: Category[];
+  techniques: Technique[];
+  categories: Genre[];
 };
 
 export const getArtworkFilters = (): Promise<GetArtworkFiltersResponse> => {

@@ -12,8 +12,8 @@ export const Region = () => {
   const { id } = useParams();
   const { page, setPage } = usePagination();
   const [artworksFilters, setArtworksFilters] = useState<ArtworksFilters>({
-    category: [],
-    sub_category: [],
+    genre: [],
+    technique: [],
     origin: [id ? +id : 0],
   });
   const { data, isLoading, error } = useGetArtworks({ page, ...artworksFilters });
@@ -46,7 +46,7 @@ export const Region = () => {
           <div className="hidden flex-1 animate-pulse bg-gray-200 md:block"></div>
         ) : (
           <ArtworksFilterForm
-            filtersToDisplay={['category', 'sub_category']}
+            filtersToDisplay={['genre', 'technique']}
             filters={filters!}
             defaultValue={artworksFilters}
             onChange={(filters) => {

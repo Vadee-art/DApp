@@ -1,13 +1,13 @@
 import { Artist } from '@/features/artist/types';
-import { Artwork, Category, Origin, SubCategory } from '@/features/artwork/types';
+import { Artwork, Genre, Origin, Technique } from '@/features/artwork/types';
 
 export type Homepage = {
   carousels: Artwork[];
   artists: Artist[];
-  featuredCategories: Category[];
+  featuredGenres: Genre[];
   lastArtwork: Artwork;
   talentedArtwork: Artwork;
-  subCategories: SubCategory[];
+  techniques: Technique[];
   origins: Origin[];
   selectedArtworks: {
     [key: string]: (Pick<Artwork, 'Id' | 'price' | 'image' | 'title' | 'imageMediumQuality'> & {
