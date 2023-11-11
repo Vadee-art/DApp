@@ -5,7 +5,7 @@ import { Alert } from '@/components/Elements/Alert';
 import { Button } from '@/components/Elements';
 import { useGetArtist } from '@/features/artist/api/getArtist';
 import { ArtworkCard, ArtworkCardSkeleton } from '../components/ArtworkCard';
-import { useGetRelatedArtworks } from '@/features/artist/api/getRelatedArtworks';
+import { useGetSimilarArtworks } from '@/features/artwork/api/getSimilarArtworks';
 import { useAddArtworkToCart } from '@/features/cart/api/addArtworkToCart';
 import { useHandleFollowingArtist } from '@/features/artist/hooks/useHandleFollowingArtist';
 import { SimilarArtists } from '../components/SimilarArtists';
@@ -131,7 +131,7 @@ export const Artwork = () => {
         </div>
       </div>
 
-      <SimilarArtworks artistId={data?.artist.Id} />
+      <SimilarArtworks artworkId={data?.Id} />
 
       <SimilarArtists artistId={data?.artist.Id} />
     </div>
@@ -192,12 +192,12 @@ export const ArtworkSkeleton = () => {
   );
 };
 
-const SimilarArtworks = ({ artistId }: { artistId: number | undefined }) => {
+const SimilarArtworks = ({ artworkId }: { artworkId: number | undefined }) => {
   const {
     data: relatedArtworks,
     isLoading: relatedArtworksLoading,
     error: relatedArtworksError,
-  } = useGetRelatedArtworks({ artistId: artistId || 0 }, { enabled: !!artistId });
+  } = useGetSimilarArtworks({ artworkId: artworkId || 0 }, { enabled: !!artworkId });
 
   if (relatedArtworksError) {
     return <Alert variant="danger">{relatedArtworksError}</Alert>;
