@@ -147,7 +147,7 @@ export const HomePage = () => {
               {data?.techniques.map((technique) => (
                 <swiper-slide style={{ width: '100px' }}>
                   <Link
-                    to={`/artworks?technique=${technique.Id}`}
+                    to={`/artworks?technique=${technique.id}`}
                     className="border-b border-transparent transition-colors duration-150 ease-out hover:border-sky-500 hover:text-sky-500"
                   >
                     {technique.name}

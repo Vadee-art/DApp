@@ -1,4 +1,4 @@
-import { axiosWithoutAuth } from '@/lib/axios';
+import { axios } from '@/lib/axios';
 import { useQuery } from 'react-query';
 import { Artist } from '../types';
 
@@ -24,7 +24,7 @@ export const getArtists = ({
   page_size = 9,
   origin,
 }: GetArtistsParams): Promise<GetArtistsResponse> => {
-  return axiosWithoutAuth.get('/artists', {
+  return axios.get('/artists', {
     params: {
       page,
       page_size,

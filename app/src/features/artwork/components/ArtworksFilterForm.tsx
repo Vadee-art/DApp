@@ -79,7 +79,7 @@ export const ArtworksFilterForm = ({
               visibleFilters.genre ? 'max-h-[1000px] ease-in' : 'max-h-0 ease-out'
             }`}
           >
-            {filters!.categories.map((filter) => (
+            {filters!.genres.map((filter) => (
               <div key={'genre-' + filter.Id} className="mt-1 flex items-center gap-1">
                 <input
                   type="checkbox"
@@ -119,18 +119,18 @@ export const ArtworksFilterForm = ({
             }`}
           >
             {filters!.techniques.map((filter) => (
-              <div key={'technique-' + filter.Id} className="mt-1 flex items-center gap-1">
+              <div key={'technique-' + filter.id} className="mt-1 flex items-center gap-1">
                 <input
                   type="checkbox"
-                  id={'technique-' + filter.Id}
-                  checked={selectedFilters.technique.filter(s => filter.Id === s).length > 0}
+                  id={'technique-' + filter.id}
+                  checked={selectedFilters.technique.filter(s => filter.id === s).length > 0}
                   onChange={() => {
-                    handleFilterChange('technique', filter.Id);
+                    handleFilterChange('technique', filter.id);
                   }}
                 />
                 <label
                   className="font-extralight text-gray-500"
-                  htmlFor={'technique-' + filter.Id}
+                  htmlFor={'technique-' + filter.id}
                 >
                   {filter.name}
                 </label>

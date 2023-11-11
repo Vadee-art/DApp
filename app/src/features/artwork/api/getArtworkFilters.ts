@@ -5,7 +5,7 @@ import { Genre, Origin, Technique } from '../types';
 export type GetArtworkFiltersResponse = {
   origins: Origin[];
   techniques: Technique[];
-  categories: Genre[];
+  genres: Genre[];
 };
 
 export const getArtworkFilters = (): Promise<GetArtworkFiltersResponse> => {

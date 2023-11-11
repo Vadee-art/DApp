@@ -12,6 +12,7 @@ export type Artist = {
   cv: string;
   user: number;
   origin: Origin;
+  isFollowing: boolean;
   achievements: string[];
   favorites: number[];
 };

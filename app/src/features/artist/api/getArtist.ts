@@ -1,4 +1,4 @@
-import { axiosWithoutAuth } from '@/lib/axios';
+import { axios } from '@/lib/axios';
 import { Artist } from '../types';
 import { UseQueryOptions, useQuery } from 'react-query';
 import { Artwork } from '@/features/artwork/types';
@@ -12,7 +12,7 @@ export type getArtistResponse = Artist & {
 };
 
 export const getArtist = ({ id }: getArtistParams): Promise<getArtistResponse> => {
-  return axiosWithoutAuth.get('/artists/' + id);
+  return axios.get('/artists/' + id);
 };
 
 export const useGetArtist = (

@@ -59,7 +59,7 @@ export type Genre = {
 };
 
 export type Technique = {
-  Id: number;
+  id: number;
   name: string;
   createdAt: string;
   updatedAt: string;

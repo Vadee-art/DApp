@@ -6,8 +6,9 @@ import { Button } from '@/components/Elements';
 import { useGetArtist } from '@/features/artist/api/getArtist';
 import { ArtworkCard, ArtworkCardSkeleton } from '../components/ArtworkCard';
 import { useGetRelatedArtworks } from '@/features/artist/api/getRelatedArtworks';
-import { useGetSimilarArtists } from '@/features/artist/api/getSimilarArtists';
 import { useAddArtworkToCart } from '@/features/cart/api/addArtworkToCart';
+import { useHandleFollowingArtist } from '@/features/artist/hooks/useHandleFollowingArtist';
+import { SimilarArtists } from '../components/SimilarArtists';
 
 register();
 
@@ -20,6 +21,7 @@ export const Artwork = () => {
     error: artistError,
   } = useGetArtist({ id: data?.artist.Id || 0 }, { enabled: !!data });
   const { mutateAsync: addToCart, isLoading: addToCartLoading } = useAddArtworkToCart();
+  const { handleFollow, followLoading, unfollowLoading } = useHandleFollowingArtist(data?.artist.Id || 0);
 
   if (error || artistError) {
     return <Alert variant="danger">{error}</Alert>;
@@ -47,8 +49,8 @@ export const Artwork = () => {
           <div className="mt-12 flex flex-col gap-8 md:flex-row">
             <div className="flex flex-1 flex-col md:self-start">
               <span>{data!.artist.name}</span>
-              <Button variant="gray-olive" className="mt-2 w-full">
-                Follow
+              <Button variant="gray-olive" className="mt-2 w-full" onClick={() => handleFollow(data!.artist.isFollowing)} isLoading={followLoading || unfollowLoading}>
+                {data!.artist.isFollowing ? 'Unfollow' : 'Follow'}
               </Button>
             </div>
             <div className="flex-[4]">
@@ -77,8 +79,8 @@ export const Artwork = () => {
               <span>
                 {data!.artist.origin.country}, {data!.artist.birthday.split('-')[0]}
               </span>
-              <Button size="sm" variant="gray-olive" className="mt-2 w-full">
-                Follow
+              <Button size="sm" variant="gray-olive" className="mt-2 w-full" onClick={() => handleFollow(data!.artist.isFollowing)} isLoading={followLoading || unfollowLoading}>
+                {data!.artist.isFollowing ? 'Unfollow' : 'Follow'}
               </Button>
             </div>
           </div>
@@ -235,81 +237,6 @@ const SimilarArtworks = ({ artistId }: { artistId: number | undefined }) => {
                   key={artwork.Id}
                 >
                   <ArtworkCard artwork={artwork} />
-                </swiper-slide>
-              ))}
-            </swiper-container>
-          </div>
-        </div>
-      ) : null}
-    </>
-  );
-};
-
-const SimilarArtists = ({ artistId }: { artistId: number | undefined }) => {
-  const {
-    data: similarArtists,
-    isLoading: similarArtistsLoading,
-    error: similarArtistsError,
-  } = useGetSimilarArtists({ artistId: artistId || 0 }, { enabled: !!artistId });
-
-  if (similarArtistsError) {
-    return <Alert variant="danger">{similarArtistsError}</Alert>;
-  }
-
-  if (similarArtistsLoading) {
-    return (
-      <div className="mt-12 flex flex-col gap-8 md:flex-row">
-        <div className="flex flex-1 flex-col font-extralight text-gray-olive-500 md:self-start">
-          Similar Artists
-        </div>
-        <div className="flex-[6] overflow-hidden">
-          <swiper-container space-between="60" slides-per-view="auto" navigation scrollbar>
-            {Array.from({ length: 3 }, (_) => (
-              <swiper-slide style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}>
-                <div className="flex h-full w-full animate-pulse flex-col items-center gap-1 border border-gray-olive-500">
-                  <div className="mb-4 h-[230px] w-[230px] bg-gray-300" />
-                  <div className="h-4 w-[100px] bg-gray-200" />
-                  <div className="h-4 w-[100px] bg-gray-200" />
-                  <div className="mt-2 h-8 w-full bg-gray-200" />
-                </div>
-              </swiper-slide>
-            ))}
-          </swiper-container>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      {similarArtists?.results && similarArtists.results.length > 0 ? (
-        <div className="mt-12 flex flex-col gap-8 md:flex-row">
-          <div className="flex flex-1 flex-col font-extralight text-gray-olive-500 md:self-start">
-            Similar Artists
-          </div>
-          <div className="flex-[6] overflow-hidden">
-            <swiper-container space-between="60" slides-per-view="auto" navigation scrollbar>
-              {similarArtists?.results?.map((artist) => (
-                <swiper-slide
-                  style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}
-                  key={artist.Id}
-                >
-                  <div className="flex h-full w-full flex-col items-center gap-1 border border-gray-olive-500">
-                    <img
-                      src={artist.photo}
-                      alt=""
-                      className="mb-4 h-full w-full object-cover object-center"
-                      height={230}
-                      width={230}
-                    />
-                    <span className="text-sm font-semibold">{artist.name}</span>
-                    <span className="text-sm">
-                      {artist.origin.country}, {artist.birthday.split('-')[0]}
-                    </span>
-                    <Button variant="gray-olive" size="sm" className="mt-2 w-full">
-                      Follow
-                    </Button>
-                  </div>
                 </swiper-slide>
               ))}
             </swiper-container>

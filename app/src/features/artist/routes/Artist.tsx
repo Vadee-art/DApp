@@ -5,10 +5,12 @@ import { Alert } from '@/components/Elements/Alert';
 import { Button } from '@/components/Elements';
 import clsx from 'clsx';
 import { ArtworkCard, ArtworkCardSkeleton } from '@/features/artwork/components/ArtworkCard';
+import { useHandleFollowingArtist } from '../hooks/useHandleFollowingArtist';
 
 export const Artist = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetArtist({ id: +id! });
+  const { handleFollow, followLoading, unfollowLoading } = useHandleFollowingArtist(+id!);
 
   if (error) {
     return <Alert variant="danger">{error}</Alert>;
@@ -32,8 +34,8 @@ export const Artist = () => {
           <span>
             {data!.origin.country}, {data!.birthday.split('-')[0]}
           </span>
-          <Button size="sm" variant="inverse" className="mt-2 w-full">
-            Follow
+          <Button size="sm" variant="inverse" className="mt-2 w-full" onClick={() => handleFollow(data!.isFollowing)} isLoading={followLoading || unfollowLoading}>
+            {data?.isFollowing ? 'Unfollow' : 'Follow'}
           </Button>
           {/* TODO: show number of followers of the artist here */}
         </div>
