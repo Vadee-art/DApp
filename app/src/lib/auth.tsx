@@ -8,7 +8,7 @@ import {
   useQueryClient,
   UseQueryOptions,
 } from 'react-query';
-import { AuthUser, LoginCredentials, login } from '@/features/auth';
+import { AuthUser, LoginCredentials, LoginWeb3Credentials, login, loginWeb3 } from '@/features/auth';
 import React from 'react';
 import storage from '@/utils/storage';
 
@@ -26,6 +26,11 @@ async function userFn() {
 
 async function loginFn(data: LoginCredentials) {
   const response = await login(data);
+  return await handleUserResponse(response);
+}
+
+async function loginWeb3Fn(data: LoginWeb3Credentials) {
+  const response = await loginWeb3(data);
   return await handleUserResponse(response);
 }
 
@@ -72,6 +77,26 @@ const useLogin = (
   });
 };
 
+const useLoginWeb3 = (
+  options?: Omit<UseMutationOptions<AuthUser, Error, LoginWeb3Credentials>, 'mutationFn'>
+) => {
+  const queryClient = useQueryClient();
+
+  const setUser = React.useCallback(
+    (data: AuthUser) => queryClient.setQueryData(userKey, data),
+    [queryClient]
+  );
+
+  return useMutation({
+    mutationFn: loginWeb3Fn,
+    ...options,
+    onSuccess: (user, ...rest) => {
+      setUser(user);
+      options?.onSuccess?.(user, ...rest);
+    },
+  });
+}
+
 const useLogout = (options?: UseMutationOptions<unknown, Error, unknown>) => {
   const queryClient = useQueryClient();
 
@@ -115,4 +140,4 @@ function AuthLoader({
   return <div>Unhandled status: {status}</div>;
 }
 
-export { useUser, useLogin, useLogout, AuthLoader };
+export { useUser, useLogin, useLogout, AuthLoader, useLoginWeb3 };
