@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-require("@nomiclabs/hardhat-etherscan");
+require("@nomicfoundation/hardhat-verify");
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
@@ -25,21 +25,16 @@ module.exports = {
   solidity: "0.8.4",
   // defaultNetwork: "localhost", // e.g: prints rinkeby metamask account / hh accounts
   networks: {
-    rinkeby: {
-      url: process.env.ALCHEMY_RINKEBY_URL || "",
+    sepolia: {
+      url: process.env.SEPOLIA_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-    // hardhat:{
-    //   forking:{
-    //     url: process.env.ALCHEMY_MAINNET_URL
-    //   }
-    // },
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
+    holesky: {
+      url: process.env.HOLESKY_URL || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+    }
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
@@ -47,6 +42,11 @@ module.exports = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  sourcify: {
+    // Disabled by default
+    // Doesn't need an API key
+    enabled: true
   },
   mocha: {
     timeout: 20000,
