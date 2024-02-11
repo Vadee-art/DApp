@@ -1,40 +1,39 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.3;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
+import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "hardhat/console.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 
 contract LazyFactory is
     EIP712,
     ERC721URIStorage,
     ERC721Royalty,
     AccessControl,
-    ReentrancyGuard
+    ReentrancyGuard,
+    Pausable
 {
-    address payable public usdtAddress;
+    uint8 usdtDecimals = 6;
     string private constant SIGNING_DOMAIN_NAME = "VADEE";
     string private constant SIGNING_DOMAIN_VERSION = "1";
     bytes32 public constant SIGNER_ROLE = keccak256("SIGNER_ROLE");
     bytes32 constant VOUCHER_TYPEHASH =
         keccak256(
-            "Voucher(string title,address artist,uint256 artworkId,string editionNumber,string edition,string priceDollar,string tokenUri,uint96 vadeeFee,uint96 royaltyFee)"
+            "Voucher(address artist,uint256 artworkId,uint256 priceDollar,string tokenUri,uint96 vadeeFee,uint96 royaltyFee)"
         );
 
-    address payable vadeeAddress;
+    address usdt;
+    address payable vadeeVaultAddress;
 
     struct Voucher {
-        string title;
         address artist;
         uint256 artworkId;
-        string editionNumber;
-        string edition;
         uint256 priceDollar;
         string tokenUri;
         uint96 vadeeFee;
@@ -42,31 +41,32 @@ contract LazyFactory is
         bytes signature;
     }
 
-    event RedeemedAndMinted(address indexed artist, uint256 indexed tokenId);
+    event RedeemedAndMinted(address indexed artist, uint256 indexed tokenId, address minter, uint256 priceDollar);
 
     mapping(address => uint256) private balanceByAddress;
 
-    constructor(address payable usdt) ERC721("Vadee", "Vadee") EIP712(SIGNING_DOMAIN_NAME, SIGNING_DOMAIN_VERSION) {
-        _setupRole(SIGNER_ROLE, msg.sender);
-        usdtAddress = usdt;
-        vadeeAddress = payable(msg.sender);
+    constructor(address _usdt, address payable vadee) ERC721("Vadee", "Vadee") EIP712(SIGNING_DOMAIN_NAME, SIGNING_DOMAIN_VERSION) {
+        _setupRole(SIGNER_ROLE, vadee);
+        _grantRole(DEFAULT_ADMIN_ROLE, vadee);
+
+        usdt = _usdt;
+        vadeeVaultAddress = vadee;
     }
 
     function redeem(
         address buyer,
         Voucher calldata voucher
-    ) public nonReentrant {
+    ) external nonReentrant whenNotPaused {
         address signer = _verify(voucher);
 
-        require(hasRole(SIGNER_ROLE, signer), "Permission Denied");
+        require(hasRole(SIGNER_ROLE, signer), Strings.toHexString(uint256(uint160(signer)), 20));
 
-        IERC20 usdt = IERC20(usdtAddress);
 
-        uint256 amount = voucher.priceDollar;
+        uint256 amount = voucher.priceDollar * 10 ** usdtDecimals;
         uint256 vadeeAmount = amount * voucher.vadeeFee / 100;
 
-        usdt.transferFrom(msg.sender, vadeeAddress, vadeeAmount);
-        usdt.transferFrom(msg.sender, voucher.artist, amount - vadeeAmount);
+        IERC20(usdt).transferFrom(msg.sender, vadeeVaultAddress, vadeeAmount);
+        IERC20(usdt).transferFrom(msg.sender, voucher.artist, amount - vadeeAmount);
 
         _safeMint(voucher.artist, voucher.artworkId);
         _setTokenURI(voucher.artworkId, voucher.tokenUri);
@@ -74,7 +74,7 @@ contract LazyFactory is
 
         // transfer the token to the buyer
         _transfer(voucher.artist, buyer, voucher.artworkId);
-        emit RedeemedAndMinted(voucher.artist, voucher.artworkId);
+        emit RedeemedAndMinted(voucher.artist, voucher.artworkId, buyer, amount);
     }
 
     function _hash(Voucher calldata voucher) internal view returns (bytes32) {
@@ -84,11 +84,8 @@ contract LazyFactory is
                 keccak256(
                     abi.encode(
                         VOUCHER_TYPEHASH,
-                        keccak256(bytes(voucher.title)),
                         voucher.artist,
                         voucher.artworkId,
-                        keccak256(bytes(voucher.editionNumber)),
-                        keccak256(bytes(voucher.edition)),
                         voucher.priceDollar,
                         keccak256(bytes(voucher.tokenUri)),
                         voucher.vadeeFee,
@@ -141,8 +138,19 @@ contract LazyFactory is
         super._burn(tokenId);
     }
 
-    function addressToBytes(address _addr) private pure returns (bytes memory) {
-        bytes memory convertedBytes = abi.encodePacked(_addr);
-        return convertedBytes;
+    function _feeDenominator() internal pure override returns (uint96) {
+        return 100;
+    }
+
+    function setVadeeVaultAddress(address payable newVadeeAddress) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        vadeeVaultAddress = newVadeeAddress;
+    }
+
+    function pause() public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _pause();
+    }
+
+    function unpause() public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _unpause();
     }
 }
