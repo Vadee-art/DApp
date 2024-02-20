@@ -119,10 +119,10 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
       {showNav && (
         <nav className="mb-4">
           <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
-            <div className="flex flex-1 items-start gap-4 font-extralight">
+            <div className="flex flex-1 items-start gap-4 font-normal text-xl">
               <NavLink
                 className={({ isActive }) =>
-                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                  `${isActive ? 'text-teal-500' : ''}`
                 }
                 to="/"
               >
@@ -130,7 +130,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                  `${isActive ? 'text-teal-500' : ''}`
                 }
                 to="/artists"
               >
@@ -138,7 +138,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                  `${isActive ? 'text-teal-500' : ''}`
                 }
                 to="/artworks"
               >
@@ -146,7 +146,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                  `${isActive ? 'text-teal-500 underline underline-offset-4' : ''}`
+                  `${isActive ? 'text-teal-500' : ''}`
                 }
                 to="/regions"
               >
@@ -158,9 +158,9 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
       )}
       <main>{children}</main>
       <footer className="mt-12 w-full bg-black pb-8 pt-12">
-        <div className="container mx-auto px-4 text-xs font-extralight text-white">
-          <div className="mb-12 flex flex-row flex-wrap items-stretch justify-between gap-8">
-            <img src={Icon} alt="VADEE Icon" className="object-contain" />
+        <div className="container mx-auto px-4 text-sm text-white">
+          <div className="mb-12 flex flex-row flex-wrap items-stretch justify-between gap-4">
+            <img src={Icon} alt="VADEE Icon" className="object-contain h-16 w-16" />
             <p className="max-w-[180px] leading-6">
               VADEE is an online marketplace to find photos & photographers from Middle East
             </p>
@@ -200,12 +200,12 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
             </div>
           </div>
           <div className="flex flex-row items-center justify-between">
-            <div className="flex flex-row gap-8 md:gap-16">
+            <div className="flex flex-row gap-4 md:gap-8">
               <LogoSvg fill="white" />
               <span>© 2021 VADEE</span>
             </div>
 
-            <div className="flex flex-row gap-8 lg:gap-64">
+            <div className="flex flex-row gap-4 lg:gap-44">
               <div className="flex gap-1">
                 <span>$</span>
                 <img src={AmericanFlag} alt="american flag" />
