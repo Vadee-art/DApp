@@ -36,10 +36,10 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
         <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
           <div className="relative flex w-full justify-between gap-4 pt-4 lg:static">
             <Link
-              className="inline-block whitespace-nowrap text-center text-xs leading-relaxed text-gray-olive-500"
+              className="inline-block whitespace-nowrap text-center text-md leading-relaxed text-gray-olive-500"
               to="/"
             >
-              <img src={Logo} alt="RCL Logo" className="mb-2 max-h-6" />
+              <img src={Logo} alt="RCL Logo" className="mb-1 max-h-8" />
               <span>Let there be art</span>
             </Link>
             <div className="flex flex-1 items-start ">
