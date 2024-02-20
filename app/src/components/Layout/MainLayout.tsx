@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Logo from '@/assets/img/VADEE_Logo.png';
 import Icon from '@/assets/img/VADEE_Icon.png';
 import { ReactComponent as LogoSvg } from '@/assets/img/VADEE_Logo.svg';
@@ -9,7 +9,7 @@ import MasterCardLogo from '@/assets/img/Mastercard_logo.png';
 import USDTIcon from '@/assets/img/USDT_icon.png';
 import { FaLinkedinIn, FaInstagram, FaFacebookF } from 'react-icons/fa';
 
-import { useUser } from '@/lib/auth';
+import { useLoginWeb3, useUser } from '@/lib/auth';
 import {
   BellIcon,
   EnvelopeIcon,
@@ -19,6 +19,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '../Elements';
 import { useGetCart } from '@/features/cart/api/getCart';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { useAccount, useSignMessage } from 'wagmi';
 
 type MainLayouProps = {
   children: React.ReactNode;
@@ -29,6 +31,22 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
   const { data: cart } = useGetCart({
     enabled: !!user,
   });
+
+  const { open } = useWeb3Modal();
+  const { isConnected } = useAccount();
+  const { mutateAsync: loginWeb3, isLoading: loginWeb3Loading } = useLoginWeb3();
+  const { signMessage, isLoading: signMessageLoading } = useSignMessage({
+    message: 'Sign in With Ethereum.',
+    onSuccess: async (signature) => {
+      await loginWeb3({ msg: 'Sign in With Ethereum.', sig: signature });
+    },
+  });
+
+  useEffect(() => {
+    if (isConnected && !user) {
+      signMessage();
+    }
+  }, [isConnected]);
 
   return (
     <>
@@ -42,7 +60,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               <img src={Logo} alt="RCL Logo" className="mb-1 max-h-8" />
               <span>Let there be art</span>
             </Link>
-            <div className="flex flex-1 items-start ">
+            <div className="flex flex-1 items-start gap-2">
               <label
                 htmlFor="search"
                 className="relative block flex-1 border border-gray-olive-400 text-gray-400 focus-within:text-gray-600"
@@ -58,7 +76,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               {user ? (
                 <>
                   <Link
-                    className="relative ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-gray-olive-600 lg:mb-0"
+                    className="relative border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-gray-olive-600 lg:mb-0"
                     to="/cart/shipping"
                   >
                     <ShoppingCartIcon className="h-6 w-6" />
@@ -69,39 +87,30 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
                     ) : null}
                   </Link>
                   <Link
-                    className="ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-gray-olive-600 lg:mb-0"
+                    className="border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-gray-olive-600 lg:mb-0"
                     to="/"
                   >
                     <BellIcon className="h-6 w-6" />
                   </Link>
                   <Link
-                    className="ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
+                    className="border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
                     to="/"
                   >
                     <EnvelopeIcon className="h-6 w-6" />
                   </Link>
                   <Link
-                    className="ml-2 border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
+                    className="border border-gray-olive-400 px-1 py-1 text-gray-olive-400 outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-slate-950 lg:mb-0"
                     to="/profile/info"
                   >
                     <UserIcon className="h-6 w-6" />
                   </Link>
                 </>
               ) : (
-                <>
-                  <Link
-                    className="ml-2 bg-gray-olive-500 px-3 py-1 text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-md focus:outline-none active:bg-gray-olive-600 lg:mb-0"
-                    to="/auth/login"
-                  >
-                    Log In
-                  </Link>
-                  <Link
-                    className="ml-2 bg-black px-3 py-1 text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-md focus:outline-none active:bg-slate-950 lg:mb-0"
-                    to="/auth/register"
-                  >
-                    Sign Up
-                  </Link>
-                </>
+                <Button variant="primary" className=" h-8" isLoading={signMessageLoading || loginWeb3Loading} onClick={() => {
+                  open();
+                }}>
+                  Connect Wallet
+                </Button>
               )}
             </div>
           </div>
