@@ -216,7 +216,7 @@ export const HomePage = () => {
                 <swiper-container space-between="28" slides-per-view="auto" navigation>
                   {selectedArtworks1.artworks?.map((artwork) => (
                   <swiper-slide
-                    style={{ width: '300px', display: 'flex', paddingBottom: '20px' }}
+                    style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}
                     key={artwork.Id}
                   >
                     <ArtworkCard artwork={artwork} />
@@ -262,7 +262,7 @@ export const HomePage = () => {
                 <swiper-container space-between="28" slides-per-view="auto" navigation>
                   {selectedArtworks2.artworks?.map((artwork) => (
                   <swiper-slide
-                    style={{ width: '300px', display: 'flex', paddingBottom: '20px' }}
+                    style={{ width: '230px', display: 'flex', paddingBottom: '20px' }}
                     key={artwork.Id}
                   >
                     <ArtworkCard artwork={artwork} />
