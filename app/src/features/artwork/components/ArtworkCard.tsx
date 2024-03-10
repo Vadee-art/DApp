@@ -12,7 +12,7 @@ export const ArtworkCard = ({ artwork }: ArtworkProps) => {
   return (
     <Link
       to={`/artworks/${artwork.Id}`}
-      className="flex cursor-pointer flex-col gap-2 self-end"
+      className="flex cursor-pointer flex-col gap-8 self-end border border-gray-300"
     >
       <img
         src={artwork.imageMediumQuality}
@@ -20,11 +20,11 @@ export const ArtworkCard = ({ artwork }: ArtworkProps) => {
         className="bject-contain w-full"
         loading="lazy"
       />
-      <div className="flex flex-col text-lg font-light">
+      <div className="flex flex-col p-2 text-sm font-extralight">
         <h3 className="font-medium">{artwork.artist.name}</h3>
-        <span className='text-base'>{artwork.title}</span>
-        <span className='text-base'>{artwork.artist.origin.country}</span>
-        <span className='font-medium'>${artwork.price}</span>
+        <span>{artwork.title}</span>
+        <span>{artwork.artist.origin.country}</span>
+        <span>${artwork.price}</span>
       </div>
     </Link>
   );
