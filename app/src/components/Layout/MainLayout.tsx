@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Logo from '@/assets/img/VADEE_Logo.png';
 import Icon from '@/assets/img/VADEE_Icon.png';
 import { ReactComponent as LogoSvg } from '@/assets/img/VADEE_Logo.svg';
@@ -57,20 +57,20 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
               className="inline-block whitespace-nowrap text-center text-md leading-relaxed text-gray-olive-500"
               to="/"
             >
-              <img src={Logo} alt="RCL Logo" className="mb-1 max-h-10" />
+              <img src={Logo} alt="RCL Logo" className="mb-1 max-h-8" />
               <span>Let there be art</span>
             </Link>
             <div className="flex flex-1 items-start gap-2">
               <label
                 htmlFor="search"
-                className="relative block flex-1 border border-gray-olive-400 text-gray-400 focus-within:text-gray-600 h-10"
+                className="relative block flex-1 border border-gray-olive-400 text-gray-400 focus-within:text-gray-600"
               >
                 <MagnifyingGlassIcon className="pointer-events-none absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2 transform" />
                 <input
                   type="text"
                   name="search"
                   id="search"
-                  className="w-full px-3 py-1 focus:outline-1 h-full"
+                  className="w-full px-3 py-1 focus:outline-1"
                 />
               </label>
               {user ? (
@@ -106,7 +106,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
                   </Link>
                 </>
               ) : (
-                <Button variant="primary" className=" h-10" isLoading={signMessageLoading || loginWeb3Loading} onClick={() => {
+                <Button variant="primary" className=" h-8" isLoading={signMessageLoading || loginWeb3Loading} onClick={() => {
                   open();
                 }}>
                   Connect Wallet
