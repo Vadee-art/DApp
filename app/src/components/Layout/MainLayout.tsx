@@ -117,7 +117,7 @@ export const MainLayout = ({ children, showNav = true }: MainLayouProps) => {
         </div>
       </nav>
       {showNav && (
-        <nav className="mb-4">
+        <nav className="mb-6">
           <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
             <div className="flex flex-1 items-start gap-4 font-extralight">
               <NavLink
